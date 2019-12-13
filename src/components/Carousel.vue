@@ -6,7 +6,7 @@
       :interval="4000"
       controls
       indicators
-      background="#ababab"
+      background="#CECECE"
       img-width="1024"
       img-height="300"
       style="text-shadow: 1px 1px 2px #333;"
@@ -15,25 +15,30 @@
     >
 
 
-       <b-carousel-slide  img-src="https://s3.amazonaws.com/wp.site/wp-content/uploads/2018/07/wolfgang-puck-catering-los-angeles-mobile.jpg">
-        <img src="../assets/bookit_white.svg" width="800px">
-        <br>
-        <b-button squared variant="primary">RESERVAR</b-button>
-      </b-carousel-slide>
+    <b-carousel-slide  img-blank="" >
+       <div id="wow">
+            <img id="logo" src="../assets/bookit_white.svg" width="800px">
+            <br>
+            <b-button squared style="background-color:#0A2463;  margin-top:-300px; ">RESERVAR</b-button>
+       </div>
+    </b-carousel-slide>
 
-      <b-carousel-slide  img-src="https://s3.amazonaws.com/wp.site/wp-content/uploads/2018/07/wolfgang-puck-catering-los-angeles-mobile.jpg">
-        <img src="../assets/bookit_white.svg" width="800px">
-        <br>
-        <b-button squared variant="primary">RESERVAR</b-button>
-      </b-carousel-slide>
+   <b-carousel-slide  img-blank="" >
+       <div id="wow">
+            <img id="logo" src="../assets/bookit_white.svg" width="800px">
+            <br>
+            <b-button squared style="background-color:#0A2463;  margin-top:-300px; ">RESERVAR</b-button>
+       </div>
+    </b-carousel-slide>
 
-    <b-carousel-slide  img-src="https://s3.amazonaws.com/wp.site/wp-content/uploads/2018/07/wolfgang-puck-catering-los-angeles-mobile.jpg">
-        <img src="../assets/bookit_white.svg" width="800px">
-        <br>
-        <b-button squared variant="primary">RESERVAR</b-button>
-      </b-carousel-slide>
-
-    </b-carousel>
+    <b-carousel-slide  img-blank="" >
+        <div id="wow">
+            <img id="logo" src="../assets/bookit_white.svg" width="800px">
+            <br>
+            <b-button squared style="background-color:#0A2463;  margin-top:-300px; ">RESERVAR</b-button>
+       </div>
+    </b-carousel-slide>
+</b-carousel>
 
   </div>
 </template>
@@ -57,3 +62,9 @@
     }
   }
 </script>
+
+<style scoped>
+    #wow{
+        margin-bottom: -90px;
+    }
+</style>
