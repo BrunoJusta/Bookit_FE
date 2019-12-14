@@ -3,21 +3,42 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const LOGIN = "LOGIN";
-const LOGIN_SUCCESS ="LOGIN_SUCCESS";
-const LOGOUT = "LOGOUT";
-
-
 export default new Vuex.Store({
   state: {
-    user: [],
-    isLoggedIn: !!localStorage.getItem("token")
+    users: [],
+    x: 0,
+    logged: false,
+    loggedUser: [],
+    userExists: false,
   },
   mutations: {
-    [LOGIN](state){
-      state.pending = true;
+    ADD_USER(state, payload) {
+      if (!state.users.some(user => user.email === payload.email)) {
+        if (payload.password != payload.confPassword) {
+          alert("PASSWORDS DIFERENTES");
+        } else {
+          state.users.push({
+            id: payload.id,
+            name: payload.name,
+            email: payload.email,
+            password: payload.password,
+            number: payload.number
+          });
+          localStorage.setItem("users", JSON.stringify(state.users));
+          alert("Registado");
+        }
+      } else {
+        alert("E-MAIL JÁ EXISTENTE");
+      }
     },
   },
   getters: {
+    lastId(state) {
+      if (state.users.length) {
+        return state.users[state.users.length - 1].id;
+      } else {
+        return 0;
+      }
+    }
   }
 })
