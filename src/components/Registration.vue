@@ -41,14 +41,15 @@
                     </b-form-input>
                 </b-form-group>
 
-                
+
 
                 <b-button id="show-btn" style="background-color:#0A2463;" squared>
                     <router-link to="/login">Login</router-link>
                 </b-button>
 
-                <b-button  type="submit" id="show-btn" style="background-color:#0A2463;" squared>Confirmar</b-button>
-                
+                <b-button type="submit" id="show-btn" style="background-color:#0A2463;" squared>Confirmar
+                </b-button>
+
             </b-form>
         </div>
 

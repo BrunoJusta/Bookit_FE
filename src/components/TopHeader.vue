@@ -10,7 +10,7 @@
                             <router-link to="/login">Entrar</router-link>
                         </b-button>
                         <b-button id="logged-btn" v-bind:style="{display: [online]}" squared>
-                            <router-link to="/profile">Nome</router-link>
+                            <router-link to="/profile">{{this.onlineUser}}</router-link>
                         </b-button>
                     </div>
                 </b-nav-form>
@@ -30,13 +30,16 @@
     export default {
         data: () => ({
             offline: "",
-            online: ""
+            online: "",
+            onlineUser: ""
         }),
         created: function () {
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
+
             if (localStorage.getItem("loggedUser")) {
+                this.onlineUser = sessionStorage.getItem("userOn")
                 this.offline = "none"
                 this.online = "block"
             } else {
@@ -47,7 +50,6 @@
         },
         methods: {
             checkLoggedUser() {
-
             }
         }
     }

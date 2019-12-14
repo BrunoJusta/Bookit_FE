@@ -9,7 +9,7 @@ export default new Vuex.Store({
     x: 0,
     logged: false,
     loggedUser: [],
-    userExists: false,
+    userExists: false
   },
   mutations: {
     ADD_USER(state, payload) {
@@ -31,6 +31,7 @@ export default new Vuex.Store({
       } else {
         alert("E-MAIL JÁ EXISTENTE");
       }
+
     },
     LOGIN(state, payload) {
       for (const user of state.users) {
@@ -48,6 +49,8 @@ export default new Vuex.Store({
           localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
           state.logged = true;
           alert("LOGIN");
+          alert("user.name" + user.name);
+          sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
         }
       }
@@ -62,6 +65,7 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.loggedUser.pop();
       localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
+      sessionStorage.removeItem("userOn");
       state.logged = false;
       window.location.href = "../views/Home.vue"
     }
