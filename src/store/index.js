@@ -31,6 +31,29 @@ export default new Vuex.Store({
         alert("E-MAIL JÁ EXISTENTE");
       }
     },
+    LOGIN(state, payload) {
+      for (const user of state.users) {
+        if (
+          user.email === payload.email &&
+          user.password === payload.password
+        ) {
+          state.loggedUser.push({
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            password: user.password
+          });
+          localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
+          alert("LOGIN");
+          state.existUser = true;
+        }
+      }
+      if (state.existUser === false) {
+        alert("Credenciais Inválidas");
+      } else {
+        state.existUser = false;
+      }
+    }
   },
   getters: {
     lastId(state) {

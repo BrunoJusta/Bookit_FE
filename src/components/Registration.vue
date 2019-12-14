@@ -35,10 +35,15 @@
                         placeholder="Confirmar password">
                     </b-form-input>
                 </b-form-group>
-                <button type="submit" class="btn btn-primary  float-right">Confirmar</button>
-                <button class="btn btn-primary  float-right">Login</button>
 
+                
 
+                <b-button id="show-btn" style="background-color:#0A2463;" squared>
+                    <router-link to="/login">Login</router-link>
+                </b-button>
+
+                <b-button  type="submit" id="show-btn" style="background-color:#0A2463;" squared>Confirmar</b-button>
+                
             </b-form>
         </div>
 
@@ -78,7 +83,6 @@
                     password: this.password,
                     number: this.number,
                     confPassword: this.confPassword
-
                 })
             },
             saveStorage() {
