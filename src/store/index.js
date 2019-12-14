@@ -20,6 +20,7 @@ export default new Vuex.Store({
           state.users.push({
             id: payload.id,
             name: payload.name,
+            lastName: payload.lastName,
             email: payload.email,
             password: payload.password,
             number: payload.number
@@ -40,18 +41,20 @@ export default new Vuex.Store({
           state.loggedUser.push({
             id: user.id,
             name: user.name,
+            lastName: user.lastName,
             email: user.email,
             password: user.password
           });
           localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
+          state.logged = true;
           alert("LOGIN");
-          state.existUser = true;
+          state.userExists = true;
         }
       }
-      if (state.existUser === false) {
+      if (state.userExists === false) {
         alert("Credenciais Inválidas");
       } else {
-        state.existUser = false;
+        state.userExists = false;
       }
     }
   },

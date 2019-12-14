@@ -9,13 +9,18 @@
         <div class="container col-sm-4">
 
             <b-form v-on:submit.prevent="addUser()" v-if="show">
-                <b-form-group id="input-group-1" label="Email:" label-for="input-1">
-                    <b-form-input id="input-1" v-model="email" type="email" required placeholder="Introduzir email">
+                <b-form-group id="input-group-2" label="Nome Próprio:" label-for="input-2">
+                    <b-form-input id="input-2" v-model="name" required placeholder="Introduzir nome">
                     </b-form-input>
                 </b-form-group>
 
-                <b-form-group id="input-group-2" label="Nome:" label-for="input-2">
-                    <b-form-input id="input-2" v-model="name" required placeholder="Introduzir nome">
+                <b-form-group id="input-group-6" label="Apelido:" label-for="input-6">
+                    <b-form-input id="input-6" v-model="lastName" required placeholder="Introduzir apelido">
+                    </b-form-input>
+                </b-form-group>
+
+                <b-form-group id="input-group-1" label="Email:" label-for="input-1">
+                    <b-form-input id="input-1" v-model="email" type="email" required placeholder="Introduzir email">
                     </b-form-input>
                 </b-form-group>
 
@@ -57,6 +62,7 @@
             id: 0,
             email: "",
             name: "",
+            lastName: "",
             password: "",
             number: "",
             confPassword: "",
@@ -80,6 +86,7 @@
                     id: this.getLastId(),
                     email: this.email,
                     name: this.name,
+                    lastName: this.lastName,
                     password: this.password,
                     number: this.number,
                     confPassword: this.confPassword
