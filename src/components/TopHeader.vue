@@ -7,7 +7,7 @@
                     <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
                     <div>
                         <b-button id="show-btn" v-bind:style="{display: [offline]}" squared>
-                            <router-link to="/register">Entrar</router-link>
+                            <router-link to="/login">Entrar</router-link>
                         </b-button>
                         <b-button id="logged-btn" v-bind:style="{display: [online]}" squared>
                             <router-link to="/profile">Nome</router-link>

@@ -56,6 +56,14 @@ export default new Vuex.Store({
       } else {
         state.userExists = false;
       }
+      window.location.href = "../views/Home.vue"
+
+    },
+    LOGOUT(state) {
+      state.loggedUser.pop();
+      localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
+      state.logged = false;
+      window.location.href = "../views/Home.vue"
     }
   },
   getters: {
