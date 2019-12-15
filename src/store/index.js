@@ -6,6 +6,41 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     users: [],
+    kits:[{
+      id:0,
+      name: "menu A",
+      type: "cB"
+    },
+    {
+      id:1,
+      name: "menu B",
+      type: "cB"
+
+    },
+    {
+      id:2,
+      name: "menu B",
+      type: "cB"
+
+    },
+    {
+      id:3,
+      name: "menu A",
+      type: "jG"
+
+    },
+    {
+      id:4,
+      name: "menu B",
+      type: "jG"
+
+    },
+    {
+      id:5,
+      name: "menu C",
+      type: "jG"
+
+    }],
     x: 0,
     logged: false,
     loggedUser: [],

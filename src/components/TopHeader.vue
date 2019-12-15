@@ -19,7 +19,7 @@
         <b-navbar toggleable="lg" type="dark" variant="info">
             <div class="container">
                 <router-link to="/" class="teste" style="color:black">Início</router-link>
-                <router-link to="/" class="teste" style="color:black">Reservas</router-link>
+                <router-link to="/menuKits" class="teste" style="color:black">Reservas</router-link>
                 <router-link to="/" class="teste" style="color:black">Workshops</router-link>
             </div>
         </b-navbar>
@@ -76,7 +76,7 @@
         color: black;
     }
 
-    #show-btn {
+    #show-btn,#logged-btn {
         background-color: #0a2463;
     }
 

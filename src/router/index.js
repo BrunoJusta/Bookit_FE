@@ -33,6 +33,11 @@ const routes = [
     name: "profile",
     component: () => import("../views/Profile.vue")
   },
+  {
+    path: "/menuKits",
+    name: "menuKits",
+    component: () => import("../views/MenuKits.vue")
+  }
 ]
 
 const router = new VueRouter({
