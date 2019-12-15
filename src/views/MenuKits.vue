@@ -2,7 +2,7 @@
   <div >
   <br>
   <br>
-    <h1>EVENTOS & CATERING</h1>
+    <h1 id="redTitle">EVENTOS & CATERING</h1>
     <br>
     <br>
     <br>
@@ -23,3 +23,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#redTitle{
+  font-family:"bookMan";
+  font-size: 45px;
+  color: #B91C3B;
+}
+</style>
