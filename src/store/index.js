@@ -41,12 +41,48 @@ export default new Vuex.Store({
       type: "jG"
 
     }],
+    workshops:[{
+      id:0,
+      name: "Workshop A",
+    },
+    {
+      id:1,
+      name: "Workshop B",
+    },
+    {
+      id:2,
+      name: "Workshop C",
+
+    }],
+    areas:[{
+      id:0,
+      name: "Restaurante de Aplicação",
+    },
+    {
+      id:1,
+      name: "Bar de Aplicação",
+    },
+    {
+      id:2,
+      name: "Cozinha de Aplicação",
+    },
+    {
+      id:3,
+      name: "Restaurante da ESHT",
+    }],
     x: 0,
     logged: false,
     loggedUser: [],
     userExists: false
   },
+  
   mutations: {
+    STORE_ITEMS(state){
+      localStorage.setItem("kits", JSON.stringify(state.kits));
+      localStorage.setItem("workshops", JSON.stringify(state.workshops));
+      localStorage.setItem("areas", JSON.stringify(state.areas));
+
+    },
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {
         if (payload.password != payload.confPassword) {
@@ -62,6 +98,8 @@ export default new Vuex.Store({
           });
           localStorage.setItem("users", JSON.stringify(state.users));
           alert("Registado");
+          window.history.back(); 
+
         }
       } else {
         alert("E-MAIL JÁ EXISTENTE");
@@ -87,6 +125,8 @@ export default new Vuex.Store({
           alert("user.name" + user.name);
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
+          window.location.href = "../views/Home.vue"
+
         }
       }
       if (state.userExists === false) {
@@ -94,7 +134,6 @@ export default new Vuex.Store({
       } else {
         state.userExists = false;
       }
-      window.location.href = "../views/Home.vue"
 
     },
     LOGOUT(state) {

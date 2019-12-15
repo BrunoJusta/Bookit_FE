@@ -37,6 +37,26 @@ const routes = [
     path: "/menuKits",
     name: "menuKits",
     component: () => import("../views/MenuKits.vue")
+  },
+  {
+    path: "/workshops",
+    name: "workshops",
+    component: () => import("../views/Workshops.vue")
+  },
+  {
+    path: "/choose",
+    name: "choose",
+    component: () => import("../views/Choose.vue")
+  },
+  {
+    path: "/areas",
+    name: "areas",
+    component: () => import("../views/Areas.vue")
+  },
+  {
+    path: "/kitDetail",
+    name: "kitDetail",
+    component: () => import("../views/kitDetail.vue")
   }
 ]
 

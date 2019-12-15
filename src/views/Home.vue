@@ -16,7 +16,7 @@
                    <div class="col-sm-4">
                         <b-card title="" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
                             style="max-width: 24rem;" class="mb-2">
-                             <router-link to="/">Espaços</router-link>
+                             <router-link to="/areas">Espaços</router-link>
                         </b-card>
                 </div>
                    <div class="col-sm-4">

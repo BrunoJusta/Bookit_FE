@@ -19,8 +19,8 @@
         <b-navbar toggleable="lg" type="dark" variant="info">
             <div class="container">
                 <router-link to="/" class="teste" style="color:black">Início</router-link>
-                <router-link to="/menuKits" class="teste" style="color:black">Reservas</router-link>
-                <router-link to="/" class="teste" style="color:black">Workshops</router-link>
+                <router-link to="/choose" class="teste" style="color:black">Reservas</router-link>
+                <router-link to="/workshops" class="teste" style="color:black">Workshops</router-link>
             </div>
         </b-navbar>
     </div>
@@ -37,7 +37,6 @@
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
-
             if (localStorage.getItem("loggedUser")) {
                 this.onlineUser = sessionStorage.getItem("userOn")
                 this.offline = "none"
@@ -46,7 +45,7 @@
                 this.offline = "block"
                 this.online = "none"
             }
-
+            this.$store.commit('STORE_ITEMS')
         },
         methods: {
             checkLoggedUser() {

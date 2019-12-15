@@ -1,25 +1,25 @@
 <template>
   <div >
-  <br>
-  <br>
-    <h1>EVENTOS & CATERING</h1>
+<br>
+        <br>
+    <h1>WORKSHOPS</h1>
     <br>
     <br>
     <br>
-    <KitGallery/>
+    <WorkshopGallery/>
 
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import KitGallery from '@/components/KitGallery.vue'
+import WorkshopGallery from '@/components/workshopGallery.vue'
 
 
 
 export default {
   components: {
-    KitGallery
+    WorkshopGallery
   }
 }
 </script>
