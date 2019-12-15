@@ -41,7 +41,7 @@ export default {
        passwordLogin: "",
        show:true
    }),
-   created: function () {
+   created: function () {  //qd abres esta pagina vai acontecer isto
             if (localStorage.getItem("users")) {
                 this.$store.state.users = JSON.parse(localStorage.getItem("users"))
             }
