@@ -73,7 +73,8 @@ export default new Vuex.Store({
     x: 0,
     logged: false,
     loggedUser: [],
-    userExists: false
+    userExists: false,
+    bookings: [],
   },
   
   mutations: {
@@ -81,7 +82,7 @@ export default new Vuex.Store({
       localStorage.setItem("kits", JSON.stringify(state.kits));
       localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
-
+      localStorage.setItem("bookings", JSON.stringify(state.bookings));
     },
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {
@@ -122,11 +123,10 @@ export default new Vuex.Store({
           localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
           state.logged = true;
           alert("LOGIN");
-          alert("user.name" + user.name);
+          alert("state.logged    " + state.logged);
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
           window.location.href = "../views/Home.vue"
-
         }
       }
       if (state.userExists === false) {
@@ -150,6 +150,15 @@ export default new Vuex.Store({
         return state.users[state.users.length - 1].id;
       } else {
         return 0;
+      }
+    },
+    getUserOn(state) {
+      if (state.loggedUser.length) {
+        state.logged = true
+        return state.logged;
+      } else {
+        state.logged = false
+        return state.logged;
       }
     }
   }

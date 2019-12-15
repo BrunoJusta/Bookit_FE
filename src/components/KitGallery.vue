@@ -10,7 +10,8 @@
                             style="max-width: 20rem;" class="mb-2">
                             <h2 class=" card-title">{{k.name}}</h2>
                             <b-button style="background-color:#0A2463; margin-bottom:-60px;" squared>
-                                <router-link :to="{name:'kitDetail', params: {kitId: k.id}}" class="teste" style="color:white"> Reservar </router-link>
+                                <router-link :to="{name:'kitDetail', params: {kitId: k.id}}" class="teste"
+                                    style="color:white"> Reservar </router-link>
                             </b-button>
                         </b-card>
                     </div>
@@ -18,7 +19,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <div id="JantarGala" class="container">
             <h2>Jantar de Gala</h2>
@@ -29,7 +30,8 @@
                             style="max-width: 20rem;" class="mb-2">
                             <h2 class=" card-title">{{k.name}}</h2>
                             <b-button style="background-color:#0A2463; margin-bottom:-60px;" squared>
-                                <router-link :to="{name:'kitDetail', params: {kitId: k.id}}" class="teste" style="color:white"> Reservar </router-link>
+                                <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
+                                    Reservar </router-link>
                             </b-button>
                         </b-card>
                     </div>
@@ -50,14 +52,22 @@
                 return this.kits;
             }
         },
-        data:function() {
+        data: function () {
             return {};
             kits: [];
+            x: "";
+            teste: $store.state.logged;
         },
-        created(){
+        created() {
             if (localStorage.getItem("kits")) {
                 this.kits = JSON.parse(localStorage.getItem("kits"))
             }
-        }
+            if (!this.$store.getters.getUserOn) {
+                this.x = "login"
+            } else {
+                this.x = "kitDetail"
+            }
+        },
+
     }
 </script>
