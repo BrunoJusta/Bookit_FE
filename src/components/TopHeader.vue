@@ -16,7 +16,7 @@
                 </b-nav-form>
             </b-navbar-nav>
         </b-navbar>
-        <b-navbar toggleable="lg" type="dark" variant="info">
+        <b-navbar id="jon" toggleable="lg" type="dark" variant="info">
             <div class="container">
                 <router-link to="/" class="teste" style="color:black">Início</router-link>
                 <router-link to="/choose" class="teste" style="color:black">Reservas</router-link>
@@ -55,6 +55,11 @@
 </script>
 
 <style lang="scss" scoped>
+#jon{
+    --webkit-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
+-moz-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
+box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
+}
     .bg-info {
         background-color: white !important;
     }

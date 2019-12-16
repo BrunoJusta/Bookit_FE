@@ -7,7 +7,10 @@
                         <b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
                             style="max-width: 24rem;" class="border-0">
                             <h2 class=" card-title">{{W.name}}</h2>
-                            <b-button class="btn-book" style="background-color:#0A2463; margin-bottom:-60px;" squared>Reservar</b-button>
+                               <b-button class="btn-book" squared>
+                                <router-link :to="{name: x, params: {workshopId: W.id}}" class="teste" style="color:white">
+                                    Reservar </router-link>
+                            </b-button>
                         </b-card>
                     </div>
 
@@ -23,12 +26,25 @@
         name: 'workshopGallery',
         computed: {
             searchWorkshops() {
-                return this.$store.state.workshops;
+                return this.workshops;
             }
         },
-        data() {
+        data: function () {
             return {};
-        }
+            kits: [];
+            x: "";
+            teste: $store.state.logged;
+        },
+        created() {
+            if (localStorage.getItem("workshops")) {
+                this.workshops = JSON.parse(localStorage.getItem("workshops"))
+            }
+            if (!this.$store.getters.getUserOn) {
+                this.x = "login"
+            } else {
+                this.x = "workshopDetail"
+            }
+        },
     }
 </script>
 

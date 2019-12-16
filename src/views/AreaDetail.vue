@@ -1,7 +1,7 @@
 <template>
   <div class="kitDetail">
     <div class="jumbotron">
-      <h1 class="display-3">{{getKitById($route.params.kitId).name}}</h1>
+      <h1 class="display-3">{{getAreaById($route.params.areaId).name}}</h1>
       <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button>
   </div>
   </div>
@@ -12,28 +12,28 @@
 export default {
     data:function(){
     return{
-      kits:[],
+      areas:[],
     };
     },
     methods:{
-      getKitById(id){
-        return this.kits.filter(
-          kit => kit.id === id
+      getAreaById(id){
+        return this.areas.filter(
+          area => area.id === id
         )[0]
       },
       sendInfo() {
         let clientName = sessionStorage.getItem("userOn")
-        let kitName = this.kits[1].name
+        let KitName = this.areas[1].name
         alert( "RESERVA CONCLUIDA COM SUCESSO" )
          this.$store.state.bookings.push({
-            KitName: kitName,
+            KitName: KitName,
             UserName: clientName,
           });
           localStorage.setItem("bookings", JSON.stringify(this.$store.state.bookings));
       }
     },
     created(){
-      this.kits = JSON.parse(localStorage.getItem("kits"))
+      this.areas = JSON.parse(localStorage.getItem("areas"))
     },
 }
 </script>

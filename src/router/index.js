@@ -57,6 +57,27 @@ const routes = [
     path: "/kitDetail",
     name: "kitDetail",
     component: () => import("../views/kitDetail.vue")
+  },
+  {
+    path: "/workshopDetail",
+    name: "workshopDetail",
+    component: () => import("../views/WorkshopDetail.vue")
+  }
+  ,
+  {
+    path: "/areaDetail",
+    name: "areaDetail",
+    component: () => import("../views/AreaDetail.vue")
+  },
+  {
+    path: "/adminHome",
+    name: "adminHome",
+    component: () => import("../views/AdminHome.vue")
+  },
+  {
+    path: "/bookings",
+    name: "bookings",
+    component: () => import("../views/Bookings.vue")
   }
 ]
 

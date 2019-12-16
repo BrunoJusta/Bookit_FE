@@ -139,7 +139,7 @@ export default new Vuex.Store({
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
           if (user.userType === "admin") {
-            window.location.href = "../views/Home.vue#/profile"
+            window.location.href = "../views/Home.vue#/adminHome"
           } else if (user.userType === "cliente") {
             window.location.href = "../views/Home.vue"
           }

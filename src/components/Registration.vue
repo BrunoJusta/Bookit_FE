@@ -2,57 +2,82 @@
     <div id="registration">
         <br>
         <br>
-
-        <h1>REGISTO</h1>
-        <br>
-
-        <div class="container col-sm-4">
-
+        <h1 id="redTitle">REGISTO</h1>
+        <hr class="back-line">
+        <div class="container col-sm-6">
             <b-form v-on:submit.prevent="addUser()" v-if="show">
-                <b-form-group id="input-group-2" label="Nome Próprio:" label-for="input-2">
-                    <b-form-input id="input-2" v-model="name" required placeholder="Introduzir nome">
-                    </b-form-input>
-                </b-form-group>
-
-                <b-form-group id="input-group-6" label="Apelido:" label-for="input-6">
-                    <b-form-input id="input-6" v-model="lastName" required placeholder="Introduzir apelido">
-                    </b-form-input>
-                </b-form-group>
-
-                <b-form-group id="input-group-1" label="Email:" label-for="input-1">
-                    <b-form-input id="input-1" v-model="email" type="email" required placeholder="Introduzir email">
-                    </b-form-input>
-                </b-form-group>
-
-                <b-form-group id="input-group-3" label="Contacto:" label-for="input-3">
-                    <b-form-input id="input-3" v-model="number" required placeholder="Introduzir contacto">
-                    </b-form-input>
-                </b-form-group>
-
-                <b-form-group id="input-group-4" label="Password:" label-for="input-4">
-                    <b-form-input id="input-4" v-model="password" type="password" required
-                        placeholder="Introduzir password">
-                    </b-form-input>
-                </b-form-group>
-
-                <b-form-group id="input-group-5" label="Confirmar Password:" label-for="input-5">
-                    <b-form-input id="input-5" v-model="confPassword" type="password" required
-                        placeholder="Confirmar password">
-                    </b-form-input>
-                </b-form-group>
-
-
-
-                <b-button id="show-btn" style="background-color:#0A2463;" squared>
-                    <router-link to="/login">Login</router-link>
-                </b-button>
-
-                <b-button type="submit" id="show-btn" style="background-color:#0A2463;" squared>Confirmar
-                </b-button>
-
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <b-form-group class="input">
+                                <label for="input-2">Nome Próprio:</label>
+                                <b-form-input id="input-2" v-model="name" required placeholder="Introduzir nome">
+                                </b-form-input>
+                            </b-form-group>
+                        </div>
+                        <div class="col-sm-6">
+                            <b-form-group class="input" id="input-group-6">
+                                <label for="input-6">Apelido:</label>
+                                <b-form-input id="input-6" v-model="lastName" required placeholder="Introduzir apelido">
+                                </b-form-input>
+                            </b-form-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <b-form-group class="input" id="input-group-1">
+                                <label for="input-1">Email:</label>
+                                <b-form-input id="input-1" v-model="email" type="email" required
+                                    placeholder="Introduzir email">
+                                </b-form-input>
+                            </b-form-group>
+                        </div>
+                        <div class="col-sm-6">
+                            <b-form-group class="input" id="input-group-3">
+                                <label for="input-3">Contacto:</label>
+                                <b-form-input id="input-3" v-model="number" required placeholder="Introduzir contacto">
+                                </b-form-input>
+                            </b-form-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <b-form-group class="input" id="input-group-4">
+                                <label for="input-4">Password:</label>
+                                <b-form-input id="input-4" v-model="password" type="password" required
+                                    placeholder="Introduzir password">
+                                </b-form-input>
+                            </b-form-group>
+                        </div>
+                        <div class="col-sm-6">
+                            <b-form-group class="input" id="input-group-5">
+                                <label for="input-5">Confirmar Password:</label>
+                                <b-form-input id="input-5" v-model="confPassword" type="password" required
+                                    placeholder="Confirmar password">
+                                </b-form-input>
+                            </b-form-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <b-button id="show-btn" style="background-color:#0A2463;" squared>
+                                <router-link id="link" to="/login">Login</router-link>
+                            </b-button>
+                        </div>
+                        <div class="col-sm-6">
+                            <b-button type="submit" id="show-btn" style="background-color:#0A2463;" squared>Confirmar
+                            </b-button>
+                        </div>
+                    </div>
+                </div>
             </b-form>
         </div>
-
     </div>
 </template>
 
@@ -102,6 +127,32 @@
     }
 </script>
 
-<style lang="scss" scoped>
 
+<style lang="scss" scoped>
+    .input {
+        padding: 5px;
+    }
+
+    #link {
+        color: white;
+    }
+
+    #redTitle {
+        font-family: "bookMan";
+        font-size: 45px;
+        color: #B91C3B;
+    }
+
+    label {
+        float: left;
+        margin-bottom: .5rem;
+    }
+
+    .back-line {
+        background-color: #0A2463;
+        margin-top: -10px;
+        width: 600px;
+
+
+    }
 </style>
