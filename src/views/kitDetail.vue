@@ -1,9 +1,8 @@
 <template>
   <div class="kitDetail">
     <div class="jumbotron">
-      <h1 id="ola"> dsadsadsadsa</h1>
       <h1 class="display-3">{{getKitById($route.params.kitId).name}}</h1>
-      <button @click="sendInfo()">enviar</button>
+      <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button>
   </div>
   </div>
 
@@ -13,7 +12,7 @@
 export default {
     data:function(){
     return{
-      kits:[]
+      kits:[],
     };
     },
     methods:{
@@ -24,12 +23,24 @@ export default {
       },
       sendInfo() {
         let clientName = sessionStorage.getItem("userOn")
-        let kitName = ""
-        alert(document.getElementById("ola").value + " dasdsa " + clientName)
+        let kitName = this.kits[1].name
+        alert( "RESERVA CONCLUIDA COM SUCESSO" )
+         this.$store.state.bookings.push({
+            kitName: kitName,
+            UserName: clientName,
+          });
+          localStorage.setItem("bookings", JSON.stringify(this.$store.state.bookings));
       }
     },
     created(){
       this.kits = JSON.parse(localStorage.getItem("kits"))
-    }
+    },
 }
 </script>
+<style lang="scss" scoped>
+.btn-book{
+    font-size: 18px;
+    background-color:#0A2463; 
+    margin-bottom:-60px;
+}
+</style>

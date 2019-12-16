@@ -2,7 +2,8 @@
   <div >
 <br>
         <br>
-    <h1>WORKSHOPS</h1>
+    <h1 id="redTitle">WORKSHOPS</h1>
+    <hr class="back-line">
     <br>
     <br>
     <br>
@@ -23,3 +24,19 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+
+#redTitle{
+  font-family:"bookMan";
+  font-size: 45px;
+  color: #B91C3B;
+}
+.back-line{
+    background-color:#0A2463;
+    margin-top: -10px;
+    width: 1200px;
+
+    
+}
+</style>

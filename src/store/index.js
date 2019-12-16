@@ -5,84 +5,94 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    users: [],
-    kits:[{
-      id:0,
-      name: "menu A",
-      type: "cB"
-    },
-    {
-      id:1,
-      name: "menu B",
-      type: "cB"
-
-    },
-    {
-      id:2,
-      name: "menu B",
-      type: "cB"
-
-    },
-    {
-      id:3,
-      name: "menu A",
-      type: "jG"
-
-    },
-    {
-      id:4,
-      name: "menu B",
-      type: "jG"
-
-    },
-    {
-      id:5,
-      name: "menu C",
-      type: "jG"
-
+    users: [{
+      id: 0,
+      name: "Admin",
+      lastName: "Istrador",
+      email: "admin@admin.admin",
+      password: "123",
+      number: "123",
+      userType: "admin"
     }],
-    workshops:[{
-      id:0,
-      name: "Workshop A",
-    },
-    {
-      id:1,
-      name: "Workshop B",
-    },
-    {
-      id:2,
-      name: "Workshop C",
+    kits: [{
+        id: 0,
+        name: "menu A",
+        type: "cB"
+      },
+      {
+        id: 1,
+        name: "menu B",
+        type: "cB"
 
-    }],
-    areas:[{
-      id:0,
-      name: "Restaurante de Aplicação",
-    },
-    {
-      id:1,
-      name: "Bar de Aplicação",
-    },
-    {
-      id:2,
-      name: "Cozinha de Aplicação",
-    },
-    {
-      id:3,
-      name: "Restaurante da ESHT",
-    }],
+      },
+      {
+        id: 2,
+        name: "menu B",
+        type: "cB"
+
+      },
+      {
+        id: 3,
+        name: "menu A",
+        type: "jG"
+
+      },
+      {
+        id: 4,
+        name: "menu B",
+        type: "jG"
+
+      },
+      {
+        id: 5,
+        name: "menu C",
+        type: "jG"
+
+      }
+    ],
+    workshops: [{
+        id: 0,
+        name: "Workshop A",
+      },
+      {
+        id: 1,
+        name: "Workshop B",
+      },
+      {
+        id: 2,
+        name: "Workshop C",
+
+      }
+    ],
+    areas: [{
+        id: 0,
+        name: "Restaurante de Aplicação",
+      },
+      {
+        id: 1,
+        name: "Bar de Aplicação",
+      },
+      {
+        id: 2,
+        name: "Cozinha de Aplicação",
+      },
+      {
+        id: 3,
+        name: "Restaurante da ESHT",
+      }
+    ],
     x: 0,
     logged: false,
     loggedUser: [],
     userExists: false,
     bookings: [],
   },
-  
+
   mutations: {
-    STORE_ITEMS(state){
+    STORE_ITEMS(state) {
       localStorage.setItem("kits", JSON.stringify(state.kits));
       localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
-      localStorage.setItem("bookings", JSON.stringify(state.bookings));
     },
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {
@@ -95,11 +105,13 @@ export default new Vuex.Store({
             lastName: payload.lastName,
             email: payload.email,
             password: payload.password,
-            number: payload.number
+            number: payload.number,
+            userType: "cliente"
+
           });
           localStorage.setItem("users", JSON.stringify(state.users));
           alert("Registado");
-          window.history.back(); 
+          window.history.back();
 
         }
       } else {
@@ -126,13 +138,18 @@ export default new Vuex.Store({
           alert("state.logged    " + state.logged);
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
-          window.location.href = "../views/Home.vue"
+          if (user.userType === "admin") {
+            window.location.href = "../views/Home.vue#/profile"
+          } else if (user.userType === "cliente") {
+            window.location.href = "../views/Home.vue"
+          }
+
+          if (state.userExists === false) {
+            alert("Credenciais Inválidas");
+          } else {
+            state.userExists = false;
+          }
         }
-      }
-      if (state.userExists === false) {
-        alert("Credenciais Inválidas");
-      } else {
-        state.userExists = false;
       }
 
     },
