@@ -3,7 +3,7 @@
 
         <div id="CoffeeBreaks" class="container">
             <h2 id="redSubTitle">Coffee Break</h2>
-            <hr class="back-line">
+
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
                     <div id="card-maker" v-if="k.type=='cB'">
@@ -24,8 +24,6 @@
 
         <div id="JantarGala" class="container">
             <h2 id="redSubTitle">Jantar de Gala</h2>
-            <hr class="back-line">
-
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
                     <div id="card-maker" v-if="k.type=='jG'">
@@ -85,8 +83,9 @@
     #redSubTitle {
         font-family: "bookMan";
         font-size: 35px;
-        color: #B91C3B;
+        color: #0A2463;
     }
+
 
     .mb-2 {
         --webkit-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);

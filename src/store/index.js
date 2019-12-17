@@ -54,14 +54,25 @@ export default new Vuex.Store({
     workshops: [{
         id: 0,
         name: "Workshop A",
+        date: "20/12/2019",
+        time: "12h - 14h",
+        teacher: "João"
       },
       {
         id: 1,
         name: "Workshop B",
+        date: "20/12/2019",
+        time: "12h - 14h",
+        teacher: "João"
+
       },
       {
         id: 2,
         name: "Workshop C",
+        date: "20/12/2019",
+        time: "12h - 14h",
+        teacher: "João"
+
 
       }
     ],
@@ -150,6 +161,21 @@ export default new Vuex.Store({
             state.userExists = false;
           }
         }
+      }
+
+    },
+    ADD_WORKSHOP_ATENDER(state, payload) {
+      if (!state.bookings.some(b => b.clientName === payload.clientName)){
+          state.bookings.push({
+            workshopName:  payload.workshopName,
+            date:  payload.date,
+            time:  payload.time,
+            clientName:  payload.clientName,
+          });
+          localStorage.setItem("bookings", JSON.stringify(state.bookings));
+          alert("RESERVA CONCLUIDA COM SUCESSO")
+      } else {
+        alert("Já Inscrito");
       }
 
     },

@@ -59,4 +59,11 @@ box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
     background-color:#0A2463; 
     margin-bottom:-60px;
 }
+.col-sm-6{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.container{
+    padding-bottom: 150px;
+}
 </style>

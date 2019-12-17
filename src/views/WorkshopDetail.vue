@@ -1,64 +1,82 @@
 <template>
   <div class="kitDetail">
     <br>
-        <br>
-        <br>
-        <br>
+    <br>
+    <br>
+    <br>
     <div class="jumbotron">
       <h1 class="display-3">{{getWorkshopById($route.params.workshopId).name}}</h1>
-      <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button>
-  </div>
+      <h3>Data:{{getWorkshopById($route.params.workshopId).date}}
+        Hora:{{getWorkshopById($route.params.workshopId).time}} </h3>
+      <h3>Professor:{{getWorkshopById($route.params.workshopId).teacher}}</h3>
+
+      <b-button @click="sendInfo()" class="btn-book" squared>Inscrever</b-button>
+    </div>
   </div>
 
 </template>
 
 <script>
-export default {
-    data:function(){
-    return{
-      workshops:[],
-      currentWS:"",
-    };
+  export default {
+    data: function () {
+      return {
+        workshops: [],
+        currentWS: [],
+        workshopName: "",
+        clientName: "",
+        date: "",
+        time: "",
+      };
     },
-    methods:{
-      getWorkshopById(id){
-        this.currentWS = this.workshops.filter(
+    methods: {
+      getWorkshopById(id) {
+
+        this.workshopName = this.workshops.filter(
           workshop => workshop.id === id
         )[0].name
-        
+
+        this.date = this.workshops.filter(
+          workshop => workshop.id === id
+        )[0].date
+
+        this.time = this.workshops.filter(
+          workshop => workshop.id === id
+        )[0].time
+
         return this.workshops.filter(
           workshop => workshop.id === id
         )[0]
-        
+
       },
       sendInfo() {
-        let clientName = sessionStorage.getItem("userOn")
-        let kitName = this.workshops[1].name
-        alert( "RESERVA CONCLUIDA COM SUCESSO" )
-         this.$store.state.bookings.push({
-            KitName: kitName,
-            UserName: clientName,
-          });
-          alert(this.currentWS)
-          
+        this.$store.commit('ADD_WORKSHOP_ATENDER', { 
+          workshopName: this.workshopName,
+          date: this.date,
+          time: this.time,
+          clientName: this.clientName,
+        })
+        /* this.currentWS.push({
+          workshops: this.name,
+          date: this.date,
+          time: this.time,
+          teacher: this.teacher,
+          UserName: this.clientName,
+        });
+        sessionStorage.setItem("currentWS", JSON.stringify(this.currentWS)); */
+
       }
     },
-    created(){
+    created() {
       this.workshops = JSON.parse(localStorage.getItem("workshops"))
-      let clientName = sessionStorage.getItem("userOn")
-      let kitName = this.workshops[1].name
-          this.currentWS.push({
-            KitName: kitName,
-            UserName: clientName,
-          });
-           sessionStorage.setItem("currentWS", JSON.stringify(this.currentWS));
+      this.clientName = sessionStorage.getItem("userOn")
+
     },
-}
+  }
 </script>
 <style lang="scss" scoped>
-.btn-book{
+  .btn-book {
     font-size: 18px;
-    background-color:#0A2463; 
-    margin-bottom:-60px;
-}
+    background-color: #0A2463;
+    margin-bottom: -60px;
+  }
 </style>

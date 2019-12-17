@@ -16,8 +16,11 @@
     <br>
     <h1 id="redTitle">SOBRE NÓS</h1>
     <hr class="back-line">
+       <div class="container" style="background-color:white; margin-top:-35px; height:35px; width:340px;position: relative;display: block; z-index:6">
+            <p style="color:white">s</p>
+        </div>
     
-    <div class="container" style="padding-bottom:50px; padding-top:10px;">
+    <div class="container" style="padding-bottom:50px; padding-top:40px;">
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 
         dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
         It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was 
@@ -27,8 +30,14 @@
     
     <h1 id="redTitle">RESERVAS</h1>
             <hr class="back-line">
+            
+               <div class="container" style="background-color:white; margin-top:-35px; height:35px; width:340px;position: relative;display: block; z-index:6">
+            <p style="color:white">s</p>
+        </div>
 
     <br>
+    <br>
+
     <div class="container">
             <div class="row">
                 <div class="col-sm-4">
@@ -93,6 +102,9 @@ a{
   font-family:"bookMan";
   font-size: 45px;
   color: #B91C3B;
+  display: block; 
+    z-index: 7;
+    position: relative;
 }
 .card-body{
   padding:0rem;
@@ -100,9 +112,11 @@ a{
 }
 .back-line{
     background-color:#0A2463;
-    height: 0.1px;
-    margin-top: -10px;
-    width: 1200px;   
+    margin-top: -35px;
+     width: 90%;
+    display: block; 
+    z-index: 5;
+    position: relative;
 }
 
 </style>

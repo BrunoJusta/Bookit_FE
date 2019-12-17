@@ -8,8 +8,11 @@
 <br>
         <br>
         <h1 id="redTitle">RESERVAS</h1>
+        
     <hr class="back-line">
-
+        <div class="container" style="background-color:white; margin-top:-35px; height:35px; width:300px;position: relative;display: block; z-index:6">
+            <p style="color:white">s</p>
+        </div>
         <div class="container" style="padding-top:100px">
             <div class="row">
                 <div class="col-sm-6">
@@ -49,14 +52,21 @@
   font-family:"bookMan";
   font-size: 45px;
   color: #B91C3B;
+  position: relative;
+  display: block;
+  z-index: 7;
 }
 a{
   float: left;
 }
 .back-line{
     background-color:#0A2463;
-    margin-top: -10px;
-    width: 1200px;
+    margin-top: -35px;
+    width: 90%;
+    display: block; 
+    z-index: 5;
+    position: relative;
+
 
     
 }
