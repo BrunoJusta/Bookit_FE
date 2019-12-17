@@ -1,6 +1,14 @@
 <template>
   <div class="home">
-    <Carousel/>
+     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container-full">
+      <img src="../assets/tabuleiro.jpg" style="max-width: 100%; height: auto;">
+        <b-button squared style="background-color:#0A2463;  margin-top:-150px; border-color:white; font-size:18px;" >RESERVAR</b-button>
+    </div>
     <br>
     <br>
     <h1 id="redTitle" style="padding-top:30px;">OPÇÕES</h1>

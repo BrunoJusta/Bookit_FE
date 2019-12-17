@@ -135,7 +135,6 @@ export default new Vuex.Store({
           localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
           state.logged = true;
           alert("LOGIN");
-          alert("state.logged    " + state.logged);
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
           if (user.userType === "admin") {

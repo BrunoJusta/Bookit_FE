@@ -1,5 +1,8 @@
 <template>
   <div class="kitDetail">
+    <br>
+        <br><br>
+        <br>
     <div class="jumbotron">
       <h1 class="display-3">{{getKitById($route.params.kitId).name}}</h1>
       <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button>

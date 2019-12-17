@@ -2,7 +2,8 @@
     <div>
         <br>
         <br>
-
+<br>
+        <br>
         <h1 id="redTitle">RESERVAS</h1>
     <hr class="back-line">
 

@@ -1,6 +1,8 @@
 <template>
   <div >
 <br>
+<br>
+        <br>
         <br>
     <h1 id="redTitle">WORKSHOPS</h1>
     <hr class="back-line">

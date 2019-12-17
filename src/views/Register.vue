@@ -1,5 +1,9 @@
 <template>
     <div>
+        <br>
+        <br>
+        <br>
+        <br>
         <Registration/>
     </div>
 </template>

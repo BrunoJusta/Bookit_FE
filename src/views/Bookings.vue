@@ -2,6 +2,9 @@
     <div>
         <br>
         <br>
+          <br>
+    <br>
+    <br>
         <h2 id="redSubTitle">RESERVAS</h2>
         <br>
 
