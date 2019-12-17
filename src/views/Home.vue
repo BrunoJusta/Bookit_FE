@@ -3,7 +3,7 @@
   <div class="home">
 
     <div class="container-full banner">
-      <img id="banner-img" src="../assets/tabuleiro2.jpg">
+      <img id="banner-img" src="../assets/tabuleiro3.jpg">
       <b-button squared id="banner-btn">
         <router-link id="banner-link" to="/choose"> RESERVAR</router-link>
       </b-button>
@@ -11,11 +11,11 @@
 
 
     <div class="container-full title">
-    <h1 id="redTitle">SOBRE NÓS</h1>
-    <hr class="back-line">
-    <div class="container" id="whiteRect">
-      <p id="space">space</p>
-    </div>
+      <h1 id="redTitle">SOBRE NÓS</h1>
+      <hr class="back-line">
+      <div class="container" id="whiteRect">
+        <p id="space">space</p>
+      </div>
     </div>
 
 
@@ -32,13 +32,13 @@
     </div>
 
     <div class="container-full title">
-    <h1 id="redTitle">RESERVAS</h1>
-    <hr class="back-line">
-    <div class="container" id="whiteRect">
-      <p id="space">space</p>
+      <h1 id="redTitle">RESERVAS</h1>
+      <hr class="back-line">
+      <div class="container" id="whiteRect">
+        <p id="space">space</p>
+      </div>
     </div>
-    </div>
-    
+
 
     <div class="container  options">
       <div class="row">
@@ -65,9 +65,6 @@
 </template>
 
 <script>
-
-
-
   export default {
     name: 'home',
   }
@@ -83,17 +80,17 @@
     padding-top: 125px;
   }
 
-  .title{
+  .title {
     padding-top: 80px;
     padding-bottom: 50px;
   }
 
-  .options{
-     padding-top: 60px;
+  .options {
+    padding-top: 60px;
     padding-bottom: 150px;
   }
 
-  
+
 
   #banner-link {
     color: white;
@@ -122,7 +119,7 @@
   }
 
   .txt {
-     padding-top: 30px;
+    padding-top: 30px;
     padding-bottom: 50px;
   }
 

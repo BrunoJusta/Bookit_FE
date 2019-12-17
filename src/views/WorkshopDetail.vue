@@ -9,7 +9,6 @@
       <h3>Data:{{getWorkshopById($route.params.workshopId).date}}
         Hora:{{getWorkshopById($route.params.workshopId).time}} </h3>
       <h3>Professor:{{getWorkshopById($route.params.workshopId).teacher}}</h3>
-
       <b-button @click="sendInfo()" class="btn-book" squared>Inscrever</b-button>
     </div>
   </div>
@@ -55,15 +54,6 @@
           time: this.time,
           clientName: this.clientName,
         })
-        /* this.currentWS.push({
-          workshops: this.name,
-          date: this.date,
-          time: this.time,
-          teacher: this.teacher,
-          UserName: this.clientName,
-        });
-        sessionStorage.setItem("currentWS", JSON.stringify(this.currentWS)); */
-
       }
     },
     created() {

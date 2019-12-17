@@ -1,7 +1,7 @@
 <template>
     <div class="fixed-top">
         <b-navbar toggleable="lg" type="dark" variant="info" >
-            <a href="../views/Home.vue"><img src="../assets/navbarLogo.svg" alt="" id="logoNavbar"></a>
+            <a href="../views/Home.vue"><img src="../assets/navbarLogo2.svg" alt="" id="logoNavbar"></a>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
@@ -106,6 +106,6 @@ box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
     }
 
     #logoNavbar {
-        width: 200px;
+        width: 190px;
     }
 </style>
