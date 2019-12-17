@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <b-navbar toggleable="lg" type="dark" variant="info">
+    <div class="fixed-top">
+        <b-navbar toggleable="lg" type="dark" variant="info" >
             <a href="../views/Home.vue"><img src="../assets/navbarLogo.svg" alt="" id="logoNavbar"></a>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
@@ -34,6 +34,9 @@
             onlineUser: ""
         }),
         created: function () {
+             if (localStorage.getItem("users")) {
+                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
+            }
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }

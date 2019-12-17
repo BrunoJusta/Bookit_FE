@@ -12,12 +12,13 @@
       style="text-shadow: 1px 1px 2px #333;"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
+      class="img-fluid"
     >
 
 
     <b-carousel-slide  img-blank="" >
        <div id="wow">
-            <img id="logo" src="../assets/bookit_white.svg" width="800px">
+         <img id="foodImg" src="../assets/tabuleiro.jpg" style="height:300px">
             <br>
             <b-button squared style="background-color:#0A2463;  margin-top:-300px; ">RESERVAR</b-button>
        </div>
@@ -67,4 +68,5 @@
     #wow{
         margin-bottom: -90px;
     }
+    
 </style>

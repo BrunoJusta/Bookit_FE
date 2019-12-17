@@ -11,7 +11,7 @@
                             style="max-width: 20rem;" class="mb-2 border-0">
                             <h2 class=" card-title">{{k.name}}</h2>
                             <b-button class="btn-book" squared>
-                                   <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
+                                <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
                         </b-card>
@@ -61,6 +61,7 @@
             x: "";
             teste: $store.state.logged;
         },
+
         created() {
             if (localStorage.getItem("kits")) {
                 this.kits = JSON.parse(localStorage.getItem("kits"))
@@ -76,34 +77,35 @@
 </script>
 
 <style lang="scss" scoped>
-#card-maker{
-padding-bottom: 60px;
-padding-top: 30px;
-}
+    #card-maker {
+        padding-bottom: 60px;
+        padding-top: 30px;
+    }
 
-#redSubTitle{
-  font-family:"bookMan";
-  font-size: 35px;
-  color: #B91C3B;
-}
-.mb-2 {
---webkit-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
--moz-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
-}
+    #redSubTitle {
+        font-family: "bookMan";
+        font-size: 35px;
+        color: #B91C3B;
+    }
 
-.btn-book{
-    font-size: 18px;
-    background-color:#0A2463; 
-    margin-bottom:-60px;
-}
+    .mb-2 {
+        --webkit-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+        -moz-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+        box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+    }
 
-.back-line{
-    background-color:#0A2463;
-    margin-top: -10px;
-    margin-left: -50px;
-    width: 1200px;
+    .btn-book {
+        font-size: 18px;
+        background-color: #0A2463;
+        margin-bottom: -60px;
+    }
 
-    
-}
+    .back-line {
+        background-color: #0A2463;
+        margin-top: -10px;
+        margin-left: -50px;
+        width: 1200px;
+
+
+    }
 </style>
