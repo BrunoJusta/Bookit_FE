@@ -105,6 +105,7 @@ export default new Vuex.Store({
       localStorage.setItem("kits", JSON.stringify(state.kits));
       localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
+
     },
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {
@@ -165,7 +166,7 @@ export default new Vuex.Store({
 
     },
     ADD_WORKSHOP_ATENDER(state, payload) {
-      if (!state.bookings.some(b => b.clientName === payload.clientName)){
+      if (!state.bookings.some(b => b.clientName === payload.clientName) || !state.bookings.some(b => b.workshopName === payload.workshopName)){
           state.bookings.push({
             workshopName:  payload.workshopName,
             date:  payload.date,
