@@ -6,15 +6,20 @@
       <router-link to="/about">About</router-link>
     </div> -->
     <router-view />
+      <bottom-footer></bottom-footer>
+
   </div>
 </template>
 
 <script>
 import TopHeader from '@/components/TopHeader.vue';
+import Footer from '@/components/Footer.vue'
   export default {
     components: {
-      "top-header": TopHeader
+      "top-header": TopHeader,
+      "bottom-footer": Footer
     }
+
   }
 </script>
 
