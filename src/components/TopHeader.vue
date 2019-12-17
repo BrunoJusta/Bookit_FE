@@ -40,7 +40,7 @@
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
-            if (localStorage.getItem("loggedUser")) {
+            if (localStorage.getItem("loggedUser") && localStorage.getItem("loggedUser") !== []) {
                 this.onlineUser = sessionStorage.getItem("userOn")
                 this.offline = "none"
                 this.online = "block"

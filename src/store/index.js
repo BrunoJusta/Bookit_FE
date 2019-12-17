@@ -124,7 +124,7 @@ export default new Vuex.Store({
           });
           localStorage.setItem("users", JSON.stringify(state.users));
           alert("Registado");
-          window.history.back();
+          router.push({name:'login'})
 
         }
       } else {
@@ -153,7 +153,7 @@ export default new Vuex.Store({
           if (user.userType === "admin") {
             router.push({name:'adminHome'})
           } else if (user.userType === "cliente") {
-            router.push({name:'home'})
+            window.location.href = "../views/Home.vue"
           }
 
           if (state.userExists === false) {
@@ -166,12 +166,12 @@ export default new Vuex.Store({
 
     },
     ADD_WORKSHOP_ATENDER(state, payload) {
-      if (!state.bookings.some(b => b.clientName === payload.clientName) || !state.bookings.some(b => b.workshopName === payload.workshopName)){
+      if (!state.bookings.some(b => b.Inscrito === payload.clientName) || !state.bookings.some(b => b.Workshop === payload.workshopName)){
           state.bookings.push({
-            workshopName:  payload.workshopName,
-            date:  payload.date,
-            time:  payload.time,
-            clientName:  payload.clientName,
+            Workshop:  payload.workshopName,
+            Data:  payload.date,
+            Duração:  payload.time,
+            Inscrito:  payload.clientName,
           });
           localStorage.setItem("bookings", JSON.stringify(state.bookings));
           alert("RESERVA CONCLUIDA COM SUCESSO")

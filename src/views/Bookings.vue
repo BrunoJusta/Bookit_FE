@@ -2,27 +2,18 @@
     <div>
         <br>
         <br>
-          <br>
-    <br>
-    <br>
+        <br>
+        <br>
+        <br>
         <h2 id="redSubTitle">RESERVAS</h2>
         <br>
 
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Reserva</th>
-                    <th>UserName</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="k in searchBookings" :key="k.KitName">
-                    <td>{{k.KitName}}</td>
-                    <td>{{k.UserName}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="container">
+             <div>
+            <b-table striped hover :items="this.bookings"></b-table>
+        </div>
+        </div>
+       
 
 
     </div>
@@ -55,6 +46,7 @@
         padding-bottom: 60px;
         padding-top: 30px;
     }
+
 
     #redSubTitle {
         font-family: "bookMan";
