@@ -17,15 +17,19 @@ export default {
     data:function(){
     return{
       workshops:[],
-      currentWS: [],
+      currentWS:"",
     };
     },
     methods:{
       getWorkshopById(id){
+        this.currentWS = this.workshops.filter(
+          workshop => workshop.id === id
+        )[0].name
+        
         return this.workshops.filter(
           workshop => workshop.id === id
         )[0]
-
+        
       },
       sendInfo() {
         let clientName = sessionStorage.getItem("userOn")
@@ -35,6 +39,7 @@ export default {
             KitName: kitName,
             UserName: clientName,
           });
+          alert(this.currentWS)
           
       }
     },

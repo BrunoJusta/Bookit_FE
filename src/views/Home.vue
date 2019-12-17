@@ -8,11 +8,13 @@
     <br>
     <div class="container-full">
       <img src="../assets/tabuleiro.jpg" style="max-width: 100%; height: auto;">
-        <b-button squared style="background-color:#0A2463;  margin-top:-150px; border-color:white; font-size:18px;" >RESERVAR</b-button>
+        <b-button squared style="background-color:#0A2463;  margin-top:-150px; border-color:white; font-size:18px;" >
+          <router-link to="/choose" style="color:white"> RESERVAR</router-link>
+         </b-button>
     </div>
     <br>
     <br>
-    <h1 id="redTitle" style="padding-top:30px;">SOBRE NÓS</h1>
+    <h1 id="redTitle">SOBRE NÓS</h1>
     <hr class="back-line">
     
     <div class="container" style="padding-bottom:50px; padding-top:10px;">

@@ -25,19 +25,11 @@
                 </b-form-group>
                 
                 <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                               <b-button id="show-btn" style="background-color:#0A2463;" squared>
-
+                               <b-button id="show-btn" style="background-color:#0A2463; margin:10px" squared>
                     <router-link id="link" to="/register">Registar</router-link>
                 </b-button>
-                        </div>
-                        <div class="col-sm-6">
-                <b-button  type="submit" id="show-btn" style="background-color:#0A2463;" squared>Confirmar</b-button>
+                <b-button  type="submit" id="show-btn" style="background-color:#0A2463; margin:10px" squared>Confirmar</b-button>
 
-                        </div>
-                   
-                    </div>
                    
                 </div>
                 

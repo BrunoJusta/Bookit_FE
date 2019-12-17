@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '../router';
 
 Vue.use(Vuex)
 
@@ -138,9 +139,9 @@ export default new Vuex.Store({
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
           if (user.userType === "admin") {
-            window.location.href = "../views/Home.vue#/adminHome"
+            router.push({name:'adminHome'})
           } else if (user.userType === "cliente") {
-            window.location.href = "../views/Home.vue"
+            router.push({name:'home'})
           }
 
           if (state.userExists === false) {
