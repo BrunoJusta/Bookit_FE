@@ -1,122 +1,169 @@
 <template>
+
   <div class="home">
-    <!-- <Carousel/> -->
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="container-full">
-      <img src="../assets/tabuleiro.jpg" style="max-width: 100%; height: auto;">
-        <b-button squared style="background-color:#0A2463;  margin-top:-150px; border-color:white; font-size:18px;" >
-          <router-link to="/choose" style="color:white"> RESERVAR</router-link>
-         </b-button>
+
+    <div class="container-full banner">
+      <img id="banner-img" src="../assets/tabuleiro2.jpg">
+      <b-button squared id="banner-btn">
+        <router-link id="banner-link" to="/choose"> RESERVAR</router-link>
+      </b-button>
     </div>
-    <br>
-    <br>
+
+
+    <div class="container-full title">
     <h1 id="redTitle">SOBRE NÓS</h1>
     <hr class="back-line">
-       <div class="container" style="background-color:white; margin-top:-35px; height:35px; width:340px;position: relative;display: block; z-index:6">
-            <p style="color:white">s</p>
-        </div>
-    
-    <div class="container" style="padding-bottom:50px; padding-top:40px;">
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 
-        dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was 
-        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop 
+    <div class="container" id="whiteRect">
+      <p id="space">space</p>
+    </div>
+    </div>
+
+
+    <div class="container txt">
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+        standard
+        dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
+        specimen book.
+        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+        unchanged. It was
+        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop
         publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
     </div>
-    
+
+    <div class="container-full title">
     <h1 id="redTitle">RESERVAS</h1>
-            <hr class="back-line">
-            
-               <div class="container" style="background-color:white; margin-top:-35px; height:35px; width:340px;position: relative;display: block; z-index:6">
-            <p style="color:white">s</p>
-        </div>
-
-    <br>
-    <br>
-
-    <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                        <b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
-                            style="max-width: 24rem;" class="mb-2 border-0">
-                            <router-link  id="link" to="/menuKits">Eventos & Catering</router-link>
-                        </b-card>
-                </div>
-                   <div class="col-sm-4">
-                        <b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
-                            style="max-width: 24rem;" class="mb-2 border-0">
-                             <router-link id="link" to="/areas">Espaços</router-link>
-                        </b-card>
-                </div>
-                   <div class="col-sm-4">
-                        <b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
-                            style="max-width: 24rem;" class="mb-2 border-0">
-                             <router-link id="link" to="/">Workshops</router-link>
-                        </b-card>
-                </div>
-            </div>
-        </div>
-        <br>
-    <br>
-    <br>
-    <br>
+    <hr class="back-line">
+    <div class="container" id="whiteRect">
+      <p id="space">space</p>
+    </div>
     </div>
     
+
+    <div class="container  options">
+      <div class="row">
+        <div class="col-sm-4">
+          <b-card img-src="https://picsum.photos/600/300/?image=25" class="mb-2 border-0">
+            <router-link id="link" to="/menuKits">Eventos & Catering</router-link>
+          </b-card>
+        </div>
+        <div class="col-sm-4">
+          <b-card img-src="https://picsum.photos/600/300/?image=25" class="mb-2 border-0">
+            <router-link id="link" to="/areas">Espaços</router-link>
+          </b-card>
+        </div>
+        <div class="col-sm-4">
+          <b-card img-src="https://picsum.photos/600/300/?image=25" class="mb-2 border-0">
+            <router-link id="link" to="/">Workshops</router-link>
+          </b-card>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import Carousel from '@/components/Carousel.vue'
 
 
 
-export default {
-  name: 'home',
-  components: {
-    HelloWorld,
-    Carousel,
+  export default {
+    name: 'home',
   }
-}
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: bookMan;
-  src: url(../assets/bookman.ttf);
-}
-a{
-  float: left;
+  @font-face {
+    font-family: bookMan;
+    src: url(../assets/bookman.ttf);
+  }
 
-}
-#link{
-  color: black;
-  font-size: 25px;
-}
+  .banner {
+    padding-top: 125px;
+  }
 
-#redTitle{
-  font-family:"bookMan";
-  font-size: 45px;
-  color: #B91C3B;
-  display: block; 
+  .title{
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
+
+  .options{
+     padding-top: 60px;
+    padding-bottom: 150px;
+  }
+
+  
+
+  #banner-link {
+    color: white;
+  }
+
+  #banner-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #banner-btn {
+    background-color: #0A2463;
+    margin-top: -150px;
+    border-color: white;
+    font-size: 18px;
+  }
+
+  #whiteRect {
+    background-color: white;
+    margin-top: -35px;
+    height: 35px;
+    width: 340px;
+    position: relative;
+    display: block;
+    z-index: 6
+  }
+
+  .txt {
+     padding-top: 30px;
+    padding-bottom: 50px;
+  }
+
+  #space {
+    color: white;
+  }
+
+  a {
+    float: left;
+
+  }
+
+  #link {
+    color: black;
+    font-size: 25px;
+  }
+
+  #redTitle {
+    font-family: "bookMan";
+    font-size: 45px;
+    color: #B91C3B;
+    display: block;
     z-index: 7;
     position: relative;
-}
-.card-body{
-  padding:0rem;
-  padding-top: 1rem;
-}
-.back-line{
-    background-color:#0A2463;
+  }
+
+  .card-body {
+    padding: 0rem;
+    padding-top: 1rem;
+  }
+
+  .back-line {
+    background-color: #0A2463;
     margin-top: -35px;
-     width: 90%;
-    display: block; 
+    width: 90%;
+    display: block;
     z-index: 5;
     position: relative;
-}
+  }
 
+  .mb-2 {
+    max-width: 24rem;
+  }
 </style>
