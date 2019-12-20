@@ -49,10 +49,6 @@
                 this.online = "none"
             }
             this.$store.commit('STORE_ITEMS')
-        },
-        methods: {
-            checkLoggedUser() {
-            }
         }
     }
 </script>

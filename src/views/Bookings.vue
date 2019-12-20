@@ -10,7 +10,19 @@
 
         <div class="container">
              <div>
-            <b-table striped hover :items="this.bookings"></b-table>
+
+ <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
+
+
+
+            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered fixed small hover head-variant="dark" :items="this.bookings"></b-table>
         </div>
         </div>
        
@@ -28,7 +40,8 @@
             }
         },
         data: function () {
-            return {};
+            return {perPage: 2,
+        currentPage: 1,};
             bookings: [];
             x: "";
         },
@@ -36,7 +49,11 @@
             if (localStorage.getItem("bookings")) {
                 this.bookings = JSON.parse(localStorage.getItem("bookings"))
             }
-        },
+        },computed: {
+      rows() {
+        return this.bookings.length
+      }
+    }
 
     }
 </script>
