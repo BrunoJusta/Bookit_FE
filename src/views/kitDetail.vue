@@ -5,6 +5,9 @@
         <br>
     <div class="jumbotron">
       <h1 class="display-3">{{getKitById($route.params.kitId).name}}</h1>
+      <p>{{this.drinks.length===0 ? 'sem bebida' : 'Bebidas: ' + this.drinks}}</p>
+      <p>{{this.food.length===0 ? 'sem comida' : 'Comida: ' + this.food}}</p>
+
       <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button>
   </div>
   </div>
@@ -16,10 +19,21 @@ export default {
     data:function(){
     return{
       kits:[],
+      drinks:[],
+      food:[]
     };
     },
     methods:{
       getKitById(id){
+
+        this.food = this.kits.filter(
+          kit => kit.id === id
+        )[0].food
+
+        this.drinks = this.kits.filter(
+          kit => kit.id === id
+        )[0].drinks
+
         return this.kits.filter(
           kit => kit.id === id
         )[0]

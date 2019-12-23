@@ -44,7 +44,7 @@
       <div class="row">
         <div class="col-sm-4">
           <b-card img-src="https://picsum.photos/600/300/?image=25" class="mb-2 border-0">
-            <router-link id="link" to="/menuKits">Eventos & Catering</router-link>
+            <router-link id="link" to="/addons">Eventos & Catering</router-link>
           </b-card>
         </div>
         <div class="col-sm-4">
@@ -54,7 +54,7 @@
         </div>
         <div class="col-sm-4">
           <b-card img-src="https://picsum.photos/600/300/?image=25" class="mb-2 border-0">
-            <router-link id="link" to="/">Workshops</router-link>
+            <router-link id="link" to="/workshops">Workshops</router-link>
           </b-card>
         </div>
       </div>

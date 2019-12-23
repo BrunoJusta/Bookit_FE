@@ -20,17 +20,17 @@
       <div class="row">
         <div class="col">
           <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
-            <router-link id="link" to="/bookings">Resrvas</router-link>
+            <router-link id="link" to="/inscriptions">Resrvas</router-link>
           </b-card>
         </div>
         <div class="col">
           <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
-            <router-link id="link" to="/areas">Workshops</router-link>
+            <router-link id="link" to="/inscriptions">Inscrições</router-link>
           </b-card>
         </div>
         <div class="col">
           <b-card img-src="https://picsum.photos/600/300/?image=25" tyle="max-width: 12rem;" class="mb-2 border-0">
-            <router-link id="link" to="/">Kits</router-link>
+            <router-link id="link" to="/">Menus</router-link>
           </b-card>
         </div>
         <div class="col">

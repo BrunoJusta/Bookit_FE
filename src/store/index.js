@@ -18,35 +18,47 @@ export default new Vuex.Store({
     kits: [{
         id: 0,
         name: "menu A",
+        drinks:["café", "leite"],
+        food:["bolo"],
         type: "cB"
       },
       {
         id: 1,
         name: "menu B",
+        drinks:["café", "leite"],
+        food:["bolo"],
         type: "cB"
 
       },
       {
         id: 2,
         name: "menu B",
+        drinks:["café", "leite"],
+        food:["bolo"],
         type: "cB"
 
       },
       {
         id: 3,
         name: "menu A",
+        drinks:["café", "leite"],
+        food:["bolo"],
         type: "jG"
 
       },
       {
         id: 4,
         name: "menu B",
+        drinks:["café", "leite"],
+        food:["bolo"],
         type: "jG"
 
       },
       {
         id: 5,
         name: "menu C",
+        drinks:["café", "leite"],
+        food:["bolo"],
         type: "jG"
 
       }
@@ -98,6 +110,26 @@ export default new Vuex.Store({
     loggedUser: [],
     userExists: false,
     bookings: [],
+    inscriptions:[],
+    ingredients: [
+      {
+        id:0,
+        name: "Café",
+        type: "Drink",
+      }, {
+        id:1,
+        name: "Leite",
+        type: "Drink",
+      }, {
+        id:2,
+        name: "Bolo",
+        type: "Food",
+      }, {
+        id:3,
+        name: "Bolachas",
+        type: "Food",
+      },
+    ]
   },
 
   mutations: {
@@ -105,6 +137,8 @@ export default new Vuex.Store({
       localStorage.setItem("kits", JSON.stringify(state.kits));
       localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
+      localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
+
 
     },
     ADD_USER(state, payload) {
@@ -153,7 +187,7 @@ export default new Vuex.Store({
           if (user.userType === "admin") {
             router.push({name:'adminHome'})
           } else if (user.userType === "cliente") {
-            window.location.href = "../views/Home.vue"
+            router.push({name:'home'})
           }
 
           if (state.userExists === false) {
@@ -166,14 +200,14 @@ export default new Vuex.Store({
 
     },
     ADD_WORKSHOP_ATENDER(state, payload) {
-      if (!state.bookings.some(b => b.Inscrito === payload.clientName) || !state.bookings.some(b => b.Workshop === payload.workshopName)){
-          state.bookings.push({
-            Workshop:  payload.workshopName,
-            Data:  payload.date,
-            Duração:  payload.time,
-            Inscrito:  payload.clientName,
+      if (!state.inscriptions.some(b => b.Inscrito === payload.clientName) || !state.inscriptions.some(b => b.Workshop === payload.workshopName)){
+          state.inscriptions.push({
+            workshopName:  payload.workshopName,
+            date:  payload.date,
+            time:  payload.time,
+            clientName:  payload.clientName,
           });
-          localStorage.setItem("bookings", JSON.stringify(state.bookings));
+          localStorage.setItem("inscriptions", JSON.stringify(state.inscriptions));
           alert("RESERVA CONCLUIDA COM SUCESSO")
       } else {
         alert("Já Inscrito");
@@ -185,7 +219,8 @@ export default new Vuex.Store({
       localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
       sessionStorage.removeItem("userOn");
       state.logged = false;
-      window.location.href = "../views/Home.vue"
+      router.push({name:'home'})
+
     }
   },
   getters: {
@@ -204,6 +239,9 @@ export default new Vuex.Store({
         state.logged = false
         return state.logged;
       }
+    },
+    getName(state){
+      return state.loggedUser[0].name
     }
   }
 })

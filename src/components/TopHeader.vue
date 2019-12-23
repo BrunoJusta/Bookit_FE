@@ -1,16 +1,13 @@
 <template>
     <div class="fixed-top">
-        <b-navbar toggleable="lg" type="dark" variant="info" >
+        <b-navbar toggleable="lg" type="dark" variant="info">
             <a href="../views/Home.vue"><img src="../assets/navbarLogo2.svg" alt="" id="logoNavbar"></a>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
                     <div>
-                        <b-button id="show-btn" v-bind:style="{display: [offline]}" squared>
-                            <router-link to="/login">Entrar</router-link>
-                        </b-button>
-                        <b-button id="logged-btn" v-bind:style="{display: [online]}" squared>
-                            <router-link to="/profile">{{this.onlineUser}}</router-link>
+                        <b-button id="logged-btn" squared>
+                            <router-link :to="{name:this.path}">{{getName}}</router-link>
                         </b-button>
                     </div>
                 </b-nav-form>
@@ -29,16 +26,18 @@
 <script>
     export default {
         data: () => ({
-            offline: "",
-            online: "",
+            path: "login",
             onlineUser: ""
         }),
         created: function () {
-             if (localStorage.getItem("users")) {
+            if (localStorage.getItem("users")) {
                 this.$store.state.users = JSON.parse(localStorage.getItem("users"))
             }
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+            }
+             if (localStorage.getItem("ingredients")) {
+                this.$store.state.ingredients = JSON.parse(localStorage.getItem("ingredients"))
             }
             if (localStorage.getItem("loggedUser") && localStorage.getItem("loggedUser") !== []) {
                 this.onlineUser = sessionStorage.getItem("userOn")
@@ -49,16 +48,30 @@
                 this.online = "none"
             }
             this.$store.commit('STORE_ITEMS')
+            alert(this.path)
+
+        },
+        computed: {
+            getName() {
+                if (localStorage.getItem("loggedUser")) {
+                    this.path = "profile"
+                    return this.$store.getters.getName
+                } else {
+                    return "Entrar"
+                }
+
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-#jon{
-    --webkit-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
--moz-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
-}
+    #jon {
+        --webkit-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+        -moz-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+        box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+    }
+
     .bg-info {
         background-color: white !important;
     }
@@ -79,7 +92,8 @@ box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
         color: black;
     }
 
-    #show-btn,#logged-btn {
+    #show-btn,
+    #logged-btn {
         background-color: #0a2463;
     }
 

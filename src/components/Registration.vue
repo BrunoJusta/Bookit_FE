@@ -1,9 +1,15 @@
 <template>
     <div id="registration">
-        <br>
-        <br>
-        <h1 id="redTitle">REGISTO</h1>
-        <hr class="back-line">
+        
+           <div class="container-full title">
+            <h1 id="redTitle">Registo</h1>
+            <hr class="back-line">
+            <div class="container" id="whiteRect">
+                <p id="space">space</p>
+            </div>
+        </div>
+
+
         <div class="container col-sm-6">
             <b-form v-on:submit.prevent="addUser()" v-if="show">
                 <div class="container">
@@ -131,22 +137,46 @@
         color: white;
     }
 
-    #redTitle {
-        font-family: "bookMan";
-        font-size: 45px;
-        color: #B91C3B;
-    }
-
     label {
         float: left;
         margin-bottom: .5rem;
     }
 
+
+    #redTitle {
+        font-family: "bookMan";
+        font-size: 45px;
+        color: #B91C3B;
+        display: block;
+        z-index: 7;
+        position: relative;
+    }
+
     .back-line {
         background-color: #0A2463;
-        margin-top: -10px;
-        width: 600px;
+        margin-top: -35px;
+        width: 60%;
+        display: block;
+        z-index: 5;
+        position: relative;
+    }
 
+    #space {
+        color: white;
+    }
 
+    .title {
+        padding-top: 100px;
+        padding-bottom: 50px;
+    }
+
+    #whiteRect {
+        background-color: white;
+        margin-top: -35px;
+        height: 35px;
+        width: 340px;
+        position: relative;
+        display: block;
+        z-index: 5;
     }
 </style>
