@@ -13,18 +13,31 @@
         <br>
         <br>
         <div class="container col-sm-4">
-            <form @submit.prevent="addKit()">
+            <form @submit.prevent="addWorkshop()">
                 <!-- NOME -->
                 <label for="name">Nome:</label>
                 <input id="name" v-model="name">
                 <br>
                 <br>
                 <!-- PROFESSOR -->
-                <label for="name">Nome:</label>
-                <input id="name" v-model="name">
+                <label for="teacher">Professor:</label>
+                <input id="teacher" v-model="teacher">
                 <br>
                 <br>
-                <input type="date">
+                <!-- MOTIVAÇÃO -->
+                <label for="date">Data:</label>
+                <input type="date" v-model="date">
+                <br>
+                <br>
+                <!-- MOTIVAÇÃO -->
+                <label for="hi">Hora de Início:</label>
+                <input type="time" id="hi" v-model="hi"> 
+                <br>
+                <!-- MOTIVAÇÃO -->
+                <label for="hf">Hora do Final:</label>
+                <input type="time" id="hf" v-model="hf">
+                <br>
+                <br>
                 <!-- MOTIVAÇÃO -->
                 <label for="description">Descrição</label>
                 <br>
@@ -34,11 +47,6 @@
 
             </form>
         </div>
-
-
-
-
-
         <br>
         <br>
         <br>
@@ -50,39 +58,32 @@
 
 <script>
     export default {
-        name: "addKit",
+        name: "AddWorkshop",
         data: function () {
             return {
                 name: "",
-                checkedFood: [],
-                checkedDrink: [],
-                ingredients: [],
-                type: "",
-                types: ['cB', 'Jantar de Gala', 'Porto de Honra'],
-            }
-        },
-        created() {
-            this.ingredients = this.$store.state.ingredients
-
-        },
-        computed: {
-            searchKits() {
-                return this.ingredients;
+                teacher: "",
+                date: "",
+                hi: "",
+                hf: "",
+                description: "",
+                time: this.hi +"-"+ this.hf
             }
         },
         methods: {
             getLastId() {
-                return this.$store.getters.kitLastId + 1
+                return this.$store.getters.workshopLastId + 1
             },
-            addKit() {
-                this.$store.commit('ADD_KIT', {
+            addWorkshop() {
+                this.$store.commit('ADD_WORKSHOP', {
                     id: this.getLastId(),
                     name: this.name,
-                    type: this.type,
-                    drinks: this.checkedDrink,
-                    food: this.checkedFood
+                    teacher: this.teacher,
+                    date: this.date,
+                    time: this.hi + "-" + this.hf,
+                    description: this.description
+                    
                 })
-                alert(this.checkedDrink)
             },
         }
     }

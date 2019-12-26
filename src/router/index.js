@@ -80,6 +80,11 @@ const routes = [
     path: "/kitManeger",
     name: "kitManeger",
     component: () => import("../views/KitManeger.vue")
+  },
+  {
+    path: "/WorkshopManeger",
+    name: "WorkshopManeger",
+    component: () => import("../views/WorkshopManeger.vue")
   }
 ]
 

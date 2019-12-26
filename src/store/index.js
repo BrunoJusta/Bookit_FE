@@ -239,8 +239,8 @@ export default new Vuex.Store({
             id: payload.id,
             name: payload.name,
             teacher: payload.teacher,
-            date: playload.date,
-            time: playload.time,
+            date: payload.date,
+            time: payload.time,
             description: payload.description
           });
           localStorage.setItem("workshops", JSON.stringify(state.workshops));
