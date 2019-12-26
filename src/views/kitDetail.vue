@@ -8,7 +8,10 @@
       <p>{{this.drinks.length===0 ? 'sem bebida' : 'Bebidas: ' + this.drinks}}</p>
       <p>{{this.food.length===0 ? 'sem comida' : 'Comida: ' + this.food}}</p>
 
-      <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button>
+     <!--  <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button> -->
+      <b-button class="btn-book" squared>
+      <router-link to="/addons" class="teste" style="color:white"> Escolher </router-link>
+      </b-button>
   </div>
   </div>
 

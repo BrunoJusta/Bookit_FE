@@ -20,7 +20,7 @@
             </b-table>
 
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
-                style="float:right"></b-pagination>
+                style="float:right;"></b-pagination>
         </div>
 
 

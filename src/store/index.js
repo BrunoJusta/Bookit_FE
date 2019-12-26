@@ -68,14 +68,16 @@ export default new Vuex.Store({
         name: "Workshop A",
         date: "20/12/2019",
         time: "12h - 14h",
-        teacher: "João"
+        teacher: "João",
+        description:"wow"
       },
       {
         id: 1,
         name: "Workshop B",
         date: "20/12/2019",
         time: "12h - 14h",
-        teacher: "João"
+        teacher: "João",
+        description:"wow"
 
       },
       {
@@ -83,7 +85,8 @@ export default new Vuex.Store({
         name: "Workshop C",
         date: "20/12/2019",
         time: "12h - 14h",
-        teacher: "João"
+        teacher: "João",
+        description:"wow"
 
 
       }
@@ -111,6 +114,8 @@ export default new Vuex.Store({
     userExists: false,
     bookings: [],
     inscriptions:[],
+    drinks:["café", "chá"],
+    food:["bolachas", "bolo"],
     ingredients: [
       {
         id:0,
@@ -138,8 +143,6 @@ export default new Vuex.Store({
       localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
       localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
-
-
     },
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {
@@ -154,17 +157,14 @@ export default new Vuex.Store({
             password: payload.password,
             number: payload.number,
             userType: "cliente"
-
           });
           localStorage.setItem("users", JSON.stringify(state.users));
           alert("Registado");
           router.push({name:'login'})
-
         }
       } else {
         alert("E-MAIL JÁ EXISTENTE");
       }
-
     },
     LOGIN(state, payload) {
       for (const user of state.users) {
@@ -189,7 +189,6 @@ export default new Vuex.Store({
           } else if (user.userType === "cliente") {
             router.push({name:'home'})
           }
-
           if (state.userExists === false) {
             alert("Credenciais Inválidas");
           } else {
@@ -197,7 +196,13 @@ export default new Vuex.Store({
           }
         }
       }
-
+    },
+    LOGOUT(state) {
+      state.loggedUser.pop();
+      localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
+      sessionStorage.removeItem("userOn");
+      state.logged = false;
+      router.push({name:'home'})
     },
     ADD_WORKSHOP_ATENDER(state, payload) {
       if (!state.inscriptions.some(b => b.Inscrito === payload.clientName) || !state.inscriptions.some(b => b.Workshop === payload.workshopName)){
@@ -212,21 +217,77 @@ export default new Vuex.Store({
       } else {
         alert("Já Inscrito");
       }
-
     },
-    LOGOUT(state) {
-      state.loggedUser.pop();
-      localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
-      sessionStorage.removeItem("userOn");
-      state.logged = false;
-      router.push({name:'home'})
-
-    }
+    ADD_KIT(state, payload) {
+      if (!state.kits.some(kit => kit.name === payload.name)) {
+            state.kits.push({
+            id: payload.id,
+            name: payload.name,
+            type: payload.type,
+            drinks: payload.drinks,
+            food: payload.food
+          });
+          localStorage.setItem("kits", JSON.stringify(state.kits));
+        }
+      else {
+        alert("Nome já em uso!");
+      }
+    },
+    ADD_WORKSHOP(state, payload) {
+      if (!state.workshops.some(w => w.name === payload.name)) {
+            state.workshops.push({
+            id: payload.id,
+            name: payload.name,
+            teacher: payload.teacher,
+            date: playload.date,
+            time: playload.time,
+            description: payload.description
+          });
+          localStorage.setItem("workshops", JSON.stringify(state.workshops));
+        }
+      else {
+        alert("Workshop já existe!");
+      }
+    },
+    ADD_INGREDIENT(state, payload) {
+      if (!state.ingredients.some(ing => ing.name === payload.name)) {
+            state.ingredients.push({
+            id: payload.id,
+            name: payload.name,
+            type: playload.type,
+          });
+          localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
+        }
+      else {
+        alert("Ingrediente já existe!");
+      }
+    },
   },
   getters: {
     lastId(state) {
       if (state.users.length) {
         return state.users[state.users.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    kitLastId(state) {
+      if (state.kits.length) {
+        return state.kits[state.kits.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    workshopLastId(state) {
+      if (state.workshops.length) {
+        return state.workshops[state.workshops.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    ingredientLastId(state) {
+      if (state.ingredients.length) {
+        return state.ingredients[state.ingredients.length - 1].id;
       } else {
         return 0;
       }

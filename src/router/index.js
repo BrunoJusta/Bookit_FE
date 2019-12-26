@@ -75,6 +75,11 @@ const routes = [
     path: "/addons",
     name: "addons",
     component: () => import("../views/AddOns.vue")
+  },
+  {
+    path: "/kitManeger",
+    name: "kitManeger",
+    component: () => import("../views/KitManeger.vue")
   }
 ]
 
