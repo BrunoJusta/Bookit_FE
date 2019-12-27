@@ -289,6 +289,21 @@ export default new Vuex.Store({
         alert("Workshop já existe!");
       }
     },
+    ADD_BOOKING(state, payload) {
+        state.bookings.push({
+          id: payload.id,
+          reason: payload.reason,
+          date: payload.date,
+          duration: payload.duration,
+          numberPeople: payload.numberPeople,
+          drinks: payload.drinks,
+          food: payload.food,
+          extras: payload.extras,
+          decor: payload.decor,
+          outfit:payload.outfit,
+        });
+        localStorage.setItem("bookings", JSON.stringify(state.bookings));
+    },
     ADD_INGREDIENT(state, payload) {
       if (!state.ingredients.some(ing => ing.name === payload.name)) {
         state.ingredients.push({
@@ -327,6 +342,13 @@ export default new Vuex.Store({
     ingredientLastId(state) {
       if (state.ingredients.length) {
         return state.ingredients[state.ingredients.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    bookingLastId(state) {
+      if (state.bookings.length) {
+        return state.bookings[state.bookings.length - 1].id;
       } else {
         return 0;
       }

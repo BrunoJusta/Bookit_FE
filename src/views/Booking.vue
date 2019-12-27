@@ -23,53 +23,96 @@
                 style="background-color:transparent; color:black; padding:10px">Fardas
             </b-button>
         </div>
-        <form @submit.prevent="addWorkshop()">
+        <form @submit.prevent="saveBooking()">
 
-            <div class="container" v-if="kitInfo">
-                <div v-bind:style="{display: kitInfo}">
-                    <!-- MOTIVO -->
-                    <label for="reason">Motivo</label>
-                    <br>
-                    <textarea id="reason" v-model="reason" rows="4" cols="50"></textarea>
-                    <br>
-                    <!-- MOTIVAÇÃO -->
-                    <label for="date">Data:</label>
-                    <input type="date" v-model="date">
-                    <br>
-                    <br>
-                    <!-- MOTIVAÇÃO -->
-                    <label for="hi">Hora de Início:</label>
-                    <input type="time" id="hi" v-model="hi">
-                    <br>
-                    <!-- MOTIVAÇÃO -->
-                    <label for="hf">Hora do Final:</label>
-                    <input type="time" id="hf" v-model="hf">
-                    <br>
-                    <br>
-                    <label for="people">Número de Pessoas:</label>
-                    <input type="number" name="" id="people" min="20" max="50" v-model="people">
+            <div class="container" v-bind:style="{display: kitInfo}">
+                <!-- MOTIVO -->
+                <label for="reason">Motivo</label>
+                <br>
+                <textarea id="reason" v-model="reason" rows="4" cols="50"></textarea>
+                <br>
+                <!-- MOTIVAÇÃO -->
+                <label for="date">Data:</label>
+                <input type="date" v-model="date">
+                <br>
+                <br>
+                <!-- MOTIVAÇÃO -->
+                <label for="hi">Hora de Início:</label>
+                <input type="time" id="hi" v-model="hi">
+                <br>
+                <!-- MOTIVAÇÃO -->
+                <label for="hf">Hora do Final:</label>
+                <input type="time" id="hf" v-model="hf">
+                <br>
+                <br>
+                <label for="people">Número de Pessoas:</label>
+                <input type="number" name="" id="people" min="20" max="50" v-model="people">
+
+            </div>
+
+            <div class="container" v-bind:style="{display: addOns}">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1>Bebidas</h1>
+                        <div class="container" v-for="i in searchKits" :key="i.id">
+                            <div class="form-check" v-if="i.type=='Drink'">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input"  :value="i.name" v-model="checkedDrinks"
+                                        checked>
+                                    {{i.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h1>Comida</h1>
+                        <div class="container" v-for="i in searchKits" :key="i.id">
+                            <div class="form-check" v-if="i.type=='Food'">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input"  :value="i.name" v-model="checkedFood"
+                                        checked>
+                                    {{i.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
 
-            <div class="container" v-if="addOns">
-                <div  v-bind:style="{display: addOns}" ></div>
 
+
+
+            <div class="container" v-bind:style="{display: extra}" >
+                <h1>Extras</h1>
+                <div class="container" v-for="e in searchExtras" :key="e.id">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input"  :value="e.name" v-model="checkedExtras" checked>
+                        {{e.name}}
+                    </label>
+                </div>
             </div>
 
-            <div class="container" v-if="extras">
-                <div></div>
-
+            <div class="container" v-bind:style="{display: decors}" >
+                <h1>Decorações</h1>
+                <div class="container" v-for="d in searchDecor" :key="d.id">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input"  :value="d.name" v-model="checkedDecor" checked>
+                        {{d.name}}
+                    </label>
+                </div>
             </div>
 
-            <div class="container">
-                <div></div>
-
+            <div class="container" v-bind:style="{display: outfit}">
+              <div class="row" >
+                <div class="form-check" v-for="i in searchOutfits" :key="i.id">
+                    <div class="col-sm-4">
+                         <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input"  :value="i.source" v-model="checkedImage" >
+                        <img style="height:300px; width:auto" v-bind:src="i.source" />
+                    </label>
+                    </div>
+                </div>
             </div>
-
-            <div class="container">
-                <div></div>
-
             </div>
             <!-- <div v-if="kitInfo">
                 <KitInfo  v-bind:style="{display: kitInfo} " />
@@ -104,15 +147,32 @@
             return {
                 kitInfo: "block",
                 addOns: "none",
-                extras: "none",
-                decor: "none",
-                outfits: "none",
+                extra: "none",
+                decors: "none",
+                outfit: "none",
                 reason: "",
                 date: "",
                 hi: "",
                 hf: "",
-                people: ""
+                people: "",
+                ingredients: [],
+                extras: [],
+                decor: [],
+                 outfits: [],
+                 checkedDrinks: [],
+                 checkedFood: [],
+                 checkedExtras: [],
+                 checkedDecor: [],
+                 checkedImage: [],
+
+
             }
+        },
+        created() {
+            this.ingredients = this.$store.state.ingredients
+            this.extras = this.$store.state.extras
+             this.decor = this.$store.state.decor
+                  this.outfits = this.$store.state.outfits
         },
         components: {
             /*  KitInfo,
@@ -125,42 +185,76 @@
             displayInfo() {
                 this.kitInfo = "block"
                 this.addOns = "none"
-                this.extras = "none"
-                this.decor = "none"
-                this.outfits = "none"
+                this.extra = "none"
+                this.decors = "none"
+                this.outfit = "none"
             },
             displayAddOns() {
                 this.kitInfo = "none"
                 this.addOns = "block"
-                this.extras = "none"
-                this.decor = "none"
-                this.outfits = "none"
+                this.extra = "none"
+                this.decors = "none"
+                this.outfit = "none"
             },
             displayExtras() {
                 this.kitInfo = "none"
                 this.addOns = "none"
-                this.extras = "block"
-                this.decor = "none"
-                this.outfits = "none"
+                this.extra = "block"
+                this.decors = "none"
+                this.outfit = "none"
             },
             displayDecor() {
                 this.kitInfo = "none"
                 this.addOns = "none"
-                this.extras = "none"
-                this.decor = "block"
-                this.outfits = "none"
+                this.extra = "none"
+                this.decors = "block"
+                this.outfit = "none"
             },
             displayOutfit() {
                 this.kitInfo = "none"
                 this.addOns = "none"
-                this.extras = "none"
-                this.decor = "none"
-                this.outfits = "block"
+                this.extra = "none"
+                this.decors = "none"
+                this.outfit = "block"
             },
             addWorkshop() {
                 alert("joe")
+            },
+            getLastId() {
+                return this.$store.getters.bookingLastId
+            },
+            saveBooking(){
+                this.$store.commit('ADD_BOOKING', {
+                    id: this.getLastId(),
+                    reason: this.reason,
+                    date: this.date,
+                    duration: this.hi + "-" + this.hf,
+                    numberPeople: this.people,
+                    drinks: this.checkedDrinks,
+                    food: this.checkedFood,
+                    extras: this.checkedExtras,
+                    decor:this.checkedDecor,
+                    outfit:this.checkedImage,
+                    
+                })
             }
+        },
+        computed: {
+            searchKits() {
+                return this.ingredients;
+            },
+            searchExtras() {
+                return this.extras;
+            },
+              searchDecor() {
+                return this.decor;
+            },
+               searchOutfits() {
+                return this.outfits;
+            }
+            
         }
+
     }
 </script>
 
