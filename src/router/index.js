@@ -72,9 +72,9 @@ const routes = [
     component: () => import("../views/Inscriptions.vue")
   },
   {
-    path: "/addons",
-    name: "addons",
-    component: () => import("../views/AddOns.vue")
+    path: "/booking",
+    name: "booking",
+    component: () => import("../views/Booking.vue")
   },
   {
     path: "/kitManeger",

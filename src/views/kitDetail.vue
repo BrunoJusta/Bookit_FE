@@ -10,7 +10,7 @@
 
      <!--  <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button> -->
       <b-button class="btn-book" squared>
-      <router-link to="/addons" class="teste" style="color:white"> Escolher </router-link>
+      <router-link to="/booking" class="teste" style="color:white"> Escolher </router-link>
       </b-button>
   </div>
   </div>

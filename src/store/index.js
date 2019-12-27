@@ -18,47 +18,47 @@ export default new Vuex.Store({
     kits: [{
         id: 0,
         name: "menu A",
-        drinks:["café", "leite"],
-        food:["bolo"],
+        drinks: ["café", "leite"],
+        food: ["bolo"],
         type: "cB"
       },
       {
         id: 1,
         name: "menu B",
-        drinks:["café", "leite"],
-        food:["bolo"],
+        drinks: ["café", "leite"],
+        food: ["bolo"],
         type: "cB"
 
       },
       {
         id: 2,
         name: "menu B",
-        drinks:["café", "leite"],
-        food:["bolo"],
+        drinks: ["café", "leite"],
+        food: ["bolo"],
         type: "cB"
 
       },
       {
         id: 3,
         name: "menu A",
-        drinks:["café", "leite"],
-        food:["bolo"],
+        drinks: ["café", "leite"],
+        food: ["bolo"],
         type: "jG"
 
       },
       {
         id: 4,
         name: "menu B",
-        drinks:["café", "leite"],
-        food:["bolo"],
+        drinks: ["café", "leite"],
+        food: ["bolo"],
         type: "jG"
 
       },
       {
         id: 5,
         name: "menu C",
-        drinks:["café", "leite"],
-        food:["bolo"],
+        drinks: ["café", "leite"],
+        food: ["bolo"],
         type: "jG"
 
       }
@@ -69,7 +69,7 @@ export default new Vuex.Store({
         date: "20/12/2019",
         time: "12h - 14h",
         teacher: "João",
-        description:"wow"
+        description: "wow"
       },
       {
         id: 1,
@@ -77,7 +77,7 @@ export default new Vuex.Store({
         date: "20/12/2019",
         time: "12h - 14h",
         teacher: "João",
-        description:"wow"
+        description: "wow"
 
       },
       {
@@ -86,7 +86,7 @@ export default new Vuex.Store({
         date: "20/12/2019",
         time: "12h - 14h",
         teacher: "João",
-        description:"wow"
+        description: "wow"
 
 
       }
@@ -113,36 +113,70 @@ export default new Vuex.Store({
     loggedUser: [],
     userExists: false,
     bookings: [],
-    inscriptions:[],
-    drinks:["café", "chá"],
-    food:["bolachas", "bolo"],
-    ingredients: [
-      {
-        id:0,
-        name: "Café",
-        type: "Drink",
-      }, {
-        id:1,
-        name: "Leite",
-        type: "Drink",
-      }, {
-        id:2,
-        name: "Bolo",
-        type: "Food",
-      }, {
-        id:3,
-        name: "Bolachas",
-        type: "Food",
+    inscriptions: [],
+    drinks: ["café", "chá"],
+    food: ["bolachas", "bolo"],
+    ingredients: [{
+      id: 0,
+      name: "Café",
+      type: "Drink",
+    }, {
+      id: 1,
+      name: "Leite",
+      type: "Drink",
+    }, {
+      id: 2,
+      name: "Bolo",
+      type: "Food",
+    }, {
+      id: 3,
+      name: "Bolachas",
+      type: "Food",
+    }],
+    extras: [{
+      id: 0,
+      name: "Babysiting"
+    }, {
+      id: 1,
+      name: "Palhaços"
+    }, {
+      id: 2,
+      name: "Atuação Musical"
+    }],
+    decor: [{
+      id: 0,
+      name: "Centros de Mesa"
+    }, {
+      id: 1,
+      name: "Lounge"
+    }, {
+      id: 2,
+      name: "Fitas Coloridas"
+    }],
+
+    outfits: [{
+        id: 0,
+        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg"
       },
+      {
+        id: 1,
+        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg"
+      },
+      {
+        id: 2,
+        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg"
+      }
     ]
   },
-
   mutations: {
     STORE_ITEMS(state) {
       localStorage.setItem("kits", JSON.stringify(state.kits));
       localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
       localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
+      localStorage.setItem("outfits", JSON.stringify(state.outfits));
+      localStorage.setItem("extras", JSON.stringify(state.extras));
+      localStorage.setItem("decor", JSON.stringify(state.decor));
     },
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {
@@ -160,7 +194,9 @@ export default new Vuex.Store({
           });
           localStorage.setItem("users", JSON.stringify(state.users));
           alert("Registado");
-          router.push({name:'login'})
+          router.push({
+            name: 'login'
+          })
         }
       } else {
         alert("E-MAIL JÁ EXISTENTE");
@@ -185,9 +221,13 @@ export default new Vuex.Store({
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
           if (user.userType === "admin") {
-            router.push({name:'adminHome'})
+            router.push({
+              name: 'adminHome'
+            })
           } else if (user.userType === "cliente") {
-            router.push({name:'home'})
+            router.push({
+              name: 'home'
+            })
           }
           if (state.userExists === false) {
             alert("Credenciais Inválidas");
@@ -202,63 +242,62 @@ export default new Vuex.Store({
       localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
       sessionStorage.removeItem("userOn");
       state.logged = false;
-      router.push({name:'home'})
+      router.push({
+        name: 'home'
+      })
     },
     ADD_WORKSHOP_ATENDER(state, payload) {
-      if (!state.inscriptions.some(b => b.Inscrito === payload.clientName) || !state.inscriptions.some(b => b.Workshop === payload.workshopName)){
-          state.inscriptions.push({
-            workshopName:  payload.workshopName,
-            date:  payload.date,
-            time:  payload.time,
-            clientName:  payload.clientName,
-          });
-          localStorage.setItem("inscriptions", JSON.stringify(state.inscriptions));
-          alert("RESERVA CONCLUIDA COM SUCESSO")
+      if (!state.inscriptions.some(b => b.Inscrito === payload.clientName) || !state.inscriptions.some(b => b.Workshop === payload.workshopName)) {
+        state.inscriptions.push({
+          workshopName: payload.workshopName,
+          date: payload.date,
+          time: payload.time,
+          clientName: payload.clientName,
+        });
+        localStorage.setItem("inscriptions", JSON.stringify(state.inscriptions));
+        alert("RESERVA CONCLUIDA COM SUCESSO")
       } else {
         alert("Já Inscrito");
       }
     },
     ADD_KIT(state, payload) {
       if (!state.kits.some(kit => kit.name === payload.name)) {
-            state.kits.push({
-            id: payload.id,
-            name: payload.name,
-            type: payload.type,
-            drinks: payload.drinks,
-            food: payload.food
-          });
-          localStorage.setItem("kits", JSON.stringify(state.kits));
-        }
-      else {
+        state.kits.push({
+          id: payload.id,
+          name: payload.name,
+          type: payload.type,
+          drinks: payload.drinks,
+          food: payload.food
+        });
+        localStorage.setItem("kits", JSON.stringify(state.kits));
+      } else {
         alert("Nome já em uso!");
       }
     },
     ADD_WORKSHOP(state, payload) {
       if (!state.workshops.some(w => w.name === payload.name)) {
-            state.workshops.push({
-            id: payload.id,
-            name: payload.name,
-            teacher: payload.teacher,
-            date: payload.date,
-            time: payload.time,
-            description: payload.description
-          });
-          localStorage.setItem("workshops", JSON.stringify(state.workshops));
-        }
-      else {
+        state.workshops.push({
+          id: payload.id,
+          name: payload.name,
+          teacher: payload.teacher,
+          date: payload.date,
+          time: payload.time,
+          description: payload.description
+        });
+        localStorage.setItem("workshops", JSON.stringify(state.workshops));
+      } else {
         alert("Workshop já existe!");
       }
     },
     ADD_INGREDIENT(state, payload) {
       if (!state.ingredients.some(ing => ing.name === payload.name)) {
-            state.ingredients.push({
-            id: payload.id,
-            name: payload.name,
-            type: playload.type,
-          });
-          localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
-        }
-      else {
+        state.ingredients.push({
+          id: payload.id,
+          name: payload.name,
+          type: payload.type,
+        });
+        localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
+      } else {
         alert("Ingrediente já existe!");
       }
     },
@@ -301,7 +340,7 @@ export default new Vuex.Store({
         return state.logged;
       }
     },
-    getName(state){
+    getName(state) {
       return state.loggedUser[0].name
     }
   }
