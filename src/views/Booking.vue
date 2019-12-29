@@ -24,7 +24,6 @@
             </b-button>
         </div>
         <form @submit.prevent="saveBooking()">
-
             <div class="container" v-bind:style="{display: kitInfo}">
                 <!-- MOTIVO -->
                 <label for="reason">Motivo</label>
@@ -57,8 +56,8 @@
                         <div class="container" v-for="i in searchKits" :key="i.id">
                             <div class="form-check" v-if="i.type=='Drink'">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input"  :value="i.name" v-model="checkedDrinks"
-                                        checked>
+                                    <input type="checkbox" class="form-check-input" :value="i.name"
+                                        v-model="checkedDrinks" checked>
                                     {{i.name}}
                                 </label>
                             </div>
@@ -69,8 +68,8 @@
                         <div class="container" v-for="i in searchKits" :key="i.id">
                             <div class="form-check" v-if="i.type=='Food'">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input"  :value="i.name" v-model="checkedFood"
-                                        checked>
+                                    <input type="checkbox" class="form-check-input" :value="i.name"
+                                        v-model="checkedFood" checked>
                                     {{i.name}}
                                 </label>
                             </div>
@@ -82,37 +81,38 @@
 
 
 
-            <div class="container" v-bind:style="{display: extra}" >
+            <div class="container" v-bind:style="{display: extra}">
                 <h1>Extras</h1>
                 <div class="container" v-for="e in searchExtras" :key="e.id">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input"  :value="e.name" v-model="checkedExtras" checked>
+                        <input type="checkbox" class="form-check-input" :value="e.name" v-model="checkedExtras" checked>
                         {{e.name}}
                     </label>
                 </div>
             </div>
 
-            <div class="container" v-bind:style="{display: decors}" >
+            <div class="container" v-bind:style="{display: decors}">
                 <h1>Decorações</h1>
                 <div class="container" v-for="d in searchDecor" :key="d.id">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input"  :value="d.name" v-model="checkedDecor" checked>
+                        <input type="checkbox" class="form-check-input" :value="d.name" v-model="checkedDecor" checked>
                         {{d.name}}
                     </label>
                 </div>
             </div>
 
             <div class="container" v-bind:style="{display: outfit}">
-              <div class="row" >
-                <div class="form-check" v-for="i in searchOutfits" :key="i.id">
-                    <div class="col-sm-4">
-                         <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input"  :value="i.source" v-model="checkedImage" >
-                        <img style="height:300px; width:auto" v-bind:src="i.source" />
-                    </label>
+                <div class="row">
+                    <div class="form-check" v-for="i in searchOutfits" :key="i.id">
+                        <div class="col-sm-4">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" :value="i.source"
+                                    v-model="checkedImage">
+                                <img style="height:300px; width:auto" v-bind:src="i.source" />
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
             <!-- <div v-if="kitInfo">
                 <KitInfo  v-bind:style="{display: kitInfo} " />
@@ -145,6 +145,11 @@
     export default {
         data: function () {
             return {
+                userName: "",
+                userEmail: "",
+                currentKit: [],
+                kitName: "",
+                kitType: "",
                 kitInfo: "block",
                 addOns: "none",
                 extra: "none",
@@ -158,21 +163,24 @@
                 ingredients: [],
                 extras: [],
                 decor: [],
-                 outfits: [],
-                 checkedDrinks: [],
-                 checkedFood: [],
-                 checkedExtras: [],
-                 checkedDecor: [],
-                 checkedImage: [],
-
-
+                outfits: [],
+                checkedDrinks: [],
+                checkedFood: [],
+                checkedExtras: [],
+                checkedDecor: [],
+                checkedImage: [],
             }
         },
         created() {
             this.ingredients = this.$store.state.ingredients
             this.extras = this.$store.state.extras
-             this.decor = this.$store.state.decor
-                  this.outfits = this.$store.state.outfits
+            this.decor = this.$store.state.decor
+            this.outfits = this.$store.state.outfits
+            this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName 
+            this.userEmail = this.$store.getters.getEmail
+            this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
+            this.kitName = this.currentKit[0].kitname
+            this.kitType = this.currentKit[0].kitType
         },
         components: {
             /*  KitInfo,
@@ -223,9 +231,13 @@
             getLastId() {
                 return this.$store.getters.bookingLastId
             },
-            saveBooking(){
+            saveBooking() {
                 this.$store.commit('ADD_BOOKING', {
                     id: this.getLastId(),
+                    userName: this.userName,
+                    userEmail: this.userEmail,
+                    kitName: this.kitName,
+                    kitType: this.kitType,
                     reason: this.reason,
                     date: this.date,
                     duration: this.hi + "-" + this.hf,
@@ -233,9 +245,8 @@
                     drinks: this.checkedDrinks,
                     food: this.checkedFood,
                     extras: this.checkedExtras,
-                    decor:this.checkedDecor,
-                    outfit:this.checkedImage,
-                    
+                    decor: this.checkedDecor,
+                    outfit: this.checkedImage,
                 })
             }
         },
@@ -246,13 +257,15 @@
             searchExtras() {
                 return this.extras;
             },
-              searchDecor() {
+            searchDecor() {
                 return this.decor;
             },
-               searchOutfits() {
+            searchOutfits() {
                 return this.outfits;
+            },
+            searchCurrentKit() {
+                return this.currentKit
             }
-            
         }
 
     }

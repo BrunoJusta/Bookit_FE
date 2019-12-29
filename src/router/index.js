@@ -85,7 +85,12 @@ const routes = [
     path: "/WorkshopManeger",
     name: "WorkshopManeger",
     component: () => import("../views/WorkshopManeger.vue")
-  }
+  },
+  {
+    path: "/areasbooking",
+    name: "areasbooking",
+    component: () => import("../views/AreasBooking.vue")
+  },
 ]
 
 const router = new VueRouter({

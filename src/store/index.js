@@ -113,6 +113,7 @@ export default new Vuex.Store({
     loggedUser: [],
     userExists: false,
     bookings: [],
+    areaBookings: [],
     inscriptions: [],
     drinks: ["café", "chá"],
     food: ["bolachas", "bolo"],
@@ -290,19 +291,35 @@ export default new Vuex.Store({
       }
     },
     ADD_BOOKING(state, payload) {
-        state.bookings.push({
-          id: payload.id,
-          reason: payload.reason,
-          date: payload.date,
-          duration: payload.duration,
-          numberPeople: payload.numberPeople,
-          drinks: payload.drinks,
-          food: payload.food,
-          extras: payload.extras,
-          decor: payload.decor,
-          outfit:payload.outfit,
-        });
-        localStorage.setItem("bookings", JSON.stringify(state.bookings));
+      state.bookings.push({
+        id: payload.id,
+        userName: payload.userName,
+        userEmail: payload.userEmail,
+        kitName: payload.kitName,
+        kitType: payload.kitType,
+        reason: payload.reason,
+        date: payload.date,
+        duration: payload.duration,
+        numberPeople: payload.numberPeople,
+        drinks: payload.drinks,
+        food: payload.food,
+        extras: payload.extras,
+        decor: payload.decor,
+        outfit: payload.outfit,
+      });
+      localStorage.setItem("bookings", JSON.stringify(state.bookings));
+    },
+    ADD_AREA_BOOKING(state, payload) {
+      state.areaBookings.push({
+        id: payload.id,
+        userName: payload.userName,
+        userEmail: payload.userEmail,
+        areaName: payload.areaName,
+        reason: payload.reason,
+        date: payload.date,
+        duration: payload.duration,
+      });
+      localStorage.setItem("areaBookings", JSON.stringify(state.areaBookings));
     },
     ADD_INGREDIENT(state, payload) {
       if (!state.ingredients.some(ing => ing.name === payload.name)) {
@@ -364,6 +381,12 @@ export default new Vuex.Store({
     },
     getName(state) {
       return state.loggedUser[0].name
+    },
+    getLastName(state) {
+      return state.loggedUser[0].lastName
+    },
+    getEmail(state) {
+      return state.loggedUser[0].email
     }
   }
 })

@@ -25,6 +25,8 @@
         clientName: "",
         date: "",
         time: "",
+        userName: "",
+        userEmail: ""
       };
     },
     methods: {
@@ -48,7 +50,7 @@
 
       },
       sendInfo() {
-        this.$store.commit('ADD_WORKSHOP_ATENDER', { 
+        this.$store.commit('ADD_WORKSHOP_ATENDER', {
           workshopName: this.workshopName,
           date: this.date,
           time: this.time,
@@ -59,7 +61,8 @@
     created() {
       this.workshops = JSON.parse(localStorage.getItem("workshops"))
       this.clientName = sessionStorage.getItem("userOn")
-
+      this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName
+      this.userEmail = this.$store.getters.getEmail
     },
   }
 </script>
