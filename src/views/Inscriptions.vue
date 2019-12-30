@@ -1,7 +1,6 @@
 <template>
     <div>
 
-
         <div class="container-full title">
             <h1 id="redTitle">INSCRIÇÕES</h1>
             <hr class="back-line">
@@ -10,20 +9,14 @@
             </div>
         </div>
 
-
         <div class="container table">
-
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
-
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered fixed small hover
                 head-variant="dark" responsive="sm" :items="this.inscriptions" :fields="fields">
             </b-table>
-
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
-
-
 
     </div>
 </template>
@@ -31,11 +24,6 @@
 <script>
     export default {
         name: 'InscriptionsTables',
-        computed: {
-            searchInscriptions() {
-                return this.inscriptions;
-            }
-        },
         data: function () {
             return {
                 perPage: 3,
@@ -61,9 +49,9 @@
                         sortable: true
                     }
                 ],
-            };
-            inscriptions: [];
-            x: "";
+                inscriptions: [],
+                x: ""
+            }
         },
         created() {
             if (localStorage.getItem("inscriptions")) {
@@ -71,6 +59,9 @@
             }
         },
         computed: {
+            searchInscriptions() {
+                return this.inscriptions;
+            },
             rows() {
                 return this.inscriptions.length
             }
@@ -80,8 +71,7 @@
 </script>
 
 <style lang="scss" scoped>
-
- #redTitle {
+    #redTitle {
         font-family: "bookMan";
         font-size: 45px;
         color: #B91C3B;
@@ -130,7 +120,7 @@
         margin-bottom: -60px;
     }
 
-    .table{
+    .table {
         padding-bottom: 100px;
     }
 </style>
