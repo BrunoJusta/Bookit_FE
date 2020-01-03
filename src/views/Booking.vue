@@ -46,7 +46,7 @@
                         </b-form-group>
 
                         <b-form-group class="input" id="input-group-6">
-                            <label  class="lable" for="hi">Hora de Início:</label>
+                            <label class="lable" for="hi">Hora de Início:</label>
 
                             <b-form-input type="time" id="hi" v-model="hi">
                             </b-form-input>
@@ -129,8 +129,7 @@
                     <div class="form-check" v-for="i in searchOutfits" :key="i.id">
                         <div class="col-sm-4">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" :value="i.name"
-                                    v-model="checkedImage">
+                                <input type="checkbox" class="form-check-input" :value="i.name" v-model="checkedImage">
                                 <img style="height:300px; width:auto" v-bind:src="i.source" />
                             </label>
                         </div>
@@ -153,7 +152,8 @@
                 <Outfits v-bind:style="{display: outfits}" />
             </div>
             <br> -->
-            <b-button type="submit" @click="teste" value="Adicionar" class="btn btn-primary" squared>Adicionar</b-button>
+            <b-button type="submit" @click="teste" value="Adicionar" class="btn btn-primary" squared>Adicionar
+            </b-button>
         </form>
 
     </div>
@@ -166,7 +166,7 @@
     import Decorations from '@/components/Decorations.vue';
     import Outfits from '@/components/Outfits.vue'; */
     export default {
-        data:  function () {
+        data: function () {
             return {
                 userName: "",
                 userEmail: "",
@@ -194,17 +194,21 @@
                 checkedImage: [],
             }
         },
-        
+
         created() {
+            window.addEventListener('unload', this.saveStorage)
+            if (localStorage.getItem("bookings")) {
+                this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
+            }
             this.ingredients = this.$store.state.ingredients
             this.extras = this.$store.state.extras
             this.decor = this.$store.state.decor
             this.outfits = this.$store.state.outfits
             this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail
-           
 
-             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
+
+            this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             this.kitName = this.currentKit[0].kitname
             this.kitType = this.currentKit[0].kitType
         },
@@ -216,11 +220,11 @@
              Outfits */
         },
         methods: {
-            teste(){
+            teste() {
 
-             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
-            this.kitName = this.currentKit[0].kitname
-            this.kitType = this.currentKit[0].kitType
+                this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
+                this.kitName = this.currentKit[0].kitname
+                this.kitType = this.currentKit[0].kitType
             },
             displayInfo() {
                 this.kitInfo = "block"
@@ -301,7 +305,7 @@
 </script>
 
 <style lang="scss" scoped>
-.lable{
-    float: left;
-}
+    .lable {
+        float: left;
+    }
 </style>

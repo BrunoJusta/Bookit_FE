@@ -54,11 +54,15 @@
           workshopName: this.workshopName,
           date: this.date,
           time: this.time,
-          clientName: this.clientName,
+          clientName: this.clientName
         })
       }
     },
     created() {
+      window.addEventListener('unload', this.saveStorage)
+      if (localStorage.getItem("inscriptions")) {
+        this.$store.state.inscriptions = JSON.parse(localStorage.getItem("inscriptions"))
+      }
       this.workshops = JSON.parse(localStorage.getItem("workshops"))
       this.clientName = sessionStorage.getItem("userOn")
       this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName

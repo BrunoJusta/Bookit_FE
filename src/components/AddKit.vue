@@ -1,6 +1,6 @@
 <template>
     <div>
-   
+
         <div class="container col-sm-4">
             <form @submit.prevent="addKit()">
                 <!-- NOME -->
@@ -20,10 +20,10 @@
                 <label for="ing">Ingredientes:</label>
                 <div class="container" id="ing" v-for="i in searchKits" :key="i.id">
                     <div v-if="i.type == 'Food'">
-                    <input type="checkbox" :value="i.name" v-model="checkedFood">{{i.name}}
+                        <input type="checkbox" :value="i.name" v-model="checkedFood">{{i.name}}
                     </div>
                     <div v-if="i.type == 'Drink'">
-                    <input type="checkbox" :value="i.name" v-model="checkedDrink">{{i.name}}
+                        <input type="checkbox" :value="i.name" v-model="checkedDrink">{{i.name}}
                     </div>
                 </div>
                 <br>
@@ -61,6 +61,10 @@
             }
         },
         created() {
+            window.addEventListener('unload', this.saveStorage)
+            if (localStorage.getItem("kits")) {
+                this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
+            }
             this.ingredients = this.$store.state.ingredients
 
         },
