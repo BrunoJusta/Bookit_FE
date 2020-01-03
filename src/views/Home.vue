@@ -90,8 +90,6 @@
     padding-bottom: 150px;
   }
 
-
-
   #banner-link {
     color: white;
   }

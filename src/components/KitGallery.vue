@@ -1,22 +1,22 @@
 <template>
     <div>
 
-        <div id="CoffeeBreaks" class="container">
+        <div id="CoffeeBreaks" class="container" >
             <h2 id="redSubTitle">Coffee Break</h2>
 
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
-                    <div id="card-maker" v-if="k.type=='cB'">
+                    <div id="card-maker" v-if="k.type=='Coffee Break'">
                         <b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
                             style="max-width: 20rem;" class="mb-2 border-0">
                             <h2 class=" card-title">{{k.name}}</h2>
-                            <b-button class="btn-book" squared>
+                            <b-button class="btn-book" squared v-bind:style="{visibility: choose}" >
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
+                            <b-button class="btn-remove" v-bind:style="{visibility: remove}" squared> Remover </b-button>
                         </b-card>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -26,17 +26,17 @@
             <h2 id="redSubTitle">Jantar de Gala</h2>
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
-                    <div id="card-maker" v-if="k.type=='jG'">
+                    <div id="card-maker" v-if="k.type=='Jantar de Gala'">
                         <b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
                             style="max-width: 20rem;" class="mb-2 border-0">
                             <h2 class=" card-title">{{k.name}}</h2>
-                            <b-button class="btn-book" squared>
+                            <b-button class="btn-book" squared v-bind:style="{visibility: choose}" > 
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
+                            <b-button class="btn-remove"  v-bind:style="{visibility: remove}" squared> Remover </b-button>
                         </b-card>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -54,10 +54,15 @@
             }
         },
         data: function () {
-            return {};
-            kits: [];
-            x: "";
-            teste: $store.state.logged;
+            return {
+                kits: [],
+                x: "",
+                onlineUser: "",
+                remove: "",
+                choose: ""
+            };
+
+
         },
 
         created() {
@@ -68,6 +73,14 @@
                 this.x = "login"
             } else {
                 this.x = "kitDetail"
+            }
+            if(this.$store.getters.getName === "Admin"){
+                this.remove = "visible"
+                this.choose = "hidden"
+            }
+            else{
+                 this.remove = "hidden"
+                this.choose = "visible"
             }
         },
 
@@ -97,6 +110,13 @@
         font-size: 18px;
         background-color: #0A2463;
         margin-bottom: -60px;
+    }
+
+    .btn-remove {
+        font-size: 16px;
+        background-color: #0A2463;
+        margin-bottom: -60px;
+        float: right;
     }
 
     .back-line {

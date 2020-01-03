@@ -91,6 +91,11 @@ const routes = [
     name: "areasbooking",
     component: () => import("../views/AreasBooking.vue")
   },
+  {
+    path: "/bookingTables",
+    name: "bookingTables",
+    component: () => import("../views/BookingTable.vue")
+  },
 ]
 
 const router = new VueRouter({

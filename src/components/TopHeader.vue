@@ -25,30 +25,20 @@
 
 <script>
     export default {
-        data: () => ({
-            path: "login",
-            onlineUser: ""
-        }),
-        created: function () {
-            if (localStorage.getItem("users")) {
-                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
+        data: function () {
+            return {
+                path: "login",
+                onlineUser: ""
             }
+        },
+        created: function () {
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
-             if (localStorage.getItem("ingredients")) {
+            if (localStorage.getItem("ingredients")) {
                 this.$store.state.ingredients = JSON.parse(localStorage.getItem("ingredients"))
             }
-            if (localStorage.getItem("loggedUser") && localStorage.getItem("loggedUser") !== []) {
-                this.onlineUser = sessionStorage.getItem("userOn")
-                this.offline = "none"
-                this.online = "block"
-            } else {
-                this.offline = "block"
-                this.online = "none"
-            }
             this.$store.commit('STORE_ITEMS')
-            alert(this.path)
 
         },
         computed: {
@@ -57,6 +47,7 @@
                     this.path = "profile"
                     return this.$store.getters.getName
                 } else {
+                    this.path = "login"
                     return "Entrar"
                 }
 

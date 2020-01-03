@@ -1,17 +1,6 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+   
         <div class="container col-sm-4">
             <form @submit.prevent="addKit()">
                 <!-- NOME -->
@@ -29,16 +18,14 @@
                 <br>
                 <!-- INGREDIENTES -->
                 <label for="ing">Ingredientes:</label>
-                <input type="checkbox" value="Café" v-model="checkedDrink">Café
-                <br>
-                <input type="checkbox" value="Chá" v-model="checkedDrink">Chá
-                <br>
-                <input type="checkbox" value="Bolo" v-model="checkedFood">Bolo
-                <br>
-                <input type="checkbox" value="Bolachas" v-model="checkedFood">Bolachas
-                <!-- <div class="container" id="ing" v-for="i in searchKits" :key="i.id" >
-                    <input type="checkbox" value="" v-model="checkedIng">{{i.name}}
-                </div> -->
+                <div class="container" id="ing" v-for="i in searchKits" :key="i.id">
+                    <div v-if="i.type == 'Food'">
+                    <input type="checkbox" :value="i.name" v-model="checkedFood">{{i.name}}
+                    </div>
+                    <div v-if="i.type == 'Drink'">
+                    <input type="checkbox" :value="i.name" v-model="checkedDrink">{{i.name}}
+                    </div>
+                </div>
                 <br>
                 <br>
 
@@ -70,7 +57,7 @@
                 checkedDrink: [],
                 ingredients: [],
                 type: "",
-                types: ['cB', 'Jantar de Gala', 'Porto de Honra'],
+                types: ['Coffee Break', 'Jantar de Gala', 'Porto de Honra'],
             }
         },
         created() {
@@ -94,7 +81,6 @@
                     drinks: this.checkedDrink,
                     food: this.checkedFood
                 })
-                alert(this.checkedDrink)
             },
         }
     }

@@ -61,6 +61,7 @@
         });
         localStorage.setItem("currentKit", JSON.stringify(this.currentKit));
       }
+
     },
     created() {
       this.kits = JSON.parse(localStorage.getItem("kits"))

@@ -6,6 +6,7 @@
         <br>
         <br>
         <br>
+
         <div class="container" style="justify-content: center;">
             <b-button v-on:click="displayInfo()" class="teste border-0"
                 style="background-color:transparent; color:black; padding:10px">Informaçoes
@@ -23,31 +24,53 @@
                 style="background-color:transparent; color:black; padding:10px">Fardas
             </b-button>
         </div>
+        <h3>{{kitType}} - {{kitName}}</h3>
         <form @submit.prevent="saveBooking()">
             <div class="container" v-bind:style="{display: kitInfo}">
                 <!-- MOTIVO -->
-                <label for="reason">Motivo</label>
-                <br>
-                <textarea id="reason" v-model="reason" rows="4" cols="50"></textarea>
-                <br>
-                <!-- MOTIVAÇÃO -->
-                <label for="date">Data:</label>
-                <input type="date" v-model="date">
-                <br>
-                <br>
-                <!-- MOTIVAÇÃO -->
-                <label for="hi">Hora de Início:</label>
-                <input type="time" id="hi" v-model="hi">
-                <br>
-                <!-- MOTIVAÇÃO -->
-                <label for="hf">Hora do Final:</label>
-                <input type="time" id="hf" v-model="hf">
-                <br>
-                <br>
-                <label for="people">Número de Pessoas:</label>
-                <input type="number" name="" id="people" min="20" max="50" v-model="people">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="reason" class="lable">Motivo</label>
+                            <textarea class="form-control" id="reason" v-model="reason" rows="4" cols="50"></textarea>
+                        </div>
+                    </div>
 
+
+                    <div class="col-sm-3">
+
+                        <b-form-group class="input" id="input-group-6">
+                            <label class="lable" for="date">Data:</label>
+                            <b-form-input type="date" v-model="date">
+                            </b-form-input>
+                        </b-form-group>
+
+                        <b-form-group class="input" id="input-group-6">
+                            <label  class="lable" for="hi">Hora de Início:</label>
+
+                            <b-form-input type="time" id="hi" v-model="hi">
+                            </b-form-input>
+                        </b-form-group>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <b-form-group class="input" id="input-group-6">
+                            <label class="lable" for="people">Número de Pessoas:</label>
+                            <b-form-input type="number" name="" id="people" min="20" max="50" v-model="people">
+                            </b-form-input>
+                        </b-form-group>
+                        <b-form-group class="input" id="input-group-6">
+                            <label class="lable" for="hf">Hora do Final:</label>
+                            <b-form-input type="time" id="hf" v-model="hf">
+                            </b-form-input>
+                        </b-form-group>
+                    </div>
+
+
+
+                </div>
             </div>
+
 
             <div class="container" v-bind:style="{display: addOns}">
                 <div class="row">
@@ -106,7 +129,7 @@
                     <div class="form-check" v-for="i in searchOutfits" :key="i.id">
                         <div class="col-sm-4">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" :value="i.source"
+                                <input type="checkbox" class="form-check-input" :value="i.name"
                                     v-model="checkedImage">
                                 <img style="height:300px; width:auto" v-bind:src="i.source" />
                             </label>
@@ -130,7 +153,7 @@
                 <Outfits v-bind:style="{display: outfits}" />
             </div>
             <br> -->
-            <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
+            <b-button type="submit" @click="teste" value="Adicionar" class="btn btn-primary" squared>Adicionar</b-button>
         </form>
 
     </div>
@@ -143,7 +166,7 @@
     import Decorations from '@/components/Decorations.vue';
     import Outfits from '@/components/Outfits.vue'; */
     export default {
-        data: function () {
+        data:  function () {
             return {
                 userName: "",
                 userEmail: "",
@@ -171,14 +194,17 @@
                 checkedImage: [],
             }
         },
+        
         created() {
             this.ingredients = this.$store.state.ingredients
             this.extras = this.$store.state.extras
             this.decor = this.$store.state.decor
             this.outfits = this.$store.state.outfits
-            this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName 
+            this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail
-            this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
+           
+
+             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             this.kitName = this.currentKit[0].kitname
             this.kitType = this.currentKit[0].kitType
         },
@@ -190,6 +216,12 @@
              Outfits */
         },
         methods: {
+            teste(){
+
+             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
+            this.kitName = this.currentKit[0].kitname
+            this.kitType = this.currentKit[0].kitType
+            },
             displayInfo() {
                 this.kitInfo = "block"
                 this.addOns = "none"
@@ -224,9 +256,6 @@
                 this.extra = "none"
                 this.decors = "none"
                 this.outfit = "block"
-            },
-            addWorkshop() {
-                alert("joe")
             },
             getLastId() {
                 return this.$store.getters.bookingLastId
@@ -272,5 +301,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+.lable{
+    float: left;
+}
 </style>

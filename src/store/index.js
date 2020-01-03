@@ -20,14 +20,14 @@ export default new Vuex.Store({
         name: "menu A",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "cB"
+        type: "Coffee Break"
       },
       {
         id: 1,
         name: "menu B",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "cB"
+        type: "Coffee Break"
 
       },
       {
@@ -35,7 +35,7 @@ export default new Vuex.Store({
         name: "menu B",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "cB"
+        type: "Coffee Break"
 
       },
       {
@@ -43,7 +43,7 @@ export default new Vuex.Store({
         name: "menu A",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "jG"
+        type: "Jantar de Gala"
 
       },
       {
@@ -51,7 +51,7 @@ export default new Vuex.Store({
         name: "menu B",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "jG"
+        type: "Jantar de Gala"
 
       },
       {
@@ -59,7 +59,7 @@ export default new Vuex.Store({
         name: "menu C",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "jG"
+        type: "Jantar de Gala"
 
       }
     ],
@@ -157,16 +157,21 @@ export default new Vuex.Store({
 
     outfits: [{
         id: 0,
-        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg"
+        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        name:"Outfit_1"
       },
       {
         id: 1,
-        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg"
+        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        name:"Outfit_2"
+
       },
       {
         id: 2,
-        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg"
-      }
+        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        name:"Outfit_3"
+
+      },
     ]
   },
   mutations: {
@@ -218,17 +223,16 @@ export default new Vuex.Store({
           });
           localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
           state.logged = true;
-          alert("LOGIN");
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
           if (user.userType === "admin") {
-            router.push({
-              name: 'adminHome'
-            })
+            window.location = "../views/AdminHome.vue"
+
+          /*router.push({name: 'adminHome'})   Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina*/
           } else if (user.userType === "cliente") {
-            router.push({
-              name: 'home'
-            })
+            window.location = "../views/Home.vue"
+           /*  router.push({ name: 'home'})  Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina*/ 
+
           }
           if (state.userExists === false) {
             alert("Credenciais Inválidas");
@@ -243,9 +247,7 @@ export default new Vuex.Store({
       localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
       sessionStorage.removeItem("userOn");
       state.logged = false;
-      router.push({
-        name: 'home'
-      })
+      router.push({ name: 'home'})
     },
     ADD_WORKSHOP_ATENDER(state, payload) {
       if (!state.inscriptions.some(b => b.Inscrito === payload.clientName) || !state.inscriptions.some(b => b.Workshop === payload.workshopName)) {
