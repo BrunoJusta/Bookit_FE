@@ -65,7 +65,7 @@ export default new Vuex.Store({
         drinks: ["café", "leite"],
         food: ["bolo"],
         type: "Jantar de Gala",
-        img:require('../assets/eventosCatering.png')
+        img: require('../assets/eventosCatering.png')
 
       }
     ],
@@ -76,7 +76,7 @@ export default new Vuex.Store({
         time: "12h - 14h",
         teacher: "João",
         description: "wow",
-        img:require('../assets/workshopTemplate.png'),
+        img: require('../assets/workshopTemplate.png'),
         inscriptions: []
 
       },
@@ -87,7 +87,7 @@ export default new Vuex.Store({
         time: "12h - 14h",
         teacher: "João",
         description: "wow",
-        img:require('../assets/workshopTemplate.png'),
+        img: require('../assets/workshopTemplate.png'),
         inscriptions: []
 
       },
@@ -98,7 +98,7 @@ export default new Vuex.Store({
         time: "12h - 14h",
         teacher: "João",
         description: "wow",
-        img:require('../assets/workshopTemplate.png'),
+        img: require('../assets/workshopTemplate.png'),
         inscriptions: []
 
 
@@ -189,7 +189,6 @@ export default new Vuex.Store({
   },
   mutations: {
     STORE_ITEMS(state) {
-      localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
       localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
@@ -231,7 +230,8 @@ export default new Vuex.Store({
             name: user.name,
             lastName: user.lastName,
             email: user.email,
-            password: user.password
+            password: user.password,
+            userType: user.userType
           });
           localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
           state.logged = true;

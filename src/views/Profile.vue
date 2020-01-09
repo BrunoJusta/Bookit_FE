@@ -28,8 +28,34 @@
         </div>
         <br>
 
-        <!-- PARA PASSAR PARA COMPONENTE DEPOIS -->
-        <div class="container">
+        <div class="container option2">
+            <div class="row">
+                <div class="col-sm-4">
+                    <b-button id="link">
+                        <b-card img-src="../assets/eventosCatering.png" class="mb-2 border-0">
+                        </b-card>
+                        Eventos & Catering
+                    </b-button>
+                </div>
+                <div class="col-sm-4">
+                    <b-button id="link">
+                        <b-card img-src="../assets/bar.png" class="mb-2 border-0">
+                        </b-card>
+                        Espaços
+                    </b-button>
+                </div>
+                <div class="col-sm-4">
+                    <b-button id="link">
+                        <b-card img-src="../assets/workshopTemplate.png" class="mb-2 border-0">
+                        </b-card>
+                        Workshops
+                    </b-button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTAINER DOS CARDS DAS RESERVAS -->
+        <div class="container" style="display: none">
             <b-card no-body class="overflow-hidden" style="max-width: 540px;">
                 <b-row no-gutters>
                     <b-col md="5">
@@ -62,7 +88,10 @@
         data: function () {
             return {
                 firstNameUser: "",
-                lastNameUser: ""
+                lastNameUser: "",
+                showEvents: "block",
+                showAreas: "none",
+                showWorshops: "none"
             }
         },
         created() {
@@ -76,7 +105,7 @@
             logout() {
                 this.$store.commit('LOGOUT')
             }
-        }, 
+        },
         computed: {
             getFullName() {
                 return this.firstNameUser + " " + this.lastNameUser
@@ -108,5 +137,31 @@
 
     #nameTxt {
         margin-top: 115px;
+    }
+
+    @font-face {
+        font-family: bookMan;
+        src: url(../assets/bookman.ttf);
+    }
+
+    .option2 {
+        padding-top: 60px;
+        padding-bottom: 150px;
+    }
+
+    #link {
+        color: black;
+        font-size: 25px;
+        background-color: transparent;
+        border: none;
+    }
+
+    .card-body {
+        padding: 0rem;
+        padding-top: 1rem;
+    }
+
+    .mb-2 {
+        max-width: 24rem;
     }
 </style>

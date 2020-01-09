@@ -6,18 +6,27 @@
                 <b-nav-form>
                     <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
                     <div>
-                        <b-button id="logged-btn" squared>
-                            <router-link :to="{name:this.path}">{{getName}}</router-link>
-                        </b-button>
+                        <div class="container">
+                            <b-button id="logged-btn" squared>
+                                <router-link :to="{name:this.path}">{{getName}}</router-link>
+                            </b-button>
+                            <b-button id="logout-btn" v-if="this.$store.state.loggedUser.length != 0"
+                                v-on:click="logout()" v-bind:style="{display: showLogout}" squared>
+                                <router-link to="/">Logout
+                                </router-link>
+                            </b-button>
+                        </div>
                     </div>
                 </b-nav-form>
             </b-navbar-nav>
         </b-navbar>
         <b-navbar id="jon" toggleable="lg" type="dark" variant="info">
             <div class="container">
-                <router-link to="/" class="teste" style="color:black">Início</router-link>
-                <router-link to="/choose" class="teste" style="color:black">Reservas</router-link>
-                <router-link to="/workshops" class="teste" style="color:black">Workshops</router-link>
+                <router-link to="/" class="navOptions">Início</router-link>
+                <router-link to="/choose" class="navOptions" v-bind:style="{display: clientButtons}">Reservas</router-link>
+                <router-link to="/workshops" class="navOptions" v-bind:style="{display: clientButtons}">Workshops</router-link>
+                <router-link to="/adminHome" class="navOptions" v-bind:style="{display: adminButtons}">BackOffice</router-link>
+                <router-link to="/adminHome" class="navOptions" v-bind:style="{display: adminButtons}">BackOffice 2</router-link>
             </div>
         </b-navbar>
     </div>
@@ -28,28 +37,43 @@
         data: function () {
             return {
                 path: "login",
-                onlineUser: ""
+                onlineUser: "",
+                showLogout: "block",
+                adminButtons: "none",
+                clientButtons: "block"
             }
         },
         created: function () {
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+                this.showLogout = "block"
+            } else {
+                this.showLogout = "none";
+                this.path = "login"
             }
             if (localStorage.getItem("ingredients")) {
                 this.$store.state.ingredients = JSON.parse(localStorage.getItem("ingredients"))
             }
             this.$store.commit('STORE_ITEMS')
             this.onlineUser = this.$store.getters.getName
-
-
+            if (this.onlineUser === "Admin") {
+                this.path = "adminHome"//muda o route do botao da navbar para direcionar para o backoffice
+                this.adminButtons = "block"//mostra os botoes da navbar para o admin
+                this.clientButtons = "none"//esconde os botoes do cliente da navbar para o admin
+            }
+        },
+        methods: {
+            logout() {
+                alert("logout efetuado com sucesso")
+                location.reload()
+                this.$store.commit('LOGOUT')
+            }
         },
         computed: {
             getName() {
                 if (localStorage.getItem("loggedUser")) {
-                    this.path = "profile"
                     return this.onlineUser
                 } else {
-                    this.path = "login"
                     return "Entrar"
                 }
 
@@ -90,6 +114,11 @@
         background-color: #0a2463;
     }
 
+    #logout-btn {
+        background-color: #0a2463;
+        margin-left: 10px;
+    }
+
     a {
         font-weight: bold;
         color: white;
@@ -104,8 +133,9 @@
         justify-content: center;
     }
 
-    .teste {
+    .navOptions {
         padding: 10px;
+        color: black;
     }
 
     #logoNavbar {
