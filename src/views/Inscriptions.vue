@@ -34,7 +34,7 @@
                         sortable: true
                     },
                     {
-                        key: 'inscriptions',
+                        key: 'inscriptions.length',
                         label: "Data",
                         sortable: false
                     },
