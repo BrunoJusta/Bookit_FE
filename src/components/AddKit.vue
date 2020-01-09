@@ -16,6 +16,9 @@
                 </datalist>
                 <br>
                 <br>
+                 <!-- NOME -->
+                <label for="name">Image link:</label>
+                <input id="img" v-model="img">
                 <!-- INGREDIENTES -->
                 <label for="ing">Ingredientes:</label>
                 <div class="container" id="ing" v-for="i in searchKits" :key="i.id">
@@ -58,9 +61,11 @@
                 ingredients: [],
                 type: "",
                 types: ['Coffee Break', 'Jantar de Gala', 'Porto de Honra'],
+                img: ""
             }
         },
         created() {
+            window.addEventListener('unload', this.saveStorage)
             this.ingredients = this.$store.state.ingredients
 
         },
@@ -79,8 +84,10 @@
                     name: this.name,
                     type: this.type,
                     drinks: this.checkedDrink,
-                    food: this.checkedFood
+                    food: this.checkedFood,
+                    img: this.img
                 })
+                location.reload()
             },
         }
     }

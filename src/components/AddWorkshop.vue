@@ -24,6 +24,9 @@
                 <input id="teacher" v-model="teacher">
                 <br>
                 <br>
+                  <!-- NOME -->
+                <label for="img">Image Link:</label>
+                <input id="img" v-model="img">
                 <!-- MOTIVAÇÃO -->
                 <label for="date">Data:</label>
                 <input type="date" v-model="date">
@@ -67,7 +70,8 @@
                 hi: "",
                 hf: "",
                 description: "",
-                time: this.hi +"-"+ this.hf
+                time: this.hi +"-"+ this.hf,
+                img: ""
             }
         },
         methods: {
@@ -81,7 +85,8 @@
                     teacher: this.teacher,
                     date: this.date,
                     time: this.hi + "-" + this.hf,
-                    description: this.description
+                    description: this.description,
+                    img: this.img
                     
                 })
             },

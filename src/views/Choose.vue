@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div id="card-maker">
-                        <b-card img-src="https://picsum.photos/600/300/?image=25" class="border-0">
+                        <b-card img-src="../assets/eventosCatering.png" class="border-0">
                             <h3 class=" card-title">
                                 <router-link to="/menuKits" class="link">EVENTOS & CATERING</router-link>
                             </h3>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div id="card-maker">
-                        <b-card img-src="https://picsum.photos/600/300/?image=25" class="border-0">
+                        <b-card img-src="../assets/bar.png" class="border-0">
                             <h3 class=" card-title">
                                 <router-link to="/areas" class="link">ESPAÇOS</router-link>
                             </h3>

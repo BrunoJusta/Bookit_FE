@@ -32,7 +32,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="reason" class="lable">Motivo</label>
-                            <textarea class="form-control" id="reason" v-model="reason" rows="4" cols="50"></textarea>
+                            <textarea class="form-control" style="resize: none;" id="reason" v-model="reason" rows="4" cols="50" required></textarea>
                         </div>
                     </div>
 
@@ -41,14 +41,14 @@
 
                         <b-form-group class="input" id="input-group-6">
                             <label class="lable" for="date">Data:</label>
-                            <b-form-input type="date" v-model="date">
+                            <b-form-input type="date" v-model="date" required>
                             </b-form-input>
                         </b-form-group>
 
                         <b-form-group class="input" id="input-group-6">
                             <label  class="lable" for="hi">Hora de Início:</label>
 
-                            <b-form-input type="time" id="hi" v-model="hi">
+                            <b-form-input type="time" id="hi" v-model="hi" required>
                             </b-form-input>
                         </b-form-group>
                     </div>
@@ -56,12 +56,12 @@
                     <div class="col-sm-3">
                         <b-form-group class="input" id="input-group-6">
                             <label class="lable" for="people">Número de Pessoas:</label>
-                            <b-form-input type="number" name="" id="people" min="20" max="50" v-model="people">
+                            <b-form-input type="number" name="" id="people" min="20" max="50" v-model="people" required>
                             </b-form-input>
                         </b-form-group>
-                        <b-form-group class="input" id="input-group-6">
+                        <b-form-group class="input" id="input-group-6" >
                             <label class="lable" for="hf">Hora do Final:</label>
-                            <b-form-input type="time" id="hf" v-model="hf">
+                            <b-form-input type="time" id="hf" v-model="hf" required>
                             </b-form-input>
                         </b-form-group>
                     </div>
@@ -194,19 +194,20 @@
                 checkedImage: [],
             }
         },
-        
         created() {
+             window.addEventListener('unload', this.saveStorage)
             this.ingredients = this.$store.state.ingredients
             this.extras = this.$store.state.extras
             this.decor = this.$store.state.decor
             this.outfits = this.$store.state.outfits
             this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName
-            this.userEmail = this.$store.getters.getEmail
-           
-
-             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
+            this.userEmail = this.$store.getters.getEmail           
+            this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             this.kitName = this.currentKit[0].kitname
             this.kitType = this.currentKit[0].kitType
+          
+             
+
         },
         components: {
             /*  KitInfo,
@@ -258,7 +259,7 @@
                 this.outfit = "block"
             },
             getLastId() {
-                return this.$store.getters.bookingLastId
+                return this.$store.getters.bookingLastId + 1
             },
             saveBooking() {
                 this.$store.commit('ADD_BOOKING', {

@@ -6,6 +6,7 @@
     <br>
     <div class="jumbotron">
       <h1 class="display-3">{{getWorkshopById($route.params.workshopId).name}}</h1>
+      <b-img v-bind:src="getWorkshopById($route.params.workshopId).img" alt="Image" bottom></b-img>
       <h3>Data:{{getWorkshopById($route.params.workshopId).date}}
         Hora:{{getWorkshopById($route.params.workshopId).time}} </h3>
       <h3>Professor:{{getWorkshopById($route.params.workshopId).teacher}}</h3>
@@ -26,7 +27,8 @@
         date: "",
         time: "",
         userName: "",
-        userEmail: ""
+        userEmail: "",
+        inscriptions: []
       };
     },
     methods: {
@@ -35,6 +37,10 @@
         this.workshopName = this.workshops.filter(
           workshop => workshop.id === id
         )[0].name
+
+        this.inscriptions = this.workshops.filter(
+          workshop => workshop.id === id
+        )[0].inscriptions
 
         this.date = this.workshops.filter(
           workshop => workshop.id === id
@@ -50,12 +56,16 @@
 
       },
       sendInfo() {
-        this.$store.commit('ADD_WORKSHOP_ATENDER', {
-          workshopName: this.workshopName,
-          date: this.date,
-          time: this.time,
-          clientName: this.clientName,
-        })
+        for (let i = 0; i <= this.workshops[0].inscriptions.length; i++) {
+          if (this.workshops[0].inscriptions[i] === this.clientName) {
+            alert("Já Registado")
+          } else {
+            this.workshops[0].inscriptions.push(this.clientName)
+            localStorage.setItem("workshops", JSON.stringify(this.workshops));
+            alert("registado")
+          }
+        }
+
       }
     },
     created() {

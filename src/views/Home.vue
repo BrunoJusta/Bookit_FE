@@ -43,17 +43,17 @@
     <div class="container  options">
       <div class="row">
         <div class="col-sm-4">
-          <b-card img-src="https://picsum.photos/600/300/?image=25" class="mb-2 border-0">
+          <b-card img-src="../assets/eventosCatering.png" class="mb-2 border-0">
             <router-link id="link" to="/addons">Eventos & Catering</router-link>
           </b-card>
         </div>
         <div class="col-sm-4">
-          <b-card img-src="https://picsum.photos/600/300/?image=25" class="mb-2 border-0">
+          <b-card img-src="../assets/bar.png" class="mb-2 border-0">
             <router-link id="link" to="/areas">Espaços</router-link>
           </b-card>
         </div>
         <div class="col-sm-4">
-          <b-card img-src="https://picsum.photos/600/300/?image=25" class="mb-2 border-0">
+          <b-card img-src="../assets/workshopTemplate.png" class="mb-2 border-0">
             <router-link id="link" to="/workshops">Workshops</router-link>
           </b-card>
         </div>

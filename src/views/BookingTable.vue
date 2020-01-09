@@ -21,17 +21,30 @@
 
         <div class="container" v-bind:style="{display:  bookingTable}">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
-            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered fixed small hover
+            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.bookings" :fields="fields">
+                <template v-slot:cell(actions)="row">
+                    <b-button size="sm"  class="mr-1">Ver Mais</b-button>
+                    <b-button size="sm"  class="mr-1">Aceitar</b-button>
+                    <b-button size="sm" @click="removeBooking(row.item.id)" class="mr-1">Recusar</b-button>
+
+                </template>
             </b-table>
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
 
+
+
         <div class="container" v-bind:style="{display: areasTable}">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
-            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered fixed small hover
+            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered  small hover
                 head-variant="dark" responsive="sm" :items="this.areas" :fields="fields2">
+                  <template v-slot:cell(actions)="row">
+                      <b-button size="sm"  class="mr-1">Ver Mais</b-button>
+                    <b-button size="sm"  class="mr-1">Aceitar</b-button>
+                    <b-button size="sm" @click="removeBooking(row.item.id)" class="mr-1">Recusar</b-button>
+                </template>
             </b-table>
             <b-pagination v-model="currentPage" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
@@ -50,7 +63,7 @@
         name: "BookingTable",
         data: function () {
             return {
-                perPage: 3,
+                perPage: 10,
                 currentPage: 1,
                 fields: [{
                         key: 'kitType',
@@ -81,6 +94,11 @@
                         label: "Contacto",
                         sortable: false
                     },
+                    {
+                        key: 'actions',
+                        label: "Ações",
+                        sortable: false
+                    },
 
 
                 ],
@@ -107,6 +125,11 @@
                     {
                         key: 'userEmail',
                         label: "Contacto",
+                        sortable: false
+                    },
+                    {
+                        key: 'actions',
+                        label: "Ações",
                         sortable: false
                     },
 
@@ -145,6 +168,30 @@
                 this.areasTable = "none"
                 this.bookingTable = "block"
             },
+            removeBooking(id) {
+
+                for (let i in this.bookings) {
+
+                    if (this.bookings[i].id === id) {
+                        this.bookings = this.bookings.filter(booking => this.bookings[i].id != booking.id);
+                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
+                        alert("Removido")
+                    }
+                }
+
+            },
+            removeAreaBooking(id) {
+
+                for (let i in this.areas) {
+
+                    if (this.areas[i].id === id) {
+                        this.areas = this.areas.filter(area => this.areas[i].id != area.id);
+                        localStorage.setItem("areas", JSON.stringify(this.areas));
+                        alert("Removido")
+                    }
+                }
+
+            }
         }
 
     }

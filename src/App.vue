@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-      <top-header></top-header>
-      <router-view />
-   <!--    <bottom-footer></bottom-footer> -->
+    <top-header></top-header>
+    <router-view />
+    <!--    <bottom-footer></bottom-footer> -->
 
   </div>
 </template>
 
 <script>
-import TopHeader from '@/components/TopHeader.vue';
-import Footer from '@/components/Footer.vue'
+  import TopHeader from '@/components/TopHeader.vue';
+  import Footer from '@/components/Footer.vue'
   export default {
     components: {
       "top-header": TopHeader,
@@ -19,9 +19,15 @@ import Footer from '@/components/Footer.vue'
   }
 </script>
 
-<style>
+<style  lang="scss" scoped>
+
+  @font-face {
+    font-family: gotham;
+    src: url(./assets/._Gotham-Book.otf);
+  }
+
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: gotham;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;

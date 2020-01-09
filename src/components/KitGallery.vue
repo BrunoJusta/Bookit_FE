@@ -7,14 +7,13 @@
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
                     <div id="card-maker" v-if="k.type=='Coffee Break'">
-                        <b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
-                            style="max-width: 20rem;" class="mb-2 border-0">
+                        <b-card style="max-width: 20rem;" :img-src="k.img" img-height="180rem" class="mb-2 border-0">
                             <h2 class=" card-title">{{k.name}}</h2>
-                            <b-button class="btn-book" squared v-bind:style="{visibility: choose}" >
+                            <b-button class="btn-book" squared  >
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
-                            <b-button class="btn-remove" v-bind:style="{visibility: remove}" squared> Remover </b-button>
+                            <b-button @click="deleteKit(k.id)" class="btn-remove" :id="k.id" v-bind:style="{visibility: remove}" squared> Remover </b-button>
                         </b-card>
                     </div>
                 </div>
@@ -27,14 +26,14 @@
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
                     <div id="card-maker" v-if="k.type=='Jantar de Gala'">
-                        <b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
-                            style="max-width: 20rem;" class="mb-2 border-0">
+                                              <b-card style="max-width: 20rem;" :img-src="k.img" img-height="180rem" class="mb-2 border-0">
+
                             <h2 class=" card-title">{{k.name}}</h2>
-                            <b-button class="btn-book" squared v-bind:style="{visibility: choose}" > 
+                            <b-button class="btn-book" squared > 
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
-                            <b-button class="btn-remove"  v-bind:style="{visibility: remove}" squared> Remover </b-button>
+                            <b-button class="btn-remove" @click="deleteKit(k.id)"  v-bind:style="{visibility: remove}" squared> Remover </b-button>
                         </b-card>
                     </div>
                 </div>
@@ -82,7 +81,26 @@
                  this.remove = "hidden"
                 this.choose = "visible"
             }
-        },
+
+            console.log(this.kits[0].img)
+
+        },methods:{
+            deleteKit(id){
+
+                for(let i=0; i<=this.kits.length; i++){
+                    if(i === id){
+                    this.kits.splice(i,1)
+                    localStorage.setItem("kits", JSON.stringify(this.kits));
+                    alert("KIT ELIMINADO")
+                    }
+                    
+                    
+
+                }
+
+            }
+        }
+
 
     }
 </script>

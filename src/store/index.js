@@ -20,14 +20,16 @@ export default new Vuex.Store({
         name: "menu A",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "Coffee Break"
+        type: "Coffee Break",
+        img: require('../assets/eventosCatering.png')
       },
       {
         id: 1,
         name: "menu B",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "Coffee Break"
+        type: "Coffee Break",
+        img: require('../assets/eventosCatering.png')
 
       },
       {
@@ -35,7 +37,8 @@ export default new Vuex.Store({
         name: "menu B",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "Coffee Break"
+        type: "Coffee Break",
+        img: require('../assets/eventosCatering.png')
 
       },
       {
@@ -43,7 +46,8 @@ export default new Vuex.Store({
         name: "menu A",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "Jantar de Gala"
+        type: "Jantar de Gala",
+        img: require('../assets/eventosCatering.png')
 
       },
       {
@@ -51,7 +55,8 @@ export default new Vuex.Store({
         name: "menu B",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "Jantar de Gala"
+        type: "Jantar de Gala",
+        img: require('../assets/eventosCatering.png')
 
       },
       {
@@ -59,7 +64,8 @@ export default new Vuex.Store({
         name: "menu C",
         drinks: ["café", "leite"],
         food: ["bolo"],
-        type: "Jantar de Gala"
+        type: "Jantar de Gala",
+        img:require('../assets/eventosCatering.png')
 
       }
     ],
@@ -69,7 +75,10 @@ export default new Vuex.Store({
         date: "20/12/2019",
         time: "12h - 14h",
         teacher: "João",
-        description: "wow"
+        description: "wow",
+        img:require('../assets/workshopTemplate.png'),
+        inscriptions: []
+
       },
       {
         id: 1,
@@ -77,7 +86,9 @@ export default new Vuex.Store({
         date: "20/12/2019",
         time: "12h - 14h",
         teacher: "João",
-        description: "wow"
+        description: "wow",
+        img:require('../assets/workshopTemplate.png'),
+        inscriptions: []
 
       },
       {
@@ -86,7 +97,9 @@ export default new Vuex.Store({
         date: "20/12/2019",
         time: "12h - 14h",
         teacher: "João",
-        description: "wow"
+        description: "wow",
+        img:require('../assets/workshopTemplate.png'),
+        inscriptions: []
 
 
       }
@@ -176,8 +189,6 @@ export default new Vuex.Store({
   },
   mutations: {
     STORE_ITEMS(state) {
-      localStorage.setItem("kits", JSON.stringify(state.kits));
-      localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
       localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
@@ -226,7 +237,7 @@ export default new Vuex.Store({
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
           if (user.userType === "admin") {
-            window.location = "../views/AdminHome.vue"
+            router.push({name: 'adminHome'})
 
           /*router.push({name: 'adminHome'})   Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina*/
           } else if (user.userType === "cliente") {
@@ -250,18 +261,13 @@ export default new Vuex.Store({
       router.push({ name: 'home'})
     },
     ADD_WORKSHOP_ATENDER(state, payload) {
-      if (!state.inscriptions.some(b => b.Inscrito === payload.clientName) || !state.inscriptions.some(b => b.Workshop === payload.workshopName)) {
-        state.inscriptions.push({
+      
+        state.workshops.push({
           workshopName: payload.workshopName,
-          date: payload.date,
-          time: payload.time,
-          clientName: payload.clientName,
+          inscriptions: payload.inscriptions.push(payload.clientName)
         });
-        localStorage.setItem("inscriptions", JSON.stringify(state.inscriptions));
+        localStorage.setItem("workshops", JSON.stringify(state.workshops));
         alert("RESERVA CONCLUIDA COM SUCESSO")
-      } else {
-        alert("Já Inscrito");
-      }
     },
     ADD_KIT(state, payload) {
       if (!state.kits.some(kit => kit.name === payload.name)) {
@@ -270,7 +276,8 @@ export default new Vuex.Store({
           name: payload.name,
           type: payload.type,
           drinks: payload.drinks,
-          food: payload.food
+          food: payload.food,
+          img: payload.img
         });
         localStorage.setItem("kits", JSON.stringify(state.kits));
       } else {
@@ -285,7 +292,8 @@ export default new Vuex.Store({
           teacher: payload.teacher,
           date: payload.date,
           time: payload.time,
-          description: payload.description
+          description: payload.description,
+          img: payload.img
         });
         localStorage.setItem("workshops", JSON.stringify(state.workshops));
       } else {
@@ -335,6 +343,16 @@ export default new Vuex.Store({
         alert("Ingrediente já existe!");
       }
     },
+    REMOVE(state, payload){
+      for (let i in state.bookings) {
+
+        if (state.bookings[i].id === payload.id) {
+            state.bookings.splice(i,1)
+            localStorage.setItem("bookings", JSON.stringify(payload.bookings));
+            alert(id)
+        }
+    }
+    }
   },
   getters: {
     lastId(state) {

@@ -12,7 +12,7 @@
         <div class="container table">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered fixed small hover
-                head-variant="dark" responsive="sm" :items="this.inscriptions" :fields="fields">
+                head-variant="dark" responsive="sm" :items="this.workshops" :fields="fields">
             </b-table>
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
@@ -29,41 +29,31 @@
                 perPage: 3,
                 currentPage: 1,
                 fields: [{
-                        key: 'workshopName',
+                        key: 'name',
                         label: "Workshop",
                         sortable: true
                     },
                     {
-                        key: 'date',
+                        key: 'inscriptions',
                         label: "Data",
                         sortable: false
                     },
-                    {
-                        key: 'time',
-                        label: "Duração",
-                        sortable: false
-                    },
-                    {
-                        key: 'clientName',
-                        label: "Inscrito",
-                        sortable: true
-                    }
                 ],
-                inscriptions: [],
+                workshops: [],
                 x: ""
             }
         },
         created() {
-            if (localStorage.getItem("inscriptions")) {
-                this.inscriptions = JSON.parse(localStorage.getItem("inscriptions"))
+            if (localStorage.getItem("workshops")) {
+                this.workshops = JSON.parse(localStorage.getItem("workshops"))
             }
         },
         computed: {
             searchInscriptions() {
-                return this.inscriptions;
+                return this.workshops;
             },
             rows() {
-                return this.inscriptions.length
+                return this.workshops.length
             }
         }
 
