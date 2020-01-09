@@ -8,17 +8,17 @@
         <br>
         <h1>PERFIL</h1>
 
-        <div class="container">
-            <div class="row" id="perfilContainer">
-                <div class="col-sm-2" id="imgColumn">
-                    <b-img src="../assets/logo.png"></b-img>
+        <div class="container" id="perfilContainer">
+            <div class="row" style="height: 150px">
+                <div class="col-sm-2">
+                    <b-img src="../assets/logo.png" id="imgPerfil"></b-img>
                 </div>
                 <div class="col-sm-2" id="nameColumn">
-                    <p id="nameTxt">Nome do Perfil</p>
+                    <p id="nameTxt">{{getFullName}}</p>
                 </div>
                 <div class="col-sm-8" id="optionsColumn">
                     <div class="container" id="optionsContainer">
-                        <b-img src="../assets/settingsIcon.svg" id="settingsImg"></b-img>
+                        <b-img src="../assets/settingsIcon.png" id="settingsImg"></b-img>
                         <router-link to="/" class="options" style="color:black">Mensagens</router-link>
                         <router-link to="/" class="options" style="color:black">Notificações |</router-link>
                         <router-link to="/" class="options" style="color:black">Reservas |</router-link>
@@ -39,14 +39,15 @@
                         <b-card-body title="Coffe Break - MENU A">
                             <h5>12/12/12</h5>
                             <b-card-text style="margin-top: 20px;">
-                                This is a wider card with supporting text as a natural lead-in to additional content.
-                                This content is a little bit longer.
+                                This is a wider card with supporting text as a natural lead-in to additional
+                                content.
                             </b-card-text>
                         </b-card-body>
                     </b-col>
                 </b-row>
             </b-card>
         </div>
+
 
         <br>
         <br>
@@ -58,9 +59,27 @@
 
 <script>
     export default {
+        data: function () {
+            return {
+                firstNameUser: "",
+                lastNameUser: ""
+            }
+        },
+        created() {
+            if (localStorage.getItem("loggedUser")) {
+                this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+            }
+            this.firstNameUser = this.$store.getters.getName
+            this.lastNameUser = this.$store.getters.getLastName
+        },
         methods: {
             logout() {
                 this.$store.commit('LOGOUT')
+            }
+        }, 
+        computed: {
+            getFullName() {
+                return this.firstNameUser + " " + this.lastNameUser
             }
         }
     }
@@ -68,22 +87,26 @@
 
 <style lang="scss" scoped>
     #perfilContainer {
-        background: grey;
+        box-shadow: 0px 0px 2px;
     }
 
     .options {
         float: right;
         padding: 5px;
-        margin-top: 155px;
+        margin-top: 110px;
     }
 
     #settingsImg {
         margin-top: 15px;
-        width: 30px;
+        width: 50px;
         float: right;
     }
 
+    #imgPerfil {
+        height: 140px;
+    }
+
     #nameTxt {
-        margin-top: 160px;
+        margin-top: 115px;
     }
 </style>
