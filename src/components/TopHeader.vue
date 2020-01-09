@@ -39,13 +39,15 @@
                 this.$store.state.ingredients = JSON.parse(localStorage.getItem("ingredients"))
             }
             this.$store.commit('STORE_ITEMS')
+            this.onlineUser = this.$store.getters.getName
+
 
         },
         computed: {
             getName() {
                 if (localStorage.getItem("loggedUser")) {
                     this.path = "profile"
-                    return this.$store.getters.getName
+                    return this.onlineUser
                 } else {
                     this.path = "login"
                     return "Entrar"

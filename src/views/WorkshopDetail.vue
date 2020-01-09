@@ -56,19 +56,19 @@
 
       },
       sendInfo() {
-        for (let i = 0; i <= this.workshops[0].inscriptions.length; i++) {
-          if (this.workshops[0].inscriptions[i] === this.clientName) {
-            alert("Já Registado")
-          } else {
-            this.workshops[0].inscriptions.push(this.clientName)
-            localStorage.setItem("workshops", JSON.stringify(this.workshops));
-            alert("registado")
-          }
-        }
-
+        this.$store.commit('ADD_WORKSHOP_ATENDER', {
+          workshopName: this.workshopName,
+          date: this.date,
+          time: this.time,
+          clientName: this.clientName
+        })
       }
     },
     created() {
+      window.addEventListener('unload', this.saveStorage)
+      if (localStorage.getItem("inscriptions")) {
+        this.$store.state.inscriptions = JSON.parse(localStorage.getItem("inscriptions"))
+      }
       this.workshops = JSON.parse(localStorage.getItem("workshops"))
       this.clientName = sessionStorage.getItem("userOn")
       this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName

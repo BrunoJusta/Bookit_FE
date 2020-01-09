@@ -171,24 +171,25 @@ export default new Vuex.Store({
     outfits: [{
         id: 0,
         source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
-        name:"Outfit_1"
+        name: "Outfit_1"
       },
       {
         id: 1,
         source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
-        name:"Outfit_2"
+        name: "Outfit_2"
 
       },
       {
         id: 2,
         source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
-        name:"Outfit_3"
+        name: "Outfit_3"
 
       },
     ]
   },
   mutations: {
     STORE_ITEMS(state) {
+      localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
       localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
@@ -237,12 +238,13 @@ export default new Vuex.Store({
           sessionStorage.setItem("userOn", user.name)
           state.userExists = true;
           if (user.userType === "admin") {
-            router.push({name: 'adminHome'})
 
-          /*router.push({name: 'adminHome'})   Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina*/
+            router.push({
+              name: 'adminHome',
+            }) //Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina
           } else if (user.userType === "cliente") {
             window.location = "../views/Home.vue"
-           /*  router.push({ name: 'home'})  Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina*/ 
+            /*  router.push({ name: 'home'})  Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina*/
 
           }
           if (state.userExists === false) {
@@ -258,16 +260,19 @@ export default new Vuex.Store({
       localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
       sessionStorage.removeItem("userOn");
       state.logged = false;
-      router.push({ name: 'home'})
+      router.push({
+        name: 'home'
+      })
     },
     ADD_WORKSHOP_ATENDER(state, payload) {
-      
-        state.workshops.push({
+      if (!state.inscriptions.some(b => b.clientName === payload.clientName) || !state.inscriptions.some(b => b.workshopName === payload.workshopName)) {
+        state.inscriptions.push({
           workshopName: payload.workshopName,
           inscriptions: payload.inscriptions.push(payload.clientName)
         });
         localStorage.setItem("workshops", JSON.stringify(state.workshops));
         alert("RESERVA CONCLUIDA COM SUCESSO")
+      }
     },
     ADD_KIT(state, payload) {
       if (!state.kits.some(kit => kit.name === payload.name)) {

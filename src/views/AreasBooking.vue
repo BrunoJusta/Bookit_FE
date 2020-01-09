@@ -32,7 +32,8 @@
                 <label for="hf">Hora do Final:</label>
                 <input type="time" id="hf" v-model="hf">
                 <br><br>
-                <button type="submit" @click="getCurrentArea()" value="Adicionar" class="btn btn-primary">Enviar</button>
+                <button type="submit" @click="getCurrentArea()" value="Adicionar"
+                    class="btn btn-primary">Enviar</button>
 
             </div>
         </form>
@@ -54,6 +55,10 @@
             }
         },
         created() {
+            window.addEventListener('unload', this.saveStorage)
+            if (localStorage.getItem("areas")) {
+                this.$store.state.areas = JSON.parse(localStorage.getItem("areas"))
+            }
             this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail
         },
@@ -73,14 +78,14 @@
                 })
                 alert("Enviado")
             },
-             getCurrentArea(){
-            this.currentArea = JSON.parse(localStorage.getItem("currentArea"))
-            alert(this.currentArea[0].areaName + "created")
-            this.areaName = this.currentArea[0].areaName
+            getCurrentArea() {
+                this.currentArea = JSON.parse(localStorage.getItem("currentArea"))
+                alert(this.currentArea[0].areaName + "created")
+                this.areaName = this.currentArea[0].areaName
             }
         },
-        
-        }
+
+    }
 </script>
 
 <style lang="scss" scoped>
