@@ -347,16 +347,6 @@ export default new Vuex.Store({
       } else {
         alert("Ingrediente já existe!");
       }
-    },
-    REMOVE(state, payload){
-      for (let i in state.bookings) {
-
-        if (state.bookings[i].id === payload.id) {
-            state.bookings.splice(i,1)
-            localStorage.setItem("bookings", JSON.stringify(payload.bookings));
-            alert(id)
-        }
-    }
     }
   },
   getters: {
