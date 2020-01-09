@@ -28,7 +28,7 @@
         time: "",
         userName: "",
         userEmail: "",
-        inscriptions: []
+        inscriptions: [],
       };
     },
     methods: {
@@ -56,12 +56,7 @@
 
       },
       sendInfo() {
-        this.$store.commit('ADD_WORKSHOP_ATENDER', {
-          workshopName: this.workshopName,
-          date: this.date,
-          time: this.time,
-          clientName: this.clientName
-        })
+
       }
     },
     created() {
