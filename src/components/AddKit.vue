@@ -66,12 +66,9 @@
         },
         created() {
             window.addEventListener('unload', this.saveStorage)
-<<<<<<< HEAD
-=======
             if (localStorage.getItem("kits")) {
                 this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
             }
->>>>>>> c310bc49f0adfddbca7b638858beddb8d3c77b3a
             this.ingredients = this.$store.state.ingredients
 
         },
