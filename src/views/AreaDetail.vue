@@ -21,7 +21,7 @@
       return {
         areas: [],
         areaName: "",
-        currentArea: []
+        currentArea: {}
       };
     },
     created() {
@@ -38,10 +38,11 @@
         )[0]
       },     
       saveCurrentArea(){
-        this.currentArea.push({
+       this.currentArea = ({
           areaName: this.areaName,
         });
         localStorage.setItem("currentArea", JSON.stringify(this.currentArea));
+        this.$store.state.currentArea = this.currentArea
       }
     }
   }

@@ -24,7 +24,7 @@
                 style="background-color:transparent; color:black; padding:10px">Fardas
             </b-button>
         </div>
-        <h3>{{kitType}} - {{kitName}}</h3>
+        <h3>{{this.$store.getters.getCurrentKitType}} - {{this.$store.getters.getCurrentKitName}}</h3>
         <form @submit.prevent="saveBooking()">
             <div class="container" v-bind:style="{display: kitInfo}">
                 <!-- MOTIVO -->
@@ -32,7 +32,8 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="reason" class="lable">Motivo</label>
-                            <textarea class="form-control" style="resize: none;" id="reason" v-model="reason" rows="4" cols="50" required></textarea>
+                            <textarea class="form-control" style="resize: none;" id="reason" v-model="reason" rows="4"
+                                cols="50" required></textarea>
                         </div>
                     </div>
 
@@ -59,7 +60,7 @@
                             <b-form-input type="number" name="" id="people" min="20" max="50" v-model="people" required>
                             </b-form-input>
                         </b-form-group>
-                        <b-form-group class="input" id="input-group-6" >
+                        <b-form-group class="input" id="input-group-6">
                             <label class="lable" for="hf">Hora do Final:</label>
                             <b-form-input type="time" id="hf" v-model="hf" required>
                             </b-form-input>
@@ -194,11 +195,12 @@
                 checkedImage: [],
             }
         },
-
         created() {
-            window.addEventListener('unload', this.saveStorage)
             if (localStorage.getItem("bookings")) {
                 this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
+            }
+            if (localStorage.getItem("currentKit")) {
+                this.$store.state.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             }
             this.ingredients = this.$store.state.ingredients
             this.extras = this.$store.state.extras
@@ -209,10 +211,10 @@
 
 
             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
-            this.kitName = this.currentKit[0].kitname
-            this.kitType = this.currentKit[0].kitType
-          
-             
+            this.kitName = this.$store.getters.getCurrentKitName
+            this.kitType = this.$store.getters.getCurrentKitType
+
+
 
         },
         components: {
@@ -226,8 +228,8 @@
             teste() {
 
                 this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
-                this.kitName = this.currentKit[0].kitname
-                this.kitType = this.currentKit[0].kitType
+                this.kitName = this.$store.getters.getCurrentKitName
+                this.kitType = this.$store.getters.getCurrentKitType
             },
             displayInfo() {
                 this.kitInfo = "block"
@@ -283,7 +285,7 @@
                     extras: this.checkedExtras,
                     decor: this.checkedDecor,
                     outfit: this.checkedImage,
-                    state: "Pendente" 
+                    state: "Pendente"
                 })
                 alert("Reserva Concluida")
             }

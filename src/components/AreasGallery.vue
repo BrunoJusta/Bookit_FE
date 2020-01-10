@@ -4,8 +4,8 @@
             <div class="row">
                 <div class="col-sm-6" v-for="a in searchAreas" :key="a.id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card :title="a.name" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
-                            style="max-width: 30rem;" class="border-0">
+                        <b-card :title="a.name" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image"
+                            img-top tag="article" style="max-width: 30rem;" class="border-0">
                             <b-button class="btn-book" squared>
                                 <router-link :to="{name: x, params: {areaId: a.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
@@ -28,40 +28,52 @@
             }
         },
         data: function () {
-            return {};
-            areas: [];
-            x: "";
-            teste: $store.state.logged;
+            return {
+                areas: [],
+                x: "",
+                teste: $store.state.logged,
+                reset: {
+                    areaName: "",
+                }
+
+            };
         },
         created() {
             if (localStorage.getItem("areas")) {
                 this.areas = JSON.parse(localStorage.getItem("areas"))
             }
-           if (this.$store.getters.getName == "Entrar") {
+            if (this.$store.getters.getName == "Entrar") {
                 this.x = "login"
             } else {
                 this.x = "areaDetail"
             }
+            localStorage.setItem("currentArea", JSON.stringify(this.reset));
+            this.$store.state.currentArea = ({
+                areaName: "",
+            })
         },
     }
 </script>
 
 <style lang="scss" scoped>
-.border-0 {
---webkit-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
--moz-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
-box-shadow: 0px 4px 5px -1px rgba(184,184,184,0.31);
-}
-.btn-book{
-    font-size: 18px;
-    background-color:#0A2463; 
-    margin-bottom:-60px;
-}
-.col-sm-6{
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-.container{
-    padding-bottom: 150px;
-}
+    .border-0 {
+        --webkit-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+        -moz-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+        box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+    }
+
+    .btn-book {
+        font-size: 18px;
+        background-color: #0A2463;
+        margin-bottom: -60px;
+    }
+
+    .col-sm-6 {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .container {
+        padding-bottom: 150px;
+    }
 </style>

@@ -3,29 +3,29 @@
     <h3 class="display-2">{{getKitById($route.params.kitId).type}}</h3>
     <div class="container">
       <b-img v-bind:src="getKitById($route.params.kitId).img" alt="Image" bottom></b-img>
-    <h3 class="display-3">{{getKitById($route.params.kitId).name}}</h3>
-      
+      <h3 class="display-3">{{getKitById($route.params.kitId).name}}</h3>
+
       <div class="row">
 
-         <div class="drinks">
-        <h6>BEBIDA</h6>
-        <b-list-group v-for="d in this.drinks" :key="d.id">
-          <b-list-group-item class="border-0" style="background-color: transparent; margin-bottom:-23px;">{{d}}
-          </b-list-group-item>
-        </b-list-group>
+        <div class="drinks">
+          <h6>BEBIDA</h6>
+          <b-list-group v-for="d in this.drinks" :key="d.id">
+            <b-list-group-item class="border-0" style="background-color: transparent; margin-bottom:-23px;">{{d}}
+            </b-list-group-item>
+          </b-list-group>
+        </div>
+
+        <div class="food">
+
+          <h6>COMIDA</h6>
+          <b-list-group v-for="f in this.food" :key="f.id">
+            <b-list-group-item class="border-0" style="background-color: transparent; margin-bottom:-23px">{{f}}
+            </b-list-group-item>
+          </b-list-group>
+        </div>
+
       </div>
 
-      <div class="food">
-
-        <h6>COMIDA</h6>
-        <b-list-group v-for="f in this.food" :key="f.id">
-          <b-list-group-item class="border-0" style="background-color: transparent; margin-bottom:-23px">{{f}}
-          </b-list-group-item>
-        </b-list-group>
-      </div>
-
-      </div>
-     
 
       <b-button @click="saveCurrentKit()" class="btn-book" squared>
         <router-link to="/booking" class="teste" style="color:white"> Escolher </router-link>
@@ -49,8 +49,11 @@
         food: [],
         kitname: "",
         kitType: "",
-        currentKit: []
+        currentKit: {}
       };
+    },
+    created() {
+      this.kits = JSON.parse(localStorage.getItem("kits"))
     },
     methods: {
       getKitById(id) {
@@ -76,16 +79,14 @@
         )[0]
       },
       saveCurrentKit() {
-        this.currentKit.push({
+        this.currentKit = ({
           kitname: this.kitname,
           kitType: this.kitType,
         });
         localStorage.setItem("currentKit", JSON.stringify(this.currentKit));
+        this.$store.state.currentKit = this.currentKit
       }
 
-    },
-    created() {
-      this.kits = JSON.parse(localStorage.getItem("kits"))
     },
   }
 </script>
@@ -96,7 +97,7 @@
   }
 
 
- .display-2 {
+  .display-2 {
     padding-top: 160px;
     padding-bottom: 20px;
     font-family: bookMan;
@@ -106,17 +107,17 @@
   }
 
   .display-3 {
-    padding-top:20px;
+    padding-top: 20px;
     font-family: bookMan;
     font-size: 30px;
     color: #B91C3B;
 
   }
 
-  h6{
+  h6 {
     color: #0A2463;
     font-weight: bold;
-    
+
   }
 
   img {
@@ -145,11 +146,12 @@
     background-color: #0A2463;
   }
 
-  .row{
+  .row {
     padding-left: 75px;
   }
 
-  .food, .drinks{
+  .food,
+  .drinks {
     padding: 50px;
   }
 </style>

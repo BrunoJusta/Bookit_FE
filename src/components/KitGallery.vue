@@ -1,18 +1,19 @@
 <template>
     <div>
-
-        <div id="CoffeeBreaks" class="container" >
-         <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
+        <div id="CoffeeBreaks" class="container">
+            <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
 
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
                     <div id="card-maker">
-                        <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem;" :img-src="k.img" img-height="180rem" class="mb-2 border-0">
-                            <b-button class="btn-book" squared  >
+                        <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem;" :img-src="k.img"
+                            img-height="180rem" class="mb-2 border-0">
+                            <b-button class="btn-book" squared>
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
-                            <b-button @click="deleteKit(k.id)" class="btn-remove border-0" :id="k.id" v-bind:style="{visibility: remove}" squared> X</b-button>
+                            <b-button @click="deleteKit(k.id)" class="btn-remove border-0" :id="k.id"
+                                v-bind:style="{visibility: remove}" squared> X</b-button>
                         </b-card>
                     </div>
                 </div>
@@ -20,7 +21,7 @@
         </div>
 
 
-       <!--  <div id="JantarGala" class="container">
+        <!--  <div id="JantarGala" class="container">
             <h2 id="redSubTitle">Jantar de Gala</h2>
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
@@ -56,7 +57,9 @@
                 x: "",
                 onlineUser: "",
                 remove: "",
-                choose: ""
+                choose: "",
+                reset: { kitname: "",
+                kitType: "",}
             };
 
 
@@ -71,28 +74,32 @@
             } else {
                 this.x = "kitDetail"
             }
-            if(this.$store.getters.getName === "Admin"){
+            if (this.$store.getters.getName === "Admin") {
                 this.remove = "visible"
                 this.choose = "hidden"
-            }
-            else{
-                 this.remove = "hidden"
+            } else {
+                this.remove = "hidden"
                 this.choose = "visible"
             }
+            localStorage.setItem("currentKit", JSON.stringify(this.reset));
+            this.$store.state.currentKit = ({
+                kitname: "",
+                kitType: "",
+            })
 
-            console.log(this.kits[0].img)
 
-        },methods:{
-            deleteKit(id){
+        },
+        methods: {
+            deleteKit(id) {
 
-                for(let i=0; i<=this.kits.length; i++){
-                    if(i === id){
-                    this.kits.splice(i,1)
-                    localStorage.setItem("kits", JSON.stringify(this.kits));
-                    alert("KIT ELIMINADO")
+                for (let i = 0; i <= this.kits.length; i++) {
+                    if (i === id) {
+                        this.kits.splice(i, 1)
+                        localStorage.setItem("kits", JSON.stringify(this.kits));
+                        alert("KIT ELIMINADO")
                     }
-                    
-                    
+
+
 
                 }
 

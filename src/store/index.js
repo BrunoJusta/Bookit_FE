@@ -6,6 +6,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    currentKit: {
+      kitname: "",
+      kitType: ""}
+    ,
+    currentArea:{
+      areaName: ""
+    },
     users: [{
       id: 0,
       name: "Admin",
@@ -393,6 +400,13 @@ export default new Vuex.Store({
         return 0;
       }
     },
+    areaBookingLastId(state) {
+      if (state.areaBookings.length) {
+        return state.areaBookings[state.areaBookings.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
     getUserOn(state) {
       if (state.loggedUser.length) {
         state.logged = true
@@ -419,6 +433,15 @@ export default new Vuex.Store({
     },
     getEmail(state) {
       return state.loggedUser.email
+    },
+    getCurrentKitName(state) {
+      return state.currentKit.kitname
+    },
+    getCurrentKitType(state) {
+      return state.currentKit.kitType
+    },
+    getCurrentArea(state) {
+      return state.currentArea.areaName
     }
   }
 })
