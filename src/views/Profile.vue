@@ -18,17 +18,13 @@
                 </div>
                 <div class="col-sm-8" id="optionsColumn">
                     <b-img src="../assets/settingsIcon.png" id="settingsImg"></b-img>
-                    <b-button v-on:click="displayMsgs()" class="options border-0" v-bind:style="{color: msgsFont}">
-                        Mensagens
-                    </b-button>
-                    <h9 class="options" style="padding: 10px">|</h9>
                     <b-button v-on:click="displayNotifications()" class="options border-0"
-                        v-bind:style="{color: notificFont}">
+                        v-bind:style="{fontWeight: notificFont, color: notifiColor}">
                         Notificações</b-button>
                     <h9 class="options" style="padding: 10px">|</h9>
 
                     <b-button v-on:click="displayBookings()" class="options border-0"
-                        v-bind:style="{color: bookingsFont}">Reservas
+                        v-bind:style="{fontWeight: bookingsFont,color: bookingsColor}">Reservas
                     </b-button>
                 </div>
             </div>
@@ -39,11 +35,14 @@
         <!-- MOSTRA AS RESERVAS -->
         <div v-bind:style="{display: showBookings}">
             <div class="container" style="justify-content: center;">
-                <b-button v-on:click="displayEvents()" class="bookingOptions border-0">Eventos & Catering
+                <b-button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}"
+                    class="bookingOptions border-0">Eventos & Catering
                 </b-button>
-                <b-button v-on:click="displayAreas()" class="bookingOptions border-0">
+                <b-button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}"
+                    class="bookingOptions border-0">
                     Espaços</b-button>
-                <b-button v-on:click="displayWorkshops()" class="bookingOptions border-0">Workshops
+                <b-button v-on:click="displayWorkshops()" v-bind:style="{fontWeight: WorkshopsFont}"
+                    class="bookingOptions border-0">Workshops
                 </b-button>
             </div>
 
@@ -144,17 +143,8 @@
         <div v-bind:style="{display: showNotifications}">
             <h1>TESTE PARA AS NOTIFICACOES</h1>
         </div>
-
-        <!-- MOSTRA AS MENSAGENS -->
-        <div v-bind:style="{display: showMsgs}">
-            <h1>TESTE PARA AS MENSAGENS</h1>
-        </div>
-
         <br>
         <br>
-        <button v-if="this.$store.state.loggedUser.length != 0" v-on:click="logout()"
-            style="background-color:#0A2463; color:white" squared>
-            Logout</button>
     </div>
 </template>
 
@@ -170,16 +160,16 @@
                 userEmail: "",
                 showBookings: "block", //mostrar reservas
                 showNotifications: "none", //mostrar notificaçoes
-                showMsgs: "none", //mostrar mensagens
-                showEvents: "none", //mostrar eventos dentro das reservas
+                showEvents: "block", //mostrar eventos dentro das reservas
                 showAreas: "none", //mostrar areas dentro das reservas
                 showWorkshops: "none", //mostrar workshops dentro das reservas
-                bookingsFont: "#B91C3B", //muda a cor da fonte escolhida
-                msgsFont: "black", //muda a cor da fonte escolhida
-                notificFont: "black" //muda a cor da fonte escolhida
-                /* eventsFont: "normal",
+                bookingsColor: "#B91C3B", //muda a cor da fonte escolhida                   
+                notifiColor: "black", //muda a cor da fonte escolhida
+                bookingsFont: "bold", //muda a cor da fonte escolhida                   
+                notificFont: "normal", //muda a cor da fonte escolhida
+                eventsFont: "bold",
                 AreasFont: "normal",
-                WorkshopsFont: "normal" */
+                WorkshopsFont: "normal"
             }
         },
         created() {
@@ -206,50 +196,42 @@
             displayEvents() {
                 this.showEvents = "block"
                 this.showAreas = "none"
-                this.showWorkshops = "none",
-                    this.eventsFont = "bold",
-                    this.AreasFont = "normal",
-                    this.WorkshopsFont = "normal"
+                this.showWorkshops = "none"
+                this.eventsFont = "bold"
+                this.AreasFont = "normal"
+                this.WorkshopsFont = "normal"
             },
             displayAreas() {
                 this.showEvents = "none"
                 this.showAreas = "block"
-                this.showWorkshops = "none",
-                    this.eventsFont = "normal",
-                    this.AreasFont = "bold",
-                    this.WorkshopsFont = "normal"
+                this.showWorkshops = "none"
+                this.eventsFont = "normal"
+                this.AreasFont = "bold"
+                this.WorkshopsFont = "normal"
             },
             displayWorkshops() {
                 this.showEvents = "none"
                 this.showAreas = "none"
-                this.showWorkshops = "block",
-                    this.eventsFont = "normal",
-                    this.AreasFont = "normal",
-                    this.WorkshopsFont = "bold"
+                this.showWorkshops = "block"
+                this.eventsFont = "normal"
+                this.AreasFont = "normal"
+                this.WorkshopsFont = "bold"
             },
             displayBookings() {
                 this.showBookings = "block"
                 this.showNotifications = "none"
-                this.showMsgs = "none"
-                this.bookingsFont = "#B91C3B"
-                this.notificFont = "black"
-                this.msgsFont = "black"
+                this.bookingsColor = "#B91C3B"
+                this.notifiColor = "black"
+                this.bookingsFont = "bold"
+                this.notificFont = "normal"
             },
             displayNotifications() {
                 this.showBookings = "none"
                 this.showNotifications = "block"
-                this.showMsgs = "none"
-                this.bookingsFont = "black"
-                this.notificFont = "#B91C3B"
-                this.msgsFont = "black"
-            },
-            displayMsgs() {
-                this.showBookings = "none"
-                this.showNotifications = "none"
-                this.showMsgs = "block"
-                this.bookingsFont = "black"
-                this.notificFont = "black"
-                this.msgsFont = "#B91C3B"
+                this.bookingsColor = "black"
+                this.notifiColor = "#B91C3B"
+                this.bookingsFont = "normal"
+                this.notificFont = "bold"
             }
         },
         computed: {
