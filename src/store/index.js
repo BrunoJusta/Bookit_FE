@@ -91,7 +91,7 @@ export default new Vuex.Store({
         description: "wow",
         img: require('../assets/workshopTemplate.png'),
         inscriptions: [],
-        vacancies: 50
+        vacancies: 1
 
 
       },
@@ -129,6 +129,7 @@ export default new Vuex.Store({
     x: 0,
     logged: false,
     loggedUser: [],
+    notLogged: "Entrar",
     userExists: false,
     bookings: [],
     areaBookings: [],
@@ -229,7 +230,7 @@ export default new Vuex.Store({
           user.email === payload.email &&
           user.password === payload.password
         ) {
-          state.loggedUser.push({
+          state.loggedUser = ({
             id: user.id,
             name: user.name,
             lastName: user.lastName,
@@ -247,7 +248,9 @@ export default new Vuex.Store({
               name: 'adminHome',
             }) //Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina
           } else if (user.userType === "cliente") {
-            window.location = "../views/Home.vue"
+            router.push({
+              name: 'home',
+            })
             /*  router.push({ name: 'home'})  Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina*/
 
           }
@@ -260,10 +263,8 @@ export default new Vuex.Store({
       }
     },
     LOGOUT(state) {
-      state.loggedUser.pop();
+      state.loggedUser = []
       localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
-      sessionStorage.removeItem("userOn");
-      state.logged = false;
       router.push({
         name: 'home'
       })
@@ -402,13 +403,22 @@ export default new Vuex.Store({
       }
     },
     getName(state) {
-      return state.loggedUser[0].name
+      if(state.loggedUser.length == 0){
+        return state.notLogged
+      }
+      else{
+        return state.loggedUser.name
+
+      }
+    },
+    getUserType(state) {
+        return state.loggedUser.userType
     },
     getLastName(state) {
-      return state.loggedUser[0].lastName
+      return state.loggedUser.lastName
     },
     getEmail(state) {
-      return state.loggedUser[0].email
+      return state.loggedUser.email
     }
   }
 })

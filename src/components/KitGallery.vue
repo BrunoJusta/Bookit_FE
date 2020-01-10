@@ -66,7 +66,7 @@
             if (localStorage.getItem("kits")) {
                 this.kits = JSON.parse(localStorage.getItem("kits"))
             }
-            if (!this.$store.getters.getUserOn) {
+            if (this.$store.getters.getName == "Entrar") {
                 this.x = "login"
             } else {
                 this.x = "kitDetail"

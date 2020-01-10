@@ -285,6 +285,7 @@
                     outfit: this.checkedImage,
                     state: "Pendente" 
                 })
+                alert("Reserva Concluida")
             }
         },
         computed: {

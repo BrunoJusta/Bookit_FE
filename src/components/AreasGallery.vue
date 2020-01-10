@@ -37,7 +37,7 @@
             if (localStorage.getItem("areas")) {
                 this.areas = JSON.parse(localStorage.getItem("areas"))
             }
-            if (!this.$store.getters.getUserOn) {
+           if (this.$store.getters.getName == "Entrar") {
                 this.x = "login"
             } else {
                 this.x = "areaDetail"

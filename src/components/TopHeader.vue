@@ -1,19 +1,17 @@
 <template>
     <div class="fixed-top">
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <a href="../views/Home.vue"><img src="../assets/navbarLogo2.svg" alt="" id="logoNavbar"></a>
+            <router-link to="/"><img src="../assets/navbarLogo2.svg" alt="" id="logoNavbar"></router-link>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
                     <div>
                         <div class="container">
                             <b-button id="logged-btn" squared>
-                                <router-link :to="{name:this.path}">{{getName}}</router-link>
+                                <router-link :to="{name:this.path}">{{this.$store.getters.getName}}</router-link>
                             </b-button>
-                            <b-button id="logout-btn" v-if="this.$store.state.loggedUser.length != 0"
-                                v-on:click="logout()" v-bind:style="{display: showLogout}" squared>
-                                <router-link to="/">Logout
-                                </router-link>
+                            <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'" v-on:click="logout()" squared>
+                                <router-link to="/">Logout</router-link>
                             </b-button>
                         </div>
                     </div>
@@ -44,30 +42,59 @@
                 clientButtons: "block"
             }
         },
-        created: function () {
+        created(){
+  
             if (localStorage.getItem("loggedUser")) {
-                this.path = "profile"
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
-                this.showLogout = "block"
-            } else {
-                this.showLogout = "none";
+            }
+             if (this.$store.getters.getName === "Entrar") {
+
+
                 this.path = "login"
+                this.adminButtons = "none"//mostra os botoes da navbar para o admin
+                this.clientButtons = "block"//esconde os botoes do cliente da navbar para o admin
             }
-            if (localStorage.getItem("ingredients")) {
-                this.$store.state.ingredients = JSON.parse(localStorage.getItem("ingredients"))
-            }
-            this.$store.commit('STORE_ITEMS')
-            this.onlineUser = this.$store.getters.getName
-            if (this.onlineUser === "Admin") {
-                this.path = "adminHome"//muda o route do botao da navbar para direcionar para o backoffice
+            else if(this.$store.getters.getUserType === "admin"){
+
+
+                this.path = "adminHome"
                 this.adminButtons = "block"//mostra os botoes da navbar para o admin
                 this.clientButtons = "none"//esconde os botoes do cliente da navbar para o admin
             }
+            else if(this.$store.getters.getUserType === "cliente"){
+
+
+                this.path = "profile"
+                  this.adminButtons = "none"//mostra os botoes da navbar para o admin
+                this.clientButtons = "block"//esconde os botoes do cliente da navbar para o admin
+   
+            }
+                this.$store.commit('STORE_ITEMS')
+
+
+        },
+        updated: function () {
+            if (this.$store.getters.getName === "Entrar") {
+                this.path = "login"
+                  this.adminButtons = "none"//mostra os botoes da navbar para o admin
+                this.clientButtons = "block"//esconde os botoes do cliente da navbar para o admin
+            }
+            else if(this.$store.getters.getUserType === "admin"){
+                this.path = "adminHome"
+                this.adminButtons = "block"//mostra os botoes da navbar para o admin
+                this.clientButtons = "none"//esconde os botoes do cliente da navbar para o admin
+            }
+            else if(this.$store.getters.getUserType === "cliente"){
+                this.path = "profile"
+                  this.adminButtons = "none"//mostra os botoes da navbar para o admin
+                this.clientButtons = "block"//esconde os botoes do cliente da navbar para o admin
+   
+            }
+
         },
         methods: {
             logout() {
                 alert("logout efetuado com sucesso")
-                location.reload()
                 this.$store.commit('LOGOUT')
             }
         },

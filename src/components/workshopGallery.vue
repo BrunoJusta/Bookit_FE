@@ -26,26 +26,23 @@
 <script>
     export default {
         name: 'workshopGallery',
-        computed: {
-            searchWorkshops() {
-                return this.workshops;
-            }
-        },
         data: function () {
             return {
                 kits: [],
                 x: "",
-                teste: $store.state.logged,
                 remove: "",
-                choose: ""
+                choose: "",
+                logged: ""
             };
 
         },
         created() {
+            this.logged = this.$store.getters.getUserType 
+            alert(this.logged)
             if (localStorage.getItem("workshops")) {
                 this.workshops = JSON.parse(localStorage.getItem("workshops"))
             }
-            if (!this.$store.getters.getUserOn) {
+            if (this.$store.getters.getName == "Entrar") {
                 this.x = "login"
             } else {
                 this.x = "workshopDetail"
@@ -74,7 +71,12 @@
                 location.reload()
 
             }
-        }
+        },
+        computed: {
+            searchWorkshops() {
+                return this.workshops;
+            }
+        },
     }
 </script>
 
