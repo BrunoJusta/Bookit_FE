@@ -32,13 +32,10 @@
                 x: "",
                 remove: "",
                 choose: "",
-                logged: ""
             };
 
         },
         created() {
-            this.logged = this.$store.getters.getUserType 
-            alert(this.logged)
             if (localStorage.getItem("workshops")) {
                 this.workshops = JSON.parse(localStorage.getItem("workshops"))
             }
