@@ -96,6 +96,11 @@ const routes = [
     name: "bookingTables",
     component: () => import("../views/BookingTable.vue")
   },
+  {
+    path: "/userTables",
+    name: "userTables",
+    component: () => import("../views/UserTable.vue")
+  }
 ]
 
 const router = new VueRouter({

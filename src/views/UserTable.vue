@@ -2,48 +2,66 @@
     <div>
 
         <div class="container-full title">
-            <h1 id="redTitle">INSCRIÇÕES</h1>
+            <h1 id="redTitle">RESERVAS</h1>
             <hr class="back-line">
             <div class="container" id="whiteRect">
                 <p id="space">space</p>
             </div>
         </div>
 
-        <div class="container table">
+        <div class="container">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.workshops" :fields="fields">
-                 <template v-slot:cell(actions)="row">
+                head-variant="dark" responsive="sm" :items="this.users" :fields="fields">
+                <template v-slot:cell(actions)="row">
+                    <b-button size="sm" v-if="row.item.userType == 'cliente'" @click="changeToAdmin(row.item.id)"
+                        class="mr-1">Tornar Admin</b-button>
+                    <b-button size="sm" v-if="row.item.userType == 'admin'" @click="changeToClient(row.item.id)"
+                        class="mr-1">Tornar User</b-button>
                     <b-button size="sm" @click="remove(row.item.id)" class="mr-1">X</b-button>
+
                 </template>
             </b-table>
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
 
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'InscriptionsTables',
+        name: "BookingTable",
         data: function () {
             return {
-                perPage: 3,
+                perPage: 10,
                 currentPage: 1,
                 fields: [{
                         key: 'name',
-                        label: "Workshop",
+                        label: "Nome",
+                        sortable: true
+                    }, {
+                        key: 'lastName',
+                        label: "Apelido",
+                        sortable: true
+                    }, {
+                        key: 'email',
+                        label: "E-mail",
                         sortable: true
                     },
                     {
-                        key: 'inscriptions.length',
-                        label: "Vagas Preenchidas",
+                        key: 'number',
+                        label: "Contacto",
                         sortable: false
                     },
                     {
-                        key: 'vacancies',
-                        label: "Vagas Livres",
+                        key: 'userType',
+                        label: "Tipo",
                         sortable: false
                     },
                     {
@@ -51,37 +69,62 @@
                         label: "Ações",
                         sortable: false
                     },
+
+
                 ],
-                workshops: [],
+                users: [],
+                areas: [],
+                bookingTable: "block",
+                areasTable: "none",
+
                 x: ""
             }
         },
         created() {
-            if (localStorage.getItem("workshops")) {
-                this.workshops = JSON.parse(localStorage.getItem("workshops"))
+
+            if (localStorage.getItem("users")) {
+                this.users = JSON.parse(localStorage.getItem("users"))
             }
         },
         computed: {
-            searchInscriptions() {
-                return this.workshops;
-            },
             rows() {
-                return this.workshops.length
-            }
-        },methods:{
-              remove(id) {
+                return this.users.length
+            },
+        },
+        methods: {
+            remove(id) {
 
-                for (let i in this.workshops) {
+                for (let i in this.users) {
 
-                    if (this.workshops[i].id === id) {
-                        this.workshops = this.workshops.filter(workshop => this.workshops[i].id != workshop.id);
-                        localStorage.setItem("workshops", JSON.stringify(this.workshops));
+                    if (this.users[i].id === id) {
+                        this.users = this.users.filter(user => this.users[i].id != user.id);
+                        localStorage.setItem("users", JSON.stringify(this.users));
 
                         alert("Removido")
                     }
                 }
 
-            }
+            },
+            changeToAdmin(id) {
+                for (let i in this.users) {
+
+                    if (this.users[i].id === id) {
+                        this.users[i].userType = "admin"
+                        localStorage.setItem("users", JSON.stringify(this.users));
+                        alert("aprovado")
+                    }
+                }
+            },
+            changeToClient(id) {
+                for (let i in this.users) {
+
+                    if (this.users[i].id === id) {
+                        this.users[i].userType = "cliente"
+                        localStorage.setItem("users", JSON.stringify(this.users));
+                        alert("aprovado")
+                    }
+                }
+            },
         }
 
     }

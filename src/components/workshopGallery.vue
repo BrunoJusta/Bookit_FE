@@ -2,15 +2,14 @@
     <div>
         <div class="container">
             <div class="row">
-                <div class="col-sm-4" v-for="W in searchWorkshops" :key="W.id">
+                <div class="col-sm-4" v-for="w in searchWorkshops" :key="w.id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card style="max-width: 24rem;" :img-src="W.img" img-height="180rem" class="mb-2 border-0">
-                            <h2 class=" card-title">{{W.name}}</h2>
+                        <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem" class="mb-2 border-0">
                             <b-button class="btn-book" squared>
-                                <router-link :to="{name: x, params: {workshopId: W.id}}" class="teste" style="color:white">
+                                <router-link :to="{name: x, params: {workshopId: w.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
-                            <b-button @click="deleteWorkshop(W.id)" class="btn-remove" :id="W.id"
+                            <b-button @click="deleteWorkshop(w.id)" class="btn-remove" :id="w.id"
                                 v-bind:style="{visibility: remove}" squared> Remover </b-button>
                         </b-card>
                     </div>
@@ -93,5 +92,6 @@
         font-size: 18px;
         background-color: #0A2463;
         margin-bottom: -60px;
+        margin-left: 90px;
     }
 </style>

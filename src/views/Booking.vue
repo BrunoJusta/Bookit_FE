@@ -283,6 +283,7 @@
                     extras: this.checkedExtras,
                     decor: this.checkedDecor,
                     outfit: this.checkedImage,
+                    state: "Pendente" 
                 })
             }
         },

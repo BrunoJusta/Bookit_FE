@@ -17,11 +17,11 @@ export default new Vuex.Store({
     }],
     kits: [{
         id: 0,
-        name: "menu A",
+        name: "Menu A",
         drinks: ["café", "leite"],
         food: ["bolo"],
         type: "Coffee Break",
-        img: require('../assets/eventosCatering.png')
+        img: require('../assets/eventosCatering.png'),
       },
       {
         id: 1,
@@ -61,7 +61,7 @@ export default new Vuex.Store({
       },
       {
         id: 5,
-        name: "menu C",
+        name: "Menu C",
         drinks: ["café", "leite"],
         food: ["bolo"],
         type: "Jantar de Gala",
@@ -77,7 +77,9 @@ export default new Vuex.Store({
         teacher: "João",
         description: "wow",
         img: require('../assets/workshopTemplate.png'),
-        inscriptions: []
+        inscriptions: [],
+        vacancies: 50
+
 
       },
       {
@@ -88,7 +90,9 @@ export default new Vuex.Store({
         teacher: "João",
         description: "wow",
         img: require('../assets/workshopTemplate.png'),
-        inscriptions: []
+        inscriptions: [],
+        vacancies: 50
+
 
       },
       {
@@ -99,7 +103,8 @@ export default new Vuex.Store({
         teacher: "João",
         description: "wow",
         img: require('../assets/workshopTemplate.png'),
-        inscriptions: []
+        inscriptions: [],
+        vacancies: 50
 
 
       }
@@ -189,7 +194,7 @@ export default new Vuex.Store({
   },
   mutations: {
     STORE_ITEMS(state) {
-      localStorage.setItem("areas", JSON.stringify(state.areas));
+      localStorage.setItem("kits", JSON.stringify(state.kits));
       localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
       localStorage.setItem("extras", JSON.stringify(state.extras));
@@ -321,6 +326,7 @@ export default new Vuex.Store({
         extras: payload.extras,
         decor: payload.decor,
         outfit: payload.outfit,
+        state: payload.state
       });
       localStorage.setItem("bookings", JSON.stringify(state.bookings));
     },
@@ -333,6 +339,8 @@ export default new Vuex.Store({
         reason: payload.reason,
         date: payload.date,
         duration: payload.duration,
+        state: payload.state
+
       });
       localStorage.setItem("areaBookings", JSON.stringify(state.areaBookings));
     },

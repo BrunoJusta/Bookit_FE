@@ -105,7 +105,7 @@
         },
         methods: {
             getLastId() {
-                return this.$store.getters.lastId
+                return this.$store.getters.lastId + 1
             },
             addUser() {
                 this.$store.commit('ADD_USER', {

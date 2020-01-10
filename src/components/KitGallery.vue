@@ -2,18 +2,17 @@
     <div>
 
         <div id="CoffeeBreaks" class="container" >
-            <h2 id="redSubTitle">Coffee Break</h2>
+         <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
 
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
-                    <div id="card-maker" v-if="k.type=='Coffee Break'">
-                        <b-card style="max-width: 20rem;" :img-src="k.img" img-height="180rem" class="mb-2 border-0">
-                            <h2 class=" card-title">{{k.name}}</h2>
+                    <div id="card-maker">
+                        <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem;" :img-src="k.img" img-height="180rem" class="mb-2 border-0">
                             <b-button class="btn-book" squared  >
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
-                            <b-button @click="deleteKit(k.id)" class="btn-remove" :id="k.id" v-bind:style="{visibility: remove}" squared> Remover </b-button>
+                            <b-button @click="deleteKit(k.id)" class="btn-remove border-0" :id="k.id" v-bind:style="{visibility: remove}" squared> X</b-button>
                         </b-card>
                     </div>
                 </div>
@@ -21,25 +20,24 @@
         </div>
 
 
-        <div id="JantarGala" class="container">
+       <!--  <div id="JantarGala" class="container">
             <h2 id="redSubTitle">Jantar de Gala</h2>
             <div class="row">
                 <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
                     <div id="card-maker" v-if="k.type=='Jantar de Gala'">
-                                              <b-card style="max-width: 20rem;" :img-src="k.img" img-height="180rem" class="mb-2 border-0">
+                                              <b-card :title="k.name" style="max-width: 20rem;" :img-src="k.img" img-height="180rem" class="mb-2 border-0">
 
-                            <h2 class=" card-title">{{k.name}}</h2>
                             <b-button class="btn-book" squared > 
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
-                            <b-button class="btn-remove" @click="deleteKit(k.id)"  v-bind:style="{visibility: remove}" squared> Remover </b-button>
+                            <b-button class="btn-remove border-0" @click="deleteKit(k.id)"  v-bind:style="{visibility: remove}" squared> X </b-button>
                         </b-card>
                     </div>
                 </div>
             </div>
         </div>
-
+ -->
 
     </div>
 </template>
@@ -117,7 +115,6 @@
         color: #0A2463;
     }
 
-
     .mb-2 {
         --webkit-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
         -moz-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
@@ -131,9 +128,9 @@
     }
 
     .btn-remove {
-        font-size: 16px;
-        background-color: #0A2463;
-        margin-bottom: -60px;
+        font-size: 10px;
+        background-color: #B91C3B;
+        margin-top: -230px;
         float: right;
     }
 

@@ -4,9 +4,8 @@
             <div class="row">
                 <div class="col-sm-6" v-for="a in searchAreas" :key="a.id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
+                        <b-card :title="a.name" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article"
                             style="max-width: 30rem;" class="border-0">
-                            <h2 class=" card-title">{{a.name}}</h2>
                             <b-button class="btn-book" squared>
                                 <router-link :to="{name: x, params: {areaId: a.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
@@ -17,7 +16,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 

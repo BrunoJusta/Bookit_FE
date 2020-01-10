@@ -64,7 +64,7 @@
         },
         methods: {
             getLastId() {
-                return this.$store.getters.bookingLastId
+                return this.$store.getters.bookingLastId + 1
             },
             saveAreaBooking() {
                 this.$store.commit('ADD_AREA_BOOKING', {
@@ -75,6 +75,7 @@
                     reason: this.reason,
                     date: this.date,
                     duration: this.hi + "-" + this.hf,
+                    state: "Pendente"
                 })
                 alert("Enviado")
             },

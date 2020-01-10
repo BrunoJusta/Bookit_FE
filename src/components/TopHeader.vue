@@ -22,11 +22,12 @@
         </b-navbar>
         <b-navbar id="jon" toggleable="lg" type="dark" variant="info">
             <div class="container">
-                <router-link to="/" class="navOptions">Início</router-link>
+                <router-link to="/" class="navOptions" v-bind:style="{display: clientButtons}">Início</router-link>
+                <router-link to="/adminHome" class="navOptions" v-bind:style="{display: adminButtons}">Início</router-link>
                 <router-link to="/choose" class="navOptions" v-bind:style="{display: clientButtons}">Reservas</router-link>
                 <router-link to="/workshops" class="navOptions" v-bind:style="{display: clientButtons}">Workshops</router-link>
-                <router-link to="/adminHome" class="navOptions" v-bind:style="{display: adminButtons}">BackOffice</router-link>
-                <router-link to="/adminHome" class="navOptions" v-bind:style="{display: adminButtons}">BackOffice 2</router-link>
+                <router-link to="/kitManeger" class="navOptions" v-bind:style="{display: adminButtons}">BackOffice</router-link>
+                <router-link to="/userTables" class="navOptions" v-bind:style="{display: adminButtons}">BackOffice 2</router-link>
             </div>
         </b-navbar>
     </div>

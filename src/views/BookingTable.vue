@@ -25,9 +25,10 @@
                 head-variant="dark" responsive="sm" :items="this.bookings" :fields="fields">
                 <template v-slot:cell(actions)="row">
                     <b-button size="sm"  class="mr-1">Ver Mais</b-button>
-                    <b-button size="sm"  class="mr-1">Aceitar</b-button>
-                    <b-button size="sm" @click="removeBooking(row.item.id)" class="mr-1">Recusar</b-button>
-
+                    <b-button size="sm" v-if="row.item.state == 'Pendente'" @click="acceptBooking(row.item.id)" class="mr-1">Aceitar</b-button>
+                    <b-button size="sm" v-if="row.item.state == 'Pendente'" @click="refuseBooking(row.item.id)" class="mr-1">Recusar</b-button>
+                    <b-button size="sm"   @click="removeBooking(row.item.id)" class="mr-1">X</b-button>
+               
                 </template>
             </b-table>
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
@@ -41,9 +42,11 @@
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered  small hover
                 head-variant="dark" responsive="sm" :items="this.areas" :fields="fields2">
                   <template v-slot:cell(actions)="row">
-                      <b-button size="sm"  class="mr-1">Ver Mais</b-button>
-                    <b-button size="sm"  class="mr-1">Aceitar</b-button>
-                    <b-button size="sm" @click="removeBooking(row.item.id)" class="mr-1">Recusar</b-button>
+                      <b-button size="sm"   class="mr-1">Ver Mais</b-button>
+                    <b-button  size="sm" v-if="row.item.state == 'Pendente'" @click="acceptAreaBooking(row.item.id)" class="mr-1">Aceitar</b-button>
+                    <b-button size="sm" v-if="row.item.state == 'Pendente'" @click="refuseAreaBooking(row.item.id)" class="mr-1">Recusar</b-button>
+                    <b-button size="sm"   @click="removeAreaBooking(row.item.id)" class="mr-1">X</b-button>
+
                 </template>
             </b-table>
             <b-pagination v-model="currentPage" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
@@ -95,6 +98,11 @@
                         sortable: false
                     },
                     {
+                        key: 'state',
+                        label: "Estado",
+                        sortable: false
+                    },
+                    {
                         key: 'actions',
                         label: "Ações",
                         sortable: false
@@ -125,6 +133,11 @@
                     {
                         key: 'userEmail',
                         label: "Contacto",
+                        sortable: false
+                    },
+                    {
+                        key: 'state',
+                        label: "Estado",
                         sortable: false
                     },
                     {
@@ -186,11 +199,51 @@
 
                     if (this.areas[i].id === id) {
                         this.areas = this.areas.filter(area => this.areas[i].id != area.id);
-                        localStorage.setItem("areas", JSON.stringify(this.areas));
+                        localStorage.setItem("areaBookings", JSON.stringify(this.areas));
                         alert("Removido")
                     }
                 }
 
+            },
+            acceptBooking(id){
+                for (let i in this.bookings) {
+
+                    if (this.bookings[i].id === id) {
+                        this.bookings[i].state = "Aprovado"
+                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
+                        alert("aprovado")
+                    }
+                }
+            },
+            refuseBooking(id){
+                for (let i in this.bookings) {
+
+                    if (this.bookings[i].id === id) {
+                        this.bookings[i].state = "Recusado"
+                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
+                        alert("aprovado")
+                    }
+                }
+            },
+            acceptAreaBooking(id){
+                for (let i in this.areas) {
+
+                    if (this.areas[i].id === id) {
+                        this.areas[i].state = "Aprovado"
+                        localStorage.setItem("bookings", JSON.stringify(this.areas));
+                        alert("aprovado")
+                    }
+                }
+            },
+            refuseAreaBooking(id){
+                for (let i in this.bookings) {
+
+                    if (this.areas[i].id === id) {
+                        this.areas[i].state = "Recusado"
+                        localStorage.setItem("bookings", JSON.stringify(this.areas));
+                        alert("aprovado")
+                    }
+                }
             }
         }
 
