@@ -46,6 +46,7 @@
         },
         created: function () {
             if (localStorage.getItem("loggedUser")) {
+                this.path = "profile"
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
                 this.showLogout = "block"
             } else {

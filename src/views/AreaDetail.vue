@@ -36,8 +36,8 @@
         return this.areas.filter(
           area => area.id === id
         )[0]
-      },
-      saveCurrentArea() {
+      },     
+      saveCurrentArea(){
         this.currentArea.push({
           areaName: this.areaName,
         });
