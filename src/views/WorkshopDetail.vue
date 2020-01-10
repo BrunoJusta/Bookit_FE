@@ -64,6 +64,7 @@
               inscriptions.push({
                 name: this.clientName
               })
+              this.workshops[j].vacancies =  this.workshops[j].vacancies - 1
               localStorage.setItem("workshops", JSON.stringify(this.workshops));
               alert("inscrito")
 

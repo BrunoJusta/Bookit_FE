@@ -194,7 +194,6 @@ export default new Vuex.Store({
   },
   mutations: {
     STORE_ITEMS(state) {
-      localStorage.setItem("kits", JSON.stringify(state.kits));
       localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
       localStorage.setItem("extras", JSON.stringify(state.extras));

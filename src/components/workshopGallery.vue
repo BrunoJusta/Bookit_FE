@@ -5,11 +5,13 @@
                 <div class="col-sm-4" v-for="w in searchWorkshops" :key="w.id">
                     <div id="card-maker" style="padding-bottom: 60px">
                         <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem" class="mb-2 border-0">
-                            <b-button class="btn-book" squared>
-                                <router-link :to="{name: x, params: {workshopId: w.id}}" class="teste" style="color:white">
+                            <b-button v-if="w.vacancies !== 0" class="btn-book" squared>
+                                <router-link   :to="{name: x, params: {workshopId: w.id}}" class="teste" style="color:white">
                                     Reservar </router-link>
                             </b-button>
-                            <b-button @click="deleteWorkshop(w.id)" class="btn-remove" :id="w.id"
+                                    <p v-else>CHEIO</p>
+
+                            <b-button   @click="deleteWorkshop(w.id)" class="btn-remove" :id="w.id"
                                 v-bind:style="{visibility: remove}" squared> Remover </b-button>
                         </b-card>
                     </div>
