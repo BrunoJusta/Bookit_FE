@@ -17,63 +17,138 @@
                     <p id="nameTxt">{{getFullName}}</p>
                 </div>
                 <div class="col-sm-8" id="optionsColumn">
-                    <div class="container" id="optionsContainer">
-                        <b-img src="../assets/settingsIcon.png" id="settingsImg"></b-img>
-                        <router-link to="/" class="options" style="color:black">Mensagens</router-link>
-                        <router-link to="/" class="options" style="color:black">Notificações |</router-link>
-                        <router-link to="/" class="options" style="color:black">Reservas |</router-link>
-                    </div>
+                    <b-img src="../assets/settingsIcon.png" id="settingsImg"></b-img>
+                    <b-button v-on:click="displayMsgs()" class="options border-0" v-bind:style="{color: msgsFont}">
+                        Mensagens
+                    </b-button>
+                    <h9 class="options" style="padding: 10px">|</h9>
+                    <b-button v-on:click="displayNotifications()" class="options border-0"
+                        v-bind:style="{color: notificFont}">
+                        Notificações</b-button>
+                    <h9 class="options" style="padding: 10px">|</h9>
+
+                    <b-button v-on:click="displayBookings()" class="options border-0"
+                        v-bind:style="{color: bookingsFont}">Reservas
+                    </b-button>
                 </div>
             </div>
         </div>
         <br>
 
-        <div class="container option2">
+
+        <!-- MOSTRA AS RESERVAS -->
+        <div v-bind:style="{display: showBookings}">
+            <div class="container" style="justify-content: center;">
+                <b-button v-on:click="displayEvents()" class="bookingOptions border-0">Eventos & Catering
+                </b-button>
+                <b-button v-on:click="displayAreas()" class="bookingOptions border-0">
+                    Espaços</b-button>
+                <b-button v-on:click="displayWorkshops()" class="bookingOptions border-0">Workshops
+                </b-button>
+            </div>
+
+            <!-- <div class="row">
+                <div class="container" v-bind:style="{display: showEvents}">
+                    <div class="col-sm-4" v-for="k in searchBookings" :key="k.id">
+                        <div id="card-maker">
+                            <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem;" :img-src="k.img"
+                                img-height="180rem" class="mb-2 border-0">
+                                <b-button class="btn-book" squared>
+                                    <router-link :to="{name: x, params: {kitId: k.id}}" class="teste"
+                                        style="color:white">
+                                        Reservar </router-link>
+                                </b-button>
+                                <b-button @click="deleteKit(k.id)" class="btn-remove border-0" :id="k.id"
+                                    v-bind:style="{visibility: remove}" squared> X</b-button>
+                            </b-card>
+                        </div>
+                    </div>
+                </div>
+
+            </div> -->
             <div class="row">
-                <div class="col-sm-4">
-                    <b-button id="link">
-                        <b-card img-src="../assets/eventosCatering.png" class="mb-2 border-0">
+                <div class="col-sm-4" v-for="k in filteredBookings" :key="k.id">
+                    <div class="container" v-bind:style="{display: showEvents}">
+                        <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+                            <b-row>
+                                <b-col md="5">
+                                    <b-card-img src="https://picsum.photos/400/400/?image=20" img-height="180rem"
+                                        class="rounded-0"></b-card-img>
+                                </b-col>
+                                <b-col md="7">
+                                    <b-card-body :title="k.kitName + ' - ' + k.kitType">
+                                        <h8 style="float: left; margin-left: 20px; margin-top:-10px"><b>{{k.date}}</b>
+                                        </h8>
+                                        <br>
+                                        <b-card-text style="margin-top: 20px;">
+                                            <!-- <div v-if="k.drinks.length !==0">
+                                                <h5><b>Bebidas</b></h5>
+                                                <div v-for="d in k.drinks" :key="d.id">{{d}}</div>
+                                            </div>
+                                            <br>
+                                            <div v-if="k.food.length !==0">
+                                                <h5><b>Comida</b></h5>
+                                                <div v-for="f in k.food" :key="f.id">{{f}}</div>
+                                            </div> -->
+                                            Número de Pessoas: {{k.numberPeople}}
+                                            <br>
+                                            Motivo: {{k.reason}}
+                                        </b-card-text>
+                                    </b-card-body>
+                                </b-col>
+                            </b-row>
                         </b-card>
-                        Eventos & Catering
-                    </b-button>
-                </div>
-                <div class="col-sm-4">
-                    <b-button id="link">
-                        <b-card img-src="../assets/bar.png" class="mb-2 border-0">
-                        </b-card>
-                        Espaços
-                    </b-button>
-                </div>
-                <div class="col-sm-4">
-                    <b-button id="link">
-                        <b-card img-src="../assets/workshopTemplate.png" class="mb-2 border-0">
-                        </b-card>
-                        Workshops
-                    </b-button>
+                    </div>
                 </div>
             </div>
+
+            <!-- <div class="container" v-bind:style="{display: showAreas}">
+                <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+                    <b-row no-gutters>
+                        <b-col md="5">
+                            <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
+                        </b-col>
+                        <b-col md="7">
+                            <b-card-body title="ESPAÇOS">
+                                <h5>12/12/12</h5>
+                                <b-card-text style="margin-top: 20px;">
+                                    This is a wider card with supporting text as a natural lead-in to additional
+                                    content.
+                                </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                    </b-row>
+                </b-card>
+            </div>
+            <div class="container" v-bind:style="{display: showWorkshops}">
+                <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+                    <b-row no-gutters>
+                        <b-col md="5">
+                            <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
+                        </b-col>
+                        <b-col md="7">
+                            <b-card-body title="WORKSHOPS">
+                                <h5>12/12/12</h5>
+                                <b-card-text style="margin-top: 20px;">
+                                    This is a wider card with supporting text as a natural lead-in to additional
+                                    content.
+                                </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                    </b-row>
+                </b-card>
+            </div> -->
         </div>
 
-        <!-- CONTAINER DOS CARDS DAS RESERVAS -->
-        <div class="container" style="display: none">
-            <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-                <b-row no-gutters>
-                    <b-col md="5">
-                        <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
-                    </b-col>
-                    <b-col md="7">
-                        <b-card-body title="Coffe Break - MENU A">
-                            <h5>12/12/12</h5>
-                            <b-card-text style="margin-top: 20px;">
-                                This is a wider card with supporting text as a natural lead-in to additional
-                                content.
-                            </b-card-text>
-                        </b-card-body>
-                    </b-col>
-                </b-row>
-            </b-card>
+        <!-- MOSTRA AS NOTIFICACOES -->
+        <div v-bind:style="{display: showNotifications}">
+            <h1>TESTE PARA AS NOTIFICACOES</h1>
         </div>
 
+        <!-- MOSTRA AS MENSAGENS -->
+        <div v-bind:style="{display: showMsgs}">
+            <h1>TESTE PARA AS MENSAGENS</h1>
+        </div>
 
         <br>
         <br>
@@ -87,28 +162,107 @@
     export default {
         data: function () {
             return {
+                bookings: [],
+                areas: [],
+                workshops: [],
                 firstNameUser: "",
                 lastNameUser: "",
-                showEvents: "block",
-                showAreas: "none",
-                showWorshops: "none"
+                userEmail: "",
+                showBookings: "block", //mostrar reservas
+                showNotifications: "none", //mostrar notificaçoes
+                showMsgs: "none", //mostrar mensagens
+                showEvents: "none", //mostrar eventos dentro das reservas
+                showAreas: "none", //mostrar areas dentro das reservas
+                showWorkshops: "none", //mostrar workshops dentro das reservas
+                bookingsFont: "#B91C3B", //muda a cor da fonte escolhida
+                msgsFont: "black", //muda a cor da fonte escolhida
+                notificFont: "black" //muda a cor da fonte escolhida
+                /* eventsFont: "normal",
+                AreasFont: "normal",
+                WorkshopsFont: "normal" */
             }
         },
         created() {
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
+            if (localStorage.getItem("bookings")) {
+                this.bookings = JSON.parse(localStorage.getItem("bookings"))
+            }
+            if (localStorage.getItem("areaBookings")) {
+                this.areas = JSON.parse(localStorage.getItem("areaBookings"))
+            }
+            if (localStorage.getItem("workshops")) {
+                this.workshops = JSON.parse(localStorage.getItem("workshops"))
+            }
             this.firstNameUser = this.$store.getters.getName
             this.lastNameUser = this.$store.getters.getLastName
+            this.userEmail = this.$store.getters.getEmail
         },
         methods: {
             logout() {
                 this.$store.commit('LOGOUT')
+            },
+            displayEvents() {
+                this.showEvents = "block"
+                this.showAreas = "none"
+                this.showWorkshops = "none",
+                    this.eventsFont = "bold",
+                    this.AreasFont = "normal",
+                    this.WorkshopsFont = "normal"
+            },
+            displayAreas() {
+                this.showEvents = "none"
+                this.showAreas = "block"
+                this.showWorkshops = "none",
+                    this.eventsFont = "normal",
+                    this.AreasFont = "bold",
+                    this.WorkshopsFont = "normal"
+            },
+            displayWorkshops() {
+                this.showEvents = "none"
+                this.showAreas = "none"
+                this.showWorkshops = "block",
+                    this.eventsFont = "normal",
+                    this.AreasFont = "normal",
+                    this.WorkshopsFont = "bold"
+            },
+            displayBookings() {
+                this.showBookings = "block"
+                this.showNotifications = "none"
+                this.showMsgs = "none"
+                this.bookingsFont = "#B91C3B"
+                this.notificFont = "black"
+                this.msgsFont = "black"
+            },
+            displayNotifications() {
+                this.showBookings = "none"
+                this.showNotifications = "block"
+                this.showMsgs = "none"
+                this.bookingsFont = "black"
+                this.notificFont = "#B91C3B"
+                this.msgsFont = "black"
+            },
+            displayMsgs() {
+                this.showBookings = "none"
+                this.showNotifications = "none"
+                this.showMsgs = "block"
+                this.bookingsFont = "black"
+                this.notificFont = "black"
+                this.msgsFont = "#B91C3B"
             }
         },
         computed: {
             getFullName() {
                 return this.firstNameUser + " " + this.lastNameUser
+            },
+            getEmail() {
+                return this.userEmail
+            },
+            filteredBookings() {
+                return this.bookings.filter(
+                    booking => booking.userEmail === this.userEmail
+                )
             }
         }
     }
@@ -123,6 +277,9 @@
         float: right;
         padding: 5px;
         margin-top: 110px;
+        background-color: transparent;
+        color: black;
+        padding: 10px;
     }
 
     #settingsImg {
@@ -163,5 +320,11 @@
 
     .mb-2 {
         max-width: 24rem;
+    }
+
+    .bookingOptions {
+        background-color: transparent;
+        color: black;
+        padding: 10px
     }
 </style>

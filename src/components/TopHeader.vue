@@ -63,7 +63,6 @@
                 this.adminButtons = "block"//mostra os botoes da navbar para o admin
                 this.clientButtons = "none"//esconde os botoes do cliente da navbar para o admin
             }
-            alert(this.path)
         },
         methods: {
             logout() {
