@@ -48,89 +48,64 @@
 
             <!-- CARDS DOS EVENTOS -->
             <div class="container" v-bind:style="{display: showEvents}">
-                <div class="row">
-                    <div class="col-sm-4" v-for="k in filteredBookings" :key="k.id" style="padding-top: 20px;">
-                        <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-                            <b-row>
-                                <b-col md="5">
-                                    <b-card-img src="https://picsum.photos/400/400/?image=20" img-height="180rem"
-                                        class="rounded-0"></b-card-img>
-                                </b-col>
-                                <b-col md="7">
-                                    <b-card-body>
-                                        <h3 style="margin-left: auto; margin-top:-14px;">
-                                            <b>{{k.kitName}}</b>
-                                        </h3>
-                                        <h5 style="margin-left: auto; margin-top: -10px;">
-                                            <b>{{k.kitType}}</b>
-                                        </h5>
-                                        <b-card-text style="margin: auto;">
-                                            Data: {{k.date}}
-                                        </b-card-text>
-                                        <b-card-text style="margin: auto;">
-                                            Hora: {{k.duration}}
-                                        </b-card-text>
-                                    </b-card-body>
-                                </b-col>
-                            </b-row>
+                <div class="row" v-if="this.bookings.length !== 0">
+                    <div class="col-sm-3" v-for="k in filteredBookings" :key="k.id" style="padding-top: 20px;">
+                        <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.kitImg">
+                            <b-card-body :title="k.kitName + ' - ' + k.kitType">
+                                <b-card-text style="margin: auto;">
+                                    <b>Data:</b> {{k.date}}
+                                </b-card-text>
+                                <b-card-text style="margin: auto;">
+                                    <b>Hora:</b> {{k.duration}}
+                                </b-card-text>
+                                <b-card-text style="margin: auto;">
+                                    <b>Local:</b> {{k.location}}
+                                </b-card-text>
+                            </b-card-body>
                         </b-card>
                     </div>
+                </div>
+                <div v-else>
+                    <br>
+                    <p>NÃO EXISTEM RESERVAS FEITAS!</p>
                 </div>
             </div>
 
             <!-- CARDS DOS ESPAÇOS -->
             <div class="container" v-bind:style="{display: showAreas}">
-                <div class="row">
-                    <div class="col-sm-4" v-for="k in filteredAreas" :key="k.id" style="padding-top: 20px;">
-                        <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-                            <b-row>
-                                <b-col md="5">
-                                    <b-card-img src="https://picsum.photos/400/400/?image=20" img-height="180rem"
-                                        class="rounded-0"></b-card-img>
-                                </b-col>
-                                <b-col md="7">
-                                    <b-card-body>
-                                        <h5 style="margin-left: auto;   ">
-                                            <b>{{k.areaName}}</b>
-                                        </h5>
-                                        <b-card-text style="margin: auto; margin-top: 20px;">
-                                            Data: {{k.date}}
-                                        </b-card-text>
-                                        <b-card-text style="margin: auto;">
-                                            Hora: {{k.duration}}
-                                        </b-card-text>
-                                    </b-card-body>
-                                </b-col>
-                            </b-row>
+                <div class="row" v-if="this.areas.length !== 0">
+                    <div class="col-sm-3" v-for="k in filteredAreas" :key="k.id" style="padding-top: 20px;">
+                        <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.areaImg">
+                            <b-card-body :title="k.areaName">
+                                <b-card-text style="margin: auto;">
+                                    Data: {{k.date}}
+                                </b-card-text>
+                                <b-card-text style="margin: auto;">
+                                    Hora: {{k.duration}}
+                                </b-card-text>
+                            </b-card-body>
                         </b-card>
                     </div>
+                </div>
+                <div v-else>
+                    <br>
+                    <p>NÃO EXISTEM RESERVAS DE ESPAÇOS FEITAS!</p>
                 </div>
             </div>
 
             <!-- CARDS DOS WORKSHOPS -->
             <div class="container" v-bind:style="{display: showWorkshops}">
                 <div class="row">
-                    <div class="col-sm-4" v-for="k in filteredWorkshops" :key="k.id" style="padding-top: 20px;">
-                        <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-                            <b-row>
-                                <b-col md="5">
-                                    <b-card-img src="https://picsum.photos/400/400/?image=20" img-height="180rem"
-                                        class="rounded-0"></b-card-img>
-                                </b-col>
-                                <b-col md="7">
-                                    <b-card-body>
-                                        <h5 style="margin-left: auto;   ">
-                                            <b>{{k.workshopName}}</b>
-                                        </h5>
-                                        <b-card-text style="margin: auto; margin-top: 20px;">
-                                            Data: {{k.date}}
-                                        </b-card-text>
-                                        <b-card-text style="margin: auto;">
-                                            Hora: {{k.time}}
-                                        </b-card-text>
-                                    </b-card-body>
-                                </b-col>
-                            </b-row>
+                    <div class="col-sm-3" v-for="k in this.userWorkshops" :key="k.id" style="padding-top: 20px;">
+                        <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.img">
+                            <b-card-body :title="k.name">
+                                <b-card-text style="margin: auto;">
+                                    Data: {{k.date}}
+                                </b-card-text>
+                                <b-card-text style="margin: auto;">
+                                    Hora: {{k.time}}
+                                </b-card-text>
+                            </b-card-body>
                         </b-card>
                     </div>
                 </div>
@@ -153,6 +128,7 @@
                 bookings: [],
                 areas: [],
                 workshops: [],
+                userWorkshops: [],
                 firstNameUser: "",
                 lastNameUser: "",
                 userEmail: "",
@@ -180,16 +156,30 @@
             if (localStorage.getItem("areaBookings")) {
                 this.areas = JSON.parse(localStorage.getItem("areaBookings"))
             }
-            if (localStorage.getItem("inscriptions")) {
-                this.workshops = JSON.parse(localStorage.getItem("inscriptions"))
+            if (localStorage.getItem("workshops")) {
+                this.workshops = JSON.parse(localStorage.getItem("workshops"))
             }
+
             this.firstNameUser = this.$store.getters.getName
             this.lastNameUser = this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail
+
         },
         methods: {
             logout() {
                 this.$store.commit('LOGOUT')
+            },
+            filteredWorkshops() {
+                this.userWorkshops = []
+                for (let i = 0; i < this.workshops.length; i++) {
+                    for (let j = 0; j < this.workshops[i].inscriptions.length; j++) {
+                        if (this.workshops[i].inscriptions[j].length !== 0) {
+                            if (this.workshops[i].inscriptions[j].email === this.userEmail) {
+                                this.userWorkshops.push(this.workshops[i])
+                            }
+                        }
+                    }
+                }
             },
             displayEvents() {
                 this.showEvents = "block"
@@ -214,6 +204,7 @@
                 this.eventsFont = "normal"
                 this.AreasFont = "normal"
                 this.WorkshopsFont = "bold"
+                this.filteredWorkshops()
             },
             displayBookings() {
                 this.showBookings = "block"
@@ -248,11 +239,6 @@
                 return this.areas.filter(
                     area => area.userEmail === this.userEmail
                 )
-            },
-            filteredWorkshops() {
-                return this.workshops.filter(
-                    workshop => workshop.userEmail === this.userEmail
-                )
             }
         }
     }
@@ -265,11 +251,19 @@
 
     .options {
         float: right;
-        padding: 5px;
         margin-top: 110px;
         background-color: transparent;
         color: black;
         padding: 10px;
+    }
+
+    .card-title {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .card-img {
+        border-radius: 0 !important;
     }
 
     #settingsImg {
@@ -302,15 +296,6 @@
         font-size: 25px;
         background-color: transparent;
         border: none;
-    }
-
-    .card-body {
-        padding: 0rem;
-        padding-top: 1rem;
-    }
-
-    .mb-2 {
-        max-width: 24rem;
     }
 
     .bookingOptions {
