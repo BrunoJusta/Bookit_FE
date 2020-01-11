@@ -180,7 +180,6 @@ export default new Vuex.Store({
       id: 2,
       name: "Fitas Coloridas"
     }],
-
     outfits: [{
         id: 0,
         source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
@@ -198,7 +197,8 @@ export default new Vuex.Store({
         name: "Outfit_3"
 
       },
-    ]
+    ],
+    schools:[{id:0, name:"ESMAD"},{id:1, name:"ESHT"},{id:2, name:"ESS"}]
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -206,6 +206,8 @@ export default new Vuex.Store({
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
       localStorage.setItem("extras", JSON.stringify(state.extras));
       localStorage.setItem("decor", JSON.stringify(state.decor));
+      localStorage.setItem("schools", JSON.stringify(state.schools));
+
     },
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {
@@ -328,6 +330,7 @@ export default new Vuex.Store({
         date: payload.date,
         duration: payload.duration,
         numberPeople: payload.numberPeople,
+        location: payload.location,
         drinks: payload.drinks,
         food: payload.food,
         extras: payload.extras,

@@ -1,7 +1,7 @@
 <template>
     <div id="registration">
-        
-           <div class="container-full title">
+
+        <div class="container-full title">
             <h1 id="redTitle">Registo</h1>
             <hr class="back-line">
             <div class="container" id="whiteRect">
@@ -35,15 +35,17 @@
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-1">
                                 <label for="input-1">Email:</label>
-                                <b-form-input id="input-1" v-model="email" type="email" required
-                                    placeholder="Introduzir email">
+                                <b-form-input id="input-1" v-model="email" type="email"
+                                    pattern="[a-z0-9._%+-]+@+[a-z]+.ipp.pt" required
+                                    placeholder="email@escola.ipp.pt">
                                 </b-form-input>
                             </b-form-group>
                         </div>
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-3">
                                 <label for="input-3">Contacto:</label>
-                                <b-form-input id="input-3" v-model="number" required placeholder="Introduzir contacto">
+                                <b-form-input id="input-3" v-model="number" type="tel" pattern="[0-9]{9}" required
+                                    placeholder="Contacto">
                                 </b-form-input>
                             </b-form-group>
                         </div>
@@ -54,27 +56,28 @@
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-4">
                                 <label for="input-4">Password:</label>
-                                <b-form-input id="input-4" v-model="password" type="password" required
-                                    placeholder="Introduzir password">
+                                <b-form-input id="input-4" v-model="password" type="password" pattern=".{6,}" required
+                                    placeholder="Introduzir password (min 6)">
                                 </b-form-input>
                             </b-form-group>
                         </div>
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-5">
                                 <label for="input-5">Confirmar Password:</label>
-                                <b-form-input id="input-5" v-model="confPassword" type="password" required
-                                    placeholder="Confirmar password">
+                                <b-form-input id="input-5" v-model="confPassword" type="password" pattern=".{6,}"
+                                    required placeholder="Confirmar password">
                                 </b-form-input>
                             </b-form-group>
                         </div>
                     </div>
                 </div>
                 <div class="container">
-                            <b-button id="show-btn" style="background-color:#0A2463; margin:10px" squared>
-                                <router-link id="link" to="/login">Login</router-link>
-                            </b-button>
-                            <b-button type="submit" id="show-btn" style="background-color:#0A2463; margin:10px" squared>Confirmar
-                            </b-button>
+                    <b-button id="show-btn" style="background-color:#0A2463; margin:10px" squared>
+                        <router-link id="link" to="/login">Login</router-link>
+                    </b-button>
+                    <b-button type="submit" id="show-btn" style="background-color:#0A2463; margin:10px" squared>
+                        Confirmar
+                    </b-button>
                 </div>
             </b-form>
         </div>
@@ -82,6 +85,9 @@
 </template>
 
 <script>
+    import {
+        log
+    } from 'util'
     export default {
         name: "Registration",
         data: () => ({
@@ -92,7 +98,9 @@
             password: "",
             number: "",
             confPassword: "",
-            show: true
+            show: true,
+            schools: [],
+            schoolExists: false
         }),
         created: function () {
             window.addEventListener('unload', this.saveStorage)
@@ -102,28 +110,49 @@
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
+            this.schools = JSON.parse(localStorage.getItem("schools"))
+
+        },
+        updated() {
+
+            for (let i = 0; i <= this.schools.length; i++) {
+                if (this.email.includes((this.schools[i].name).toLowerCase())) {
+                    this.schoolExists = true
+                    break
+                } else {
+                    this.schoolExists = false
+                }
+            }
+
         },
         methods: {
             getLastId() {
                 return this.$store.getters.lastId + 1
             },
             addUser() {
-                this.$store.commit('ADD_USER', {
-                    id: this.getLastId(),
-                    email: this.email,
-                    name: this.name,
-                    lastName: this.lastName,
-                    password: this.password,
-                    number: this.number,
-                    confPassword: this.confPassword
-                })
+                if (this.schoolExists === true) {
+                    this.$store.commit('ADD_USER', {
+                        id: this.getLastId(),
+                        email: this.email,
+                        name: this.name,
+                        lastName: this.lastName,
+                        password: this.password,
+                        number: this.number,
+                        confPassword: this.confPassword
+                    })
+                } else {
+                    alert("Introduza um mail valido do IPP")
+                }
+
             },
             saveStorage() {
                 localStorage.setItem("users", JSON.stringify(this.$store.state.users))
                 localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser))
 
-            }
-        }
+            },
+
+        },
+        computed: {}
     }
 </script>
 

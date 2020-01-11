@@ -1,7 +1,7 @@
 <template>
   <div class="kitDetail">
     <h3 class="display-2">{{getKitById($route.params.kitId).type}}</h3>
-    <div class="container">
+  <!--   <div class="container">
       <b-img v-bind:src="getKitById($route.params.kitId).img" alt="Image" bottom></b-img>
       <h3 class="display-3">{{getKitById($route.params.kitId).name}}</h3>
 
@@ -9,29 +9,49 @@
 
         <div class="drinks">
           <h6>BEBIDA</h6>
-          <b-list-group v-for="d in this.drinks" :key="d.id">
-            <b-list-group-item class="border-0" style="background-color: transparent; margin-bottom:-23px;">{{d}}
-            </b-list-group-item>
-          </b-list-group>
+          <p> {{ drinks.length == 0 ? 'Fechar' : '' + drinks }}</p>
         </div>
 
         <div class="food">
-
           <h6>COMIDA</h6>
-          <b-list-group v-for="f in this.food" :key="f.id">
-            <b-list-group-item class="border-0" style="background-color: transparent; margin-bottom:-23px">{{f}}
-            </b-list-group-item>
-          </b-list-group>
+          <p> {{ food.length == 0 ? 'Fechar' : '' + food }}</p>
         </div>
 
-      </div>
+      </div> 
 
 
       <b-button @click="saveCurrentKit()" class="btn-book" squared>
         <router-link to="/booking" class="teste" style="color:white"> Escolher </router-link>
       </b-button>
 
-    </div>
+    </div>-->
+  <div class="container" >
+        <b-card no-body class="overflow-hidden" style="max-width: 1100px; height: 500px;">
+      <b-row no-gutters>
+        <b-col md="6">
+          <b-card-img v-bind:src="getKitById($route.params.kitId).img" class="rounded-0"></b-card-img>
+        </b-col>
+        <b-col md="6">
+          <b-card-body :title="getKitById($route.params.kitId).name">
+           <div class="row">
+
+        <div class="drinks">
+          <h6>BEBIDA</h6>
+          <p> {{ drinks.length == 0 ? 'Fechar' : '' + drinks }}</p>
+        </div>
+
+        <div class="food">
+          <h6>COMIDA</h6>
+          <p> {{ food.length == 0 ? 'Fechar' : '' + food }}</p>
+        </div>
+
+      </div> 
+          </b-card-body>
+        </b-col>
+      </b-row>
+    </b-card>
+  </div>
+
 
     <!--  <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button> -->
 
@@ -106,7 +126,7 @@
 
   }
 
-  .display-3 {
+  .card-title {
     padding-top: 20px;
     font-family: bookMan;
     font-size: 30px;
@@ -121,12 +141,9 @@
   }
 
   img {
-    margin-left: -15px;
-    float: left;
-    width: 600px;
-    height: 450px;
     border-right: solid 10px #0A2463;
-  }
+    height: 500px;
+  } 
 
   .btn-book {
     font-size: 18px;
@@ -134,7 +151,7 @@
     margin-top: 100px;
   }
 
-  .container {
+/*   .container {
     max-width: 1100px;
     height: 450px;
     -webkit-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
@@ -144,14 +161,13 @@
 
   .col-sm-1 {
     background-color: #0A2463;
-  }
+  }*/
 
   .row {
-    padding-left: 75px;
   }
 
   .food,
   .drinks {
     padding: 50px;
-  }
+  } 
 </style>

@@ -64,6 +64,7 @@
 
             this.currentArea = JSON.parse(localStorage.getItem("currentArea"))
             this.areaName = this.$store.getters.getCurrentArea
+
         },
         methods: {
             getLastId() {

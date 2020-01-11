@@ -6,7 +6,6 @@
         <br>
         <br>
         <br>
-
         <div class="container" style="justify-content: center;">
             <b-button v-on:click="displayInfo()" class="teste border-0"
                 style="background-color:transparent; color:black; padding:10px">Informaçoes
@@ -22,6 +21,9 @@
             </b-button>
             <b-button v-on:click="displayOutfit()" class="teste border-0"
                 style="background-color:transparent; color:black; padding:10px">Fardas
+            </b-button>
+            <b-button v-on:click="displayResume()" class="teste border-0"
+                style="background-color:transparent; color:black; padding:10px">Resumo
             </b-button>
         </div>
         <h3>{{this.$store.getters.getCurrentKitType}} - {{this.$store.getters.getCurrentKitName}}</h3>
@@ -65,9 +67,16 @@
                             <b-form-input type="time" id="hf" v-model="hf" required>
                             </b-form-input>
                         </b-form-group>
+                          <label class="lable" for="schools">Local:</label>
+
+                    <b-form-input id="schools" list="my-list-id" v-model="location" required></b-form-input>
+                    <datalist id="my-list-id">
+                        <option v-for="school in schools" :key="school.id">{{school.name}}</option>
+                    </datalist>
+
                     </div>
 
-
+                  
 
                 </div>
             </div>
@@ -137,6 +146,42 @@
                     </div>
                 </div>
             </div>
+
+            <div class="container" v-bind:style="{display: resume}">
+
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <p v-if="reason != ''">Motivo: {{reason}}</p>
+                        <p v-if="date != ''">Data: {{date}}</p>
+                        <p v-if="hf != ''">Duração: {{hi}} - {{hf}}</p>
+                        <p v-if="people != ''">Nº Pessoas: {{people}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p v-if="location != ''">Local: {{location}}</p>
+                        <p v-if="checkedFood.length != 0">Comida Complementar:
+                            {{ checkedFood.length == 0 ? 'Fechar' : '' + checkedFood }}</p>
+                        <p v-if="checkedDrinks.length != 0">Bebida Complementar:
+                            {{ checkedDrinks.length == 0 ? 'Fechar' : '' + checkedDrinks }}</p>
+                    </div>
+                    <div class="col-sm-4">
+
+                        <p v-if="checkedExtras.length != 0">Extras:
+                            {{ checkedExtras.length == 0 ? 'Fechar' : '' + checkedExtras }}</p>
+                        <p v-if="checkedDecor.length != 0">Decoração:
+                            {{ checkedExtras.length == 0 ? 'Fechar' : '' + checkedExtras }}</p>
+                        <p v-if="checkedImage.length != 0">Farda:
+                            {{ checkedImage.length == 0 ? 'Fechar' : '' + checkedImage }}</p>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+            </div>
             <!-- <div v-if="kitInfo">
                 <KitInfo  v-bind:style="{display: kitInfo} " />
             </div>
@@ -179,6 +224,7 @@
                 extra: "none",
                 decors: "none",
                 outfit: "none",
+                resume: "none",
                 reason: "",
                 date: "",
                 hi: "",
@@ -193,6 +239,8 @@
                 checkedExtras: [],
                 checkedDecor: [],
                 checkedImage: [],
+                schools: [],
+                location: ""
             }
         },
         created() {
@@ -213,6 +261,9 @@
             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             this.kitName = this.$store.getters.getCurrentKitName
             this.kitType = this.$store.getters.getCurrentKitType
+
+            this.schools = JSON.parse(localStorage.getItem("schools"))
+
 
 
 
@@ -237,6 +288,8 @@
                 this.extra = "none"
                 this.decors = "none"
                 this.outfit = "none"
+                this.resume = "none"
+
             },
             displayAddOns() {
                 this.kitInfo = "none"
@@ -244,6 +297,8 @@
                 this.extra = "none"
                 this.decors = "none"
                 this.outfit = "none"
+                this.resume = "none"
+
             },
             displayExtras() {
                 this.kitInfo = "none"
@@ -251,6 +306,8 @@
                 this.extra = "block"
                 this.decors = "none"
                 this.outfit = "none"
+                this.resume = "none"
+
             },
             displayDecor() {
                 this.kitInfo = "none"
@@ -258,6 +315,8 @@
                 this.extra = "none"
                 this.decors = "block"
                 this.outfit = "none"
+                this.resume = "none"
+
             },
             displayOutfit() {
                 this.kitInfo = "none"
@@ -265,6 +324,16 @@
                 this.extra = "none"
                 this.decors = "none"
                 this.outfit = "block"
+                this.resume = "none"
+
+            },
+            displayResume() {
+                this.kitInfo = "none"
+                this.addOns = "none"
+                this.extra = "none"
+                this.decors = "none"
+                this.outfit = "none"
+                this.resume = "block"
             },
             getLastId() {
                 return this.$store.getters.bookingLastId + 1
@@ -280,6 +349,7 @@
                     date: this.date,
                     duration: this.hi + "-" + this.hf,
                     numberPeople: this.people,
+                    location: this.location,
                     drinks: this.checkedDrinks,
                     food: this.checkedFood,
                     extras: this.checkedExtras,

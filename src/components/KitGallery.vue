@@ -4,13 +4,13 @@
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
 
             <div class="row">
-                <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
+                <div class="col-sm-4" style="min-width: 16rem" v-for="k in searchKits" :key="k.id">
                     <div id="card-maker">
-                        <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem;" :img-src="k.img"
+                        <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem" :img-src="k.img"
                             img-height="180rem" class="mb-2 border-0">
                             <b-button class="btn-book" squared>
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
-                                    Reservar </router-link>
+                                    Ver Mais </router-link>
                             </b-button>
                             <b-button @click="deleteKit(k.id)" class="btn-remove border-0" :id="k.id"
                                 v-bind:style="{visibility: remove}" squared> X</b-button>
@@ -138,6 +138,7 @@
         font-size: 10px;
         background-color: #B91C3B;
         margin-top: -230px;
+        margin-right: -15px;
         float: right;
     }
 
@@ -149,4 +150,9 @@
 
 
     }
+    .card-title {
+        font-size: 20px;
+    margin-bottom: .75rem;
+}
+
 </style>

@@ -41,11 +41,12 @@
                                 <p id="listItem" v-if="key === 'date'"> Data: {{value}}</p>
                                 <p id="listItem" v-if="key === 'duration'"> Duração: {{value}}</p>
                                 <p id="listItem" v-if="key === 'numberPeople'"> Nº Pessoas: {{value}}</p>
-                                <p id="listItem" v-if="key === 'drinks'"> Bebidas Complementares: {{value}}</p>
-                                <p id="listItem" v-if="key === 'food'"> Comida Complementar: {{value}}</p>
-                                <p id="listItem" v-if="key === 'extras'"> Extras: {{value}}</p>
-                                <p id="listItem" v-if="key === 'decor'"> Decoração: {{value}}</p>
-                                <p id="listItem" v-if="key === 'outfit'"> Farda: {{value}}</p>
+                                <p id="listItem" v-if="key === 'location'"> Local: {{vavalue}}</p>
+                                <p id="listItem" v-if="key === 'drinks'"> Bebidas Complementares: {{value.length == 0? 'Nada' : '' + value}}</p>
+                                <p id="listItem" v-if="key === 'food'"> Comida Complementar:  {{value.length == 0? 'Nada' : '' + value}}</p>
+                                <p id="listItem" v-if="key === 'extras'"> Extras:  {{value.length == 0? 'Nada' : '' + value}}</p>
+                                <p id="listItem" v-if="key === 'decor'"> Decoração:  {{value.length == 0? 'Nada' : '' + value}}</p>
+                                <p id="listItem" v-if="key === 'outfit'"> Farda:  {{value.length == 0? 'Nada' : '' + value}}</p>
                             </h9>
                         </ul>
                     </b-card>
