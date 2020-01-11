@@ -1,13 +1,5 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h1>PERFIL</h1>
-
         <div class="container" id="perfilContainer">
             <div class="row" style="height: 150px">
                 <div class="col-sm-2">
@@ -23,8 +15,7 @@
                     <b-button v-on:click="displayNotifications()" class="options border-0"
                         v-bind:style="{fontWeight: notificFont, color: notifiColor}">
                         Notificações</b-button>
-                    <h9 class="options" style="padding: 10px">|</h9>
-
+                    <p class="options" style="padding: 10px">|</p>
                     <b-button v-on:click="displayBookings()" class="options border-0"
                         v-bind:style="{fontWeight: bookingsFont,color: bookingsColor}">Reservas
                     </b-button>
@@ -33,7 +24,6 @@
         </div>
         <br>
 
-
         <!-- MOSTRA AS RESERVAS -->
         <div class="container">
             <div v-bind:style="{display: showBookings}">
@@ -41,9 +31,11 @@
                     <b-button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}"
                         style="fontSize: 20px;" class="bookingOptions border-0">Eventos & Catering
                     </b-button>
+                    <span class="bookingOptions" style="padding: 10px">|</span>
                     <b-button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}" style="fontSize: 20px;"
                         class="bookingOptions border-0">
                         Espaços</b-button>
+                    <span class="bookingOptions" style="padding: 10px">|</span>
                     <b-button v-on:click="displayWorkshops()" v-bind:style="{fontWeight: WorkshopsFont}"
                         style="fontSize: 20px;" class="bookingOptions border-0">Workshops
                     </b-button>
@@ -306,9 +298,10 @@
 
 <style lang="scss" scoped>
     #perfilContainer {
-        -webkit-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
-        -moz-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
-        box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
+        -webkit-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
+        -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
+        margin-top: 180px;
     }
 
     .options {
@@ -333,6 +326,7 @@
         margin-right: -25px;
         width: 50px;
         float: right;
+        cursor: pointer;
     }
 
     #imgPerfil {
