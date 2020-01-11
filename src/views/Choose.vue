@@ -48,10 +48,7 @@
         position: relative;
     }
 
-    a {
-        float: left;
-    }
-
+    
     #card-maker {
         padding-bottom: 160px
     }
@@ -90,6 +87,7 @@
 
     .link {
         color: black;
+        font-size: 20px;
     }
     
 </style>

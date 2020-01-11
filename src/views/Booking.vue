@@ -219,6 +219,7 @@
                 currentKit: [],
                 kitName: "",
                 kitType: "",
+                kitImg: "",
                 kitInfo: "block",
                 addOns: "none",
                 extra: "none",
@@ -261,6 +262,7 @@
             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             this.kitName = this.$store.getters.getCurrentKitName
             this.kitType = this.$store.getters.getCurrentKitType
+            
 
             this.schools = JSON.parse(localStorage.getItem("schools"))
 
@@ -345,6 +347,7 @@
                     userEmail: this.userEmail,
                     kitName: this.kitName,
                     kitType: this.kitType,
+                    kitImg: this.$store.getters.getCurrentKitImg,
                     reason: this.reason,
                     date: this.date,
                     duration: this.hi + "-" + this.hf,

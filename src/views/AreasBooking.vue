@@ -6,7 +6,7 @@
         <br>
         <br>
         <br>
-        <h3>{{this.$store.getters.getCurrentArea}}</h3>      
+        <h3>{{this.$store.getters.getCurrentArea}}</h3>
         <form @submit.prevent="saveAreaBooking()">
             <div class="container">
                 <!-- MOTIVO -->
@@ -27,8 +27,7 @@
                 <label for="hf">Hora do Final:</label>
                 <input type="time" id="hf" v-model="hf">
                 <br><br>
-                <button type="submit" value="Adicionar"
-                    class="btn btn-primary">Enviar</button>
+                <button type="submit" value="Adicionar" class="btn btn-primary">Enviar</button>
 
             </div>
         </form>
@@ -56,7 +55,7 @@
             if (localStorage.getItem("areas")) {
                 this.$store.state.areas = JSON.parse(localStorage.getItem("areas"))
             }
-             if (localStorage.getItem("currentArea")) {
+            if (localStorage.getItem("currentArea")) {
                 this.$store.state.currentArea = JSON.parse(localStorage.getItem("currentArea"))
             }
             this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName
@@ -68,7 +67,7 @@
         },
         methods: {
             getLastId() {
-                return this.$store.getters. areaBookingLastId + 1
+                return this.$store.getters.areaBookingLastId + 1
             },
             saveAreaBooking() {
                 this.$store.commit('ADD_AREA_BOOKING', {
@@ -76,6 +75,7 @@
                     userName: this.$store.getters.getName,
                     userEmail: this.$store.getters.getEmail,
                     areaName: this.$store.getters.getCurrentArea,
+                    areaImg: this.$store.getters.getCurrentAreaImg,
                     reason: this.reason,
                     date: this.date,
                     duration: this.hi + "-" + this.hf,
