@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="col-sm-6" v-for="a in searchAreas" :key="a.id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card :title="a.name" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image"
+                        <b-card :title="a.name" :img-src="a.img" img-alt="Image"
                             img-top tag="article" style="max-width: 30rem;" class="border-0">
                             <b-button class="btn-book" squared>
                                 <router-link :to="{name: x, params: {areaId: a.id}}" class="teste" style="color:white">
-                                    Reservar </router-link>
+                                    Ver Mais </router-link>
                             </b-button>
                         </b-card>
                     </div>

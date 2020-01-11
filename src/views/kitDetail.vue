@@ -1,30 +1,6 @@
 <template>
   <div class="kitDetail">
     <h3 class="display-2">{{getKitById($route.params.kitId).type}}</h3>
-    <!--   <div class="container">
-      <b-img v-bind:src="getKitById($route.params.kitId).img" alt="Image" bottom></b-img>
-      <h3 class="display-3">{{getKitById($route.params.kitId).name}}</h3>
-
-      <div class="row">
-
-        <div class="drinks">
-          <h6>BEBIDA</h6>
-          <p> {{ drinks.length == 0 ? 'Fechar' : '' + drinks }}</p>
-        </div>
-
-        <div class="food">
-          <h6>COMIDA</h6>
-          <p> {{ food.length == 0 ? 'Fechar' : '' + food }}</p>
-        </div>
-
-      </div> 
-
-
-      <b-button @click="saveCurrentKit()" class="btn-book" squared>
-        <router-link to="/booking" class="teste" style="color:white"> Escolher </router-link>
-      </b-button>
-
-    </div>-->
     <div class="container">
       <b-card no-body class="overflow-hidden" style="max-width: 1100px;">
         <b-row no-gutters>
@@ -55,7 +31,7 @@
 
       </b-card>
       <b-button @click="saveCurrentKit()" class="btn-book" squared>
-              <router-link to="/booking" class="teste" style="color:white"> Escolher </router-link>
+              <router-link to="/booking" class="teste" style="color:white"> Reserva </router-link>
             </b-button>
     </div>
 
