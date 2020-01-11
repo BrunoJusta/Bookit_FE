@@ -35,39 +35,21 @@
         <!-- MOSTRA AS RESERVAS -->
         <div v-bind:style="{display: showBookings}">
             <div class="container" style="justify-content: center;">
-                <b-button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}"
+                <b-button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}" style="fontSize: 20px;"
                     class="bookingOptions border-0">Eventos & Catering
                 </b-button>
-                <b-button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}"
+                <b-button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}" style="fontSize: 20px;"
                     class="bookingOptions border-0">
                     Espaços</b-button>
                 <b-button v-on:click="displayWorkshops()" v-bind:style="{fontWeight: WorkshopsFont}"
-                    class="bookingOptions border-0">Workshops
+                    style="fontSize: 20px;" class="bookingOptions border-0">Workshops
                 </b-button>
             </div>
 
-            <!-- <div class="row">
-                <div class="container" v-bind:style="{display: showEvents}">
-                    <div class="col-sm-4" v-for="k in searchBookings" :key="k.id">
-                        <div id="card-maker">
-                            <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem;" :img-src="k.img"
-                                img-height="180rem" class="mb-2 border-0">
-                                <b-button class="btn-book" squared>
-                                    <router-link :to="{name: x, params: {kitId: k.id}}" class="teste"
-                                        style="color:white">
-                                        Reservar </router-link>
-                                </b-button>
-                                <b-button @click="deleteKit(k.id)" class="btn-remove border-0" :id="k.id"
-                                    v-bind:style="{visibility: remove}" squared> X</b-button>
-                            </b-card>
-                        </div>
-                    </div>
-                </div>
-
-            </div> -->
-            <div class="row">
-                <div class="col-sm-4" v-for="k in filteredBookings" :key="k.id">
-                    <div class="container" v-bind:style="{display: showEvents}">
+            <!-- CARDS DOS EVENTOS -->
+            <div class="container" v-bind:style="{display: showEvents}">
+                <div class="row">
+                    <div class="col-sm-4" v-for="k in filteredBookings" :key="k.id" style="padding-top: 20px;">
                         <b-card no-body class="overflow-hidden" style="max-width: 540px;">
                             <b-row>
                                 <b-col md="5">
@@ -75,23 +57,18 @@
                                         class="rounded-0"></b-card-img>
                                 </b-col>
                                 <b-col md="7">
-                                    <b-card-body :title="k.kitName + ' - ' + k.kitType">
-                                        <h8 style="float: left; margin-left: 20px; margin-top:-10px"><b>{{k.date}}</b>
-                                        </h8>
-                                        <br>
-                                        <b-card-text style="margin-top: 20px;">
-                                            <!-- <div v-if="k.drinks.length !==0">
-                                                <h5><b>Bebidas</b></h5>
-                                                <div v-for="d in k.drinks" :key="d.id">{{d}}</div>
-                                            </div>
-                                            <br>
-                                            <div v-if="k.food.length !==0">
-                                                <h5><b>Comida</b></h5>
-                                                <div v-for="f in k.food" :key="f.id">{{f}}</div>
-                                            </div> -->
-                                            Número de Pessoas: {{k.numberPeople}}
-                                            <br>
-                                            Motivo: {{k.reason}}
+                                    <b-card-body>
+                                        <h3 style="margin-left: auto; margin-top:-14px;">
+                                            <b>{{k.kitName}}</b>
+                                        </h3>
+                                        <h5 style="margin-left: auto; margin-top: -10px;">
+                                            <b>{{k.kitType}}</b>
+                                        </h5>
+                                        <b-card-text style="margin: auto;">
+                                            Data: {{k.date}}
+                                        </b-card-text>
+                                        <b-card-text style="margin: auto;">
+                                            Hora: {{k.duration}}
                                         </b-card-text>
                                     </b-card-body>
                                 </b-col>
@@ -101,42 +78,63 @@
                 </div>
             </div>
 
-            <!-- <div class="container" v-bind:style="{display: showAreas}">
-                <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-                    <b-row no-gutters>
-                        <b-col md="5">
-                            <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
-                        </b-col>
-                        <b-col md="7">
-                            <b-card-body title="ESPAÇOS">
-                                <h5>12/12/12</h5>
-                                <b-card-text style="margin-top: 20px;">
-                                    This is a wider card with supporting text as a natural lead-in to additional
-                                    content.
-                                </b-card-text>
-                            </b-card-body>
-                        </b-col>
-                    </b-row>
-                </b-card>
+            <!-- CARDS DOS ESPAÇOS -->
+            <div class="container" v-bind:style="{display: showAreas}">
+                <div class="row">
+                    <div class="col-sm-4" v-for="k in filteredAreas" :key="k.id" style="padding-top: 20px;">
+                        <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+                            <b-row>
+                                <b-col md="5">
+                                    <b-card-img src="https://picsum.photos/400/400/?image=20" img-height="180rem"
+                                        class="rounded-0"></b-card-img>
+                                </b-col>
+                                <b-col md="7">
+                                    <b-card-body>
+                                        <h5 style="margin-left: auto;   ">
+                                            <b>{{k.areaName}}</b>
+                                        </h5>
+                                        <b-card-text style="margin: auto; margin-top: 20px;">
+                                            Data: {{k.date}}
+                                        </b-card-text>
+                                        <b-card-text style="margin: auto;">
+                                            Hora: {{k.duration}}
+                                        </b-card-text>
+                                    </b-card-body>
+                                </b-col>
+                            </b-row>
+                        </b-card>
+                    </div>
+                </div>
             </div>
+
+            <!-- CARDS DOS WORKSHOPS -->
             <div class="container" v-bind:style="{display: showWorkshops}">
-                <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-                    <b-row no-gutters>
-                        <b-col md="5">
-                            <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
-                        </b-col>
-                        <b-col md="7">
-                            <b-card-body title="WORKSHOPS">
-                                <h5>12/12/12</h5>
-                                <b-card-text style="margin-top: 20px;">
-                                    This is a wider card with supporting text as a natural lead-in to additional
-                                    content.
-                                </b-card-text>
-                            </b-card-body>
-                        </b-col>
-                    </b-row>
-                </b-card>
-            </div> -->
+                <div class="row">
+                    <div class="col-sm-4" v-for="k in filteredWorkshops" :key="k.id" style="padding-top: 20px;">
+                        <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+                            <b-row>
+                                <b-col md="5">
+                                    <b-card-img src="https://picsum.photos/400/400/?image=20" img-height="180rem"
+                                        class="rounded-0"></b-card-img>
+                                </b-col>
+                                <b-col md="7">
+                                    <b-card-body>
+                                        <h5 style="margin-left: auto;   ">
+                                            <b>{{k.workshopName}}</b>
+                                        </h5>
+                                        <b-card-text style="margin: auto; margin-top: 20px;">
+                                            Data: {{k.date}}
+                                        </b-card-text>
+                                        <b-card-text style="margin: auto;">
+                                            Hora: {{k.time}}
+                                        </b-card-text>
+                                    </b-card-body>
+                                </b-col>
+                            </b-row>
+                        </b-card>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- MOSTRA AS NOTIFICACOES -->
@@ -182,8 +180,8 @@
             if (localStorage.getItem("areaBookings")) {
                 this.areas = JSON.parse(localStorage.getItem("areaBookings"))
             }
-            if (localStorage.getItem("workshops")) {
-                this.workshops = JSON.parse(localStorage.getItem("workshops"))
+            if (localStorage.getItem("inscriptions")) {
+                this.workshops = JSON.parse(localStorage.getItem("inscriptions"))
             }
             this.firstNameUser = this.$store.getters.getName
             this.lastNameUser = this.$store.getters.getLastName
@@ -245,6 +243,16 @@
                 return this.bookings.filter(
                     booking => booking.userEmail === this.userEmail
                 )
+            },
+            filteredAreas() {
+                return this.areas.filter(
+                    area => area.userEmail === this.userEmail
+                )
+            },
+            filteredWorkshops() {
+                return this.workshops.filter(
+                    workshop => workshop.userEmail === this.userEmail
+                )
             }
         }
     }
@@ -276,6 +284,7 @@
 
     #nameTxt {
         margin-top: 115px;
+        font-size: 20px;
     }
 
     @font-face {
