@@ -53,7 +53,7 @@
           </b-card>
         </div>
         <div class="col-sm-4">
-          <b-card img-src="../assets/workshopTemplate.png" class="mb-2 border-0">
+          <b-card img-src="../assets/workshopTemplate.png" class="mb-2 border-0 ">
             <router-link id="link" to="/workshops">Workshops</router-link>
           </b-card>
         </div>
@@ -125,14 +125,9 @@
     color: white;
   }
 
-  a {
-    float: left;
-
-  }
-
   #link {
     color: black;
-    font-size: 25px;
+    font-size: 20px;
   }
 
   #redTitle {

@@ -119,18 +119,29 @@ export default new Vuex.Store({
     areas: [{
         id: 0,
         name: "Restaurante de Aplicação",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        img: require('../assets/bar.png'),
       },
       {
         id: 1,
         name: "Bar de Aplicação",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        img: require('../assets/bar.png'),
+
       },
       {
         id: 2,
         name: "Cozinha de Aplicação",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        img: require('../assets/bar.png'),
+
       },
       {
         id: 3,
         name: "Restaurante da ESHT",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        img: require('../assets/bar.png'),
+
       }
     ],
     x: 0,
@@ -203,6 +214,7 @@ export default new Vuex.Store({
   mutations: {
     STORE_ITEMS(state) {
       localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
+      localStorage.setItem("areas", JSON.stringify(state.areas));
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
       localStorage.setItem("extras", JSON.stringify(state.extras));
       localStorage.setItem("decor", JSON.stringify(state.decor));
@@ -326,6 +338,7 @@ export default new Vuex.Store({
         userEmail: payload.userEmail,
         kitName: payload.kitName,
         kitType: payload.kitType,
+        kitImg: payload.kitImg,
         reason: payload.reason,
         date: payload.date,
         duration: payload.duration,
@@ -346,6 +359,7 @@ export default new Vuex.Store({
         userName: payload.userName,
         userEmail: payload.userEmail,
         areaName: payload.areaName,
+        areaImg: payload.areaImg,
         reason: payload.reason,
         date: payload.date,
         duration: payload.duration,
@@ -445,6 +459,12 @@ export default new Vuex.Store({
     },
     getCurrentArea(state) {
       return state.currentArea.areaName
+    },
+    getCurrentKitImg(state) {
+      return state.currentKit.kitImg
+    },
+    getCurrentAreaImg(state) {
+      return state.currentArea.areaImg
     }
   }
 })

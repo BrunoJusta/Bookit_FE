@@ -23,7 +23,7 @@
 
   @font-face {
     font-family: gotham;
-    src: url(./assets/._Gotham-Book.otf);
+    src: url(./assets/Gotham-Book.otf);
   }
 
   #app {

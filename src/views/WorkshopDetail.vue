@@ -59,10 +59,9 @@
         for (let j = 0; j <= this.workshops.length; j++) {
           if (this.workshops[j].name === this.workshopName) {
             let inscriptions = this.workshops[j].inscriptions
-            console.log(this.workshops[j].name)
             if (inscriptions.length === 0) {
               inscriptions.push({
-                name: this.clientName
+                email: this.$store.getters.getEmail
               })
               this.workshops[j].vacancies =  this.workshops[j].vacancies - 1
               localStorage.setItem("workshops", JSON.stringify(this.workshops));
@@ -70,7 +69,7 @@
 
             } else {
               for (let i = 0; i <= inscriptions.length; i++) {
-                if (inscriptions[i].name === this.clientName) {
+                if (inscriptions[i].email === this.$store.getters.getEmail) {
                   alert("ja inscrito")
                 } else {
                   alert("inscrito")

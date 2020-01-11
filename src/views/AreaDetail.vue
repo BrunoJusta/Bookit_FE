@@ -21,7 +21,8 @@
       return {
         areas: [],
         areaName: "",
-        currentArea: {}
+        currentArea: {},
+        areaImg: ""
       };
     },
     created() {
@@ -33,6 +34,10 @@
           area => area.id === id
         )[0].name
 
+          this.areaImg = this.areas.filter(
+          area => area.id === id
+        )[0].img
+
         return this.areas.filter(
           area => area.id === id
         )[0]
@@ -40,6 +45,7 @@
       saveCurrentArea(){
        this.currentArea = ({
           areaName: this.areaName,
+          areaImg: this.areaImg
         });
         localStorage.setItem("currentArea", JSON.stringify(this.currentArea));
         this.$store.state.currentArea = this.currentArea
