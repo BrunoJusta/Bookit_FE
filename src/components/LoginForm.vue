@@ -2,7 +2,7 @@
     <div id="loginform">
 
         <div class="container-full title">
-            <h1 id="redTitle">LOGIN</h1>
+            <h1 id="redTitle">Iniciar Sessão</h1>
             <hr class="back-line">
             <div class="container" id="whiteRect">
                 <p id="space">space</p>
@@ -13,15 +13,15 @@
 
             <b-form v-on:submit.prevent="login()" v-if="show">
                 <b-form-group id="input-group-1">
-                    <label for="input-1">Email:</label>
-                    <b-form-input id="input-1" v-model="emailLogin" type="email" required
+                    <label for="input-1">Email</label>
+                    <b-form-input id="input-1" class="rounded-0" v-model="emailLogin" type="email" required
                         placeholder="Introduzir email">
                     </b-form-input>
                 </b-form-group>
 
                 <b-form-group id="input-group-4">
-                    <label for="input-4">Password:</label>
-                    <b-form-input id="input-4" v-model="passwordLogin" type="password" required
+                    <label for="input-4">Password</label>
+                    <b-form-input id="input-4" class="rounded-0" v-model="passwordLogin" type="password" required
                         placeholder="Introduzir password">
                     </b-form-input>
                 </b-form-group>
@@ -31,7 +31,7 @@
                         <router-link id="link" to="/register">Registar</router-link>
                     </b-button>
                     <b-button type="submit" id="show-btn" style="background-color:#0A2463; margin:10px" squared>
-                        Confirmar</b-button>
+                        Entrar</b-button>
 
 
                 </div>

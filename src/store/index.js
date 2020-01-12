@@ -98,7 +98,7 @@ export default new Vuex.Store({
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         img: require('../assets/workshopTemplate.png'),
         inscriptions: [],
-        vacancies: 1
+        vacancies: 50
 
 
       },
@@ -213,7 +213,6 @@ export default new Vuex.Store({
   },
   mutations: {
     STORE_ITEMS(state) {
-      localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
       localStorage.setItem("extras", JSON.stringify(state.extras));

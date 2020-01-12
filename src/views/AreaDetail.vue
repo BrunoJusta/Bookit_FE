@@ -2,27 +2,27 @@
   <div class="areasDetail">
     <h3 class="display-2">{{getAreaById($route.params.areaId).name}}</h3>
     <div class="container">
-      <b-card no-body class="overflow-hidden" style="max-width: 1100px;">
+      <b-card no-body class="overflow-hidden border-0" style="max-width: 1100px;">
         <b-row no-gutters>
           <b-col md="6">
             <b-card-img v-bind:src=" getAreaById($route.params.areaId).img" class="rounded-0"></b-card-img>
           </b-col>
           <b-col md="6">
             <b-card-body align="left" title="Descrição">
-                  <p> {{getAreaById($route.params.areaId).description}}</p>
+              <p> {{getAreaById($route.params.areaId).description}}</p>
             </b-card-body>
-            
+
           </b-col>
 
         </b-row>
 
       </b-card>
       <b-button class="btn-book border-0" squared>
-              <router-link to="/areas"  style="color:white"> Voltar </router-link>
-            </b-button>
+        <router-link to="/areas" style="color:white"> Voltar </router-link>
+      </b-button>
       <b-button @click="saveCurrentArea()" class="btn-book border-0" squared>
-              <router-link to="/areasbooking" class="teste" style="color:white"> Reservar </router-link>
-            </b-button>
+        <router-link to="/areasbooking" class="teste" style="color:white"> Reservar </router-link>
+      </b-button>
     </div>
   </div>
 
@@ -47,16 +47,16 @@
           area => area.id === id
         )[0].name
 
-          this.areaImg = this.areas.filter(
+        this.areaImg = this.areas.filter(
           area => area.id === id
         )[0].img
 
         return this.areas.filter(
           area => area.id === id
         )[0]
-      },     
-      saveCurrentArea(){
-       this.currentArea = ({
+      },
+      saveCurrentArea() {
+        this.currentArea = ({
           areaName: this.areaName,
           areaImg: this.areaImg
         });
@@ -88,8 +88,6 @@
     font-size: 25px;
     font-weight: bold;
     color: #0A2463;
-
-
   }
 
   img {
@@ -109,5 +107,14 @@
     -webkit-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
     -moz-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
     box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-img {
+    border-radius: 0 !important;
+  }
+
+
+  .card {
+    border-radius: 0 !important;
   }
 </style>

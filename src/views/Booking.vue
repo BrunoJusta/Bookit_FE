@@ -1,12 +1,9 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="container" style="justify-content: center;">
+        <h3 class="menuNameType">{{this.$store.getters.getCurrentKitType}} - {{this.$store.getters.getCurrentKitName}}
+        </h3>
+
+        <div class="container navOptn" style="justify-content: center;">
             <b-button v-on:click="displayInfo()" class="teste border-0"
                 style="background-color:transparent; color:black; padding:10px">Informaçoes
             </b-button>
@@ -26,16 +23,15 @@
                 style="background-color:transparent; color:black; padding:10px">Resumo
             </b-button>
         </div>
-        <h3>{{this.$store.getters.getCurrentKitType}} - {{this.$store.getters.getCurrentKitName}}</h3>
         <form @submit.prevent="saveBooking()">
             <div class="container" v-bind:style="{display: kitInfo}">
                 <!-- MOTIVO -->
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div class="form-group">
                             <label for="reason" class="lable">Motivo</label>
-                            <textarea class="form-control" style="resize: none;" id="reason" v-model="reason" rows="4"
-                                cols="50" required></textarea>
+                            <textarea class="form-control rounded-0" style="resize: none;" id="reason" v-model="reason"
+                                rows="4" cols="50" required></textarea>
                         </div>
                     </div>
 
@@ -43,40 +39,48 @@
                     <div class="col-sm-3">
 
                         <b-form-group class="input" id="input-group-6">
-                            <label class="lable" for="date">Data:</label>
-                            <b-form-input type="date" v-model="date" required>
+                            <label class="lable" for="date">Data</label>
+                            <b-form-input type="date" class="rounded-0" v-model="date" required>
+                            </b-form-input>
+                        </b-form-group>
+
+                        <label class="lable" for="schools">Local</label>
+
+                        <b-form-input id="schools" class="rounded-0" list="my-list-id" v-model="location" required>
+                        </b-form-input>
+                        <datalist id="my-list-id">
+                            <option v-for="school in schools" :key="school.id">{{school.name}}</option>
+                        </datalist>
+
+                    </div>
+
+                    <div class="col-sm-2">
+                        <b-form-group class="input" id="input-group-6">
+                            <label class="lable" for="hi">Hora de Início</label>
+
+                            <b-form-input type="time" id="hi" class="rounded-0" v-model="hi" required>
                             </b-form-input>
                         </b-form-group>
 
                         <b-form-group class="input" id="input-group-6">
-                            <label class="lable" for="hi">Hora de Início:</label>
-
-                            <b-form-input type="time" id="hi" v-model="hi" required>
+                            <label class="lable" for="hf">Hora do Final</label>
+                            <b-form-input type="time" id="hf" class="rounded-0" v-model="hf" required>
                             </b-form-input>
                         </b-form-group>
                     </div>
 
-                    <div class="col-sm-3">
-                        <b-form-group class="input" id="input-group-6">
-                            <label class="lable" for="people">Número de Pessoas:</label>
-                            <b-form-input type="number" name="" id="people" min="20" max="50" v-model="people" required>
-                            </b-form-input>
-                        </b-form-group>
-                        <b-form-group class="input" id="input-group-6">
-                            <label class="lable" for="hf">Hora do Final:</label>
-                            <b-form-input type="time" id="hf" v-model="hf" required>
-                            </b-form-input>
-                        </b-form-group>
-                          <label class="lable" for="schools">Local:</label>
+                    <div class="col-sm-2">
 
-                    <b-form-input id="schools" list="my-list-id" v-model="location" required></b-form-input>
-                    <datalist id="my-list-id">
-                        <option v-for="school in schools" :key="school.id">{{school.name}}</option>
-                    </datalist>
+                        <b-form-group class="input" id="input-group-6">
+                            <label class="lable" for="people">Número de Pessoas</label>
+                            <b-form-input type="number" name="" id="people" min="20" max="50" class="rounded-0"
+                                v-model="people" required>
+                            </b-form-input>
+                        </b-form-group>
 
                     </div>
 
-                  
+
 
                 </div>
             </div>
@@ -84,29 +88,31 @@
 
             <div class="container" v-bind:style="{display: addOns}">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <h1>Bebidas</h1>
-                        <div class="container" v-for="i in searchKits" :key="i.id">
-                            <div class="form-check" v-if="i.type=='Drink'">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" :value="i.name"
-                                        v-model="checkedDrinks" checked>
-                                    {{i.name}}
-                                </label>
-                            </div>
+                    <div align="right" class="col-sm-5">
+                        <h4 class="subtitle">Bebidas</h4>
+                        <div v-for="i in searchKits" :key="i.id">
+                            <b-form-group v-if="i.type=='Drink'">
+                                <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDrinks">
+                                    <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                                </b-form-checkbox-group>
+                            </b-form-group>
                         </div>
+
                     </div>
-                    <div class="col-sm-6">
-                        <h1>Comida</h1>
-                        <div class="container" v-for="i in searchKits" :key="i.id">
-                            <div class="form-check" v-if="i.type=='Food'">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" :value="i.name"
-                                        v-model="checkedFood" checked>
-                                    {{i.name}}
-                                </label>
-                            </div>
+                    <div class="col-sm-2">
+                    </div>
+
+
+                    <div align="left" class="col-sm-5">
+                        <h4 class="subtitle">Comida</h4>
+                        <div v-for="i in searchKits" :key="i.id">
+                            <b-form-group v-if="i.type=='Food'">
+                                <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
+                                    <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                                </b-form-checkbox-group>
+                            </b-form-group>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -115,35 +121,40 @@
 
 
             <div class="container" v-bind:style="{display: extra}">
-                <h1>Extras</h1>
-                <div class="container" v-for="e in searchExtras" :key="e.id">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" :value="e.name" v-model="checkedExtras" checked>
-                        {{e.name}}
-                    </label>
+                <div class="container" style="max-width:200px;" align="left" v-for="i in searchExtras" :key="i.id">
+                    <b-form-group>
+                        <b-form-checkbox-group id="checkbox-group-2" v-model="checkedExtras">
+                            <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                        </b-form-checkbox-group>
+                    </b-form-group>
                 </div>
             </div>
 
             <div class="container" v-bind:style="{display: decors}">
-                <h1>Decorações</h1>
-                <div class="container" v-for="d in searchDecor" :key="d.id">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" :value="d.name" v-model="checkedDecor" checked>
-                        {{d.name}}
-                    </label>
+                <div class="container" style="max-width:250px;" align="left" v-for="i in searchDecor" :key="i.id">
+                    <b-form-group>
+                        <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDecor">
+                            <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                        </b-form-checkbox-group>
+                    </b-form-group>
                 </div>
             </div>
 
             <div class="container" v-bind:style="{display: outfit}">
                 <div class="row">
-                    <div class="form-check" v-for="i in searchOutfits" :key="i.id">
+                    <div v-for="i in searchOutfits" :key="i.id">
                         <div class="col-sm-4">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" :value="i.name" v-model="checkedImage">
-                                <img style="height:300px; width:auto" v-bind:src="i.source" />
-                            </label>
+
+                            <b-form-group>
+                                <b-form-checkbox-group id="checkbox-group-2" v-model="checkedImage">
+                                    <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                                    <img style="height:300px; width:auto" v-bind:src="i.source" />
+
+                                </b-form-checkbox-group>
+                            </b-form-group>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -151,26 +162,26 @@
 
                 <div class="row">
 
-                    <div class="col-sm-4">
-                        <p v-if="reason != ''">Motivo: {{reason}}</p>
-                        <p v-if="date != ''">Data: {{date}}</p>
-                        <p v-if="hf != ''">Duração: {{hi}} - {{hf}}</p>
-                        <p v-if="people != ''">Nº Pessoas: {{people}}</p>
+                    <div align="left" class="col-sm-4">
+                        <p v-if="reason != ''"><b>Motivo</b> {{reason}}</p>
+                        <p v-if="date != ''"><b>Data</b> {{date}}</p>
+                        <p v-if="hf != ''"><b>Duração</b> {{hi}} - {{hf}}</p>
+                        <p v-if="people != ''"><b>Nº Pessoas</b> {{people}}</p>
                     </div>
-                    <div class="col-sm-4">
-                        <p v-if="location != ''">Local: {{location}}</p>
-                        <p v-if="checkedFood.length != 0">Comida Complementar:
+                    <div align="left" class="col-sm-4">
+                        <p v-if="location != ''"><b>Local</b> {{location}}</p>
+                        <p v-if="checkedFood.length != 0"><b>Comida</b>
                             {{ checkedFood.length == 0 ? 'Fechar' : '' + checkedFood }}</p>
-                        <p v-if="checkedDrinks.length != 0">Bebida Complementar:
+                        <p v-if="checkedDrinks.length != 0"><b>Bebida</b>
                             {{ checkedDrinks.length == 0 ? 'Fechar' : '' + checkedDrinks }}</p>
                     </div>
-                    <div class="col-sm-4">
+                    <div align="left" class="col-sm-4">
 
-                        <p v-if="checkedExtras.length != 0">Extras:
+                        <p v-if="checkedExtras.length != 0"><b>Extras</b>
                             {{ checkedExtras.length == 0 ? 'Fechar' : '' + checkedExtras }}</p>
-                        <p v-if="checkedDecor.length != 0">Decoração:
+                        <p v-if="checkedDecor.length != 0"><b>Decoração</b>
                             {{ checkedExtras.length == 0 ? 'Fechar' : '' + checkedExtras }}</p>
-                        <p v-if="checkedImage.length != 0">Farda:
+                        <p v-if="checkedImage.length != 0"><b>Farda</b>
                             {{ checkedImage.length == 0 ? 'Fechar' : '' + checkedImage }}</p>
                     </div>
 
@@ -198,7 +209,7 @@
                 <Outfits v-bind:style="{display: outfits}" />
             </div>
             <br> -->
-            <b-button type="submit" @click="teste" value="Adicionar" class="btn btn-primary" squared>Adicionar
+            <b-button type="submit" @click="teste" value="Adicionar" class="btn btn-primary border-0" squared>Confirmar
             </b-button>
         </form>
 
@@ -262,7 +273,7 @@
             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             this.kitName = this.$store.getters.getCurrentKitName
             this.kitType = this.$store.getters.getCurrentKitType
-            
+
 
             this.schools = JSON.parse(localStorage.getItem("schools"))
 
@@ -385,7 +396,45 @@
 </script>
 
 <style lang="scss" scoped>
+    @font-face {
+        font-family: bookMan;
+        src: url(../assets/bookman.ttf);
+    }
+
+    .menuNameType {
+        font-family: bookman;
+        padding-top: 180px;
+        padding-bottom: 30px;
+        color: #B91C3B;
+    }
+
     .lable {
         float: left;
+        font-weight: bold;
+    }
+
+
+
+    .subtitle {
+        padding-bottom: 10px;
+        color: #0A2463;
+        font-weight: bold;
+
+    }
+
+    .navOptn {
+        padding-bottom: 70px;
+    }
+
+    textarea {
+        height: 124px;
+    }
+
+    .btn-primary {
+        font-size: 18px;
+        background-color: #0A2463;
+        margin: 20px;
+        margin-top: 50px;
+
     }
 </style>

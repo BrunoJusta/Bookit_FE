@@ -4,15 +4,17 @@
             <div class="row">
                 <div class="col-sm-4" v-for="w in searchWorkshops" :key="w.id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem" class="mb-2 border-0">
+                        <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem"
+                            class="mb-2 border-0">
                             <b-button v-if="w.vacancies !== 0" class="btn-book" squared>
-                                <router-link   :to="{name: x, params: {workshopId: w.id}}" class="teste" style="color:white">
-                                   Ver Mais </router-link>
+                                <router-link :to="{name: x, params: {workshopId: w.id}}" class="teste"
+                                    style="color:white">
+                                    Ver Mais </router-link>
                             </b-button>
-                                    <p v-else>CHEIO</p>
+                            <p v-else>CHEIO</p>
 
-                            <b-button   @click="deleteWorkshop(w.id)" class="btn-remove" :id="w.id"
-                                v-bind:style="{visibility: remove}" squared> xxxxxxx </b-button>
+                            <b-button @click="deleteWorkshop(w.id)" class="btn-remove border-0" :id="w.id"
+                                v-bind:style="{visibility: remove}" squared> X </b-button>
                         </b-card>
                     </div>
 
@@ -52,17 +54,18 @@
                 this.choose = "visible"
             }
 
-        },methods:{
-            deleteWorkshop(id){
+        },
+        methods: {
+            deleteWorkshop(id) {
 
-                for(let i=0; i<=this.workshops.length; i++){
-                    if(i === id){
-                    this.workshops.splice(i,1)
-                    localStorage.setItem("workshops", JSON.stringify(this.workshops));
-                    alert("WORKSHOP ELIMINADO")
+                for (let i = 0; i <= this.workshops.length; i++) {
+                    if (i === id) {
+                        this.workshops.splice(i, 1)
+                        localStorage.setItem("workshops", JSON.stringify(this.workshops));
+                        alert("WORKSHOP ELIMINADO")
                     }
-                    
-                    
+
+
 
                 }
                 location.reload()
@@ -93,11 +96,27 @@
         font-size: 18px;
         background-color: #0A2463;
         margin-bottom: -60px;
-        margin-left: 90px;
     }
-        .card-title {
-        font-size: 20px;
-    margin-bottom: .75rem;
-}
 
+    .card-title {
+        font-size: 20px;
+        margin-bottom: .0rem;
+    }
+
+    .card-img {
+        border-radius: 0 !important;
+    }
+
+
+    .card {
+        border-radius: 0 !important;
+    }
+
+      .btn-remove {
+        font-size: 10px;
+        background-color: #B91C3B;
+        margin-top: -218px;
+        margin-right: -15px;
+        float: right;
+    }
 </style>

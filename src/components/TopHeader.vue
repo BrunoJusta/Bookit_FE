@@ -4,14 +4,14 @@
             <router-link to="/"><img src="../assets/navbarLogo2.svg" alt="" id="logoNavbar"></router-link>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
-                    <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+                    <b-form-input size="sm" class="mr-sm rounded-0" placeholder="pesquisar..."></b-form-input>
                     <div>
                         <div class="container">
                             <b-button id="logged-btn" squared>
                                 <router-link :to="{name:this.path}">{{this.$store.getters.getName}}</router-link>
                             </b-button>
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'" v-on:click="logout()" squared>
-                                <router-link to="/">Logout</router-link>
+                                <router-link to="/">Sair</router-link>
                             </b-button>
                         </div>
                     </div>
@@ -24,8 +24,9 @@
                 <router-link to="/adminHome" class="navOptions" v-bind:style="{display: adminButtons}">Início</router-link>
                 <router-link to="/choose" class="navOptions" v-bind:style="{display: clientButtons}">Reservas</router-link>
                 <router-link to="/workshops" class="navOptions" v-bind:style="{display: clientButtons}">Workshops</router-link>
-                <router-link to="/kitManeger" class="navOptions" v-bind:style="{display: adminButtons}">BackOffice</router-link>
-                <router-link to="/userTables" class="navOptions" v-bind:style="{display: adminButtons}">BackOffice 2</router-link>
+                <router-link to="/menuKits" class="navOptions" v-bind:style="{display: adminButtons}">Menus</router-link>
+                <router-link to="/workshops" class="navOptions" v-bind:style="{display: adminButtons}">Workshops</router-link>
+
             </div>
         </b-navbar>
     </div>

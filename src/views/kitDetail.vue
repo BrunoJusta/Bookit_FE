@@ -2,7 +2,7 @@
   <div class="kitDetail">
     <h3 class="display-2">{{getKitById($route.params.kitId).type}}</h3>
     <div class="container">
-      <b-card no-body class="overflow-hidden" style="max-width: 1100px;">
+      <b-card no-body class="overflow-hidden border-0" style="max-width: 1100px;">
         <b-row no-gutters>
           <b-col md="6">
             <b-card-img v-bind:src="getKitById($route.params.kitId).img" class="rounded-0"></b-card-img>
@@ -24,18 +24,18 @@
 
               </div>
             </b-card-body>
-            
+
           </b-col>
 
         </b-row>
 
       </b-card>
       <b-button class="btn-book border-0" squared>
-              <router-link to="/menuKits"  style="color:white"> Voltar </router-link>
-            </b-button>
+        <router-link to="/menuKits" style="color:white"> Voltar </router-link>
+      </b-button>
       <b-button @click="saveCurrentKit()" class="btn-book border-0" squared>
-              <router-link to="/booking" style="color:white"> Reservar </router-link>
-            </b-button>
+        <router-link to="/booking" style="color:white"> Reservar </router-link>
+      </b-button>
     </div>
 
 
@@ -69,7 +69,7 @@
           kit => kit.id === id
         )[0].food
 
-this.kitImg = this.kits.filter(
+        this.kitImg = this.kits.filter(
           kit => kit.id === id
         )[0].img
 
@@ -124,6 +124,16 @@ this.kitImg = this.kits.filter(
     font-size: 30px;
     color: #B91C3B;
 
+
+  }
+
+  .card-img {
+    border-radius: 0 !important;
+  }
+
+
+  .card {
+    border-radius: 0 !important;
   }
 
   h6 {

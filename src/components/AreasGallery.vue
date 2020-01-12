@@ -4,8 +4,8 @@
             <div class="row">
                 <div class="col-sm-6" v-for="a in searchAreas" :key="a.id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card :title="a.name" :img-src="a.img" img-alt="Image"
-                            img-top tag="article" style="max-width: 30rem;" class="border-0">
+                        <b-card :title="a.name" :img-src="a.img" img-alt="Image" img-top tag="article"
+                            style="max-width: 30rem;" class="border-0">
                             <b-button class="btn-book" squared>
                                 <router-link :to="{name: x, params: {areaId: a.id}}" class="teste" style="color:white">
                                     Ver Mais </router-link>
@@ -76,9 +76,18 @@
     .container {
         padding-bottom: 150px;
     }
-        .card-title {
-        font-size: 20px;
-    margin-bottom: .75rem;
-}
 
+    .card-title {
+        font-size: 20px;
+        margin-bottom: .0rem;
+    }
+
+    .card-img {
+        border-radius: 0 !important;
+    }
+
+
+    .card {
+        border-radius: 0 !important;
+    }
 </style>

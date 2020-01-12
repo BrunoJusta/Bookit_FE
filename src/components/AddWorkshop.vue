@@ -46,6 +46,8 @@
                 <br>
                 <textarea id="description" v-model="description" rows="4" cols="50"></textarea>
                 <br>
+                <img :src="img" alt="" srcset="">
+
                 <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
 
             </form>

@@ -12,7 +12,7 @@
                 <p>Tipo de Menu:</p>
                 <b-form-input list="my-list-id" v-model="type" placeholder="Tipo de Menu"></b-form-input>
                 <datalist id="my-list-id">
-                    <option v-for="type in types">{{type}}</option>
+                    <option v-for="type in types" :key="type">{{type}}</option>
                 </datalist>
                 <br>
                 <br>
@@ -31,6 +31,7 @@
                 </div>
                 <br>
                 <br>
+                <img :src="img" alt="" srcset="">
 
                 <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
 

@@ -3,16 +3,17 @@
 
     <h3 class="display-2">{{getWorkshopById($route.params.workshopId).name}}</h3>
     <div class="container">
-      <b-card no-body class="overflow-hidden" style="max-width: 1100px;">
+      <b-card no-body class="overflow-hidden border-0" style="max-width: 1100px;">
         <b-row no-gutters>
           <b-col md="6">
             <b-card-img v-bind:src="getWorkshopById($route.params.workshopId).img" class="rounded-0"></b-card-img>
           </b-col>
           <b-col md="6">
             <b-card-body align="left" title="Informação">
-              <p><b>Data:</b> {{getWorkshopById($route.params.workshopId).date}} 
-              <b id="b">Duração:</b> {{getWorkshopById($route.params.workshopId).time}} <b id="b">Vagas:</b> {{getWorkshopById($route.params.workshopId).vacancies}} </p>
-              <p><b >Locotor:</b> {{getWorkshopById($route.params.workshopId).teacher}}</p>
+              <p><b>Data:</b> {{getWorkshopById($route.params.workshopId).date}}
+                <b id="b">Duração:</b> {{getWorkshopById($route.params.workshopId).time}} <b id="b">Vagas:</b>
+                {{getWorkshopById($route.params.workshopId).vacancies}} </p>
+              <p><b>Locotor:</b> {{getWorkshopById($route.params.workshopId).teacher}}</p>
               <p> {{getWorkshopById($route.params.workshopId).description}}</p>
             </b-card-body>
 
@@ -134,6 +135,15 @@
 
   }
 
+  .card-img {
+    border-radius: 0 !important;
+  }
+
+
+  .card {
+    border-radius: 0 !important;
+  }
+
   img {
     border-right: solid 10px #0A2463;
 
@@ -153,7 +163,7 @@
     box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
   }
 
-  #b{
+  #b {
     padding-left: 10px;
   }
 </style>

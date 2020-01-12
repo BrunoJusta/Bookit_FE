@@ -22,17 +22,17 @@
         <div class="row">
           <div class="col">
             <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/bookingTables">Tabela de Reservas</router-link>
+              <router-link id="link" to="/bookingTables">Gerir Reservas</router-link>
             </b-card>
           </div>
           <div class="col">
             <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/inscriptions">Tabela de Inscrições</router-link>
+              <router-link id="link" to="/inscriptions">Gerir Workshops</router-link>
             </b-card>
           </div>
            <div class="col">
             <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/menukits">Tabela Utilizadores</router-link>
+              <router-link id="link" to="/userTables">Gerir Utilizadores</router-link>
             </b-card>
           </div>
           <div class="col">
@@ -70,10 +70,6 @@
     src: url(../assets/bookman.ttf);
   }
 
-  a {
-    float: left;
-
-  }
 
   #link {
     color: black;
@@ -117,9 +113,14 @@
     background-color: white;
     margin-top: -35px;
     height: 35px;
-    width: 340px;
+    width: 250px;
     position: relative;
     display: block;
     z-index: 6
+  }
+
+  
+  .card-img {
+    border-radius: 0 !important;
   }
 </style>

@@ -77,7 +77,7 @@
         background-color: white;
         margin-top: -35px;
         height: 35px;
-        width: 340px;
+        width: 290px;
         position: relative;
         display: block;
         z-index: 5;
@@ -87,5 +87,8 @@
         color: black;
         font-size: 20px;
     }
-    
+
+    .card-img {
+        border-radius: 0 !important;
+    }
 </style>

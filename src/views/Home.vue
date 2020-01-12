@@ -156,4 +156,8 @@
   .mb-2 {
     max-width: 24rem;
   }
+
+  .card-img {
+    border-radius: 0 !important;
+  }
 </style>

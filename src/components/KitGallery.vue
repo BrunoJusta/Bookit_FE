@@ -6,8 +6,8 @@
             <div class="row">
                 <div class="col-sm-4" style="min-width: 16rem" v-for="k in searchKits" :key="k.id">
                     <div id="card-maker">
-                        <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem" :img-src="k.img"
-                            img-height="180rem" class="mb-2 border-0">
+                        <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem"
+                            :img-src="k.img" img-height="180rem" class="mb-2 border-0">
                             <b-button class="btn-book" squared>
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Ver Mais </router-link>
@@ -58,8 +58,10 @@
                 onlineUser: "",
                 remove: "",
                 choose: "",
-                reset: { kitname: "",
-                kitType: "",}
+                reset: {
+                    kitname: "",
+                    kitType: "",
+                }
             };
 
 
@@ -137,7 +139,7 @@
     .btn-remove {
         font-size: 10px;
         background-color: #B91C3B;
-        margin-top: -230px;
+        margin-top: -220px;
         margin-right: -15px;
         float: right;
     }
@@ -150,9 +152,18 @@
 
 
     }
+
     .card-title {
         font-size: 20px;
-    margin-bottom: .75rem;
-}
+        margin-bottom: .0rem;
+    }
 
+    .card-img {
+        border-radius: 0 !important;
+    }
+
+
+    .card {
+        border-radius: 0 !important;
+    }
 </style>

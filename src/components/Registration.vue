@@ -16,15 +16,15 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <b-form-group class="input">
-                                <label for="input-2">Nome Próprio:</label>
-                                <b-form-input id="input-2" v-model="name" required placeholder="Introduzir nome">
+                                <label for="input-2">Nome Próprio</label>
+                                <b-form-input id="input-2" class="rounded-0" v-model="name" required placeholder="Nome">
                                 </b-form-input>
                             </b-form-group>
                         </div>
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-6">
-                                <label for="input-6">Apelido:</label>
-                                <b-form-input id="input-6" v-model="lastName" required placeholder="Introduzir apelido">
+                                <label for="input-6">Apelido</label>
+                                <b-form-input id="input-6" class="rounded-0" v-model="lastName" required placeholder="Apelido">
                                 </b-form-input>
                             </b-form-group>
                         </div>
@@ -34,8 +34,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-1">
-                                <label for="input-1">Email:</label>
-                                <b-form-input id="input-1" v-model="email" type="email"
+                                <label for="input-1">Email</label>
+                                <b-form-input id="input-1" class="rounded-0" v-model="email" type="email"
                                     pattern="[a-z0-9._%+-]+@+[a-z]+.ipp.pt" required
                                     placeholder="email@escola.ipp.pt">
                                 </b-form-input>
@@ -43,8 +43,8 @@
                         </div>
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-3">
-                                <label for="input-3">Contacto:</label>
-                                <b-form-input id="input-3" v-model="number" type="tel" pattern="[0-9]{9}" required
+                                <label for="input-3">Contacto</label>
+                                <b-form-input id="input-3" class="rounded-0" v-model="number" type="tel" pattern="[0-9]{9}" required
                                     placeholder="Contacto">
                                 </b-form-input>
                             </b-form-group>
@@ -55,16 +55,16 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-4">
-                                <label for="input-4">Password:</label>
-                                <b-form-input id="input-4" v-model="password" type="password" pattern=".{6,}" required
+                                <label for="input-4">Password</label>
+                                <b-form-input id="input-4" class="rounded-0" v-model="password" type="password" pattern=".{6,}" required
                                     placeholder="Introduzir password (min 6)">
                                 </b-form-input>
                             </b-form-group>
                         </div>
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-5">
-                                <label for="input-5">Confirmar Password:</label>
-                                <b-form-input id="input-5" v-model="confPassword" type="password" pattern=".{6,}"
+                                <label for="input-5">Confirmar Password</label>
+                                <b-form-input id="input-5" class="rounded-0" v-model="confPassword" type="password" pattern=".{6,}"
                                     required placeholder="Confirmar password">
                                 </b-form-input>
                             </b-form-group>
@@ -73,10 +73,10 @@
                 </div>
                 <div class="container">
                     <b-button id="show-btn" style="background-color:#0A2463; margin:10px" squared>
-                        <router-link id="link" to="/login">Login</router-link>
+                        <router-link id="link" to="/login">Iniciar Sessão</router-link>
                     </b-button>
                     <b-button type="submit" id="show-btn" style="background-color:#0A2463; margin:10px" squared>
-                        Confirmar
+                        Confirmar Registo
                     </b-button>
                 </div>
             </b-form>
