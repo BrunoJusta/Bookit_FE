@@ -20,6 +20,7 @@ export default new Vuex.Store({
       email: "admin@admin.admin",
       password: "123",
       number: "123",
+      
       userType: "admin"
     }],
     kits: [{
@@ -232,6 +233,7 @@ export default new Vuex.Store({
             email: payload.email,
             password: payload.password,
             number: payload.number,
+            img: require('../assets/logo.png'),
             userType: "cliente"
           });
           localStorage.setItem("users", JSON.stringify(state.users));
