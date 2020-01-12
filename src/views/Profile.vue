@@ -116,41 +116,9 @@
                 <h1>TESTE PARA AS NOTIFICACOES</h1>
             </div>
 
-            <!-- CARDS DOS WORKSHOPS -->
+            <!-- DEFINIÇOES -->
             <div class="container" v-bind:style="{display: showSettings}">
-
-                <div>
-                    <b-card no-body>
-                        <b-tabs card>
-                            <b-tab title="Informações" active>
-                                <b-card-text>Tab contents 1</b-card-text>
-                            </b-tab>
-                            <b-tab title="Alterar Palavra-Passe">
-                                <b-card-text>Tab contents 2</b-card-text>
-                            </b-tab>
-                            <b-tab title="Atualizar Foto de Perfil">
-                                <b-card-text>Tab contents 2</b-card-text>
-                            </b-tab>
-                            <b-tab title="Atualizar Contacto">
-                                <b-card-text>Tab contents 2</b-card-text>
-                            </b-tab>
-                        </b-tabs>
-                    </b-card>
-                </div>
-                <!-- <div class="row">
-                    <div class="col-sm-3" style="padding-top: 20px;">
-                        <b-card no-body class="overflow-hidden" style="max-width: 16rem;">
-                            <b-card-body :title="'Informações'">
-                                <b-card-text style="margin: auto;">
-                                    Data: {{getFullName}}
-                                </b-card-text>
-                                <b-card-text style="margin: auto;">
-                                    dsaoihdasoidhasoidjsa
-                                </b-card-text>
-                            </b-card-body>
-                        </b-card>
-                    </div>
-                </div> -->
+                <show-settings/>
             </div>
         </div>
 
@@ -158,7 +126,11 @@
 </template>
 
 <script>
+  import ShowSettings from '@/components/ShowSettings.vue';
     export default {
+        components: {
+            "show-settings": ShowSettings
+        },
         data: function () {
             return {
                 bookings: [],
@@ -197,7 +169,6 @@
             if (localStorage.getItem("workshops")) {
                 this.workshops = JSON.parse(localStorage.getItem("workshops"))
             }
-
             this.firstNameUser = this.$store.getters.getName
             this.lastNameUser = this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail

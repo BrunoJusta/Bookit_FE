@@ -256,6 +256,7 @@ export default new Vuex.Store({
             lastName: user.lastName,
             email: user.email,
             password: user.password,
+            number: user.number,
             userType: user.userType
           });
           localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
@@ -449,6 +450,9 @@ export default new Vuex.Store({
     },
     getEmail(state) {
       return state.loggedUser.email
+    },
+    getContact(state) {
+      return state.loggedUser.number
     },
     getCurrentKitName(state) {
       return state.currentKit.kitname
