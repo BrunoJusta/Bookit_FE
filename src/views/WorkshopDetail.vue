@@ -1,16 +1,32 @@
 <template>
   <div class="kitDetail">
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="jumbotron">
-      <h1 class="display-3">{{getWorkshopById($route.params.workshopId).name}}</h1>
-      <b-img v-bind:src="getWorkshopById($route.params.workshopId).img" alt="Image" bottom></b-img>
-      <h3>Data:{{getWorkshopById($route.params.workshopId).date}}
-        Hora:{{getWorkshopById($route.params.workshopId).time}} </h3>
-      <h3>Professor:{{getWorkshopById($route.params.workshopId).teacher}}</h3>
-      <b-button @click="sendInfo()" class="btn-book" squared>Inscrever</b-button>
+
+    <h3 class="display-2">{{getWorkshopById($route.params.workshopId).name}}</h3>
+    <div class="container">
+      <b-card no-body class="overflow-hidden" style="max-width: 1100px;">
+        <b-row no-gutters>
+          <b-col md="6">
+            <b-card-img v-bind:src="getWorkshopById($route.params.workshopId).img" class="rounded-0"></b-card-img>
+          </b-col>
+          <b-col md="6">
+            <b-card-body align="left" title="Informação">
+              <p><b>Data:</b> {{getWorkshopById($route.params.workshopId).date}} 
+              <b id="b">Duração:</b> {{getWorkshopById($route.params.workshopId).time}} <b id="b">Vagas:</b> {{getWorkshopById($route.params.workshopId).vacancies}} </p>
+              <p><b >Locotor:</b> {{getWorkshopById($route.params.workshopId).teacher}}</p>
+              <p> {{getWorkshopById($route.params.workshopId).description}}</p>
+            </b-card-body>
+
+
+          </b-col>
+
+        </b-row>
+
+      </b-card>
+      <b-button class="btn-book border-0" squared>
+        <router-link to="/workshops" style="color:white"> Voltar </router-link>
+      </b-button>
+      <b-button @click="sendInfo()" class="btn-book border-0" squared>Inscrever
+      </b-button>
     </div>
   </div>
 
@@ -63,7 +79,7 @@
               inscriptions.push({
                 email: this.$store.getters.getEmail
               })
-              this.workshops[j].vacancies =  this.workshops[j].vacancies - 1
+              this.workshops[j].vacancies = this.workshops[j].vacancies - 1
               localStorage.setItem("workshops", JSON.stringify(this.workshops));
               alert("inscrito")
 
@@ -93,9 +109,51 @@
   }
 </script>
 <style lang="scss" scoped>
+  @font-face {
+    font-family: bookMan;
+    src: url(../assets/bookman.ttf);
+  }
+
+
+  .display-2 {
+    padding-top: 160px;
+    padding-bottom: 20px;
+    font-family: bookMan;
+    font-size: 40px;
+    color: #B91C3B;
+
+  }
+
+  .card-title {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #0A2463;
+
+
+  }
+
+  img {
+    border-right: solid 10px #0A2463;
+
+  }
+
   .btn-book {
     font-size: 18px;
     background-color: #0A2463;
-    margin-bottom: -60px;
+    margin: 20px;
+    margin-top: 50px;
+
+  }
+
+  .overflow-hidden {
+    -webkit-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
+  }
+
+  #b{
+    padding-left: 10px;
   }
 </style>

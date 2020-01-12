@@ -82,7 +82,7 @@ export default new Vuex.Store({
         date: "20/12/2019",
         time: "12h - 14h",
         teacher: "João",
-        description: "wow",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         img: require('../assets/workshopTemplate.png'),
         inscriptions: [],
         vacancies: 50
@@ -95,7 +95,7 @@ export default new Vuex.Store({
         date: "20/12/2019",
         time: "12h - 14h",
         teacher: "João",
-        description: "wow",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         img: require('../assets/workshopTemplate.png'),
         inscriptions: [],
         vacancies: 1
@@ -108,7 +108,7 @@ export default new Vuex.Store({
         date: "20/12/2019",
         time: "12h - 14h",
         teacher: "João",
-        description: "wow",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         img: require('../assets/workshopTemplate.png'),
         inscriptions: [],
         vacancies: 50
@@ -213,7 +213,7 @@ export default new Vuex.Store({
   },
   mutations: {
     STORE_ITEMS(state) {
-      localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
+      localStorage.setItem("workshops", JSON.stringify(state.workshops));
       localStorage.setItem("areas", JSON.stringify(state.areas));
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
       localStorage.setItem("extras", JSON.stringify(state.extras));

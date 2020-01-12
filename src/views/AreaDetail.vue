@@ -8,7 +8,7 @@
             <b-card-img v-bind:src=" getAreaById($route.params.areaId).img" class="rounded-0"></b-card-img>
           </b-col>
           <b-col md="6">
-            <b-card-body title="Descrição">
+            <b-card-body align="left" title="Descrição">
                   <p> {{getAreaById($route.params.areaId).description}}</p>
             </b-card-body>
             
@@ -17,7 +17,10 @@
         </b-row>
 
       </b-card>
-      <b-button @click="saveCurrentArea()" class="btn-book" squared>
+      <b-button class="btn-book border-0" squared>
+              <router-link to="/areas"  style="color:white"> Voltar </router-link>
+            </b-button>
+      <b-button @click="saveCurrentArea()" class="btn-book border-0" squared>
               <router-link to="/areasbooking" class="teste" style="color:white"> Reservar </router-link>
             </b-button>
     </div>
@@ -81,6 +84,7 @@
 
   .card-title {
     padding-top: 20px;
+    padding-bottom: 10px;
     font-size: 25px;
     font-weight: bold;
     color: #0A2463;
@@ -96,7 +100,9 @@
   .btn-book {
     font-size: 18px;
     background-color: #0A2463;
+    margin: 20px;
     margin-top: 50px;
+
   }
 
   .overflow-hidden {

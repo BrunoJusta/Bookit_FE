@@ -30,8 +30,11 @@
         </b-row>
 
       </b-card>
-      <b-button @click="saveCurrentKit()" class="btn-book" squared>
-              <router-link to="/booking" class="teste" style="color:white"> Reserva </router-link>
+      <b-button class="btn-book border-0" squared>
+              <router-link to="/menuKits"  style="color:white"> Voltar </router-link>
+            </b-button>
+      <b-button @click="saveCurrentKit()" class="btn-book border-0" squared>
+              <router-link to="/booking" style="color:white"> Reservar </router-link>
             </b-button>
     </div>
 
@@ -138,7 +141,9 @@ this.kitImg = this.kits.filter(
   .btn-book {
     font-size: 18px;
     background-color: #0A2463;
+    margin: 20px;
     margin-top: 50px;
+
   }
 
   .overflow-hidden {

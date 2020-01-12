@@ -9,7 +9,7 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <div id="card-maker">
                         <b-card img-src="../assets/eventosCatering.png" class="border-0">
                             <h3 class=" card-title">
@@ -18,7 +18,9 @@
                         </b-card>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-5">
                     <div id="card-maker">
                         <b-card img-src="../assets/bar.png" class="border-0">
                             <h3 class=" card-title">
@@ -48,10 +50,6 @@
         position: relative;
     }
 
-    
-    #card-maker {
-        padding-bottom: 160px
-    }
 
     .border-0 {
         max-width: 30rem;
@@ -72,7 +70,7 @@
 
     .title {
         padding-top: 180px;
-        padding-bottom: 150px;
+        padding-bottom: 80px;
     }
 
     #whiteRect {

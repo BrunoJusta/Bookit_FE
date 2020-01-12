@@ -7,12 +7,12 @@
                         <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem" class="mb-2 border-0">
                             <b-button v-if="w.vacancies !== 0" class="btn-book" squared>
                                 <router-link   :to="{name: x, params: {workshopId: w.id}}" class="teste" style="color:white">
-                                    Reservar </router-link>
+                                   Ver Mais </router-link>
                             </b-button>
                                     <p v-else>CHEIO</p>
 
                             <b-button   @click="deleteWorkshop(w.id)" class="btn-remove" :id="w.id"
-                                v-bind:style="{visibility: remove}" squared> Remover </b-button>
+                                v-bind:style="{visibility: remove}" squared> xxxxxxx </b-button>
                         </b-card>
                     </div>
 
@@ -95,4 +95,9 @@
         margin-bottom: -60px;
         margin-left: 90px;
     }
+        .card-title {
+        font-size: 20px;
+    margin-bottom: .75rem;
+}
+
 </style>

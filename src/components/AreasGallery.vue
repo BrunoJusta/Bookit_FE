@@ -76,4 +76,9 @@
     .container {
         padding-bottom: 150px;
     }
+        .card-title {
+        font-size: 20px;
+    margin-bottom: .75rem;
+}
+
 </style>
