@@ -222,6 +222,8 @@
     import Extras from '@/components/Extras.vue';
     import Decorations from '@/components/Decorations.vue';
     import Outfits from '@/components/Outfits.vue'; */
+    import router from '../router';
+
     export default {
         data: function () {
             return {
@@ -372,6 +374,9 @@
                     state: "Pendente"
                 })
                 alert("Reserva Concluida")
+                router.push({
+                    name: 'home'
+                })
             }
         },
         computed: {

@@ -3,7 +3,7 @@
         <div class="container" id="perfilContainer">
             <div class="row" style="height: 150px">
                 <div class="col-sm-2">
-                    <b-img src="../assets/logo.png" id="imgPerfil"></b-img>
+                    <b-img :src="this.$store.getters.getUserImg" id="imgPerfil"></b-img>
                 </div>
                 <div class="col-sm-2" id="nameColumn">
                     <p id="nameTxt">{{getFullName}}</p>
@@ -43,7 +43,7 @@
 
                 <!-- CARDS DOS EVENTOS -->
                 <div class="container" v-bind:style="{display: showEvents}">
-                    <div class="row" v-if="this.bookings.length !== 0">
+                    <div class="row" v-if="this.filteredBookings.length !== 0">
                         <div class="col-sm-3" v-for="k in filteredBookings" :key="k.id" style="padding-top: 20px;">
                             <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.kitImg">
                                 <b-card-body :title="k.kitName + ' - ' + k.kitType">
@@ -68,7 +68,7 @@
 
                 <!-- CARDS DOS ESPAÇOS -->
                 <div class="container" v-bind:style="{display: showAreas}">
-                    <div class="row" v-if="this.areas.length !== 0">
+                    <div class="row" v-if="this.filteredAreas.length !== 0">
                         <div class="col-sm-3" v-for="k in filteredAreas" :key="k.id" style="padding-top: 20px;">
                             <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.areaImg">
                                 <b-card-body :title="k.areaName">
@@ -90,7 +90,7 @@
 
                 <!-- CARDS DOS WORKSHOPS -->
                 <div class="container" v-bind:style="{display: showWorkshops}">
-                    <div class="row" v-if="this.areas.length !== 0">
+                    <div class="row" v-if="this.userWorkshops.length !== 0">
                         <div class="col-sm-3" v-for="k in this.userWorkshops" :key="k.id" style="padding-top: 20px;">
                             <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.img">
                                 <b-card-body :title="k.name">
@@ -113,6 +113,7 @@
 
             <!-- MOSTRA AS NOTIFICACOES -->
             <div v-bind:style="{display: showNotifications}">
+                <h1>TESTE PARA AS NOTIFICACOES</h1>
                 <h1>TESTE PARA AS NOTIFICACOES</h1>
             </div>
 
@@ -273,6 +274,8 @@
         -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         margin-top: 180px;
+    border-bottom: solid 8px #0A2463;
+
     }
 
     .options {
@@ -302,11 +305,18 @@
 
     #imgPerfil {
         height: 140px;
+        width: 140px;
+        float:left;
+        margin-left: -8px;
+        margin-top: 6px;
     }
 
     #nameTxt {
-        margin-top: 115px;
-        font-size: 20px;
+        margin-top: 118px;
+        margin-left: -90px;
+        font-size: 25px;
+        font-weight: bold;
+        color: black;
     }
 
     @font-face {

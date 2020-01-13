@@ -3,10 +3,10 @@
     <footer id="myFooter" style="background-color:#B91C3B; padding-top:50px;">
         <div class="container">
             <div class="row" id="firstRow">
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <img src="../assets/bookit_white2.svg" id="bookitLogo">
                 </div>
-                <div class="col-sm-3" id="aboutColumn">
+                <div class="col-sm-3" align="left">
                     <ul >
                         <li>
                             <h5>Sobre nós</h5>
@@ -15,7 +15,7 @@
                             <router-link to="/" style="color:white">Ler o nosso blog</router-link>
                         </li>
                         <li>
-                            <router-link to="/reservas" style="color:white">Registar para fazer reserva
+                            <router-link to="/reservas" style="color:white">Fazer reserva
                             </router-link>
                         </li>
                         <li>
@@ -24,7 +24,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-3" id="helpColumn">
+                <div class="col-sm-3">
                     <ul >
                         <li>
                             <h5>Suporte</h5>
@@ -40,6 +40,9 @@
                         </li>
                     </ul>
                 </div>
+                <div class="col-sm-4">
+                            <google-map/>
+                </div>
             </div>
 
         </div>
@@ -51,8 +54,11 @@
 </template>
 
 <script>
+import GoogleMap from "@/components/Map.vue"
     export default {
-
+        components: {
+            "google-map": GoogleMap
+        }
     }
 </script>
 
@@ -81,6 +87,7 @@
     #myFooter {
         position: absolute;
         width: 100%;
+        margin-top: 100px;
     }
 
     #firstRow {

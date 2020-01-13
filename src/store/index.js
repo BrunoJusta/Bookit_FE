@@ -20,7 +20,7 @@ export default new Vuex.Store({
       email: "admin@admin.admin",
       password: "123",
       number: "123",
-      
+      img: require('../assets/logo.png'),
       userType: "admin"
     }],
     kits: [{
@@ -259,6 +259,7 @@ export default new Vuex.Store({
             email: user.email,
             password: user.password,
             number: user.number,
+            img: user.img,
             userType: user.userType
           });
           localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
@@ -455,6 +456,9 @@ export default new Vuex.Store({
     },
     getContact(state) {
       return state.loggedUser.number
+    },
+    getUserImg(state) {
+      return state.loggedUser.img
     },
     getCurrentKitName(state) {
       return state.currentKit.kitname

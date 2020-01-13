@@ -1,20 +1,21 @@
 <template>
     <div>
         <div>
-            <div class="container" style="justify-content: center;">
-                <b-button v-on:click="displayInfo()" v-bind:style="{fontWeight: infoFont}" style="fontSize: 20px;"
+            <div class="container optnContainer" style="justify-content: center;">
+                <b-button v-on:click="displayInfo()" v-bind:style="{fontWeight: infoFont}" style="fontSize: 16px;"
                     class="bookingOptions border-0">Informações
+                    <span class="bookingOptions" v-bind:style="{fontWeight: defaultFont}" style="padding: 10px">|</span>
                 </b-button>
-                <span class="bookingOptions" style="padding: 10px">|</span>
-                <b-button v-on:click="displayPW()" v-bind:style="{fontWeight: passwordFont}" style="fontSize: 20px;"
+                <b-button v-on:click="displayPW()" v-bind:style="{fontWeight: passwordFont}" style="fontSize: 16px;"
                     class="bookingOptions border-0">
-                    Alterar Palavra-Passe</b-button>
-                <span class="bookingOptions" style="padding: 10px">|</span>
-                <b-button v-on:click="displayProfileImg()" v-bind:style="{fontWeight: imgProfileFont}"
-                    style="fontSize: 20px;" class="bookingOptions border-0">Atualizar Foto de Perfil
+                    Alterar Palavra-Passe
+                    <span class="bookingOptions" v-bind:style="{fontWeight: defaultFont}" style="padding: 10px">|</span>
                 </b-button>
-                <span class="bookingOptions" style="padding: 10px">|</span>
-                <b-button v-on:click="displayContact()" v-bind:style="{fontWeight: contactFont}" style="fontSize: 20px;"
+                <b-button v-on:click="displayProfileImg()" v-bind:style="{fontWeight: imgProfileFont}"
+                    style="fontSize: 16px;" class="bookingOptions border-0">Atualizar Foto de Perfil
+                    <span class="bookingOptions" v-bind:style="{fontWeight: defaultFont}" style="padding: 10px">|</span>
+                </b-button>
+                <b-button v-on:click="displayContact()" v-bind:style="{fontWeight: contactFont}" style="fontSize: 16px;"
                     class="bookingOptions border-0">Atualizar Contacto
                 </b-button>
             </div>
@@ -22,43 +23,64 @@
 
         <!-- Informaçoes -->
         <div class="container" id="showContainer" v-bind:style="{display: showInfo}">
-            <p id="txt">Nome: {{getUserFirstName}}</p>
-            <p id="txt">Apelido: {{getUserLastName}}</p>
+            <p id="txt">Nome: {{getUserFirstName}} {{getUserLastName}}</p>
             <p id="txt">Email: {{getEmail}}</p>
-            <p id="txt">Contacto: {{getContact}}</p>
+            <p id="txt">Contacto: {{this.userContact}}</p>
         </div>
         <!-- Alterar palavra passe -->
         <div class="container" id="showContainer" v-bind:style="{display: showPassword}">
             <div>
                 <b-form @submit="changePassword">
-                    <b-form-group id="input-group-1" label="Palavra-Passe Antiga:" label-for="input-1">
+                    <b-form-group id="input-group-1">
+                        <label for="input-1">Palavra-Passe Atual:</label>
                         <b-form-input id="input-1" type="password" v-model="form.oldPW" required
                             placeholder="Introduza a palavra-passe antiga">
                         </b-form-input>
                     </b-form-group>
 
-                    <b-form-group id="input-group-2" label="Palavra-Passe Nova:" label-for="input-2">
+                    <b-form-group id="input-group-2">
+                        <label for="input-2">Palavra-Passe Nova:</label>
                         <b-form-input id="input-2" v-model="form.newPW" type="password" pattern=".{6,}" required
                             placeholder="Introduza a palavra-passe nova"></b-form-input>
                     </b-form-group>
 
-                    <b-form-group id="input-group-3" label="Palavra-Passe Nova:" label-for="input-3">
+                    <b-form-group id="input-group-3">
+                        <label for="input-3">Confirmar Palavra-Passe Nova:</label>
                         <b-form-input id="input-3" v-model="form.confirmPW" type="password" pattern=".{6,}" required
                             placeholder="Confirme a Palavra-Passe nova"></b-form-input>
                     </b-form-group>
-                    <b-button type="submit" variant="primary">Submit</b-button>
+                    <b-button type="submit" variant="primary">Alterar</b-button>
                 </b-form>
             </div>
         </div>
 
         <!-- atualizar foto de perfil -->
         <div class="container" id="showContainer" v-bind:style="{display: showImgProfile}">
-            <p id="txt">TESTE PARA ATUALIZAR FOTO DE PERFIL</p>
+            <div>
+                <img :src="this.form.newImg" id="imgPreview" v-if="this.form.newImg !== ''">
+                <b-form @submit="changeImg">
+                    <b-form-group id="input-group-4">
+                        <label for="input-4">Link da Nova Imagem:</label>
+                        <b-form-input id="input-4" v-model="form.newImg" type="link" required
+                            placeholder="Introduza o contacto novo"></b-form-input>
+                    </b-form-group>
+                    <b-button type="submit" variant="primary">Atualizar</b-button>
+                </b-form>
+            </div>
         </div>
 
         <!-- atualizar contacto -->
         <div class="container" id="showContainer" v-bind:style="{display: showContact}">
-            <p id="txt">TESTE PARA ATUALIZAR CONTACTO</p>
+            <div>
+                <b-form @submit="changeContact">
+                    <b-form-group id="input-group-5">
+                        <label for="input-5">Contacto Novo:</label>
+                        <b-form-input id="input-5" v-model="form.newContact" type="text" pattern="[0-9]{9}" required
+                            placeholder="Introduza o contacto novo"></b-form-input>
+                    </b-form-group>
+                    <b-button type="submit" variant="primary">Atualizar</b-button>
+                </b-form>
+            </div>
         </div>
 
     </div>
@@ -73,18 +95,23 @@
                 lastNameUser: "",
                 userEmail: "",
                 userContact: "",
+                userImg: "",
                 infoFont: "bold",
                 passwordFont: "normal",
                 imgProfileFont: "normal",
                 contactFont: "normal",
-                showInfo: "none",
-                showPassword: "block",
+                defaultFont: "normal",
+                showInfo: "block",
+                showPassword: "none",
                 showImgProfile: "none",
                 showContact: "none",
+                previewImg: "",
                 form: {
                     oldPW: "",
                     newPW: "",
-                    confirmPW: ""
+                    confirmPW: "",
+                    newContact: "",
+                    newImg: ""
                 }
             }
         },
@@ -100,6 +127,7 @@
             this.lastNameUser = this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail
             this.userContact = this.$store.getters.getContact
+            this.userImg = this.$store.getters.getUserImg
         },
         methods: {
             changePassword(evt) {
@@ -112,6 +140,9 @@
                                 this.$store.state.loggedUser.password = this.form.newPW
                                 localStorage.setItem("users", JSON.stringify(this.users));
                                 localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser));
+                                this.form.newPW = ""
+                                this.form.oldPW = ""
+                                this.form.confirmPW = ""
                                 alert("Palavra-Passe alterada com sucesso!")
                                 this.displayInfo();
                             } else {
@@ -120,6 +151,36 @@
                         } else {
                             alert("Palavra-Passe atual errada")
                         }
+                    }
+                }
+            },
+            changeContact(evt) {
+                evt.preventDefault()
+                for (let i in this.users) {
+                    if (this.users[i].email === this.userEmail) {
+                        this.userContact = this.form.newContact
+                        this.users[i].number = this.form.newContact
+                        this.$store.state.loggedUser.number = this.form.newContact
+                        localStorage.setItem("users", JSON.stringify(this.users));
+                        localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser));
+                        this.form.newContact = ""
+                        alert("Contacto atualizado com sucesso!")
+                        this.displayInfo();
+                    }
+                }
+            },
+            changeImg(evt) {
+                evt.preventDefault()
+                for (let i in this.users) {
+                    if (this.users[i].email === this.userEmail) {
+                        this.userImg = this.form.newImg
+                        this.users[i].img = this.form.newImg
+                        this.$store.state.loggedUser.img = this.form.newImg
+                        localStorage.setItem("users", JSON.stringify(this.users));
+                        localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser));
+                        this.form.newImg = ""
+                        alert("Contacto atualizado com sucesso!")
+                        this.displayInfo();
                     }
                 }
             },
@@ -185,7 +246,8 @@
     .bookingOptions {
         background-color: transparent;
         color: black;
-        padding: 10px
+        padding: 10px;
+        padding-bottom: 30px;
     }
 
     #showContainer {
@@ -198,5 +260,19 @@
 
     #txt {
         padding: 10px;
+    }
+
+    label {
+        padding-top: 10px;
+        float: left;
+    }
+
+    #imgPreview {
+        margin-top: -20px;
+        height: 140px;
+        width: 140px;
+        -webkit-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
+        -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
     }
 </style>

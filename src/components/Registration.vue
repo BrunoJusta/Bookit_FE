@@ -85,9 +85,6 @@
 </template>
 
 <script>
-    import {
-        log
-    } from 'util'
     export default {
         name: "Registration",
         data: () => ({
