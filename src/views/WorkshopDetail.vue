@@ -73,25 +73,24 @@
 
       },
       sendInfo() {
-        for (let j = 0; j <= this.workshops.length; j++) {
+        for (let j = 0; j < this.workshops.length; j++) {
           if (this.workshops[j].name === this.workshopName) {
             let inscriptions = this.workshops[j].inscriptions
-            if (inscriptions.length === 0) {
+            let verifyEmail = false;
+            for (let i = 0; i < inscriptions.length; i++) {
+              if (inscriptions[i].email === this.$store.getters.getEmail) {
+                verifyEmail = true
+              }
+            }
+            if (!verifyEmail) {
               inscriptions.push({
                 email: this.$store.getters.getEmail
               })
               this.workshops[j].vacancies = this.workshops[j].vacancies - 1
               localStorage.setItem("workshops", JSON.stringify(this.workshops));
-              alert("inscrito")
-
+              alert("Inscrito com sucesso!")
             } else {
-              for (let i = 0; i <= inscriptions.length; i++) {
-                if (inscriptions[i].email === this.$store.getters.getEmail) {
-                  alert("ja inscrito")
-                } else {
-                  alert("inscrito")
-                }
-              }
+              alert("Já inscrito")
             }
           }
         }

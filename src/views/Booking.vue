@@ -4,24 +4,23 @@
         </h3>
 
         <div class="container navOptn" style="justify-content: center;">
-            <b-button v-on:click="displayInfo()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px">Informaçoes
-            </b-button>
-            <b-button v-on:click="displayAddOns()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px">
-                Complementos</b-button>
-            <b-button v-on:click="displayExtras()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px">Extras
-            </b-button>
-            <b-button v-on:click="displayDecor()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px">Decoração
-            </b-button>
-            <b-button v-on:click="displayOutfit()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px">Fardas
-            </b-button>
-            <b-button v-on:click="displayResume()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px">Resumo
-            </b-button>
+            <button v-on:click="displayInfo()" class="optionsButton border-0"
+                v-bind:style="{fontWeight: kitInfoFont}">Informações
+            </button>
+            <button v-on:click="displayAddOns()" class="optionsButton border-0" v-bind:style="{fontWeight: addOnsFont}">
+                Complementos</button>
+            <button v-on:click="displayExtras()" class="optionsButton border-0"
+                v-bind:style="{fontWeight: extraFont}">Extras
+            </button>
+            <button v-on:click="displayDecor()" class="optionsButton border-0"
+                v-bind:style="{fontWeight: decorsFont}">Decoração
+            </button>
+            <button v-on:click="displayOutfit()" class="optionsButton border-0"
+                v-bind:style="{fontWeight: outfitFont}">Fardas
+            </button>
+            <button v-on:click="displayResume()" class="optionsButton border-0"
+                v-bind:style="{fontWeight: resumeFont}">Resumo
+            </button>
         </div>
         <form @submit.prevent="saveBooking()">
             <div class="container" v-bind:style="{display: kitInfo}">
@@ -34,58 +33,41 @@
                                 rows="4" cols="50" required></textarea>
                         </div>
                     </div>
-
-
                     <div class="col-sm-3">
-
                         <b-form-group class="input" id="input-group-6">
                             <label class="lable" for="date">Data</label>
                             <b-form-input type="date" class="rounded-0" v-model="date" required>
                             </b-form-input>
                         </b-form-group>
-
                         <label class="lable" for="schools">Local</label>
-
                         <b-form-input id="schools" class="rounded-0" list="my-list-id" v-model="location" required>
                         </b-form-input>
                         <datalist id="my-list-id">
                             <option v-for="school in schools" :key="school.id">{{school.name}}</option>
                         </datalist>
-
                     </div>
-
                     <div class="col-sm-2">
                         <b-form-group class="input" id="input-group-6">
                             <label class="lable" for="hi">Hora de Início</label>
-
                             <b-form-input type="time" id="hi" class="rounded-0" v-model="hi" required>
                             </b-form-input>
                         </b-form-group>
-
                         <b-form-group class="input" id="input-group-6">
                             <label class="lable" for="hf">Hora do Final</label>
                             <b-form-input type="time" id="hf" class="rounded-0" v-model="hf" required>
                             </b-form-input>
                         </b-form-group>
                     </div>
-
                     <div class="col-sm-2">
-
                         <b-form-group class="input" id="input-group-6">
                             <label class="lable" for="people">Número de Pessoas</label>
                             <b-form-input type="number" name="" id="people" min="20" max="50" class="rounded-0"
                                 v-model="people" required>
                             </b-form-input>
                         </b-form-group>
-
                     </div>
-
-
-
                 </div>
             </div>
-
-
             <div class="container" v-bind:style="{display: addOns}">
                 <div class="row">
                     <div align="right" class="col-sm-5">
@@ -97,12 +79,9 @@
                                 </b-form-checkbox-group>
                             </b-form-group>
                         </div>
-
                     </div>
                     <div class="col-sm-2">
                     </div>
-
-
                     <div align="left" class="col-sm-5">
                         <h4 class="subtitle">Comida</h4>
                         <div v-for="i in searchKits" :key="i.id">
@@ -112,14 +91,9 @@
                                 </b-form-checkbox-group>
                             </b-form-group>
                         </div>
-
                     </div>
                 </div>
             </div>
-
-
-
-
             <div class="container" v-bind:style="{display: extra}">
                 <div class="container" style="max-width:200px;" align="left" v-for="i in searchExtras" :key="i.id">
                     <b-form-group>
@@ -129,7 +103,6 @@
                     </b-form-group>
                 </div>
             </div>
-
             <div class="container" v-bind:style="{display: decors}">
                 <div class="container" style="max-width:250px;" align="left" v-for="i in searchDecor" :key="i.id">
                     <b-form-group>
@@ -139,29 +112,22 @@
                     </b-form-group>
                 </div>
             </div>
-
             <div class="container" v-bind:style="{display: outfit}">
                 <div class="row">
                     <div v-for="i in searchOutfits" :key="i.id">
                         <div class="col-sm-4">
-
                             <b-form-group>
                                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedImage">
                                     <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
                                     <img style="height:300px; width:auto" v-bind:src="i.source" />
-
                                 </b-form-checkbox-group>
                             </b-form-group>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <div class="container" v-bind:style="{display: resume}">
-
                 <div class="row">
-
                     <div align="left" class="col-sm-4">
                         <p v-if="reason != ''"><b>Motivo</b> {{reason}}</p>
                         <p v-if="date != ''"><b>Data</b> {{date}}</p>
@@ -176,7 +142,6 @@
                             {{ checkedDrinks.length == 0 ? 'Fechar' : '' + checkedDrinks }}</p>
                     </div>
                     <div align="left" class="col-sm-4">
-
                         <p v-if="checkedExtras.length != 0"><b>Extras</b>
                             {{ checkedExtras.length == 0 ? 'Fechar' : '' + checkedExtras }}</p>
                         <p v-if="checkedDecor.length != 0"><b>Decoração</b>
@@ -184,14 +149,7 @@
                         <p v-if="checkedImage.length != 0"><b>Farda</b>
                             {{ checkedImage.length == 0 ? 'Fechar' : '' + checkedImage }}</p>
                     </div>
-
-
                 </div>
-
-
-
-
-
             </div>
             <!-- <div v-if="kitInfo">
                 <KitInfo  v-bind:style="{display: kitInfo} " />
@@ -209,10 +167,9 @@
                 <Outfits v-bind:style="{display: outfits}" />
             </div>
             <br> -->
-            <b-button type="submit" @click="teste" value="Adicionar" class="btn btn-primary border-0" squared>Confirmar
+            <b-button type="submit" @click="saveCurrentKit" value="Adicionar" class="btn btn-primary border-0" squared>Confirmar
             </b-button>
         </form>
-
     </div>
 </template>
 
@@ -239,6 +196,12 @@
                 decors: "none",
                 outfit: "none",
                 resume: "none",
+                kitInfoFont: "bold",
+                addOnsFont: "normal",
+                extraFont: "normal",
+                decorsFont: "normal",
+                outfitFont: "normal",
+                resumeFont: "normal",
                 reason: "",
                 date: "",
                 hi: "",
@@ -270,18 +233,11 @@
             this.outfits = this.$store.state.outfits
             this.userName = this.$store.getters.getName + " " + this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail
-
-
             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             this.kitName = this.$store.getters.getCurrentKitName
             this.kitType = this.$store.getters.getCurrentKitType
 
-
             this.schools = JSON.parse(localStorage.getItem("schools"))
-
-
-
-
         },
         components: {
             /*  KitInfo,
@@ -291,8 +247,7 @@
              Outfits */
         },
         methods: {
-            teste() {
-
+            saveCurrentKit() {
                 this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
                 this.kitName = this.$store.getters.getCurrentKitName
                 this.kitType = this.$store.getters.getCurrentKitType
@@ -304,7 +259,12 @@
                 this.decors = "none"
                 this.outfit = "none"
                 this.resume = "none"
-
+                this.kitInfoFont = "bold"
+                this.addOnsFont = "normal"
+                this.extraFont = "normal"
+                this.decorsFont = "normal"
+                this.outfitFont = "normal"
+                this.resumeFont = "normal"
             },
             displayAddOns() {
                 this.kitInfo = "none"
@@ -313,7 +273,12 @@
                 this.decors = "none"
                 this.outfit = "none"
                 this.resume = "none"
-
+                this.kitInfoFont = "normal"
+                this.addOnsFont = "bold"
+                this.extraFont = "normal"
+                this.decorsFont = "normal"
+                this.outfitFont = "normal"
+                this.resumeFont = "normal"
             },
             displayExtras() {
                 this.kitInfo = "none"
@@ -322,7 +287,12 @@
                 this.decors = "none"
                 this.outfit = "none"
                 this.resume = "none"
-
+                this.kitInfoFont = "normal"
+                this.addOnsFont = "normal"
+                this.extraFont = "bold"
+                this.decorsFont = "normal"
+                this.outfitFont = "normal"
+                this.resumeFont = "normal"
             },
             displayDecor() {
                 this.kitInfo = "none"
@@ -331,7 +301,12 @@
                 this.decors = "block"
                 this.outfit = "none"
                 this.resume = "none"
-
+                this.kitInfoFont = "normal"
+                this.addOnsFont = "normal"
+                this.extraFont = "normal"
+                this.decorsFont = "bold"
+                this.outfitFont = "normal"
+                this.resumeFont = "normal"
             },
             displayOutfit() {
                 this.kitInfo = "none"
@@ -340,7 +315,12 @@
                 this.decors = "none"
                 this.outfit = "block"
                 this.resume = "none"
-
+                this.kitInfoFont = "normal"
+                this.addOnsFont = "normal"
+                this.extraFont = "normal"
+                this.decorsFont = "normal"
+                this.outfitFont = "bold"
+                this.resumeFont = "normal"
             },
             displayResume() {
                 this.kitInfo = "none"
@@ -349,6 +329,12 @@
                 this.decors = "none"
                 this.outfit = "none"
                 this.resume = "block"
+                this.kitInfoFont = "normal"
+                this.addOnsFont = "normal"
+                this.extraFont = "normal"
+                this.decorsFont = "normal"
+                this.outfitFont = "normal"
+                this.resumeFont = "bold"
             },
             getLastId() {
                 return this.$store.getters.bookingLastId + 1
@@ -440,6 +426,15 @@
         background-color: #0A2463;
         margin: 20px;
         margin-top: 50px;
+    }
 
+    .optionsButton {
+        background-color: transparent;
+        color: black;
+        padding: 10px;
+    }
+
+    .optionsButton[data-v-bbb6eae2]:focus {
+        outline: 0;
     }
 </style>

@@ -2,22 +2,22 @@
     <div>
         <div>
             <div class="container optnContainer" style="justify-content: center;">
-                <b-button v-on:click="displayInfo()" v-bind:style="{fontWeight: infoFont}" style="fontSize: 16px;"
+                <button v-on:click="displayInfo()" v-bind:style="{fontWeight: infoFont}" style="fontSize: 16px;"
                     class="bookingOptions border-0">Informações
                     <span class="bookingOptions" v-bind:style="{fontWeight: defaultFont}" style="padding: 10px">|</span>
-                </b-button>
-                <b-button v-on:click="displayPW()" v-bind:style="{fontWeight: passwordFont}" style="fontSize: 16px;"
+                </button>
+                <button v-on:click="displayPW()" v-bind:style="{fontWeight: passwordFont}" style="fontSize: 16px;"
                     class="bookingOptions border-0">
                     Alterar Palavra-Passe
                     <span class="bookingOptions" v-bind:style="{fontWeight: defaultFont}" style="padding: 10px">|</span>
-                </b-button>
-                <b-button v-on:click="displayProfileImg()" v-bind:style="{fontWeight: imgProfileFont}"
+                </button>
+                <button v-on:click="displayProfileImg()" v-bind:style="{fontWeight: imgProfileFont}"
                     style="fontSize: 16px;" class="bookingOptions border-0">Atualizar Foto de Perfil
                     <span class="bookingOptions" v-bind:style="{fontWeight: defaultFont}" style="padding: 10px">|</span>
-                </b-button>
-                <b-button v-on:click="displayContact()" v-bind:style="{fontWeight: contactFont}" style="fontSize: 16px;"
+                </button>
+                <button v-on:click="displayContact()" v-bind:style="{fontWeight: contactFont}" style="fontSize: 16px;"
                     class="bookingOptions border-0">Atualizar Contacto
-                </b-button>
+                </button>
             </div>
         </div>
 
@@ -34,7 +34,7 @@
                     <b-form-group id="input-group-1">
                         <label for="input-1">Palavra-Passe Atual:</label>
                         <b-form-input id="input-1" type="password" v-model="form.oldPW" required
-                            placeholder="Introduza a palavra-passe antiga">
+                            placeholder="Introduza a palavra-passe atual">
                         </b-form-input>
                     </b-form-group>
 
@@ -62,7 +62,7 @@
                     <b-form-group id="input-group-4">
                         <label for="input-4">Link da Nova Imagem:</label>
                         <b-form-input id="input-4" v-model="form.newImg" type="link" required
-                            placeholder="Introduza o contacto novo"></b-form-input>
+                            placeholder="Introduza o link da nova imagem"></b-form-input>
                     </b-form-group>
                     <b-button type="submit" variant="primary">Atualizar</b-button>
                 </b-form>
@@ -135,21 +135,35 @@
                 for (let i in this.users) {
                     if (this.users[i].email === this.userEmail) {
                         if (this.users[i].password === this.form.oldPW) {
-                            if (this.form.newPW === this.form.confirmPW) {
-                                this.users[i].password = this.form.newPW
-                                this.$store.state.loggedUser.password = this.form.newPW
-                                localStorage.setItem("users", JSON.stringify(this.users));
-                                localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser));
-                                this.form.newPW = ""
-                                this.form.oldPW = ""
-                                this.form.confirmPW = ""
-                                alert("Palavra-Passe alterada com sucesso!")
-                                this.displayInfo();
+                            if (this.users[i].password !== this.form.newPW) {
+                                if (this.form.newPW === this.form.confirmPW) {
+                                    this.users[i].password = this.form.newPW
+                                    this.$store.state.loggedUser.password = this.form.newPW
+                                    localStorage.setItem("users", JSON.stringify(this.users));
+                                    localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser));
+                                    this.form.newPW = ""
+                                    this.form.oldPW = ""
+                                    this.form.confirmPW = ""
+                                    alert("Palavra-Passe alterada com sucesso!")
+                                    this.displayInfo();
+                                } else {
+                                    this.oldPW = ""
+                                    this.newPW = ""
+                                    this.confirmPW = ""
+                                    alert("As Palavras-Passe não coincidem!")
+                                }
                             } else {
-                                alert("A nova Palavra-Passe não pode ser igual à Palavra-Passe atual")
+                                this.oldPW = ""
+                                this.newPW = ""
+                                this.confirmPW = ""
+                                alert("A nova Palavra-passe não pode ser igual à palavra-passe atual!")
                             }
+
                         } else {
-                            alert("Palavra-Passe atual errada")
+                            this.oldPW = ""
+                            this.newPW = ""
+                            this.confirmPW = ""
+                            alert("Palavra-Passe atual errada!")
                         }
                     }
                 }
@@ -158,14 +172,19 @@
                 evt.preventDefault()
                 for (let i in this.users) {
                     if (this.users[i].email === this.userEmail) {
-                        this.userContact = this.form.newContact
-                        this.users[i].number = this.form.newContact
-                        this.$store.state.loggedUser.number = this.form.newContact
-                        localStorage.setItem("users", JSON.stringify(this.users));
-                        localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser));
-                        this.form.newContact = ""
-                        alert("Contacto atualizado com sucesso!")
-                        this.displayInfo();
+                        if (this.users[i].number !== this.form.newContact) {
+                            this.userContact = this.form.newContact
+                            this.users[i].number = this.form.newContact
+                            this.$store.state.loggedUser.number = this.form.newContact
+                            localStorage.setItem("users", JSON.stringify(this.users));
+                            localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser));
+                            this.form.newContact = ""
+                            alert("Contacto atualizado com sucesso!")
+                            this.displayInfo();
+                        } else {
+                            this.form.newContact = ""
+                            alert("O novo contacto não podem ser igual ao atual!")
+                        }
                     }
                 }
             },
@@ -274,5 +293,9 @@
         -webkit-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
+    }
+
+    .bookingOptions[data-v-25112270]:focus {
+        outline: 0;
     }
 </style>

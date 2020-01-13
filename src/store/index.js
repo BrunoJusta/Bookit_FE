@@ -152,7 +152,6 @@ export default new Vuex.Store({
     userExists: false,
     bookings: [],
     areaBookings: [],
-    inscriptions: [],
     drinks: ["café", "chá"],
     food: ["bolachas", "bolo"],
     ingredients: [{
@@ -292,16 +291,6 @@ export default new Vuex.Store({
       router.push({
         name: 'home'
       })
-    },
-    ADD_WORKSHOP_ATENDER(state, payload) {
-      if (!state.inscriptions.some(b => b.clientName === payload.clientName) || !state.inscriptions.some(b => b.workshopName === payload.workshopName)) {
-        state.inscriptions.push({
-          workshopName: payload.workshopName,
-          inscriptions: payload.inscriptions.push(payload.clientName)
-        });
-        localStorage.setItem("workshops", JSON.stringify(state.workshops));
-        alert("RESERVA CONCLUIDA COM SUCESSO")
-      }
     },
     ADD_KIT(state, payload) {
       if (!state.kits.some(kit => kit.name === payload.name)) {

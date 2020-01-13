@@ -12,13 +12,13 @@
                     <a v-on:click="displaySettings()" class="options border-0">
                         <b-img v-bind:src="settingsOn" id="settingsImg"></b-img>
                     </a>
-                    <b-button v-on:click="displayNotifications()" class="options border-0"
+                    <button v-on:click="displayNotifications()" class="options border-0"
                         v-bind:style="{fontWeight: notificFont, color: notifiColor}">
-                        Notificações</b-button>
+                        Notificações</button>
                     <p class="options" style="padding: 10px">|</p>
-                    <b-button v-on:click="displayBookings()" class="options border-0"
+                    <button v-on:click="displayBookings()" class="options border-0"
                         v-bind:style="{fontWeight: bookingsFont,color: bookingsColor}">Reservas
-                    </b-button>
+                    </button>
                 </div>
             </div>
         </div>
@@ -28,17 +28,17 @@
         <div class="container">
             <div v-bind:style="{display: showBookings}">
                 <div class="container" style="justify-content: center;">
-                    <b-button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}"
+                    <button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}"
                         style="fontSize: 20px;" class="bookingOptions border-0">Eventos & Catering
-                    </b-button>
+                    </button>
                     <span class="bookingOptions" style="padding: 10px">|</span>
-                    <b-button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}" style="fontSize: 20px;"
+                    <button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}" style="fontSize: 20px;"
                         class="bookingOptions border-0">
-                        Espaços</b-button>
+                        Espaços</button>
                     <span class="bookingOptions" style="padding: 10px">|</span>
-                    <b-button v-on:click="displayWorkshops()" v-bind:style="{fontWeight: WorkshopsFont}"
+                    <button v-on:click="displayWorkshops()" v-bind:style="{fontWeight: WorkshopsFont}"
                         style="fontSize: 20px;" class="bookingOptions border-0">Workshops
-                    </b-button>
+                    </button>
                 </div>
 
                 <!-- CARDS DOS EVENTOS -->
@@ -340,5 +340,13 @@
         background-color: transparent;
         color: black;
         padding: 10px
+    }
+
+    .options[data-v-ced23842]:focus {
+        outline: 0;
+    }
+
+    .bookingOptions[data-v-ced23842]:focus {
+        outline: 0,
     }
 </style>
