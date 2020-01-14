@@ -8,9 +8,9 @@ export default new Vuex.Store({
   state: {
     currentKit: {
       kitname: "",
-      kitType: ""}
-    ,
-    currentArea:{
+      kitType: ""
+    },
+    currentArea: {
       areaName: ""
     },
     users: [{
@@ -42,7 +42,7 @@ export default new Vuex.Store({
       },
       {
         id: 2,
-        name: "menu B",
+        name: "menu C",
         drinks: ["café", "leite"],
         food: ["bolo"],
         type: "Coffee Break",
@@ -80,7 +80,7 @@ export default new Vuex.Store({
     workshops: [{
         id: 0,
         name: "Workshop A",
-        date: "20/12/2019",
+        date: "20/12/2021",
         time: "12h - 14h",
         teacher: "João",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -209,11 +209,31 @@ export default new Vuex.Store({
 
       },
     ],
-    schools:[{id:0, name:"ESMAD"},{id:1, name:"ESHT"},{id:2, name:"ESS"}]
+    schools: [{
+      id: 0,
+      name: "ESMAD"
+    }, {
+      id: 1,
+      name: "ESHT"
+    }, {
+      id: 2,
+      name: "ESS"
+    }]
   },
   mutations: {
     STORE_ITEMS(state) {
-      localStorage.setItem("areas", JSON.stringify(state.areas));
+      if (!localStorage.getItem("users")) {
+        localStorage.setItem("users", JSON.stringify(state.users));
+      }
+      if (!localStorage.getItem("kits")) {
+        localStorage.setItem("kits", JSON.stringify(state.kits));
+      }
+      if (!localStorage.getItem("workshops")) {
+        localStorage.setItem("workshops", JSON.stringify(state.workshops));
+      }
+      if (!localStorage.getItem("areas")) {
+        localStorage.setItem("areas", JSON.stringify(state.areas));
+      }
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
       localStorage.setItem("extras", JSON.stringify(state.extras));
       localStorage.setItem("decor", JSON.stringify(state.decor));
@@ -426,16 +446,15 @@ export default new Vuex.Store({
       }
     },
     getName(state) {
-      if(state.loggedUser.length == 0){
+      if (state.loggedUser.length == 0) {
         return state.notLogged
-      }
-      else{
+      } else {
         return state.loggedUser.name
 
       }
     },
     getUserType(state) {
-        return state.loggedUser.userType
+      return state.loggedUser.userType
     },
     getLastName(state) {
       return state.loggedUser.lastName
@@ -463,6 +482,11 @@ export default new Vuex.Store({
     },
     getCurrentAreaImg(state) {
       return state.currentArea.areaImg
+    },
+    getCurrentDate() {
+      var today = new Date();
+      var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+      return date
     }
   }
 })

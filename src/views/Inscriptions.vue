@@ -13,7 +13,7 @@
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.workshops" :fields="fields">
-                 <template v-slot:cell(actions)="row">
+                <template v-slot:cell(actions)="row">
                     <b-button size="sm" @click="remove(row.item.id)" class="mr-1">X</b-button>
                 </template>
             </b-table>
@@ -53,13 +53,15 @@
                     },
                 ],
                 workshops: [],
-                x: ""
+                x: "",
+                currentDate: ""
             }
         },
         created() {
             if (localStorage.getItem("workshops")) {
                 this.workshops = JSON.parse(localStorage.getItem("workshops"))
             }
+            this.currentDate = this.$store.getters.getCurrentDate
         },
         computed: {
             searchInscriptions() {
@@ -68,19 +70,20 @@
             rows() {
                 return this.workshops.length
             }
-        },methods:{
-              remove(id) {
-
+        },
+        methods: {
+            remove(id) {
                 for (let i in this.workshops) {
-
                     if (this.workshops[i].id === id) {
-                        this.workshops = this.workshops.filter(workshop => this.workshops[i].id != workshop.id);
-                        localStorage.setItem("workshops", JSON.stringify(this.workshops));
-
-                        alert("Removido")
+                        if (this.workshops[i].inscriptions.length !== 0) {
+                            alert("Não pode remover este workshop porque já existem incrições feitas!")
+                        } else {
+                            this.workshops = this.workshops.filter(workshop => this.workshops[i].id != workshop.id);
+                            localStorage.setItem("workshops", JSON.stringify(this.workshops));
+                            alert("Removido")
+                        }
                     }
                 }
-
             }
         }
 

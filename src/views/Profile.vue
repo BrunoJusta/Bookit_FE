@@ -46,7 +46,7 @@
                     <div class="row" v-if="this.filteredBookings.length !== 0">
                         <div class="col-sm-3" v-for="k in filteredBookings" :key="k.id" style="padding-top: 20px;">
                             <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.kitImg">
-                                <b-card-body :title="k.kitName + ' - ' + k.kitType">
+                                <b-card-body align="left" :title="k.kitName + ' - ' + k.kitType">
                                     <b-card-text style="margin: auto;">
                                         <b>Data:</b> {{k.date}}
                                     </b-card-text>
@@ -55,6 +55,9 @@
                                     </b-card-text>
                                     <b-card-text style="margin: auto;">
                                         <b>Local:</b> {{k.location}}
+                                    </b-card-text>
+                                    <b-card-text style="margin: auto;">
+                                        <b>Estado:</b> {{k.state}}
                                     </b-card-text>
                                 </b-card-body>
                             </b-card>
@@ -71,12 +74,15 @@
                     <div class="row" v-if="this.filteredAreas.length !== 0">
                         <div class="col-sm-3" v-for="k in filteredAreas" :key="k.id" style="padding-top: 20px;">
                             <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.areaImg">
-                                <b-card-body :title="k.areaName">
+                                <b-card-body align="left" :title="k.areaName">
                                     <b-card-text style="margin: auto;">
-                                        Data: {{k.date}}
+                                        <b>Data:</b> {{k.date}}
                                     </b-card-text>
                                     <b-card-text style="margin: auto;">
-                                        Hora: {{k.duration}}
+                                        <b>Hora:</b> {{k.duration}}
+                                    </b-card-text>
+                                    <b-card-text style="margin: auto;">
+                                        <b>Estado:</b> {{k.state}}
                                     </b-card-text>
                                 </b-card-body>
                             </b-card>
@@ -93,12 +99,12 @@
                     <div class="row" v-if="this.userWorkshops.length !== 0">
                         <div class="col-sm-3" v-for="k in this.userWorkshops" :key="k.id" style="padding-top: 20px;">
                             <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.img">
-                                <b-card-body :title="k.name">
+                                <b-card-body align="left" :title="k.name">
                                     <b-card-text style="margin: auto;">
-                                        Data: {{k.date}}
+                                        <b>Data:</b> {{k.date}}
                                     </b-card-text>
                                     <b-card-text style="margin: auto;">
-                                        Hora: {{k.time}}
+                                        <b>Hora:</b> {{k.time}}
                                     </b-card-text>
                                 </b-card-body>
                             </b-card>
