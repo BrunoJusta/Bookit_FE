@@ -1,16 +1,250 @@
 <template>
     <div>
-        <h1>TESTE PARA NOTIFICAÇÕS</h1>
-        <h1>TESTE PARA NOTIFICAÇÕS</h1>
+
+        <div class="container-full title">
+            <h1 id="redTitle">RESERVAS</h1>
+            <hr class="back-line">
+            <div class="container" id="whiteRect">
+                <p id="space">space</p>
+            </div>
+        </div>
+
+        <div class="container" style="justify-content: center;">
+            <b-button v-on:click="displayB()" class="teste border-0"
+                style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: notifyFont}">
+                Notificações
+            </b-button>
+            <b-button v-on:click="displayA()" class="teste border-0"
+                style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: acrchiveFont}">
+                Arquivo
+            </b-button>
+        </div>
+
+
+        <div class="container" v-bind:style="{display:  notifyTable}">
+            <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
+            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
+                head-variant="dark" responsive="sm" :items="this.notifications" :fields="fields">
+                <template v-slot:cell(actions)="row">
+                    <b-button size="sm" @click="achived(row.item.txt)" class="mr-1">Arquivar</b-button>
+                    <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1">X</b-button>
+                </template>
+            </b-table>
+            <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
+                style="float:right;"></b-pagination>
+        </div>
+
+
+
+        <div class="container" v-bind:style="{display: archiveTable}">
+            <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
+            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
+                head-variant="dark" responsive="sm" :items="this.archivations" :fields="fields2">
+                <template v-slot:cell(actions)="row2">
+                    <b-button size="sm" @click="removeArchive(row2.item.txt)" class="mr-1">X</b-button>
+                </template>
+            </b-table>
+            <b-pagination v-model="currentPage" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
+                style="float:right;"></b-pagination>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
 </template>
 
 <script>
     export default {
-        
+        name: "notifyTable",
+        data: function () {
+            return {
+                perPage: 10,
+                currentPage: 1,
+                fields: [{
+                        key: 'txt',
+                        label: "Notificações",
+                        sortable: true
+                    },
+                    {
+                        key: 'actions',
+                        label: "Ações",
+                        sortable: false
+                    },
+
+
+                ],
+                fields2: [{
+                        key: 'txt',
+                        label: "Notificações Arquivadas",
+                        sortable: true
+                    },
+                    {
+                        key: 'actions',
+                        label: "Ações",
+                        sortable: false
+                    },
+
+
+                ],
+                notifyTable: "block",
+                archiveTable: "none",
+                notifyFont: "bold",
+                acrchiveFont: "normal",
+                x: "",
+                users: [],
+                notifications: [],
+                archivations:[],
+            }
+        },
+        created() {
+            if (localStorage.getItem("users")) {
+                this.users = JSON.parse(localStorage.getItem("users"))
+                for (let i in this.users) {
+
+                    if (this.users[i].email === this.$store.getters.getEmail) {
+                        this.notifications = this.users[i].notifications
+                        this.archivations = this.users[i].archivations
+
+                    }
+                }
+            }
+        },
+        methods: {
+            displayA() {
+                this.notifyTable = "none"
+                this.archiveTable = "block"
+                this.notifyFont = "normal",
+                    this.acrchiveFont = "bold"
+            },
+            displayB() {
+                this.archiveTable = "none"
+                this.notifyTable = "block",
+                    this.notifyFont = "bold",
+                    this.acrchiveFont = "normal"
+            },
+            removeNotification(txt) {
+
+                for (let i in this.notifications) {
+
+                    if (this.notifications[i].txt === txt) {
+                        this.notifications = this.notifications.filter(notification => this.notifications[i].txt !=
+                            notification.txt);
+                        for (let i in this.users) {
+
+                            if (this.users[i].email === this.$store.getters.getEmail) {
+                                this.users[i].notifications = this.notifications
+                                localStorage.setItem("users", JSON.stringify(this.users));
+
+                            }
+                        }
+                        alert("Removido")
+                    }
+                }
+
+            },
+            removeArchive(txt) {
+
+                for (let i in this.archivations) {
+
+                    if (this.archivations[i].txt === txt) {
+                        this.archivations = this.archivations.filter(notification => this.archivations[i].txt !=
+                            notification.txt);
+                        for (let i in this.users) {
+
+                            if (this.users[i].email === this.$store.getters.getEmail) {
+                                this.users[i].archivations = this.archivations
+                                localStorage.setItem("users", JSON.stringify(this.users));
+
+                            }
+                        }
+                        alert("Removido")
+                    }
+                }
+
+            },
+            achived(txt) {
+
+                for (let i in this.notifications) {
+
+                    if (this.notifications[i].txt === txt) {
+                        alert(this.notifications[i].txt)
+                        for (let j in this.users) {
+
+                            if (this.users[j].email === this.$store.getters.getEmail) {
+                                this.users[j].archivations.push({txt: this.notifications[i].txt})
+                                this.notifications = this.notifications.filter(notification => this.notifications[i].txt != notification.txt);
+                                this.users[j].notifications = this.notifications
+                                localStorage.setItem("users", JSON.stringify(this.users));
+                            }
+                        }
+                        alert("Arquivado")
+                    }
+                }
+            },
+        }
+
     }
 </script>
 
 <style lang="scss" scoped>
+    #redTitle {
+        font-family: "bookMan";
+        font-size: 45px;
+        color: #B91C3B;
+        display: block;
+        z-index: 7;
+        position: relative;
+    }
 
+    .back-line {
+        background-color: #0A2463;
+        margin-top: -35px;
+        width: 90%;
+        display: block;
+        z-index: 5;
+        position: relative;
+    }
+
+    #space {
+        color: white;
+    }
+
+    .title {
+        padding-top: 180px;
+        padding-bottom: 80px;
+    }
+
+    #whiteRect {
+        background-color: white;
+        margin-top: -35px;
+        height: 35px;
+        width: 340px;
+        position: relative;
+        display: block;
+        z-index: 5;
+    }
+
+    .mb-2 {
+        --webkit-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+        -moz-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+        box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
+    }
+
+    .btn-book {
+        font-size: 18px;
+        background-color: #0A2463;
+        margin-bottom: -60px;
+    }
+
+    .table {
+        padding-bottom: 100px;
+    }
+
+    #listItem {
+        float: left;
+        padding: 20px;
+    }
 </style>

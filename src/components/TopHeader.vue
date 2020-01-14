@@ -40,13 +40,16 @@
                 onlineUser: "",
                 showLogout: "block",
                 adminButtons: "none",
-                clientButtons: "block"
+                clientButtons: "block",
+                
             }
         },
         created(){
   
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+              
+
             }
              if (this.$store.getters.getName === "Entrar") {
 

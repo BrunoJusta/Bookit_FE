@@ -234,6 +234,9 @@ export default new Vuex.Store({
       if (!localStorage.getItem("areas")) {
         localStorage.setItem("areas", JSON.stringify(state.areas));
       }
+      if (!localStorage.getItem("bookings")) {
+        localStorage.setItem("bookings", JSON.stringify(state.bookings));
+      }
       localStorage.setItem("outfits", JSON.stringify(state.outfits));
       localStorage.setItem("extras", JSON.stringify(state.extras));
       localStorage.setItem("decor", JSON.stringify(state.decor));
@@ -253,7 +256,9 @@ export default new Vuex.Store({
             password: payload.password,
             number: payload.number,
             img: require('../assets/logo.png'),
-            userType: "cliente"
+            userType: "cliente",
+            notifications: [],
+            archivations: [],
           });
           localStorage.setItem("users", JSON.stringify(state.users));
           alert("Registado");
@@ -279,30 +284,32 @@ export default new Vuex.Store({
             password: user.password,
             number: user.number,
             img: user.img,
-            userType: user.userType
-          });
-          localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
-          state.logged = true;
-          sessionStorage.setItem("userOn", user.name)
-          state.userExists = true;
-          if (user.userType === "admin") {
+            userType: user.userType,
+            notifications: user.notifications
 
+          });
+          state.userExists = true
+          localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
+          if (user.userType === "admin") {
             router.push({
               name: 'adminHome',
-            }) //Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina
+            })
           } else if (user.userType === "cliente") {
             router.push({
               name: 'home',
             })
-            /*  router.push({ name: 'home'})  Nao atualiza o nome de utilizador ao fazer o push pq nao atualiza a pagina*/
+            if (state.loggedUser.notifications.length != 0) {
+              alert("Tem " + state.loggedUser.notifications.length + " Notificações!")
+            }
 
           }
-          if (state.userExists === false) {
-            alert("Credenciais Inválidas");
-          } else {
-            state.userExists = false;
-          }
+
+        }else {
+          state.userExists = false;
         }
+      }
+      if (state.userExists === false) {
+        alert("Credenciais Inválidas");
       }
     },
     LOGOUT(state) {
@@ -361,7 +368,8 @@ export default new Vuex.Store({
         extras: payload.extras,
         decor: payload.decor,
         outfit: payload.outfit,
-        state: payload.state
+        state: payload.state,
+
       });
       localStorage.setItem("bookings", JSON.stringify(state.bookings));
     },
@@ -375,7 +383,7 @@ export default new Vuex.Store({
         reason: payload.reason,
         date: payload.date,
         duration: payload.duration,
-        state: payload.state
+        state: payload.state,
 
       });
       localStorage.setItem("areaBookings", JSON.stringify(state.areaBookings));

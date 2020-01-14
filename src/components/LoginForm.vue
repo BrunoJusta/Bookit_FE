@@ -49,7 +49,8 @@
         data: () => ({
             emailLogin: "",
             passwordLogin: "",
-            show: true
+            show: true,
+            
         }),
         created: function () { //qd abres esta pagina vai acontecer isto
             if (localStorage.getItem("users")) {
@@ -65,6 +66,7 @@
                     email: this.emailLogin,
                     password: this.passwordLogin,
                 })
+               
             },
         },
     };

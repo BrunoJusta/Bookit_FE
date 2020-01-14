@@ -32,16 +32,9 @@
                 <br>
                 <br>
                 <img :src="img" alt="" srcset="">
-
                 <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
-
             </form>
         </div>
-
-
-
-
-
         <br>
         <br>
         <br>
