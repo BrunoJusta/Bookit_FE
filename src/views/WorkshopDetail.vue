@@ -13,7 +13,7 @@
               <p><b>Data:</b> {{getWorkshopById($route.params.workshopId).date}}
                 <b id="b">Duração:</b> {{getWorkshopById($route.params.workshopId).time}} <b id="b">Vagas:</b>
                 {{getWorkshopById($route.params.workshopId).vacancies}} </p>
-              <p><b>Locotor:</b> {{getWorkshopById($route.params.workshopId).teacher}}</p>
+              <p><b>Locutor:</b> {{getWorkshopById($route.params.workshopId).teacher}}</p>
               <p> {{getWorkshopById($route.params.workshopId).description}}</p>
             </b-card-body>
 

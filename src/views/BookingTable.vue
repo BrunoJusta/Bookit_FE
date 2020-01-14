@@ -11,10 +11,10 @@
 
         <div class="container" style="justify-content: center;">
             <b-button v-on:click="displayB()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px">Eventos & Catering
+                style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: eventsFont}">Eventos & Catering
             </b-button>
             <b-button v-on:click="displayA()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px">Espaços
+                style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: areasFont}">Espaços
             </b-button>
         </div>
 
@@ -184,7 +184,8 @@
                 areas: [],
                 bookingTable: "block",
                 areasTable: "none",
-
+                eventsFont: "bold",
+                areasFont: "normal",
                 x: ""
             }
         },
@@ -208,10 +209,14 @@
             displayA() {
                 this.bookingTable = "none"
                 this.areasTable = "block"
+                this.eventsFont = "normal",
+                this.areasFont = "bold"
             },
             displayB() {
                 this.areasTable = "none"
-                this.bookingTable = "block"
+                this.bookingTable = "block",
+                this.eventsFont = "bold",
+                this.areasFont = "normal"
             },
             removeBooking(id) {
 

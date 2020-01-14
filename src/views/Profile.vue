@@ -28,8 +28,8 @@
         <div class="container">
             <div v-bind:style="{display: showBookings}">
                 <div class="container" style="justify-content: center;">
-                    <button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}"
-                        style="fontSize: 20px;" class="bookingOptions border-0">Eventos & Catering
+                    <button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}" style="fontSize: 20px;"
+                        class="bookingOptions border-0">Eventos & Catering
                     </button>
                     <span class="bookingOptions" style="padding: 10px">|</span>
                     <button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}" style="fontSize: 20px;"
@@ -119,13 +119,12 @@
 
             <!-- MOSTRA AS NOTIFICACOES -->
             <div v-bind:style="{display: showNotifications}">
-                <h1>TESTE PARA AS NOTIFICACOES</h1>
-                <h1>TESTE PARA AS NOTIFICACOES</h1>
+                <show-notifications />
             </div>
 
             <!-- DEFINIÇOES -->
             <div class="container" v-bind:style="{display: showSettings}">
-                <show-settings/>
+                <show-settings />
             </div>
         </div>
 
@@ -133,10 +132,13 @@
 </template>
 
 <script>
-  import ShowSettings from '@/components/ShowSettings.vue';
+    import ShowSettings from '@/components/ShowSettings.vue';
+    import ShowNotificationsVue from '@/components/ShowNotifications.vue';
+
     export default {
         components: {
-            "show-settings": ShowSettings
+            "show-settings": ShowSettings,
+            "show-notifications": ShowNotificationsVue
         },
         data: function () {
             return {
@@ -280,7 +282,7 @@
         -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         margin-top: 180px;
-    border-bottom: solid 8px #0A2463;
+        border-bottom: solid 8px #0A2463;
 
     }
 
@@ -312,7 +314,7 @@
     #imgPerfil {
         height: 140px;
         width: 140px;
-        float:left;
+        float: left;
         margin-left: -8px;
         margin-top: 6px;
     }
@@ -354,5 +356,9 @@
 
     .bookingOptions[data-v-ced23842]:focus {
         outline: 0,
+    }
+
+    .card-body {
+        font-size: 14px;
     }
 </style>

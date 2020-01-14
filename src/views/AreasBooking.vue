@@ -40,6 +40,8 @@
 </template>
 
 <script>
+    import router from '../router';
+
     export default {
         data: function () {
             return {
@@ -87,6 +89,9 @@
                     state: "Pendente"
                 })
                 alert("Enviado")
+                router.push({
+                    name: 'home'
+                })
             }
         },
 

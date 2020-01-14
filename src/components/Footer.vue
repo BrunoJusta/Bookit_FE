@@ -7,7 +7,7 @@
                     <img src="../assets/bookit_white2.svg" id="bookitLogo">
                 </div>
                 <div class="col-sm-3" align="left">
-                    <ul >
+                    <ul>
                         <li>
                             <h5>Sobre nós</h5>
                         </li>
@@ -15,7 +15,7 @@
                             <router-link to="/" style="color:white">Ler o nosso blog</router-link>
                         </li>
                         <li>
-                            <router-link to="/reservas" style="color:white">Fazer reserva
+                            <router-link to="/choose" style="color:white">Fazer reserva
                             </router-link>
                         </li>
                         <li>
@@ -25,7 +25,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-3">
-                    <ul >
+                    <ul>
                         <li>
                             <h5>Suporte</h5>
                         </li>
@@ -33,15 +33,15 @@
                             <router-link to="/" style="color:white">Perguntas frequentes</router-link>
                         </li>
                         <li>
-                            <router-link to="/" style="color:white">Visualizar kits</router-link>
+                            <router-link to="/menuKits" style="color:white">Galeria de menus</router-link>
                         </li>
                         <li>
-                            <router-link to="/" style="color:white">Visualizar workshops</router-link>
+                            <router-link to="/workshops" style="color:white">Galeria de workshops</router-link>
                         </li>
                     </ul>
                 </div>
                 <div class="col-sm-4">
-                            <google-map/>
+                    <google-map />
                 </div>
             </div>
 
@@ -54,7 +54,9 @@
 </template>
 
 <script>
-import GoogleMap from "@/components/Map.vue"
+    import router from '../router';
+
+    import GoogleMap from "@/components/Map.vue"
     export default {
         components: {
             "google-map": GoogleMap
