@@ -20,8 +20,8 @@
             </b-button>
         </div>
 
-
-        <div class="container" v-bind:style="{display:  bookingTable}">
+        
+        <div class="container" v-if="this.bookings.length != 0" v-bind:style="{display:  bookingTable}">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.bookings" :fields="fields">
@@ -63,10 +63,14 @@
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
+        <div class="container" v-else  v-bind:style="{display:  bookingTable}">
+            <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+            <h4> Não existem reservas de Eventos & Catering</h4>
+        </div>
 
 
 
-        <div class="container" v-bind:style="{display: areasTable}">
+        <div v-if="this.areas.length != 0" class="container" v-bind:style="{display: areasTable}">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.areas" :fields="fields2">
@@ -93,6 +97,11 @@
             <b-pagination v-model="currentPage" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
+          <div class="container" v-else v-bind:style="{display: areasTable}">
+            <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+            <h4> Não existem reservas de Espaços</h4>
+        </div>
+
 
         <br>
         <br>

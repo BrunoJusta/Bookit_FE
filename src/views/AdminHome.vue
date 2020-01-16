@@ -42,7 +42,12 @@
           </div>
           <div class="col">
             <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/WorkshopManeger">Adicionar Workshop</router-link>
+              <router-link id="link" to="/WorkshopManeger">Adicionar Workshops</router-link>
+            </b-card>
+          </div>
+           <div class="col">
+            <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
+              <router-link id="link" to="/WorkshopManeger">Adicionar Espaços</router-link>
             </b-card>
           </div>
          

@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <div class="container table">
+        <div class="container table" v-if="this.workshops.length != 0">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.workshops" :fields="fields">
@@ -20,6 +20,11 @@
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
+         <div class="container" v-else>
+            <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+            <h4> Não existem Workshops</h4>
+        </div>
+
 
     </div>
 </template>
