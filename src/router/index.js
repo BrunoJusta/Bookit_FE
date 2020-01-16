@@ -100,6 +100,11 @@ const routes = [
     path: "/userTables",
     name: "userTables",
     component: () => import("../views/UserTable.vue")
+  },
+  {
+    path: "/addArea",
+    name: "addArea",
+    component: () => import("../views/AddArea.vue")
   }
 ]
 
