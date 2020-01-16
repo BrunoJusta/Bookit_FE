@@ -20,11 +20,12 @@
             </b-button>
         </div>
 
-
+        <!-- MOSTRA TABELA DAS RESERVAS -->
         <div class="container" v-if="this.bookings.length != 0" v-bind:style="{display:  bookingTable}">
+            <b-input type="text" v-model="searchBookings" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.bookings" :fields="fields">
+                head-variant="dark" responsive="sm" :items="this.filteredBookings" :fields="fields">
                 <template v-slot:cell(actions)="row">
                     <b-button size="sm" class="mr-1" @click="row.toggleDetails">
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
@@ -68,20 +69,22 @@
             <h4> Não existem reservas de Eventos & Catering</h4>
         </div>
 
-
-
+        <!-- MOSTRA TABELA DAS AREAS -->
         <div v-if="this.areas.length != 0" class="container" v-bind:style="{display: areasTable}">
+            <b-input type="text" v-model="searchAreas" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.areas" :fields="fields2">
+                head-variant="dark" responsive="sm" :items="this.filteredAreas" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
                     <b-button size="sm" class="mr-1" @click="row2.toggleDetails">
                         {{ row2.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row2.item.state == 'Pendente'"
-                        @click="acceptAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1">Aceitar</b-button>
+                        @click="acceptAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1">Aceitar
+                    </b-button>
                     <b-button size="sm" v-if="row2.item.state == 'Pendente'"
-                        @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1">Recusar</b-button>
+                        @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1">Recusar
+                    </b-button>
                     <b-button size="sm" v-if="row2.item.state != 'Pendente'" @click="removeAreaBooking(row2.item.id)"
                         class="mr-1">X</b-button>
                 </template>
@@ -206,7 +209,9 @@
                 eventsFont: "bold",
                 areasFont: "normal",
                 x: "",
-                users: []
+                users: [],
+                searchAreas: "",
+                searchBookings: ""
             }
         },
         created() {
@@ -233,19 +238,19 @@
             displayA() {
                 this.bookingTable = "none"
                 this.areasTable = "block"
-                this.eventsFont = "normal",
-                    this.areasFont = "bold"
+                this.eventsFont = "normal"
+                this.areasFont = "bold"
+                this.searchBookings = ""
             },
             displayB() {
                 this.areasTable = "none"
-                this.bookingTable = "block",
-                    this.eventsFont = "bold",
-                    this.areasFont = "normal"
+                this.bookingTable = "block"
+                this.eventsFont = "bold"
+                this.areasFont = "normal"
+                this.searchAreas = ""
             },
             removeBooking(id) {
-
                 for (let i in this.bookings) {
-
                     if (this.bookings[i].id === id) {
                         this.bookings = this.bookings.filter(booking => this.bookings[i].id != booking.id);
                         localStorage.setItem("bookings", JSON.stringify(this.bookings));
@@ -255,25 +260,20 @@
 
             },
             removeAreaBooking(id) {
-
                 for (let i in this.areas) {
-
                     if (this.areas[i].id === id) {
                         this.areas = this.areas.filter(area => this.areas[i].id != area.id);
                         localStorage.setItem("areaBookings", JSON.stringify(this.areas));
                         alert("Removido")
                     }
                 }
-
             },
             acceptBooking(id, userEmail) {
                 for (let i in this.bookings) {
-
                     if (this.bookings[i].id === id) {
                         this.bookings[i].state = "Aprovado"
                         localStorage.setItem("bookings", JSON.stringify(this.bookings));
                         for (let j in this.users) {
-
                             if (this.users[j].email === userEmail) {
                                 this.users[j].notifications.push({
                                     txt: 'A sua reserva do ' + this.bookings[i].kitName + " - " +
@@ -286,18 +286,13 @@
                         alert("aprovado")
                     }
                 }
-
-
-
             },
             refuseBooking(id, userEmail) {
                 for (let i in this.bookings) {
-
                     if (this.bookings[i].id === id) {
                         this.bookings[i].state = "Recusado"
                         localStorage.setItem("bookings", JSON.stringify(this.bookings));
                         for (let j in this.users) {
-
                             if (this.users[j].email === userEmail) {
                                 this.users[j].notifications.push({
                                     txt: 'A sua reserva do ' + this.bookings[i].kitName + " - " +
@@ -313,12 +308,10 @@
             },
             acceptAreaBooking(id, userEmail) {
                 for (let i in this.areas) {
-
                     if (this.areas[i].id === id) {
                         this.areas[i].state = "Aprovado"
                         localStorage.setItem("areasBooking", JSON.stringify(this.areas));
                         for (let j in this.users) {
-
                             if (this.users[j].email === userEmail) {
                                 alert("olaaa")
                                 this.users[j].notifications.push({
@@ -334,12 +327,10 @@
             },
             refuseAreaBooking(id, userEmail) {
                 for (let i in this.areas) {
-
                     if (this.areas[i].id === id) {
                         this.areas[i].state = "Recusado"
                         localStorage.setItem("areasBooking", JSON.stringify(this.areas));
                         for (let j in this.users) {
-
                             if (this.users[j].email === userEmail) {
                                 this.users[j].notifications.push({
                                     txt: 'A sua reserva do ' + this.areas[i].areaName +
@@ -352,8 +343,64 @@
                     }
                 }
             }
+        },
+        computed: {
+            filteredBookings() {
+                return this.bookings.filter(
+                    (booking) => {
+                        let filterRunResult = true
+                        if (this.searchBookings == "") {
+                            return filterRunResult
+                        }
+                        //por menu
+                        if (booking.kitName.includes(this.searchBookings)) {
+                            filterRunResult = booking.kitName.includes(this.searchBookings)
+                            return filterRunResult
+                        }
+                        //por evento
+                        if (booking.kitType.includes(this.searchBookings)) {
+                            filterRunResult = booking.kitType.includes(this.searchBookings)
+                            return filterRunResult
+                        }
+                        //por cliente
+                        if (booking.userName.includes(this.searchBookings)) {
+                            filterRunResult = booking.userName.includes(this.searchBookings)
+                            return filterRunResult
+                        }
+                        //por email
+                        if (booking.userEmail.includes(this.searchBookings)) {
+                            filterRunResult = booking.userEmail.includes(this.searchBookings)
+                            return filterRunResult
+                        }
+                    }
+                )
+            },
+            filteredAreas() {
+                return this.areas.filter(
+                    (area) => {
+                        let filterRunResult = true
+                        if (this.searchAreas == "") {
+                            return filterRunResult
+                        }
+                        //por espaço
+                        if (area.areaName.includes(this.searchAreas)) {
+                            filterRunResult = area.areaName.includes(this.searchAreas)
+                            return filterRunResult
+                        }
+                        //por cliente
+                        if (area.userName.includes(this.searchAreas)) {
+                            filterRunResult = area.userName.includes(this.searchAreas)
+                            return filterRunResult
+                        }
+                        //por email
+                        if (area.userEmail.includes(this.searchAreas)) {
+                            filterRunResult = area.userEmail.includes(this.searchAreas)
+                            return filterRunResult
+                        }
+                    }
+                )
+            },
         }
-
     }
 </script>
 

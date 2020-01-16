@@ -10,9 +10,10 @@
         </div>
 
         <div class="container">
+            <b-input type="text" v-model="searchUsers" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.users" :fields="fields">
+                head-variant="dark" responsive="sm" :items="this.filteredUsers" :fields="fields">
                 <template v-slot:cell(actions)="row">
                     <b-button size="sm" v-if="row.item.userType == 'cliente'" @click="changeToAdmin(row.item.id)"
                         class="mr-1">Tornar Admin</b-button>
@@ -76,12 +77,11 @@
                 areas: [],
                 bookingTable: "block",
                 areasTable: "none",
-
-                x: ""
+                x: "",
+                searchUsers: ""
             }
         },
         created() {
-
             if (localStorage.getItem("users")) {
                 this.users = JSON.parse(localStorage.getItem("users"))
             }
@@ -93,13 +93,10 @@
         },
         methods: {
             remove(id) {
-
                 for (let i in this.users) {
-
                     if (this.users[i].id === id) {
                         this.users = this.users.filter(user => this.users[i].id != user.id);
                         localStorage.setItem("users", JSON.stringify(this.users));
-
                         alert("Removido")
                     }
                 }
@@ -107,7 +104,6 @@
             },
             changeToAdmin(id) {
                 for (let i in this.users) {
-
                     if (this.users[i].id === id) {
                         this.users[i].userType = "admin"
                         localStorage.setItem("users", JSON.stringify(this.users));
@@ -117,16 +113,46 @@
             },
             changeToClient(id) {
                 for (let i in this.users) {
-
                     if (this.users[i].id === id) {
                         this.users[i].userType = "cliente"
                         localStorage.setItem("users", JSON.stringify(this.users));
                         alert("aprovado")
                     }
                 }
-            },
+            }
+        },
+        computed: {
+            filteredUsers() {
+                return this.users.filter(
+                    (user) => {
+                        let filterRunResult = true
+                        if (this.searchUsers == "") {
+                            return filterRunResult
+                        }
+                        //por nome
+                        if (user.name.includes(this.searchUsers)) {
+                            filterRunResult = user.name.includes(this.searchUsers)
+                            return filterRunResult
+                        }
+                        //por apelido
+                        if (user.lastName.includes(this.searchUsers)) {
+                            filterRunResult = user.lastName.includes(this.searchUsers)
+                            return filterRunResult
+                        }
+                        //por email
+                        if (user.email.includes(this.searchUsers)) {
+                            filterRunResult = user.email.includes(this.searchUsers)
+                            return filterRunResult
+                        }
+                        //por contacto
+                        if (user.number.includes(this.searchUsers)) {
+                            filterRunResult = user.number.includes(this.searchUsers)
+                            return filterRunResult
+                        }
+                    }
+                )
+            }
         }
-
     }
 </script>
 

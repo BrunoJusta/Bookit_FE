@@ -10,9 +10,10 @@
         </div>
 
         <div class="container table" v-if="this.workshops.length != 0">
+            <b-input type="text" v-model="searchWorkshops" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.workshops" :fields="fields">
+                head-variant="dark" responsive="sm" :items="this.filteredWorkshops" :fields="fields">
                 <template v-slot:cell(actions)="row">
                     <b-button size="sm" @click="remove(row.item.id)" class="mr-1">X</b-button>
                 </template>
@@ -59,7 +60,8 @@
                 ],
                 workshops: [],
                 x: "",
-                currentDate: ""
+                currentDate: "",
+                searchWorkshops: ""
             }
         },
         created() {
@@ -90,8 +92,24 @@
                     }
                 }
             }
+        },
+        computed: {
+            filteredWorkshops() {
+                return this.workshops.filter(
+                    (workshop) => {
+                        let filterRunResult = true
+                        if (this.searchWorkshops == "") {
+                            return filterRunResult
+                        }
+                        //por workshop
+                        if (workshop.name.includes(this.searchWorkshops)) {
+                            filterRunResult = workshop.name.includes(this.searchWorkshops)
+                            return filterRunResult
+                        }
+                    }
+                )
+            }
         }
-
     }
 </script>
 
