@@ -26,6 +26,8 @@
                 <router-link to="/workshops" class="navOptions" v-bind:style="{display: clientButtons}">Workshops</router-link>
                 <router-link to="/menuKits" class="navOptions" v-bind:style="{display: adminButtons}">Menus</router-link>
                 <router-link to="/workshops" class="navOptions" v-bind:style="{display: adminButtons}">Workshops</router-link>
+                <router-link to="/areas" class="navOptions" v-bind:style="{display: adminButtons}">Espaços</router-link>
+
 
             </div>
         </b-navbar>
