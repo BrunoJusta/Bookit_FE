@@ -64,8 +64,8 @@
                         </div>
                     </div>
                     <div v-else>
-                        <br>
-                        <p>NÃO EXISTEM RESERVAS FEITAS!</p>
+                        <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+                        <h4> Não existem reservas de Eventos & Catering</h4>
                     </div>
                 </div>
 
@@ -89,8 +89,8 @@
                         </div>
                     </div>
                     <div v-else>
-                        <br>
-                        <p>NÃO EXISTEM RESERVAS DE ESPAÇOS FEITAS!</p>
+                        <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+                        <h4> Não existem reservas de Espaços</h4>
                     </div>
                 </div>
 
@@ -111,8 +111,8 @@
                         </div>
                     </div>
                     <div v-else>
-                        <br>
-                        <p>NÃO EXISTEM INSCRIÇÕES EM WORKSHOPS FEITAS!</p>
+                        <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+                        <h4> Não existem inscrições em Workshops</h4>
                     </div>
                 </div>
             </div>

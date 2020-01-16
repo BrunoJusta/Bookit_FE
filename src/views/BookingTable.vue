@@ -20,7 +20,7 @@
             </b-button>
         </div>
 
-        
+
         <div class="container" v-if="this.bookings.length != 0" v-bind:style="{display:  bookingTable}">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
@@ -31,8 +31,8 @@
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
                         @click="acceptBooking(row.item.id, row.item.userEmail)" class="mr-1">Aceitar</b-button>
-                    <b-button size="sm" v-if="row.item.state == 'Pendente'" @click="refuseBooking(row.item.id, row.item.userEmail)"
-                        class="mr-1">Recusar</b-button>
+                    <b-button size="sm" v-if="row.item.state == 'Pendente'"
+                        @click="refuseBooking(row.item.id, row.item.userEmail)" class="mr-1">Recusar</b-button>
                     <b-button size="sm" @click="removeBooking(row.item.id)" class="mr-1">X</b-button>
 
                 </template>
@@ -63,7 +63,7 @@
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
-        <div class="container" v-else  v-bind:style="{display:  bookingTable}">
+        <div class="container" v-else v-bind:style="{display:  bookingTable}">
             <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
             <h4> Não existem reservas de Eventos & Catering</h4>
         </div>
@@ -78,11 +78,12 @@
                     <b-button size="sm" class="mr-1" @click="row2.toggleDetails">
                         {{ row2.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state == 'Pendente'" @click="acceptAreaBooking(row2.item.id, row2.item.userEmail)"
-                        class="mr-1">Aceitar</b-button>
-                    <b-button size="sm" v-if="row2.item.state == 'Pendente'" @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)"
-                        class="mr-1">Recusar</b-button>
-                    <b-button size="sm" v-if="row2.item.state != 'Pendente'"  @click="removeAreaBooking(row2.item.id)" class="mr-1">X</b-button>
+                    <b-button size="sm" v-if="row2.item.state == 'Pendente'"
+                        @click="acceptAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1">Aceitar</b-button>
+                    <b-button size="sm" v-if="row2.item.state == 'Pendente'"
+                        @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1">Recusar</b-button>
+                    <b-button size="sm" v-if="row2.item.state != 'Pendente'" @click="removeAreaBooking(row2.item.id)"
+                        class="mr-1">X</b-button>
                 </template>
                 <template v-slot:row-details="row2">
                     <b-card>
@@ -97,7 +98,7 @@
             <b-pagination v-model="currentPage" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
-          <div class="container" v-else v-bind:style="{display: areasTable}">
+        <div class="container" v-else v-bind:style="{display: areasTable}">
             <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
             <h4> Não existem reservas de Espaços</h4>
         </div>
@@ -270,12 +271,15 @@
 
                     if (this.bookings[i].id === id) {
                         this.bookings[i].state = "Aprovado"
-                        localStorage.setItem("bookings", JSON.stringify(this.bookings)); 
+                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
                         for (let j in this.users) {
 
                             if (this.users[j].email === userEmail) {
-                                this.users[j].notifications.push({txt:'A sua reserva do ' + this.bookings[i].kitName + " - "
-                                 + this.bookings[i].kitType + ' para a data ' + this.bookings[i].date + ' foi aceite!'  }) 
+                                this.users[j].notifications.push({
+                                    txt: 'A sua reserva do ' + this.bookings[i].kitName + " - " +
+                                        this.bookings[i].kitType + ' para a data ' + this.bookings[i].date +
+                                        ' foi aceite!'
+                                })
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
@@ -295,8 +299,11 @@
                         for (let j in this.users) {
 
                             if (this.users[j].email === userEmail) {
-                                this.users[j].notifications.push({txt:'A sua reserva do ' + this.bookings[i].kitName + " - "
-                                 + this.bookings[i].kitType + ' para a data ' + this.bookings[i].date + ' foi recusada!'  }) 
+                                this.users[j].notifications.push({
+                                    txt: 'A sua reserva do ' + this.bookings[i].kitName + " - " +
+                                        this.bookings[i].kitType + ' para a data ' + this.bookings[i].date +
+                                        ' foi recusada!'
+                                })
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
@@ -305,17 +312,19 @@
                 }
             },
             acceptAreaBooking(id, userEmail) {
-                 for (let i in this.areas) {
+                for (let i in this.areas) {
 
                     if (this.areas[i].id === id) {
                         this.areas[i].state = "Aprovado"
-                        localStorage.setItem("areasBooking", JSON.stringify(this.areas)); 
+                        localStorage.setItem("areasBooking", JSON.stringify(this.areas));
                         for (let j in this.users) {
 
                             if (this.users[j].email === userEmail) {
                                 alert("olaaa")
-                                this.users[j].notifications.push({txt:'A sua reserva do ' + this.areas[i].areaName  +
-                                ' para a data ' + this.areas[i].date + ' foi aceite!'  }) 
+                                this.users[j].notifications.push({
+                                    txt: 'A sua reserva do ' + this.areas[i].areaName +
+                                        ' para a data ' + this.areas[i].date + ' foi aceite!'
+                                })
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
@@ -324,7 +333,7 @@
                 }
             },
             refuseAreaBooking(id, userEmail) {
-               for (let i in this.areas) {
+                for (let i in this.areas) {
 
                     if (this.areas[i].id === id) {
                         this.areas[i].state = "Recusado"
@@ -332,8 +341,10 @@
                         for (let j in this.users) {
 
                             if (this.users[j].email === userEmail) {
-                                this.users[j].notifications.push({txt:'A sua reserva do ' + this.areas[i].areaName +
-                                 ' para a data ' + this.areas[i].date + ' foi recusada!'  }) 
+                                this.users[j].notifications.push({
+                                    txt: 'A sua reserva do ' + this.areas[i].areaName +
+                                        ' para a data ' + this.areas[i].date + ' foi recusada!'
+                                })
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }

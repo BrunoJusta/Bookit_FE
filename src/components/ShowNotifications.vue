@@ -6,28 +6,34 @@
                 Notificações
             </b-button>
             <b-button v-on:click="displayA()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: acrchiveFont}">
+                style="background-color:transparent; color:black; padding:10px"
+                v-bind:style="{fontWeight: acrchiveFont}">
                 Arquivo
             </b-button>
         </div>
 
 
         <div class="container" v-bind:style="{display:  notifyTable}">
-            <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
-            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.notifications" :fields="fields">
-                <template v-slot:cell(actions)="row">
-                    <b-button size="sm" @click="achived(row.item.txt)" class="mr-1">Arquivar</b-button>
-                    <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1">X</b-button>
-                </template>
-            </b-table>
-            <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
-                style="float:right;"></b-pagination>
+            <div v-if="this.notifications.length != 0">
+                <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
+                <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
+                    head-variant="dark" responsive="sm" :items="this.notifications" :fields="fields">
+                    <template v-slot:cell(actions)="row">
+                        <b-button size="sm" @click="achived(row.item.txt)" class="mr-1">Arquivar</b-button>
+                        <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1">X</b-button>
+                    </template>
+                </b-table>
+                <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
+                    style="float:right;"></b-pagination>
+            </div>
+            <div v-else v-bind:style="{display:  notifyTable}">
+                <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+                <h4> Não existem notificações novas.</h4>
+            </div>
         </div>
 
 
-
-        <div class="container" v-bind:style="{display: archiveTable}">
+        <div class="container" v-if="this.archivations.length !=0" v-bind:style="{display: archiveTable}">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.archivations" :fields="fields2">
@@ -38,7 +44,10 @@
             <b-pagination v-model="currentPage" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
-
+        <div v-else v-bind:style="{display: archiveTable}">
+            <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+            <h4> Não existem notificações arquivadas.</h4>
+        </div>
         <br>
         <br>
         <br>
@@ -64,8 +73,6 @@
                         label: "Ações",
                         sortable: false
                     },
-
-
                 ],
                 fields2: [{
                         key: 'txt',
@@ -77,8 +84,6 @@
                         label: "Ações",
                         sortable: false
                     },
-
-
                 ],
                 notifyTable: "block",
                 archiveTable: "none",
@@ -87,18 +92,16 @@
                 x: "",
                 users: [],
                 notifications: [],
-                archivations:[],
+                archivations: [],
             }
         },
         created() {
             if (localStorage.getItem("users")) {
                 this.users = JSON.parse(localStorage.getItem("users"))
                 for (let i in this.users) {
-
                     if (this.users[i].email === this.$store.getters.getEmail) {
                         this.notifications = this.users[i].notifications
                         this.archivations = this.users[i].archivations
-
                     }
                 }
             }
@@ -107,66 +110,56 @@
             displayA() {
                 this.notifyTable = "none"
                 this.archiveTable = "block"
-                this.notifyFont = "normal",
-                    this.acrchiveFont = "bold"
+                this.notifyFont = "normal"
+                this.acrchiveFont = "bold"
             },
             displayB() {
                 this.archiveTable = "none"
-                this.notifyTable = "block",
-                    this.notifyFont = "bold",
-                    this.acrchiveFont = "normal"
+                this.notifyTable = "block"
+                this.notifyFont = "bold"
+                this.acrchiveFont = "normal"
             },
             removeNotification(txt) {
-
                 for (let i in this.notifications) {
-
                     if (this.notifications[i].txt === txt) {
                         this.notifications = this.notifications.filter(notification => this.notifications[i].txt !=
                             notification.txt);
                         for (let i in this.users) {
-
                             if (this.users[i].email === this.$store.getters.getEmail) {
                                 this.users[i].notifications = this.notifications
                                 localStorage.setItem("users", JSON.stringify(this.users));
-
                             }
                         }
                         alert("Removido")
                     }
                 }
-
             },
             removeArchive(txt) {
-
                 for (let i in this.archivations) {
-
                     if (this.archivations[i].txt === txt) {
                         this.archivations = this.archivations.filter(notification => this.archivations[i].txt !=
                             notification.txt);
                         for (let i in this.users) {
-
                             if (this.users[i].email === this.$store.getters.getEmail) {
                                 this.users[i].archivations = this.archivations
                                 localStorage.setItem("users", JSON.stringify(this.users));
-
                             }
                         }
                         alert("Removido")
                     }
                 }
-
             },
             achived(txt) {
-
                 for (let i in this.notifications) {
-
                     if (this.notifications[i].txt === txt) {
                         alert(this.notifications[i].txt)
                         for (let j in this.users) {
-
                             if (this.users[j].email === this.$store.getters.getEmail) {
-                                this.users[j].archivations.push({txt: this.notifications[i].txt})
-                                this.notifications = this.notifications.filter(notification => this.notifications[i].txt != notification.txt);
+                                this.users[j].archivations.push({
+                                    txt: this.notifications[i].txt
+                                })
+                                this.notifications = this.notifications.filter(notification => this.notifications[i]
+                                    .txt != notification.txt);
                                 this.users[j].notifications = this.notifications
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
@@ -176,15 +169,14 @@
                 }
             },
         },
-        computed:{
-               rows() {
+        computed: {
+            rows() {
                 return this.notifications.length
             },
             rows2() {
                 return this.archivations.length
             }
         },
-
     }
 </script>
 
@@ -248,8 +240,8 @@
     }
 
     .table .thead-dark th {
-    color: #fff;
-    background-color: #0A2463;
-    border-color: #0A2463;
-}
+        color: #fff;
+        background-color: #0A2463;
+        border-color: #0A2463;
+    }
 </style>
