@@ -4,13 +4,14 @@
             <router-link to="/"><img src="../assets/navbarLogo2.svg" alt="" id="logoNavbar"></router-link>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
-                    <b-form-input size="sm" class="mr-sm rounded-0" placeholder="pesquisar..."></b-form-input>
+                    <b-form-input size="sm" class="mr-sm rounded-0" placeholder="Pesquisar..."></b-form-input>
                     <div>
                         <div class="container">
                             <b-button id="logged-btn" squared>
                                 <router-link :to="{name:this.path}">{{this.$store.getters.getName}}</router-link>
                             </b-button>
-                            <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'" v-on:click="logout()" squared>
+                            <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
+                                v-on:click="logout()" squared>
                                 <router-link to="/">Sair</router-link>
                             </b-button>
                         </div>
@@ -20,13 +21,22 @@
         </b-navbar>
         <b-navbar id="jon" toggleable="lg" type="dark" variant="info">
             <div class="container">
-                <router-link to="/" class="navOptions" v-bind:style="{display: clientButtons}">Início</router-link>
-                <router-link to="/adminHome" class="navOptions" v-bind:style="{display: adminButtons}">Início</router-link>
-                <router-link to="/choose" class="navOptions" v-bind:style="{display: clientButtons}">Reservas</router-link>
-                <router-link to="/workshops" class="navOptions" v-bind:style="{display: clientButtons}">Workshops</router-link>
-                <router-link to="/menuKits" class="navOptions" v-bind:style="{display: adminButtons}">Menus</router-link>
-                <router-link to="/workshops" class="navOptions" v-bind:style="{display: adminButtons}">Workshops</router-link>
-                <router-link to="/areas" class="navOptions" v-bind:style="{display: adminButtons}">Espaços</router-link>
+                <router-link to="/" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Início
+                </router-link>
+                <router-link to="/adminHome" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Início
+                </router-link>
+                <router-link to="/choose" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Reservas
+                </router-link>
+                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">
+                    Workshops
+                </router-link>
+                <router-link to="/menuKits" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Menus
+                </router-link>
+                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">
+                    Workshops
+                </router-link>
+                <router-link to="/areas" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Espaços
+                </router-link>
 
 
             </div>
@@ -39,62 +49,29 @@
         data: function () {
             return {
                 path: "login",
-                onlineUser: "",
-                showLogout: "block",
-                adminButtons: "none",
-                clientButtons: "block",
-                
+                onlineUser: ""
             }
         },
-        created(){
-  
+        created() {
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
-              
-
             }
-             if (this.$store.getters.getName === "Entrar") {
-
-
+            if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
-                this.adminButtons = "none"//mostra os botoes da navbar para o admin
-                this.clientButtons = "block"//esconde os botoes do cliente da navbar para o admin
-            }
-            else if(this.$store.getters.getUserType === "admin"){
-
-
+            } else if (this.$store.getters.getUserType === "admin") {
                 this.path = "adminHome"
-                this.adminButtons = "block"//mostra os botoes da navbar para o admin
-                this.clientButtons = "none"//esconde os botoes do cliente da navbar para o admin
-            }
-            else if(this.$store.getters.getUserType === "cliente"){
-
-
+            } else if (this.$store.getters.getUserType === "cliente") {
                 this.path = "profile"
-                  this.adminButtons = "none"//mostra os botoes da navbar para o admin
-                this.clientButtons = "block"//esconde os botoes do cliente da navbar para o admin
-   
             }
-                this.$store.commit('STORE_ITEMS')
-
-
+            this.$store.commit('STORE_ITEMS')
         },
         updated: function () {
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
-                  this.adminButtons = "none"//mostra os botoes da navbar para o admin
-                this.clientButtons = "block"//esconde os botoes do cliente da navbar para o admin
-            }
-            else if(this.$store.getters.getUserType === "admin"){
+            } else if (this.$store.getters.getUserType === "admin") {
                 this.path = "adminHome"
-                this.adminButtons = "block"//mostra os botoes da navbar para o admin
-                this.clientButtons = "none"//esconde os botoes do cliente da navbar para o admin
-            }
-            else if(this.$store.getters.getUserType === "cliente"){
+            } else if (this.$store.getters.getUserType === "cliente") {
                 this.path = "profile"
-                  this.adminButtons = "none"//mostra os botoes da navbar para o admin
-                this.clientButtons = "block"//esconde os botoes do cliente da navbar para o admin
-   
             }
 
         },
@@ -111,7 +88,6 @@
                 } else {
                     return "Entrar"
                 }
-
             }
         }
     }
