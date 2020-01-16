@@ -21,33 +21,33 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
+            <b-card img-src="../assets/booking_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
               <router-link id="link" to="/bookingTables">Gerir Reservas</router-link>
             </b-card>
           </div>
           <div class="col">
-            <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
+            <b-card img-src="../assets/workshop_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
               <router-link id="link" to="/inscriptions">Gerir Workshops</router-link>
             </b-card>
           </div>
            <div class="col">
-            <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
+            <b-card img-src="../assets/user_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
               <router-link id="link" to="/userTables">Gerir Utilizadores</router-link>
             </b-card>
           </div>
           <div class="col">
-            <b-card img-src="https://picsum.photos/600/300/?image=25" tyle="max-width: 12rem;" class="mb-2 border-0">
+            <b-card img-src="../assets/add_menu.svg" tyle="max-width: 12rem;" class="mb-2 border-0">
               <router-link id="link" to="/kitManeger">Adicionar Menu</router-link>
             </b-card>
           </div>
           <div class="col">
-            <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/WorkshopManeger">Adicionar Workshops</router-link>
+            <b-card img-src="../assets/add_workshop.svg" style="max-width: 12rem;" class="mb-2 border-0">
+              <router-link id="link" to="/WorkshopManeger">Adicionar Workshop</router-link>
             </b-card>
           </div>
            <div class="col">
-            <b-card img-src="https://picsum.photos/600/300/?image=25" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/WorkshopManeger">Adicionar Espaços</router-link>
+            <b-card img-src="../assets/add_area.svg" style="max-width: 12rem;" class="mb-2 border-0">
+              <router-link id="link" to="/addArea">Adicionar Espaços</router-link>
             </b-card>
           </div>
          
@@ -78,7 +78,7 @@
 
   #link {
     color: black;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   #space {

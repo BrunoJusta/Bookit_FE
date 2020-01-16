@@ -2,9 +2,13 @@
     <div>
         <div id="CoffeeBreaks" class="container">
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
+            <div class="container" style="max-width:300px">
+            <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar..."></b-form-input>
+
+            </div>
 
             <div class="row">
-                <div class="col-sm-4" style="min-width: 16rem" v-for="k in searchKits" :key="k.id">
+                <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredRunnings" :key="k.id">
                     <div id="card-maker">
                         <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem"
                             :img-src="k.img" img-height="180rem" class="mb-2 border-0">
@@ -49,6 +53,29 @@
         computed: {
             searchKits() {
                 return this.kits;
+            },
+            filteredRunnings() {
+                return this.kits.filter(
+                    (run) => {
+                        let filterResult = true
+
+
+                        if (this.searchTxt == "") {
+                            return filterResult
+                        }
+                        if (run.name.includes(this.searchTxt)) {
+                            filterResult = run.name.includes(this.searchTxt)
+                            return filterResult
+                        }
+                        if (run.type.includes(this.searchTxt)) {
+                            filterResult = run.type.includes(this.searchTxt)
+                            return filterResult
+                        }
+
+                    }
+                )
+
+
             }
         },
         data: function () {
@@ -58,7 +85,8 @@
                 onlineUser: "",
                 remove: "",
                 choose: "",
-                users:[],
+                users: [],
+                searchTxt: "",
                 reset: {
                     kitname: "",
                     kitType: "",

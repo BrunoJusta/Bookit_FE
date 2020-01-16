@@ -1,8 +1,12 @@
 <template>
     <div>
         <div class="container">
+            <div class="container" style="max-width:300px">
+            <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar..."></b-form-input>
+
+            </div>
             <div class="row">
-                <div class="col-sm-4" v-for="w in searchWorkshops" :key="w.id">
+                <div class="col-sm-4" v-for="w in filteredRunnings" :key="w.id">
                     <div id="card-maker" style="padding-bottom: 60px">
                         <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem"
                             class="mb-2 border-0">
@@ -32,6 +36,7 @@
             return {
                 workshops: [],
                 users:[],
+                searchTxt: "",
                 x: "",
                 remove: "",
                 choose: "",
@@ -93,6 +98,25 @@
         computed: {
             searchWorkshops() {
                 return this.workshops;
+            },
+             filteredRunnings() {
+                return this.workshops.filter(
+                    (run) => {
+                        let filterResult = true
+
+
+                        if (this.searchTxt == "") {
+                            return filterResult
+                        }
+                        if (run.name.includes(this.searchTxt)) {
+                            filterResult = run.name.includes(this.searchTxt)
+                            return filterResult
+                        }
+
+                    }
+                )
+
+
             }
         },
     }

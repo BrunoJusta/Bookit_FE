@@ -354,6 +354,19 @@ export default new Vuex.Store({
         alert("Workshop já existe!");
       }
     },
+    ADD_AREA(state, payload) {
+      if (!state.areas.some(a => a.name === payload.name)) {
+        state.areas.push({
+          id: payload.id,
+          name: payload.name,
+          description: payload.description,
+          img: payload.img
+        });
+        localStorage.setItem("areas", JSON.stringify(state.areas));
+      } else {
+        alert("Area já existe!");
+      }
+    },
     ADD_BOOKING(state, payload) {
       state.bookings.push({
         id: payload.id,
@@ -499,6 +512,13 @@ export default new Vuex.Store({
       var today = new Date();
       var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
       return date
+    },
+    getAreaLastId(state) {
+      if (state.areas.length) {
+        return state.areas[state.areas.length - 1].id;
+      } else {
+        return 0;
+      }
     }
   }
 })

@@ -1,8 +1,12 @@
 <template>
     <div>
         <div class="container">
+            <div class="container" style="max-width:300px">
+            <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar..."></b-form-input>
+
+            </div>
             <div class="row">
-                <div class="col-sm-6" v-for="a in searchAreas" :key="a.id">
+                <div class="col-sm-6" v-for="a in filteredRunnings" :key="a.id">
                     <div id="card-maker" style="padding-bottom: 60px">
                         <b-card :title="a.name" :img-src="a.img" img-alt="Image" img-top tag="article"
                             style="max-width: 30rem;" class="border-0">
@@ -10,6 +14,8 @@
                                 <router-link :to="{name: x, params: {areaId: a.id}}" class="teste" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
+                             <b-button @click="deleteArea(a.name)" class="btn-remove border-0" :id="a.id"
+                               v-if="show === 'admin'" squared> X </b-button>
                         </b-card>
                     </div>
 
@@ -25,13 +31,34 @@
         computed: {
             searchAreas() {
                 return this.areas;
+            },
+            filteredRunnings() {
+                return this.areas.filter(
+                    (run) => {
+                        let filterResult = true
+
+
+                        if (this.searchTxt == "") {
+                            return filterResult
+                        }
+                        if (run.name.includes(this.searchTxt)) {
+                            filterResult = run.name.includes(this.searchTxt)
+                            return filterResult
+                        }
+
+                    }
+                )
+
+
             }
         },
         data: function () {
             return {
                 areas: [],
                 x: "",
-                teste: $store.state.logged,
+                show: this.$store.getters.getUserType ,
+                teste: this.$store.state.logged,
+                searchTxt: "",
                 reset: {
                     areaName: "",
                 }
@@ -51,7 +78,35 @@
             this.$store.state.currentArea = ({
                 areaName: "",
             })
+            
         },
+        methods:{
+               deleteArea(name) {
+
+                for (let i = 0; i <= this.areas.length; i++) {
+                    if (this.areas[i].name === name) {
+                          for (let j in this.users) {
+
+                            if (this.users[j].userType === "cliente") {
+                                this.users[j].notifications.push({
+                                    txt: 'O Espaço' + this.areas[i].name +
+                                        ' foi removido da galeria de Espaços!'
+                                })
+                                localStorage.setItem("users", JSON.stringify(this.users));
+                            }
+                        }
+                        this.areas.splice(i, 1)
+                        localStorage.setItem("areas", JSON.stringify(this.areas));
+                        alert("AREA ELIMINADA")
+                    }
+
+
+
+                }
+                location.reload()
+
+            }
+        }
     }
 </script>
 
@@ -89,5 +144,13 @@
 
     .card {
         border-radius: 0 !important;
+    }
+    
+      .btn-remove {
+        font-size: 10px;
+        background-color: #B91C3B;
+        margin-top: -268px;
+        margin-right: -15px;
+        float: right;
     }
 </style>
