@@ -13,7 +13,7 @@
                             </b-button>
                             <p v-else>CHEIO</p>
 
-                            <b-button @click="deleteWorkshop(w.id)" class="btn-remove border-0" :id="w.id"
+                            <b-button @click="deleteWorkshop(w.name)" class="btn-remove border-0" :id="w.id"
                                 v-bind:style="{visibility: remove}" squared> X </b-button>
                         </b-card>
                     </div>
@@ -30,7 +30,8 @@
         name: 'workshopGallery',
         data: function () {
             return {
-                kits: [],
+                workshops: [],
+                users:[],
                 x: "",
                 remove: "",
                 choose: "",
@@ -54,12 +55,29 @@
                 this.choose = "visible"
             }
 
+            
+            if (localStorage.getItem("users")) {
+                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
+            }
+
+            this.users = this.$store.state.users
+
         },
         methods: {
-            deleteWorkshop(id) {
+            deleteWorkshop(name) {
 
                 for (let i = 0; i <= this.workshops.length; i++) {
-                    if (i === id) {
+                    if (this.workshops[i].name === name) {
+                          for (let j in this.users) {
+
+                            if (this.users[j].userType === "cliente") {
+                                this.users[j].notifications.push({
+                                    txt: 'O Workshop' + this.workshops[i].name +
+                                        ' foi removido da galeria de workshops!'
+                                })
+                                localStorage.setItem("users", JSON.stringify(this.users));
+                            }
+                        }
                         this.workshops.splice(i, 1)
                         localStorage.setItem("workshops", JSON.stringify(this.workshops));
                         alert("WORKSHOP ELIMINADO")
