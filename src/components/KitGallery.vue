@@ -3,10 +3,10 @@
         <div id="CoffeeBreaks" class="container">
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
             <div class="container" style="max-width:300px">
-            <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar..."></b-form-input>
-
+                <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
+                </b-form-input>
             </div>
-
+            
             <div class="row">
                 <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredRunnings" :key="k.id">
                     <div id="card-maker">
@@ -23,61 +23,12 @@
                 </div>
             </div>
         </div>
-
-
-        <!--  <div id="JantarGala" class="container">
-            <h2 id="redSubTitle">Jantar de Gala</h2>
-            <div class="row">
-                <div class="col-sm-4" v-for="k in searchKits" :key="k.id">
-                    <div id="card-maker" v-if="k.type=='Jantar de Gala'">
-                                              <b-card :title="k.name" style="max-width: 20rem;" :img-src="k.img" img-height="180rem" class="mb-2 border-0">
-
-                            <b-button class="btn-book" squared > 
-                                <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
-                                    Reservar </router-link>
-                            </b-button>
-                            <b-button class="btn-remove border-0" @click="deleteKit(k.id)"  v-bind:style="{visibility: remove}" squared> X </b-button>
-                        </b-card>
-                    </div>
-                </div>
-            </div>
-        </div>
- -->
-
     </div>
 </template>
 
 <script>
     export default {
         name: 'KitGallery',
-        computed: {
-            searchKits() {
-                return this.kits;
-            },
-            filteredRunnings() {
-                return this.kits.filter(
-                    (run) => {
-                        let filterResult = true
-
-
-                        if (this.searchTxt == "") {
-                            return filterResult
-                        }
-                        if (run.name.includes(this.searchTxt)) {
-                            filterResult = run.name.includes(this.searchTxt)
-                            return filterResult
-                        }
-                        if (run.type.includes(this.searchTxt)) {
-                            filterResult = run.type.includes(this.searchTxt)
-                            return filterResult
-                        }
-
-                    }
-                )
-
-
-            }
-        },
         data: function () {
             return {
                 kits: [],
@@ -91,12 +42,8 @@
                     kitname: "",
                     kitType: "",
                 }
-
             };
-
-
         },
-
         created() {
             if (localStorage.getItem("kits")) {
                 this.kits = JSON.parse(localStorage.getItem("kits"))
@@ -118,21 +65,16 @@
                 kitname: "",
                 kitType: "",
             })
-
             if (localStorage.getItem("users")) {
                 this.$store.state.users = JSON.parse(localStorage.getItem("users"))
             }
-
             this.users = this.$store.state.users
-
         },
         methods: {
             deleteKit(name) {
-
                 for (let i = 0; i <= this.kits.length; i++) {
                     if (this.kits[i].name === name) {
                         for (let j in this.users) {
-
                             if (this.users[j].userType === "cliente") {
                                 this.users[j].notifications.push({
                                     txt: 'O Menu ' + this.kits[i].name +
@@ -145,15 +87,32 @@
                         localStorage.setItem("kits", JSON.stringify(this.kits));
                         alert("KIT ELIMINADO")
                     }
-
-
-
                 }
-
+            }
+        },
+        computed: {
+            searchKits() {
+                return this.kits;
+            },
+            filteredRunnings() {
+                return this.kits.filter(
+                    (run) => {
+                        let filterResult = true
+                        if (this.searchTxt == "") {
+                            return filterResult
+                        }
+                        if (run.name.includes(this.searchTxt)) {
+                            filterResult = run.name.includes(this.searchTxt)
+                            return filterResult
+                        }
+                        if (run.type.includes(this.searchTxt)) {
+                            filterResult = run.type.includes(this.searchTxt)
+                            return filterResult
+                        }
+                    }
+                )
             }
         }
-
-
     }
 </script>
 
