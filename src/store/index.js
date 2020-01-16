@@ -290,7 +290,6 @@ export default new Vuex.Store({
             img: user.img,
             userType: user.userType,
             notifications: user.notifications
-
           });
           state.userExists = true
           localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
@@ -305,10 +304,9 @@ export default new Vuex.Store({
             if (state.loggedUser.notifications.length != 0) {
               alert("Tem " + state.loggedUser.notifications.length + " Notificações!")
             }
-
           }
-
-        }else {
+          break
+        } else {
           state.userExists = false;
         }
       }
