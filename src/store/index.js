@@ -241,6 +241,10 @@ export default new Vuex.Store({
       localStorage.setItem("extras", JSON.stringify(state.extras));
       localStorage.setItem("decor", JSON.stringify(state.decor));
       localStorage.setItem("schools", JSON.stringify(state.schools));
+      localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
+
+
+
 
     },
     ADD_USER(state, payload) {

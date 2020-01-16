@@ -78,7 +78,7 @@
                         class="mr-1">Aceitar</b-button>
                     <b-button size="sm" v-if="row2.item.state == 'Pendente'" @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)"
                         class="mr-1">Recusar</b-button>
-                    <b-button size="sm" @click="removeAreaBooking(row2.item.id)" class="mr-1">X</b-button>
+                    <b-button size="sm" v-if="row2.item.state != 'Pendente'"  @click="removeAreaBooking(row2.item.id)" class="mr-1">X</b-button>
                 </template>
                 <template v-slot:row-details="row2">
                     <b-card>

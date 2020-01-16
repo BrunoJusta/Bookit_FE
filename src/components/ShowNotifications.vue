@@ -1,14 +1,5 @@
 <template>
     <div>
-
-        <div class="container-full title">
-            <h1 id="redTitle">RESERVAS</h1>
-            <hr class="back-line">
-            <div class="container" id="whiteRect">
-                <p id="space">space</p>
-            </div>
-        </div>
-
         <div class="container" style="justify-content: center;">
             <b-button v-on:click="displayB()" class="teste border-0"
                 style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: notifyFont}">
@@ -184,7 +175,15 @@
                     }
                 }
             },
-        }
+        },
+        computed:{
+               rows() {
+                return this.notifications.length
+            },
+            rows2() {
+                return this.archivations.length
+            }
+        },
 
     }
 </script>
@@ -247,4 +246,10 @@
         float: left;
         padding: 20px;
     }
+
+    .table .thead-dark th {
+    color: #fff;
+    background-color: #0A2463;
+    border-color: #0A2463;
+}
 </style>

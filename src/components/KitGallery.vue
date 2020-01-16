@@ -12,7 +12,7 @@
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
-                            <b-button @click="deleteKit(k.id)" class="btn-remove border-0" :id="k.id"
+                            <b-button @click="deleteKit(k.name)" class="btn-remove border-0" :id="k.id"
                                 v-bind:style="{visibility: remove}" squared> X</b-button>
                         </b-card>
                     </div>
@@ -58,10 +58,12 @@
                 onlineUser: "",
                 remove: "",
                 choose: "",
+                users:[],
                 reset: {
                     kitname: "",
                     kitType: "",
                 }
+
             };
 
 
@@ -89,13 +91,28 @@
                 kitType: "",
             })
 
+            if (localStorage.getItem("users")) {
+                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
+            }
+
+            this.users = this.$store.state.users
 
         },
         methods: {
-            deleteKit(id) {
+            deleteKit(name) {
 
                 for (let i = 0; i <= this.kits.length; i++) {
-                    if (i === id) {
+                    if (this.kits[i].name === name) {
+                        for (let j in this.users) {
+
+                            if (this.users[j].userType === "cliente") {
+                                this.users[j].notifications.push({
+                                    txt: 'O Menu ' + this.kits[i].name +
+                                        ' foi removido da galeria de menus!'
+                                })
+                                localStorage.setItem("users", JSON.stringify(this.users));
+                            }
+                        }
                         this.kits.splice(i, 1)
                         localStorage.setItem("kits", JSON.stringify(this.kits));
                         alert("KIT ELIMINADO")

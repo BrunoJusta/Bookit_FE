@@ -24,7 +24,7 @@
                 <input id="teacher" v-model="teacher">
                 <br>
                 <br>
-                  <!-- NOME -->
+                <!-- NOME -->
                 <label for="img">Image Link:</label>
                 <input id="img" v-model="img">
                 <!-- MOTIVAÇÃO -->
@@ -34,7 +34,7 @@
                 <br>
                 <!-- MOTIVAÇÃO -->
                 <label for="hi">Hora de Início:</label>
-                <input type="time" id="hi" v-model="hi"> 
+                <input type="time" id="hi" v-model="hi">
                 <br>
                 <!-- MOTIVAÇÃO -->
                 <label for="hf">Hora do Final:</label>
@@ -72,15 +72,34 @@
                 hi: "",
                 hf: "",
                 description: "",
-                time: this.hi +"-"+ this.hf,
-                img: ""
+                time: this.hi + "-" + this.hf,
+                img: "",
+                users:[]
             }
+        },
+        created() {
+
+            if (localStorage.getItem("users")) {
+                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
+            }
+
+            this.users = this.$store.state.users
         },
         methods: {
             getLastId() {
                 return this.$store.getters.workshopLastId + 1
             },
             addWorkshop() {
+                for (let j in this.users) {
+
+                    if (this.users[j].userType === "cliente") {
+                        this.users[j].notifications.push({
+                            txt: 'O Workshop ' + this.name +
+                                ' foi adicionado a galeria de workshops!'
+                        })
+                        localStorage.setItem("users", JSON.stringify(this.users));
+                    }
+                }
                 this.$store.commit('ADD_WORKSHOP', {
                     id: this.getLastId(),
                     name: this.name,
@@ -89,8 +108,9 @@
                     time: this.hi + "-" + this.hf,
                     description: this.description,
                     img: this.img
-                    
+
                 })
+                alert("adicionado")
             },
         }
     }

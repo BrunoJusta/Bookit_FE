@@ -55,7 +55,8 @@
                 ingredients: [],
                 type: "",
                 types: ['Coffee Break', 'Jantar de Gala', 'Porto de Honra'],
-                img: ""
+                img: "",
+                users:[],
             }
         },
         created() {
@@ -63,12 +64,22 @@
             if (localStorage.getItem("kits")) {
                 this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
             }
-            this.ingredients = this.$store.state.ingredients
+
+             if (localStorage.getItem("users")) {
+                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
+            }
+           
+            this.users = this.$store.state.users
+
+            this.ingredients  = this.$store.state.ingredients 
 
         },
         computed: {
             searchKits() {
+                
                 return this.ingredients;
+                
+                
             }
         },
         methods: {
@@ -76,6 +87,15 @@
                 return this.$store.getters.kitLastId + 1
             },
             addKit() {
+                
+                for (let j in this.users) {
+
+                            if (this.users[j].userType === "cliente") {
+                                this.users[j].notifications.push({txt:'O Menu' + this.name  + " - "
+                                 + this.type + ' foi adicionado a galeria de menus!'  }) 
+                                localStorage.setItem("users", JSON.stringify(this.users));
+                            }
+                }
                 this.$store.commit('ADD_KIT', {
                     id: this.getLastId(),
                     name: this.name,
@@ -84,7 +104,8 @@
                     food: this.checkedFood,
                     img: this.img
                 })
-                location.reload()
+
+                alert("adicionado")
             },
         }
     }
