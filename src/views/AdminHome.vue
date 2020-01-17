@@ -21,36 +21,47 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <b-card img-src="../assets/booking_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/bookingTables">Gerir Reservas</router-link>
-            </b-card>
+            <router-link id="link" to="/bookingTables">
+              <b-card img-src="../assets/booking_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
+              </b-card>
+              Gerir Reservas
+            </router-link>
+
           </div>
           <div class="col">
-            <b-card img-src="../assets/workshop_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/inscriptions">Gerir Workshops</router-link>
-            </b-card>
-          </div>
-           <div class="col">
-            <b-card img-src="../assets/user_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/userTables">Gerir Utilizadores</router-link>
-            </b-card>
+            <router-link id="link" to="/inscriptions">
+              <b-card img-src="../assets/workshop_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
+              </b-card>Gerir Workshops
+            </router-link>
+
           </div>
           <div class="col">
-            <b-card img-src="../assets/add_menu.svg" tyle="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/kitManeger">Adicionar Menu</router-link>
-            </b-card>
+            <router-link id="link" to="/userTables">
+              <b-card img-src="../assets/user_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
+              </b-card>Gerir Utilizadores
+            </router-link>
+
           </div>
           <div class="col">
-            <b-card img-src="../assets/add_workshop.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/WorkshopManeger">Adicionar Workshop</router-link>
-            </b-card>
+            <router-link id="link" to="/kitManeger">
+              <b-card img-src="../assets/add_menu.svg" tyle="max-width: 12rem;" class="mb-2 border-0">
+              </b-card>Adicionar Menu
+            </router-link>
+
           </div>
-           <div class="col">
-            <b-card img-src="../assets/add_area.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              <router-link id="link" to="/addArea">Adicionar Espaços</router-link>
-            </b-card>
+          <div class="col">
+            <router-link id="link" to="/WorkshopManeger">
+              <b-card img-src="../assets/add_workshop.svg" style="max-width: 12rem;" class="mb-2 border-0">
+              </b-card>Adicionar Workshop
+            </router-link>
+
           </div>
-         
+          <div class="col">
+            <router-link id="link" to="/addArea">
+              <b-card img-src="../assets/add_area.svg" style="max-width: 12rem;" class="mb-2 border-0">
+              </b-card>Adicionar Espaços
+            </router-link>
+          </div>
         </div>
       </div>
       <br>
@@ -58,8 +69,7 @@
       <br>
       <br>
     </div>
-    </div>
-
+  </div>
 
 </template>
 
@@ -85,7 +95,7 @@
     color: white;
   }
 
-.title {
+  .title {
     padding-top: 80px;
     padding-bottom: 80px;
   }
@@ -124,7 +134,7 @@
     z-index: 6
   }
 
-  
+
   .card-img {
     border-radius: 0 !important;
   }

@@ -12,19 +12,13 @@
           <b-col md="6">
             <b-card-img v-bind:src=" getAreaById($route.params.areaId).img" class="rounded-0"></b-card-img>
           </b-col>
-
           <b-col md="6">
-
             <b-card-body align="left" title="Descrição">
               <p v-bind:style="{display:show2}"> {{getAreaById($route.params.areaId).description}}</p>
               <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">
                 {{getAreaById($route.params.areaId).description}}</textarea>
-
-
             </b-card-body>
-
           </b-col>
-
         </b-row>
 
       </b-card>
@@ -122,19 +116,13 @@
               localStorage.setItem("areas", JSON.stringify(this.areas));
             }
             alert("Alterado")
-
-
-
-
           }
         }
-
       },
       cancelEdit() {
         this.show2 = "inline"
         this.show = "none"
         this.show3 = "block"
-
       }
     }
   }
