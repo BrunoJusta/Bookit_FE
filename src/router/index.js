@@ -105,6 +105,11 @@ const routes = [
     path: "/addArea",
     name: "addArea",
     component: () => import("../views/AddArea.vue")
+  },
+  {
+    path: "/menuAddOns",
+    name: "menuAddOns",
+    component: () => import("../views/MenuAddOns.vue")
   }
 ]
 

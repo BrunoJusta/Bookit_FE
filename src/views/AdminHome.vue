@@ -6,10 +6,7 @@
     <br>
     <br>
     <div class="container-full">
-      <img src="../assets/tabuleiro3.jpg" style="max-width: 100%; height: auto;">
-      <b-button squared style="background-color:#0A2463;  margin-top:-150px; border-color:white; font-size:18px;">
-        RESERVAR</b-button>
-
+      <img src="../assets/banner.jpg" style="max-width: 100%; height: auto;">
       <div class="container-full title">
         <h1 id="redTitle">OPÇÕES</h1>
         <hr class="back-line">
@@ -60,6 +57,12 @@
             <router-link id="link" to="/addArea">
               <b-card img-src="../assets/add_area.svg" style="max-width: 12rem;" class="mb-2 border-0">
               </b-card>Adicionar Espaços
+            </router-link>
+          </div>
+          <div class="col">
+            <router-link id="link" to="/menuAddOns">
+              <b-card img-src="../assets/add_workshop.svg" style="max-width: 12rem;" class="mb-2 border-0">
+              </b-card>Adicionar
             </router-link>
           </div>
         </div>
