@@ -4,7 +4,6 @@
             <router-link to="/"><img src="../assets/navbarLogo.svg" alt="" id="logoNavbar"></router-link>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
-                    <b-form-input size="sm" class="mr-sm rounded-0" placeholder="Pesquisar..."></b-form-input>
                     <div>
                         <div class="container">
                             <b-button id="logged-btn" squared>
