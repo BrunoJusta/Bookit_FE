@@ -5,10 +5,13 @@
             <div class="container" style="max-width:300px">
                 <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
                 </b-form-input>
+                <b-dropdown id="dropdown-1" text="Filtrar por:" class="m-md-2">
+                    <b-dropdown-item v-for="k in  menuTypes" :key="k" v-model="searchTxt">{{k}}</b-dropdown-item>
+                </b-dropdown>
             </div>
-            
+
             <div class="row">
-                <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredRunnings" :key="k.id">
+                <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredKits" :key="k.id">
                     <div id="card-maker">
                         <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem"
                             :img-src="k.img" img-height="180rem" class="mb-2 border-0">
@@ -32,6 +35,7 @@
         data: function () {
             return {
                 kits: [],
+                menuTypes: [],
                 x: "",
                 onlineUser: "",
                 remove: "",
@@ -68,7 +72,11 @@
             if (localStorage.getItem("users")) {
                 this.$store.state.users = JSON.parse(localStorage.getItem("users"))
             }
+            if (localStorage.getItem("menuTypes")) {
+                this.$store.state.menuTypes = JSON.parse(localStorage.getItem("menuTypes"))
+            }
             this.users = this.$store.state.users
+            this.menuTypes = this.$store.state.menuTypes
         },
         methods: {
             deleteKit(name) {
@@ -94,19 +102,19 @@
             searchKits() {
                 return this.kits;
             },
-            filteredRunnings() {
+            filteredKits() {
                 return this.kits.filter(
-                    (run) => {
+                    (kit) => {
                         let filterResult = true
                         if (this.searchTxt == "") {
                             return filterResult
                         }
-                        if (run.name.includes(this.searchTxt)) {
-                            filterResult = run.name.includes(this.searchTxt)
+                        if (kit.name.includes(this.searchTxt)) {
+                            filterResult = kit.name.includes(this.searchTxt)
                             return filterResult
                         }
-                        if (run.type.includes(this.searchTxt)) {
-                            filterResult = run.type.includes(this.searchTxt)
+                        if (kit.type.includes(this.searchTxt)) {
+                            filterResult = kit.type.includes(this.searchTxt)
                             return filterResult
                         }
                     }

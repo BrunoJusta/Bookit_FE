@@ -152,6 +152,7 @@ export default new Vuex.Store({
     userExists: false,
     bookings: [],
     areaBookings: [],
+    menuTypes: ['Coffee Break', 'Jantar de Gala', 'Porto de Honra'],
     ingredients: [{
         id: 0,
         name: "Sem Bebida",
@@ -258,11 +259,7 @@ export default new Vuex.Store({
         localStorage.setItem("outfits", JSON.stringify(state.outfits));
       }
       localStorage.setItem("schools", JSON.stringify(state.schools));
-
-
-
-
-
+      localStorage.setItem("menuTypes", JSON.stringify(state.menuTypes));
     },
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {
