@@ -1,6 +1,7 @@
 <template>
   <div class="kitDetail">
-    <h3 class="display-2">{{getKitById($route.params.kitId).type}}</h3>
+    <h3 class="display-2" v-bind:style="{display:show3}">{{getKitById($route.params.kitId).type}}</h3>
+    <input type="text" v-model="newKitType" name="" :placeholder="kitType" id="editTitle" v-bind:style="{display:show}">
     <div class="container">
       <b-card no-body class="overflow-hidden border-0" style="max-width: 1100px;">
         <b-row no-gutters>
@@ -8,40 +9,71 @@
             <b-card-img v-bind:src="getKitById($route.params.kitId).img" class="rounded-0"></b-card-img>
           </b-col>
           <b-col md="6">
-            <b-card-body :title="getKitById($route.params.kitId).name">
+            <b-card-body>
+              <h3 class="display-3" v-bind:style="{display:show3}">{{getKitById($route.params.kitId).name}}</h3>
+              <input type="text" v-model="newKitName" name="" :placeholder="kitname" v-bind:style="{display:show}">
               <div class="row">
 
-                <div class="col-sm-6 drinks">
+                <div class="container" id="showIngredients" v-bind:style="{display: show}">
+                  <div class="row">
+                    <div align="right" class="col-sm-5">
+                      <h6 class="subtitle">Bebidas</h6>
+                      <div v-for="i in searchKits" :key="i.id">
+                        <b-form-group v-if="i.type=='Drink'">
+                          <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDrinks">
+                            <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                          </b-form-checkbox-group>
+                        </b-form-group>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                    </div>
+
+                    <div align="left" class="col-sm-5">
+                      <h6 class="subtitle">Comida</h6>
+                      <div v-for="i in searchKits" :key="i.id">
+                        <b-form-group v-if="i.type=='Food'">
+                          <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
+                            <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                          </b-form-checkbox-group>
+                        </b-form-group>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 drinks" v-bind:style="{display: show2}">
                   <h6>BEBIDA</h6>
                   <p> {{ drinks.length == 0 ? 'Fechar' : '' + drinks }}</p>
                 </div>
-
-                <div class="col-sm-6 food">
+                <div class="col-sm-6 food" v-bind:style="{display: show2}">
                   <h6>COMIDA</h6>
                   <p> {{ food.length == 0 ? 'Fechar' : '' + food }}</p>
                 </div>
-
-
               </div>
             </b-card-body>
-
           </b-col>
-
         </b-row>
-
       </b-card>
-      <b-button class="btn-book border-0" squared>
+
+      <b-button v-bind:style="{display:show}" @click="cancelEdit()" class="btn-book border-0" squared>
+        Cancelar
+      </b-button>
+      <b-button v-bind:style="{display:show}" @click="saveEdit()" class="btn-book border-0" squared>
+        Guardar
+      </b-button>
+
+      <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
         <router-link to="/menuKits" style="color:white"> Voltar </router-link>
       </b-button>
-      <b-button @click="saveCurrentKit()" class="btn-book border-0" squared>
+      <b-button v-if="this.$store.getters.getUserType !== 'admin'" @click="saveCurrentKit()"
+        v-bind:style="{display:show2}" class="btn-book border-0" squared>
         <router-link to="/booking" style="color:white"> Reservar </router-link>
       </b-button>
+      <b-button v-bind:style="{display:show2}" v-else @click="activateEdit()" class="btn-book border-0" squared>
+        Editar
+      </b-button>
     </div>
-
-
-    <!--  <b-button @click="sendInfo()" class="btn-book" squared>Enviar</b-button> -->
-
-
   </div>
 
 </template>
@@ -51,20 +83,28 @@
     data: function () {
       return {
         kits: [],
+        ingredients: [],
         drinks: [],
         food: [],
         kitname: "",
         kitType: "",
         currentKit: {},
         kitImg: "",
+        show: "none",
+        show2: "inline",
+        show3: "block",
+        newKitType: "",
+        newKitName: "",
+        checkedDrinks: "",
+        checkedFood: ""
       };
     },
     created() {
       this.kits = JSON.parse(localStorage.getItem("kits"))
+      this.ingredients = this.$store.state.ingredients
     },
     methods: {
       getKitById(id) {
-
         this.food = this.kits.filter(
           kit => kit.id === id
         )[0].food
@@ -97,9 +137,43 @@
         });
         localStorage.setItem("currentKit", JSON.stringify(this.currentKit));
         this.$store.state.currentKit = this.currentKit
-      }
+      },
+      activateEdit() {
+        this.show = "inline"
+        this.show2 = "none"
+        this.show3 = "none"
+      },
+      cancelEdit() {
+        this.show2 = "inline"
+        this.show = "none"
+        this.show3 = "block"
+      },
+      saveEdit() {
+        this.show2 = "inline"
+        this.show = "none"
+        this.show3 = "block"
+        /* let newDesc = document.getElementById('description').value
 
+        for (let a in this.areas) {
+          if (this.areas[a].id === this.id) {
+            if (this.areaNameNew == "") {
+              this.areas[a].description = newDesc
+              localStorage.setItem("areas", JSON.stringify(this.areas));
+            } else {
+              this.areas[a].name = this.areaNameNew
+              this.areas[a].description = newDesc
+              localStorage.setItem("areas", JSON.stringify(this.areas));
+            }
+            alert("Alterado")
+          }
+        } */
+      },
     },
+    computed: {
+      searchKits() {
+        return this.ingredients;
+      }
+    }
   }
 </script>
 <style lang="scss" scoped>
@@ -108,6 +182,11 @@
     src: url(../assets/bookman.ttf);
   }
 
+  #editTitle {
+    margin: auto;
+    margin-top: 180px;
+    margin-bottom: 30px;
+  }
 
   .display-2 {
     padding-top: 160px;
@@ -115,7 +194,13 @@
     font-family: bookMan;
     font-size: 40px;
     color: #B91C3B;
+  }
 
+  .display-3 {
+    padding-bottom: 20px;
+    font-family: bookMan;
+    font-size: 40px;
+    color: #B91C3B;
   }
 
   .card-title {
@@ -123,8 +208,10 @@
     font-family: bookMan;
     font-size: 30px;
     color: #B91C3B;
+  }
 
-
+  #showIngredients {
+    padding-top: 20px;
   }
 
   .card-img {
@@ -139,13 +226,11 @@
   h6 {
     color: #0A2463;
     font-weight: bold;
-
   }
 
   img {
     border-right: solid 10px #0A2463;
     height: 350px;
-
   }
 
   .btn-book {
@@ -153,7 +238,6 @@
     background-color: #0A2463;
     margin: 20px;
     margin-top: 50px;
-
   }
 
   .overflow-hidden {
