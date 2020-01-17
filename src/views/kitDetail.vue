@@ -83,9 +83,8 @@
     data: function () {
       return {
         kits: [],
+        id: "",
         ingredients: [],
-        drinks: [],
-        food: [],
         kitname: "",
         kitType: "",
         currentKit: {},
@@ -95,8 +94,8 @@
         show3: "block",
         newKitType: "",
         newKitName: "",
-        checkedDrinks: "",
-        checkedFood: ""
+        checkedDrinks: [],
+        checkedFood: []
       };
     },
     created() {
@@ -125,6 +124,10 @@
           kit => kit.id === id
         )[0].type
 
+        this.id = this.kits.filter(
+          kit => kit.id === id
+        )[0].id
+
         return this.kits.filter(
           kit => kit.id === id
         )[0]
@@ -149,24 +152,25 @@
         this.show3 = "block"
       },
       saveEdit() {
-        this.show2 = "inline"
+        /* this.show2 = "inline"
         this.show = "none"
-        this.show3 = "block"
-        /* let newDesc = document.getElementById('description').value
-
-        for (let a in this.areas) {
-          if (this.areas[a].id === this.id) {
-            if (this.areaNameNew == "") {
-              this.areas[a].description = newDesc
-              localStorage.setItem("areas", JSON.stringify(this.areas));
-            } else {
-              this.areas[a].name = this.areaNameNew
-              this.areas[a].description = newDesc
-              localStorage.setItem("areas", JSON.stringify(this.areas));
+        this.show3 = "block" */
+        for (let k in this.kits) {
+          if (this.kits[k].id === this.id) {
+            if (this.checkedFood != '') {
+              alert("TEM COMIDAS")
             }
-            alert("Alterado")
+            if (this.checkedDrinks != '') {
+              alert("TEM  BEBIDAS")
+            }
+            if (this.newKitName != "") {
+              alert("novo nome")
+            }
+            if (this.newKitType != "") {
+              alert("novo tipo")
+            }
           }
-        } */
+        }
       },
     },
     computed: {
