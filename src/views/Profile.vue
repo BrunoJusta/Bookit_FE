@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container" id="perfilContainer" v-bind:style="{display: showProfile}">
-            <div class="row" style="height: 150px">
+            <div class="row" style="height: 180px">
                 <div class="col-sm-2">
                     <b-img :src="this.$store.getters.getUserImg" id="imgPerfil"></b-img>
                 </div>
@@ -37,7 +37,7 @@
                     <button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}" style="fontSize: 20px;"
                         class="bookingOptions border-0">
                         Espaços</button>
-                    <span class="bookingOptions" style="padding: 10px">|</span>
+                    <span class="bookingOptions" style="padding: 10px; padding-bottom: 30px;">|</span>
                     <button v-on:click="displayWorkshops()" v-bind:style="{fontWeight: WorkshopsFont}"
                         style="fontSize: 20px;" class="bookingOptions border-0">Workshops
                     </button>
@@ -373,6 +373,7 @@
     .option2 {
         padding-top: 60px;
         padding-bottom: 150px;
+
     }
 
     #link {
@@ -385,7 +386,8 @@
     .bookingOptions {
         background-color: transparent;
         color: black;
-        padding: 10px
+        padding: 10px;
+
     }
 
     .options[data-v-ced23842]:focus {

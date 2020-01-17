@@ -34,14 +34,14 @@
 
 
         <div class="container" v-if="this.archivations.length !=0" v-bind:style="{display: archiveTable}">
-            <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
-            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
+            <p class="mt-3" style="float:left">Página Atual: {{ currentPage2 }}</p>
+            <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.archivations" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
                     <b-button size="sm" @click="removeArchive(row2.item.txt)" class="mr-1">X</b-button>
                 </template>
             </b-table>
-            <b-pagination v-model="currentPage" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
+            <b-pagination v-model="currentPage2" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
         <div v-else v-bind:style="{display: archiveTable}">
@@ -63,6 +63,7 @@
             return {
                 perPage: 10,
                 currentPage: 1,
+                currentPage2: 1,
                 fields: [{
                         key: 'txt',
                         label: "Notificações",
@@ -181,6 +182,7 @@
 </script>
 
 <style lang="scss" scoped>
+
     #redTitle {
         font-family: "bookMan";
         font-size: 45px;

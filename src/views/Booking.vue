@@ -4,21 +4,21 @@
         </h3>
 
         <div class="container navOptn" style="justify-content: center;">
-            <button v-on:click="displayInfo()" class="optionsButton border-0"
+            <button  class="optionsButton border-0"
                 v-bind:style="{fontWeight: kitInfoFont}">Informações
             </button>
-            <button v-on:click="displayAddOns()" class="optionsButton border-0" v-bind:style="{fontWeight: addOnsFont}">
+            <button  class="optionsButton border-0" v-bind:style="{fontWeight: addOnsFont}">
                 Complementos</button>
-            <button v-on:click="displayExtras()" class="optionsButton border-0"
+            <button  class="optionsButton border-0"
                 v-bind:style="{fontWeight: extraFont}">Extras
             </button>
-            <button v-on:click="displayDecor()" class="optionsButton border-0"
+            <button  class="optionsButton border-0"
                 v-bind:style="{fontWeight: decorsFont}">Decoração
             </button>
-            <button v-on:click="displayOutfit()" class="optionsButton border-0"
+            <button  class="optionsButton border-0"
                 v-bind:style="{fontWeight: outfitFont}">Fardas
             </button>
-            <button v-on:click="displayResume()" class="optionsButton border-0"
+            <button  class="optionsButton border-0"
                 v-bind:style="{fontWeight: resumeFont}">Resumo
             </button>
         </div>
@@ -67,6 +67,10 @@
                         </b-form-group>
                     </div>
                 </div>
+                <button type="button" v-on:click="displayAddOns()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: extraFont}">Seguinte
+                </button>
+
             </div>
             <div class="container" v-bind:style="{display: addOns}">
                 <div class="row">
@@ -93,15 +97,28 @@
                         </div>
                     </div>
                 </div>
+                <button type="button" v-on:click="displayInfo()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                </button>
+                <button type="button" v-on:click="displayExtras()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: extraFont}">Seguinte
+                </button>
+
             </div>
             <div class="container" v-bind:style="{display: extra}">
                 <div class="container" style="max-width:200px;" align="left" v-for="i in searchExtras" :key="i.id">
                     <b-form-group>
                         <b-form-checkbox-group id="checkbox-group-2" v-model="checkedExtras">
-                            <b-form-checkbox :value="i.name" > {{i.name}}</b-form-checkbox>
+                            <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
                         </b-form-checkbox-group>
                     </b-form-group>
                 </div>
+                <button type="button" v-on:click="displayAddOns()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                </button>
+                <button type="button" v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: extraFont}">Seguinte
+                </button>
             </div>
             <div class="container" v-bind:style="{display: decors}">
                 <div class="container" style="max-width:250px;" align="left" v-for="i in searchDecor" :key="i.id">
@@ -111,6 +128,12 @@
                         </b-form-checkbox-group>
                     </b-form-group>
                 </div>
+                <button type="button" v-on:click="displayExtras()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                </button>
+                <button type="button" v-on:click="displayOutfit()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: extraFont}">Seguinte
+                </button>
             </div>
             <div class="container" v-bind:style="{display: outfit}">
                 <div class="row">
@@ -119,12 +142,18 @@
                             <b-form-group>
                                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedImage">
                                     <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
-                                    <img style="height:300px; width:auto" v-bind:src="i.source"/>
+                                    <img style="height:300px; width:auto" v-bind:src="i.source" />
                                 </b-form-checkbox-group>
                             </b-form-group>
                         </div>
                     </div>
                 </div>
+                <button type="button" v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                </button>
+                <button type="button" v-on:click="displayResume()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: extraFont}">Seguinte
+                </button>
             </div>
             <div class="container" v-bind:style="{display: resume}">
                 <div class="row">
@@ -150,6 +179,12 @@
                             {{ checkedImage.length == 0 ? 'Fechar' : '' + checkedImage }}</p>
                     </div>
                 </div>
+                <button type="button" v-on:click="displayOutfit()" class="btn btn-primary border-0 rounded-0"
+                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                </button>
+                <b-button type="submit" @click="saveCurrentKit()" value="Adicionar" class="btn btn-primary border-0"
+                    squared>Confirmar
+                </b-button>
             </div>
             <!-- <div v-if="kitInfo">
                 <KitInfo  v-bind:style="{display: kitInfo} " />
@@ -167,8 +202,7 @@
                 <Outfits v-bind:style="{display: outfits}" />
             </div>
             <br> -->
-            <b-button type="submit" @click="saveCurrentKit" value="Adicionar" class="btn btn-primary border-0" squared>Confirmar
-            </b-button>
+
         </form>
     </div>
 </template>
@@ -271,7 +305,10 @@
                 this.resumeFont = "normal"
             },
             displayAddOns() {
-                this.kitInfo = "none"
+                if(this.reason != "" && this.date !=  "" && this.hi != "" 
+                && this.hf != "" && this.schools != "" && this.location != ""
+                && this.people != "" ){
+     this.kitInfo = "none"
                 this.addOns = "block"
                 this.extra = "none"
                 this.decors = "none"
@@ -283,6 +320,10 @@
                 this.decorsFont = "normal"
                 this.outfitFont = "normal"
                 this.resumeFont = "normal"
+                }else{
+                    alert("PREENCHA")
+                }
+           
             },
             displayExtras() {
                 this.kitInfo = "none"

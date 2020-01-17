@@ -24,8 +24,11 @@
                 </router-link>
                 <router-link to="/adminHome" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Início
                 </router-link>
-                <router-link to="/choose" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Reservas
+                <router-link to="/menuKits" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Menus
                 </router-link>
+                <router-link to="/areas" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Espaços
+                </router-link>
+
                 <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">
                     Workshops
                 </router-link>

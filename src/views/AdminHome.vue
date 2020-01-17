@@ -62,7 +62,7 @@
           <div class="col">
             <router-link id="link" to="/menuAddOns">
               <b-card img-src="../assets/add_workshop.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              </b-card>Adicionar
+              </b-card>Gerir Complementos
             </router-link>
           </div>
         </div>
