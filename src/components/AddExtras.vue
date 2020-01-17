@@ -9,21 +9,16 @@
         <br>
         <br>
         <br>
-        <h2>Gerir Ingredientes</h2>
+        <h2>Gerir Extras</h2>
 
         <div class="container">
 
             <div class="row">
 
                 <div align="center" id="AddIng" class="col-sm-6">
-                    <form @submit.prevent="addIng()">
-                        <input type="text" v-model="name" name="" id="ingNome" placeholder="Ingrediente">
-                        <b-form-input id="ingType" list="my-list-id" v-model="type" placeholder="Tipo de Menu">
-                        </b-form-input>
-                        <datalist id="my-list-id">
-                            <option> Comida </option>
-                            <option>Bebida</option>
-                        </datalist>
+                    <form @submit.prevent="addExtra()">
+                        <input type="text" v-model="name" name="" id="ingNome" placeholder="Extra">
+                        <br>
                         <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
                     </form>
                 </div>
@@ -31,13 +26,10 @@
 
                 <div class="col-sm-6">
 
-
-
-
-                    <div class="container table" v-if="this.ingredients.length != 0">
+                    <div class="container table" v-if="this.extras.length != 0">
                         <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
-                            hover head-variant="dark" responsive="sm" :items="this.ingredients" :fields="fields">
+                            hover head-variant="dark" responsive="sm" :items="this.extras" :fields="fields">
                             <template v-slot:cell(actions)="row">
                                 <b-button size="sm" @click="remove(row.item.id)" class="mr-1">X</b-button>
                             </template>
@@ -47,7 +39,7 @@
                     </div>
                     <div class="container" v-else>
                         <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
-                        <h4> Não existem Ingredientes</h4>
+                        <h4> Não existem Extras</h4>
                     </div>
 
                 </div>
@@ -75,12 +67,12 @@
         name: "AddOns",
         data: function () {
             return {
-                ingredients: [],
+                extras: [],
                 perPage: 3,
                 currentPage: 1,
                 fields: [{
                         key: 'name',
-                        label: "Ingrediente",
+                        label: "Extra",
                         sortable: true
                     },
                     {
@@ -98,38 +90,30 @@
             }
         },
         created() {
-            if (JSON.parse(localStorage.getItem("ingredients"))) {
-                this.$store.state.ingredients = JSON.parse(localStorage.getItem("ingredients"))
+            if (JSON.parse(localStorage.getItem("extras"))) {
+                this.$store.state.extras= JSON.parse(localStorage.getItem("extras"))
             }
-            this.ingredients = this.$store.state.ingredients
+            this.extras = this.$store.state.extras
 
         },
         methods: {
-            addIng() {
-                let ingType
-                if (this.type == "Comida") {
-                    ingType = "Food"
-                }
-                if (this.type == "Bebida") {
-                    ingType = "Drink"
-                }
-                this.ingredients.push({
-                    id: this.$store.getters.ingredientLastId + 1,
+            addExtra() {
+                this.extras.push({
+                    id: this.$store.getters.extrasLastId + 1,
                     name: this.name,
-                    type: ingType
                 })
-                localStorage.setItem("ingredients", JSON.stringify(this.ingredients));
+                localStorage.setItem("extras", JSON.stringify(this.extras));
                 alert("Adicionado!")
 
 
 
             },
             remove(id) {
-                for (let i in this.ingredients) {
-                    if (this.ingredients[i].id === id) {
-                        this.ingredients = this.ingredients.filter(ingredient => this.ingredients[i].id != ingredient
+                for (let i in this.extras) {
+                    if (this.extras[i].id === id) {
+                        this.extras = this.extras.filter(extra => this.extras[i].id != extra
                             .id);
-                        localStorage.setItem("ingredients", JSON.stringify(this.ingredients));
+                        localStorage.setItem("extras", JSON.stringify(this.extras));
                         alert("Removido")
                     }
                 }
@@ -137,10 +121,10 @@
         },
         computed: {
             searchKits() {
-                return this.ingredients;
+                return this.extras;
             },
             rows() {
-                return this.ingredients.length
+                return this.extras.length
             }
         }
     }

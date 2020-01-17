@@ -237,11 +237,20 @@ export default new Vuex.Store({
       if (!localStorage.getItem("bookings")) {
         localStorage.setItem("bookings", JSON.stringify(state.bookings));
       }
-      localStorage.setItem("outfits", JSON.stringify(state.outfits));
-      localStorage.setItem("extras", JSON.stringify(state.extras));
-      localStorage.setItem("decor", JSON.stringify(state.decor));
+      if (!localStorage.getItem("ingredients")) {
+        localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
+      }
+      if (!localStorage.getItem("extras")) {
+        localStorage.setItem("extras", JSON.stringify(state.extras));
+      }
+      if (!localStorage.getItem("decor")) {
+        localStorage.setItem("decor", JSON.stringify(state.decor));
+      }
+      if (!localStorage.getItem("outfits")) {
+        localStorage.setItem("outfits", JSON.stringify(state.outfits));
+      }
       localStorage.setItem("schools", JSON.stringify(state.schools));
-      localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
+     
 
 
 
@@ -441,6 +450,27 @@ export default new Vuex.Store({
     ingredientLastId(state) {
       if (state.ingredients.length) {
         return state.ingredients[state.ingredients.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    extrasLastId(state) {
+      if (state.extras.length) {
+        return state.extras[state.extras.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    outfitLastId(state) {
+      if (state.outfits.length) {
+        return state.outfits[state.outfits.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    decorLastId(state) {
+      if (state.decor.length) {
+        return state.decor[state.decor.length - 1].id;
       } else {
         return 0;
       }

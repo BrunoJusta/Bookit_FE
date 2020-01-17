@@ -98,7 +98,7 @@
                 <div class="container" style="max-width:200px;" align="left" v-for="i in searchExtras" :key="i.id">
                     <b-form-group>
                         <b-form-checkbox-group id="checkbox-group-2" v-model="checkedExtras">
-                            <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                            <b-form-checkbox :value="i.name" > {{i.name}}</b-form-checkbox>
                         </b-form-checkbox-group>
                     </b-form-group>
                 </div>
@@ -119,7 +119,7 @@
                             <b-form-group>
                                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedImage">
                                     <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
-                                    <img style="height:300px; width:auto" v-bind:src="i.source" />
+                                    <img style="height:300px; width:auto" v-bind:src="i.source"/>
                                 </b-form-checkbox-group>
                             </b-form-group>
                         </div>
@@ -227,7 +227,11 @@
             if (localStorage.getItem("currentKit")) {
                 this.$store.state.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             }
-            this.ingredients = this.$store.state.ingredients
+            if (localStorage.getItem("ingredients")) {
+                this.$store.state.ingredients = JSON.parse(localStorage.getItem("ingredients"))
+                this.ingredients = this.$store.state.ingredients
+
+            }
             this.extras = this.$store.state.extras
             this.decor = this.$store.state.decor
             this.outfits = this.$store.state.outfits
