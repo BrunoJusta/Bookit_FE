@@ -1,15 +1,26 @@
 <template>
   <div class="areasDetail">
-    <h3 class="display-2">{{getAreaById($route.params.areaId).name}}</h3>
+    <h3 class="display-2" v-bind:style="{display:show3}">{{getAreaById($route.params.areaId).name}}</h3>
+    <input type="text" v-model="areaNameNew" name="" :placeholder="areaName" id="editTitle"
+      v-bind:style="{display:show}">
+    <br>
+    <br>
+
     <div class="container">
       <b-card no-body class="overflow-hidden border-0" style="max-width: 1100px;">
         <b-row no-gutters>
           <b-col md="6">
             <b-card-img v-bind:src=" getAreaById($route.params.areaId).img" class="rounded-0"></b-card-img>
           </b-col>
+
           <b-col md="6">
+
             <b-card-body align="left" title="Descrição">
-              <p> {{getAreaById($route.params.areaId).description}}</p>
+              <p v-bind:style="{display:show2}"> {{getAreaById($route.params.areaId).description}}</p>
+              <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">
+                {{getAreaById($route.params.areaId).description}}</textarea>
+
+
             </b-card-body>
 
           </b-col>
@@ -17,11 +28,22 @@
         </b-row>
 
       </b-card>
-      <b-button class="btn-book border-0" squared>
+      <b-button v-bind:style="{display:show}" @click="cancelEdit()" class="btn-book border-0" squared>
+        Cancelar
+      </b-button>
+      <b-button v-bind:style="{display:show}" @click="saveEdit()" class="btn-book border-0" squared>
+        Guardar
+      </b-button>
+
+      <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
         <router-link to="/areas" style="color:white"> Voltar </router-link>
       </b-button>
-      <b-button @click="saveCurrentArea()" class="btn-book border-0" squared>
+      <b-button v-if="this.$store.getters.getUserType !== 'admin'" @click="saveCurrentArea()" class="btn-book border-0"
+        squared>
         <router-link to="/areasbooking" class="teste" style="color:white"> Reservar </router-link>
+      </b-button>
+      <b-button v-bind:style="{display:show2}" v-else @click="activateEdit()" class="btn-book border-0" squared>
+        Editar
       </b-button>
     </div>
   </div>
@@ -33,9 +55,15 @@
     data: function () {
       return {
         areas: [],
+        id: "",
         areaName: "",
+        areaNameNew: "",
+        descripton: "",
         currentArea: {},
-        areaImg: ""
+        areaImg: "",
+        show: "none",
+        show2: "inline",
+        show3: "block"
       };
     },
     created() {
@@ -46,6 +74,14 @@
         this.areaName = this.areas.filter(
           area => area.id === id
         )[0].name
+
+        this.id = this.areas.filter(
+          area => area.id === id
+        )[0].id
+
+        this.descripton = this.areas.filter(
+          area => area.id === id
+        )[0].descripton
 
         this.areaImg = this.areas.filter(
           area => area.id === id
@@ -62,6 +98,43 @@
         });
         localStorage.setItem("currentArea", JSON.stringify(this.currentArea));
         this.$store.state.currentArea = this.currentArea
+      },
+      activateEdit() {
+        this.show = "inline"
+        this.show2 = "none"
+        this.show3 = "none"
+
+      },
+      saveEdit() {
+        this.show2 = "inline"
+        this.show = "none"
+        this.show3 = "block"
+        let newDesc = document.getElementById('description').value
+
+        for (let a in this.areas) {
+          if (this.areas[a].id === this.id) {
+            if (this.areaNameNew == "") {
+              this.areas[a].description = newDesc
+              localStorage.setItem("areas", JSON.stringify(this.areas));
+            } else {
+              this.areas[a].name = this.areaNameNew
+              this.areas[a].description = newDesc
+              localStorage.setItem("areas", JSON.stringify(this.areas));
+            }
+            alert("Alterado")
+
+
+
+
+          }
+        }
+
+      },
+      cancelEdit() {
+        this.show2 = "inline"
+        this.show = "none"
+        this.show3 = "block"
+
       }
     }
   }
@@ -72,6 +145,10 @@
     src: url(../assets/bookman.ttf);
   }
 
+  #editTitle {
+    margin: auto;
+    margin-top: 200px;
+  }
 
   .display-2 {
     padding-top: 160px;

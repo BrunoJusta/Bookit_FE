@@ -1,7 +1,8 @@
 <template>
   <div class="kitDetail">
+    <h3 class="display-2" v-bind:style="{display:show3}">{{getWorkshopById($route.params.workshopId).name}}</h3>
+    <input type="text" :placeholder="workshopName" v-model="newName" v-bind:style="{display:show}" id="editTitle">
 
-    <h3 class="display-2">{{getWorkshopById($route.params.workshopId).name}}</h3>
     <div class="container">
       <b-card no-body class="overflow-hidden border-0" style="max-width: 1100px;">
         <b-row no-gutters>
@@ -10,11 +11,30 @@
           </b-col>
           <b-col md="6">
             <b-card-body align="left" title="Informação">
-              <p><b>Data:</b> {{getWorkshopById($route.params.workshopId).date}}
-                <b id="b">Duração:</b> {{getWorkshopById($route.params.workshopId).time}} <b id="b">Vagas:</b>
-                {{getWorkshopById($route.params.workshopId).vacancies}} </p>
-              <p><b>Locutor:</b> {{getWorkshopById($route.params.workshopId).teacher}}</p>
-              <p> {{getWorkshopById($route.params.workshopId).description}}</p>
+              <input type="text" :placeholder="date" v-model="newDate" v-bind:style="{display:show}">
+              <input type="text" :placeholder="time" v-model="newTime" v-bind:style="{display:show}">
+              <input type="text" :placeholder="vacancies" v-model="newVac" v-bind:style="{display:show}">
+              <input type="text" :placeholder="teacher" v-model="newTeacher" v-bind:style="{display:show}">
+
+              <div class="row">
+                <p v-bind:style="{display:show2}" id="b"> <b>Data:</b>
+                  {{getWorkshopById($route.params.workshopId).date}}</p>
+                <p v-bind:style="{display:show2}" id="b"> <b>Duração:</b>
+                  {{getWorkshopById($route.params.workshopId).time}} </p>
+
+              </div>
+              <div class="row">
+
+
+                <p v-bind:style="{display:show2}" id="b"><b>Vagas:</b>
+                  {{getWorkshopById($route.params.workshopId).vacancies}} </p>
+                <p v-bind:style="{display:show2}" id="b"><b>Locutor:</b>
+                  {{getWorkshopById($route.params.workshopId).teacher}}</p>
+              </div>
+
+              <p v-bind:style="{display:show2}"> {{getWorkshopById($route.params.workshopId).description}}</p>
+              <textarea id="description" rows="4" cols="50" style="height: 80px"
+                v-bind:style="{display:show}">{{getWorkshopById($route.params.workshopId).description}}</textarea>
             </b-card-body>
 
 
@@ -23,10 +43,20 @@
         </b-row>
 
       </b-card>
-      <b-button class="btn-book border-0" squared>
+      <b-button v-bind:style="{display:show}" @click="cancelEdit()" class="btn-book border-0" squared>
+        Cancelar
+      </b-button>
+      <b-button v-bind:style="{display:show}" @click="saveEdit()" class="btn-book border-0" squared>
+        Guardar
+      </b-button>
+      <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
         <router-link to="/workshops" style="color:white"> Voltar </router-link>
       </b-button>
-      <b-button @click="sendInfo()" class="btn-book border-0" squared>Inscrever
+      <b-button @click="sendInfo()" v-if="this.$store.getters.getUserType !== 'admin'" class="btn-book border-0"
+        squared>Inscrever
+      </b-button>
+      <b-button v-bind:style="{display:show2}" v-else @click="activateEdit()" class="btn-book border-0" squared>
+        Editar
       </b-button>
     </div>
   </div>
@@ -43,9 +73,21 @@
         clientName: "",
         date: "",
         time: "",
+        vacancies: "",
+        teacher: "",
         userName: "",
         userEmail: "",
+        show: "none",
+        show2: "inline",
+        show3: "block",
         inscriptions: [],
+        newDate: "",
+        newTime: "",
+        newVac: "",
+        newTeacher: "",
+        newName: "",
+        id: ""
+
       };
     },
     methods: {
@@ -54,6 +96,10 @@
         this.workshopName = this.workshops.filter(
           workshop => workshop.id === id
         )[0].name
+
+        this.id = this.workshops.filter(
+          workshop => workshop.id === id
+        )[0].id
 
         this.inscriptions = this.workshops.filter(
           workshop => workshop.id === id
@@ -66,6 +112,15 @@
         this.time = this.workshops.filter(
           workshop => workshop.id === id
         )[0].time
+
+        this.vacancies = this.workshops.filter(
+          workshop => workshop.id === id
+        )[0].vacancies
+
+        this.teacher = this.workshops.filter(
+          workshop => workshop.id === id
+        )[0].teacher
+
 
         return this.workshops.filter(
           workshop => workshop.id === id
@@ -94,6 +149,67 @@
             }
           }
         }
+      },
+      activateEdit() {
+        this.show = "inline"
+        this.show2 = "none"
+        this.show3 = "none"
+
+      },
+      saveEdit() {
+        this.show2 = "inline"
+        this.show = "none"
+        this.show3 = "block"
+        let newDesc = document.getElementById('description').value
+
+        for (let a in this.workshops) {
+          if (this.workshops[a].id === this.id) {
+            if (this.newName == "") {
+              this.workshops[a].name = this.workshops[a].name
+            } else {
+              this.workshops[a].name = this.newName
+            }
+            if (this.newTime == "") {
+              this.workshops[a].time = this.workshops[a].time
+
+            } else {
+              this.workshops[a].time = this.newTime
+
+            }
+            if (this.newDate == "") {
+              this.workshops[a].date = this.workshops[a].date
+
+            } else {
+              this.workshops[a].date = this.newDate
+
+            }
+            if (this.newVac == "") {
+              this.workshops[a].vacancies = this.workshops[a].vacancies
+
+            } else {
+              this.workshops[a].vacancies = this.newVac
+
+            }
+            if (this.newTeacher == "") {
+              this.workshops[a].teacher = this.workshops[a].teacher
+
+            } else {
+              this.workshops[a].teacher = this.newTeacher
+
+            }
+            this.workshops[a].description = newDesc
+            localStorage.setItem("workshops", JSON.stringify(this.workshops));
+            alert("Alterado")
+
+          }
+        }
+
+      },
+      cancelEdit() {
+        this.show2 = "inline"
+        this.show = "none"
+        this.show3 = "block"
+
       }
     },
     created() {
@@ -112,6 +228,12 @@
   @font-face {
     font-family: bookMan;
     src: url(../assets/bookman.ttf);
+  }
+
+
+  #editTitle {
+    margin: auto;
+    margin-top: 200px;
   }
 
 

@@ -3,10 +3,9 @@
         <div class="container">
             <div class="container" style="max-width:300px">
             <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar..."></b-form-input>
-
             </div>
             <div class="row">
-                <div class="col-sm-6" v-for="a in filteredRunnings" :key="a.id">
+                <div class="col-sm-4" v-for="a in filteredRunnings" :key="a.id">
                     <div id="card-maker" style="padding-bottom: 60px">
                         <b-card :title="a.name" :img-src="a.img" img-alt="Image" img-top tag="article"
                             style="max-width: 30rem;" class="border-0">
@@ -123,13 +122,8 @@
         margin-bottom: -60px;
     }
 
-    .col-sm-6 {
+    .col-sm-4 {
         padding-top: 30px;
-        padding-bottom: 30px;
-    }
-
-    .container {
-        padding-bottom: 150px;
     }
 
     .card-title {
@@ -149,7 +143,7 @@
       .btn-remove {
         font-size: 10px;
         background-color: #B91C3B;
-        margin-top: -268px;
+        margin-top: -208px;
         margin-right: -15px;
         float: right;
     }

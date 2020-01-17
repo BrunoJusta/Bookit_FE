@@ -10,7 +10,7 @@
         </div>
 
         <div class="container table" v-if="this.workshops.length != 0">
-            <b-input type="text" v-model="searchWorkshops" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
+            <b-input class="rounded-0" type="text" v-model="searchWorkshops" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredWorkshops" :fields="fields">
@@ -70,14 +70,6 @@
             }
             this.currentDate = this.$store.getters.getCurrentDate
         },
-        computed: {
-            searchInscriptions() {
-                return this.workshops;
-            },
-            rows() {
-                return this.workshops.length
-            }
-        },
         methods: {
             remove(id) {
                 for (let i in this.workshops) {
@@ -109,7 +101,13 @@
                     }
                 )
             }
-        }
+        },
+        searchInscriptions() {
+                return this.workshops;
+            },
+            rows() {
+                return this.workshops.length
+            }
     }
 </script>
 

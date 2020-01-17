@@ -49,9 +49,11 @@
 </script>
 <style scoped>
   .google-map {
-    width: 300px;
-    height: 160px;
+    width: 250px;
+    height: 150px;
     margin: 0 auto;
     margin-top: -60px;
+    border: solid 1px white;
+
   }
 </style>

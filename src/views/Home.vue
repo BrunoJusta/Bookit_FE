@@ -3,7 +3,7 @@
   <div class="home">
 
     <div class="container-full banner">
-      <img id="banner-img" src="../assets/tabuleiro3.jpg">
+      <img id="banner-img" src="../assets/banner.jpg">
       <b-button squared id="banner-btn">
         <router-link id="banner-link" to="/choose"> RESERVAR</router-link>
       </b-button>
@@ -77,7 +77,7 @@
   }
 
   .banner {
-    padding-top: 125px;
+    padding-top: 120px;
   }
 
   .title {

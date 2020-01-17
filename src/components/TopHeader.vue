@@ -1,7 +1,7 @@
 <template>
     <div class="fixed-top">
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <router-link to="/"><img src="../assets/navbarLogo2.svg" alt="" id="logoNavbar"></router-link>
+            <router-link to="/"><img src="../assets/navbarLogo.svg" alt="" id="logoNavbar"></router-link>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <b-form-input size="sm" class="mr-sm rounded-0" placeholder="Pesquisar..."></b-form-input>

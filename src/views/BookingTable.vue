@@ -22,7 +22,7 @@
 
         <!-- MOSTRA TABELA DAS RESERVAS -->
         <div class="container" v-if="this.bookings.length != 0" v-bind:style="{display:  bookingTable}">
-            <b-input type="text" v-model="searchBookings" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
+            <b-input class="rounded-0" type="text" v-model="searchBookings" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredBookings" :fields="fields">
@@ -71,7 +71,7 @@
 
         <!-- MOSTRA TABELA DAS AREAS -->
         <div v-if="this.areas.length != 0" class="container" v-bind:style="{display: areasTable}">
-            <b-input type="text" v-model="searchAreas" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
+            <b-input type="text" class="rounded-0"  v-model="searchAreas" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredAreas" :fields="fields2">

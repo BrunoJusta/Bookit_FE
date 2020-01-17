@@ -47,15 +47,13 @@
 
         </div>
         <hr id="hrLine">
-        <div class="footer-copyright" style="color: white">
+        <div class="footer-copyright" style="color: white; font-size:10px">
             <p>© 2019 Copyright Bookit </p>
         </div>
     </footer>
 </template>
 
 <script>
-    import router from '../router';
-
     import GoogleMap from "@/components/Map.vue"
     export default {
         components: {
@@ -82,7 +80,7 @@
 
     #hrLine {
         background-color: white;
-        height: 1px;
+        height: 0.5px;
         width: 97%;
     }
 

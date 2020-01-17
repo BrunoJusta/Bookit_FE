@@ -2,7 +2,7 @@
     <div>
 
         <div class="container-full title">
-            <h1 id="redTitle">RESERVAS</h1>
+            <h1 id="redTitle">UTILIZADORES</h1>
             <hr class="back-line">
             <div class="container" id="whiteRect">
                 <p id="space">space</p>
@@ -10,7 +10,7 @@
         </div>
 
         <div class="container">
-            <b-input type="text" v-model="searchUsers" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
+            <b-input class="rounded-0" type="text" v-model="searchUsers" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredUsers" :fields="fields">
@@ -86,11 +86,6 @@
                 this.users = JSON.parse(localStorage.getItem("users"))
             }
         },
-        computed: {
-            rows() {
-                return this.users.length
-            },
-        },
         methods: {
             remove(id) {
                 for (let i in this.users) {
@@ -152,7 +147,10 @@
                     }
                 )
             }
-        }
+        },
+        rows() {
+                return this.users.length
+            },
     }
 </script>
 
@@ -188,7 +186,7 @@
         background-color: white;
         margin-top: -35px;
         height: 35px;
-        width: 340px;
+        width: 380px;
         position: relative;
         display: block;
         z-index: 5;

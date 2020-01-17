@@ -200,7 +200,7 @@
         background-color: white;
         margin-top: -35px;
         height: 35px;
-        width: 340px;
+        width: 200px;
         position: relative;
         display: block;
         z-index: 5;
