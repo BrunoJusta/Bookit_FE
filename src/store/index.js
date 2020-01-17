@@ -152,25 +152,33 @@ export default new Vuex.Store({
     userExists: false,
     bookings: [],
     areaBookings: [],
-    drinks: ["café", "chá"],
-    food: ["bolachas", "bolo"],
     ingredients: [{
-      id: 0,
-      name: "Café",
-      type: "Drink",
-    }, {
-      id: 1,
-      name: "Leite",
-      type: "Drink",
-    }, {
-      id: 2,
-      name: "Bolo",
-      type: "Food",
-    }, {
-      id: 3,
-      name: "Bolachas",
-      type: "Food",
-    }],
+        id: 0,
+        name: "Sem Bebida",
+        type: "Drink",
+      }, {
+        id: 1,
+        name: "Sem Comida",
+        type: "Food",
+      },
+      {
+        id: 2,
+        name: "Café",
+        type: "Drink",
+      }, {
+        id: 3,
+        name: "Leite",
+        type: "Drink",
+      }, {
+        id: 4,
+        name: "Bolo",
+        type: "Food",
+      }, {
+        id: 5,
+        name: "Bolachas",
+        type: "Food",
+      }
+    ],
     extras: [{
       id: 0,
       name: "Babysiting"
@@ -250,7 +258,7 @@ export default new Vuex.Store({
         localStorage.setItem("outfits", JSON.stringify(state.outfits));
       }
       localStorage.setItem("schools", JSON.stringify(state.schools));
-     
+
 
 
 

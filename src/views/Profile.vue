@@ -1,12 +1,14 @@
 <template>
     <div>
-        <div class="container" id="perfilContainer">
+        <div class="container" id="perfilContainer" v-bind:style="{display: showProfile}">
             <div class="row" style="height: 150px">
                 <div class="col-sm-2">
                     <b-img :src="this.$store.getters.getUserImg" id="imgPerfil"></b-img>
                 </div>
                 <div class="col-sm-2" id="nameColumn">
                     <p id="nameTxt">{{getFullName}}</p>
+                    <p id="emailTxt">{{getEmail}}</p>
+                    <p id="contactTxt">{{getContact}}</p>
                 </div>
                 <div class="col-sm-8" id="optionsColumn">
                     <a v-on:click="displaySettings()" class="options border-0">
@@ -126,6 +128,11 @@
             <div class="container" v-bind:style="{display: showSettings}">
                 <show-settings />
             </div>
+
+            <div class="container" v-bind:style="{display: showSettings}">
+                <b-button v-on:click="hideSettings()" style="fontSize: 20px;" variant="primary" id="goBackBtn">Voltar
+                </b-button>
+            </div>
         </div>
 
     </div>
@@ -149,6 +156,7 @@
                 firstNameUser: "",
                 lastNameUser: "",
                 userEmail: "",
+                userContact: "",
                 showBookings: "block", //mostrar reservas
                 showNotifications: "none", //mostrar notificaçoes
                 showSettings: "none", //mostrar as definiçoes
@@ -162,7 +170,8 @@
                 notificFont: "normal", //muda a cor da fonte escolhida
                 eventsFont: "bold",
                 AreasFont: "normal",
-                WorkshopsFont: "normal"
+                WorkshopsFont: "normal",
+                showProfile: "block"
             }
         },
         created() {
@@ -181,7 +190,10 @@
             this.firstNameUser = this.$store.getters.getName
             this.lastNameUser = this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail
-
+            this.userContact = this.$store.getters.getContact
+        },
+        updated() {
+            this.userContact = this.$store.getters.getContact
         },
         methods: {
             logout() {
@@ -232,7 +244,6 @@
                 this.notifiColor = "black"
                 this.bookingsFont = "bold"
                 this.notificFont = "normal"
-                this.settingsOn = require('../assets/settingsIcon.png')
             },
             displayNotifications() {
                 this.showBookings = "none"
@@ -242,9 +253,9 @@
                 this.notifiColor = "#B91C3B"
                 this.bookingsFont = "normal"
                 this.notificFont = "bold"
-                this.settingsOn = require('../assets/settingsIcon.png')
             },
             displaySettings() {
+                this.showProfile = "none"
                 this.showBookings = "none"
                 this.showNotifications = "none"
                 this.showSettings = "block"
@@ -252,7 +263,18 @@
                 this.notifiColor = "black"
                 this.bookingsFont = "normal"
                 this.notificFont = "normal"
-                this.settingsOn = require('../assets/settingsIconRed.png')
+            },
+            hideSettings() {
+                this.showProfile = "block"
+                this.showSettings = "none"
+                this.showBookings = "block"
+                this.showNotifications = "none"
+                this.showSettings = "none"
+                this.bookingsColor = "#B91C3B"
+                this.notifiColor = "black"
+                this.bookingsFont = "bold"
+                this.notificFont = "normal"
+                this.filteredBookings()
             }
         },
         computed: {
@@ -261,6 +283,9 @@
             },
             getEmail() {
                 return this.userEmail
+            },
+            getContact() {
+                return this.userContact
             },
             filteredBookings() {
                 return this.bookings.filter(
@@ -278,9 +303,6 @@
 
 <style lang="scss" scoped>
     #perfilContainer {
-        -webkit-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
-        -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
-        box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         margin-top: 180px;
         border-bottom: solid 8px #0A2463;
 
@@ -304,7 +326,7 @@
     }
 
     #settingsImg {
-        margin-top: -107px;
+        margin-top: -125px;
         margin-right: -25px;
         width: 50px;
         float: right;
@@ -312,18 +334,34 @@
     }
 
     #imgPerfil {
-        height: 140px;
-        width: 140px;
+        height: 150px;
+        width: 150px;
         float: left;
-        margin-left: -8px;
-        margin-top: 6px;
+        margin-left: -14px;
+        margin-top: -5px;
     }
 
     #nameTxt {
-        margin-top: 118px;
+        margin-top: -13px;
         margin-left: -90px;
         font-size: 25px;
         font-weight: bold;
+        color: black;
+    }
+
+    #emailTxt {
+        margin-top: -5px;
+        float: left;
+        margin-left: -45px;
+        font-size: 15px;
+        color: black;
+    }
+
+    #contactTxt {
+        margin-top: -15px;
+        float: left;
+        margin-left: -45px;
+        font-size: 15px;
         color: black;
     }
 
@@ -360,5 +398,9 @@
 
     .card-body {
         font-size: 14px;
+    }
+
+    #goBackBtn {
+        margin-top: 20px;
     }
 </style>

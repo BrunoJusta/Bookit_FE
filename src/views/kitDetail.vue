@@ -35,7 +35,10 @@
                       <div v-for="i in searchKits" :key="i.id">
                         <b-form-group v-if="i.type=='Food'">
                           <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
-                            <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                            <!-- <div v-if="this.menuDrinks.some(drink => drink === i.name)">
+                              <b-form-checkbox checked :value="i.name"> {{i.name}}</b-form-checkbox>
+                            </div> -->
+                            <b-form-checkbox :value="i.name" unchecked-value=""> {{i.name}}</b-form-checkbox>
                           </b-form-checkbox-group>
                         </b-form-group>
                       </div>
@@ -95,7 +98,8 @@
         newKitType: "",
         newKitName: "",
         checkedDrinks: [],
-        checkedFood: []
+        checkedFood: [],
+        menuDrinks: []
       };
     },
     created() {
@@ -113,6 +117,10 @@
         )[0].img
 
         this.drinks = this.kits.filter(
+          kit => kit.id === id
+        )[0].drinks
+
+        this.menuDrinks = this.kits.filter(
           kit => kit.id === id
         )[0].drinks
 
@@ -152,23 +160,33 @@
         this.show3 = "block"
       },
       saveEdit() {
-        /* this.show2 = "inline"
+        this.show2 = "inline"
         this.show = "none"
-        this.show3 = "block" */
+        this.show3 = "block"
+
         for (let k in this.kits) {
           if (this.kits[k].id === this.id) {
-            if (this.checkedFood != '') {
-              alert("TEM COMIDAS")
-            }
-            if (this.checkedDrinks != '') {
-              alert("TEM  BEBIDAS")
-            }
             if (this.newKitName != "") {
-              alert("novo nome")
+              this.kits[k].name = this.newKitName
             }
             if (this.newKitType != "") {
-              alert("novo tipo")
+              this.kits[k].type = this.newKitType
             }
+            if (this.checkedFood.length != 0) {
+              if (this.checkedFood.length != 1 && this.checkedFood.some(food => food === "Sem Comida")) {
+                alert("Escolha a comida correta!")
+              } else {
+                this.kits[k].food = this.checkedFood
+              }
+            }
+            if (this.checkedDrinks.length != 0) {
+              if (this.checkedDrinks.length != 1 && this.checkedDrinks.some(drink => drink === "Sem Bebida")) {
+                alert("Escolha a bebida correta!")
+              } else {
+                this.kits[k].drinks = this.checkedDrinks
+              }
+            }
+            localStorage.setItem("kits", JSON.stringify(this.kits));
           }
         }
       },

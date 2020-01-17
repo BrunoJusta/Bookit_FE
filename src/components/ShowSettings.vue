@@ -2,10 +2,6 @@
     <div>
         <div>
             <div class="container optnContainer" style="justify-content: center;">
-                <button v-on:click="displayInfo()" v-bind:style="{fontWeight: infoFont}" style="fontSize: 16px;"
-                    class="bookingOptions border-0">Informações
-                    <span class="bookingOptions" v-bind:style="{fontWeight: defaultFont}" style="padding: 10px">|</span>
-                </button>
                 <button v-on:click="displayPW()" v-bind:style="{fontWeight: passwordFont}" style="fontSize: 16px;"
                     class="bookingOptions border-0">
                     Alterar Palavra-Passe
@@ -21,12 +17,6 @@
             </div>
         </div>
 
-        <!-- Informaçoes -->
-        <div class="container" id="showContainer" v-bind:style="{display: showInfo}">
-            <p id="txt">Nome: {{getUserFirstName}} {{getUserLastName}}</p>
-            <p id="txt">Email: {{getEmail}}</p>
-            <p id="txt">Contacto: {{this.userContact}}</p>
-        </div>
         <!-- Alterar palavra passe -->
         <div class="container" id="showContainer" v-bind:style="{display: showPassword}">
             <div>
@@ -78,11 +68,10 @@
                         <b-form-input id="input-5" v-model="form.newContact" type="text" pattern="[0-9]{9}" required
                             placeholder="Introduza o contacto novo"></b-form-input>
                     </b-form-group>
-                    <b-button type="submit" variant="primary">Atualizar</b-button>
+                    <b-button type="submit" variant="primary" id="submitBtn">Atualizar</b-button>
                 </b-form>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -96,13 +85,11 @@
                 userEmail: "",
                 userContact: "",
                 userImg: "",
-                infoFont: "bold",
-                passwordFont: "normal",
+                passwordFont: "bold",
                 imgProfileFont: "normal",
                 contactFont: "normal",
                 defaultFont: "normal",
-                showInfo: "block",
-                showPassword: "none",
+                showPassword: "block",
                 showImgProfile: "none",
                 showContact: "none",
                 previewImg: "",
@@ -203,42 +190,26 @@
                     }
                 }
             },
-            displayInfo() {
-                this.infoFont = "bold"
-                this.passwordFont = "normal"
-                this.imgProfileFont = "normal"
-                this.contactFont = "normal"
-                this.showInfo = "block"
-                this.showPassword = "none"
-                this.showImgProfile = "none"
-                this.showContact = "none"
-            },
             displayPW() {
-                this.infoFont = "normal"
                 this.passwordFont = "bold"
                 this.imgProfileFont = "normal"
                 this.contactFont = "normal"
-                this.showInfo = "none"
                 this.showPassword = "block"
                 this.showImgProfile = "none"
                 this.showContact = "none"
             },
             displayProfileImg() {
-                this.infoFont = "normal"
                 this.passwordFont = "normal"
                 this.imgProfileFont = "bold"
                 this.contactFont = "normal"
-                this.showInfo = "none"
                 this.showPassword = "none"
                 this.showImgProfile = "block"
                 this.showContact = "none"
             },
             displayContact() {
-                this.infoFont = "normal"
                 this.passwordFont = "normal"
                 this.imgProfileFont = "normal"
                 this.contactFont = "bold"
-                this.showInfo = "none"
                 this.showPassword = "none"
                 this.showImgProfile = "none"
                 this.showContact = "block"
@@ -262,6 +233,10 @@
 </script>
 
 <style lang="scss" scoped>
+    .container {
+        margin-top: 130px;
+    }
+
     .bookingOptions {
         background-color: transparent;
         color: black;
@@ -273,7 +248,7 @@
         -webkit-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
-        margin-top: 20px;
+        margin-top: -10px;
         width: 600px;
     }
 
