@@ -5,9 +5,11 @@
             <div class="container" style="max-width:300px">
                 <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
                 </b-form-input>
-                <b-dropdown id="dropdown-1" text="Filtrar por:" class="m-md-2">
-                    <b-dropdown-item v-for="k in  menuTypes" :key="k" v-model="searchTxt">{{k}}</b-dropdown-item>
-                </b-dropdown>
+
+                <select id="inputGroupSelect01" @change="filteredKits($event)" v-model="selectTxt">
+                    <option selected>Todos</option>
+                    <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
+                </select>
             </div>
 
             <div class="row">
@@ -42,6 +44,7 @@
                 choose: "",
                 users: [],
                 searchTxt: "",
+                selectTxt: "",
                 reset: {
                     kitname: "",
                     kitType: "",
@@ -96,29 +99,39 @@
                         alert("KIT ELIMINADO")
                     }
                 }
-            }
+            },
+        },
+        updated() {
+            
         },
         computed: {
             searchKits() {
                 return this.kits;
             },
-            filteredKits() {
-                return this.kits.filter(
-                    (kit) => {
-                        let filterResult = true
-                        if (this.searchTxt == "") {
-                            return filterResult
+            filteredKits(e) {
+                if (this.selectTxt != "" && this.selectTxt != " ") {
+                    alert("ola")
+                    return this.kits.filter(
+                        (kit) => kit.type === this.selectTxt
+                    )
+                } else {
+                    return this.kits.filter(
+                        (kit) => {
+                            let filterResult = true
+                            if (this.searchTxt == "") {
+                                return filterResult
+                            }
+                            if (kit.name.includes(this.searchTxt)) {
+                                filterResult = kit.name.includes(this.searchTxt)
+                                return filterResult
+                            }
+                            if (kit.type.includes(this.searchTxt)) {
+                                filterResult = kit.type.includes(this.searchTxt)
+                                return filterResult
+                            }
                         }
-                        if (kit.name.includes(this.searchTxt)) {
-                            filterResult = kit.name.includes(this.searchTxt)
-                            return filterResult
-                        }
-                        if (kit.type.includes(this.searchTxt)) {
-                            filterResult = kit.type.includes(this.searchTxt)
-                            return filterResult
-                        }
-                    }
-                )
+                    )
+                }
             }
         }
     }
