@@ -6,6 +6,11 @@
         <br>
         <br>
         <br>
+        <button @click="searchTypes()">try me</button>
+        <div v-for="t in types" :key="t.name">
+            <p>{{t.name}}</p>
+
+        </div>
         <br>
         <br>
         <br>
@@ -95,6 +100,10 @@
                 searchWorkshops: "",
                 name: "",
                 type: "",
+                kits: [],
+                types: [{
+                    name: "Coffee Break"
+                }],
             }
         },
         created() {
@@ -102,6 +111,11 @@
                 this.$store.state.ingredients = JSON.parse(localStorage.getItem("ingredients"))
             }
             this.ingredients = this.$store.state.ingredients
+
+            if (JSON.parse(localStorage.getItem("kits"))) {
+                this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
+            }
+            this.kits = this.$store.state.kits
 
         },
         methods: {
@@ -133,6 +147,28 @@
                         alert("Removido")
                     }
                 }
+            },
+            searchTypes() {
+                for (let i in this.kits) {
+
+                    for (let j in this.types) {
+                        if (this.types[j].name == this.kits[i].type) {
+                            alert("Duig")
+
+                            break
+
+                        } 
+                        else {
+                            this.types.push({
+                                name: this.kits[i].type
+                            })
+                            alert("d")
+                            break
+                        }
+                    }
+
+                }
+
             }
         },
         computed: {

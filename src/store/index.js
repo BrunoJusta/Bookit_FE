@@ -258,8 +258,10 @@ export default new Vuex.Store({
       if (!localStorage.getItem("outfits")) {
         localStorage.setItem("outfits", JSON.stringify(state.outfits));
       }
+      if (!localStorage.getItem("menuTypes")) {
+        localStorage.setItem("menuTypes", JSON.stringify(state.menuTypes));
+      }
       localStorage.setItem("schools", JSON.stringify(state.schools));
-      localStorage.setItem("menuTypes", JSON.stringify(state.menuTypes));
     },
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {

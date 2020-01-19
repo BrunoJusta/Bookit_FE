@@ -16,7 +16,7 @@
                 </datalist>
                 <br>
                 <br>
-                 <!-- NOME -->
+                <!-- NOME -->
                 <label for="name">Image link:</label>
                 <input id="img" v-model="img">
                 <!-- INGREDIENTES -->
@@ -29,6 +29,7 @@
                         <input type="checkbox" :value="i.name" v-model="checkedDrink">{{i.name}}
                     </div>
                 </div>
+                <input type="text" name="" v-model="newType" id="" placeholder="outro...">
                 <br>
                 <br>
                 <img :src="img" alt="" srcset="">
@@ -55,8 +56,10 @@
                 ingredients: [],
                 type: "",
                 types: ['Coffee Break', 'Jantar de Gala', 'Porto de Honra'],
+                newType: "",
                 img: "",
-                users:[],
+                users: [],
+                menuTypes: []
             }
         },
         created() {
@@ -65,21 +68,26 @@
                 this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
             }
 
-             if (localStorage.getItem("users")) {
+            if (localStorage.getItem("users")) {
                 this.$store.state.users = JSON.parse(localStorage.getItem("users"))
             }
-           
-            this.users = this.$store.state.users
 
-            this.ingredients  = this.$store.state.ingredients 
+            if (localStorage.getItem("menuTypes")) {
+                this.$store.state.menuTypes = JSON.parse(localStorage.getItem("menuTypes"))
+            }
+
+            this.menuTypes = this.$store.state.menuTypes
+            this.users = this.$store.state.users
+            this.ingredients = this.$store.state.ingredients
+
 
         },
         computed: {
             searchKits() {
-                
+
                 return this.ingredients;
-                
-                
+
+
             }
         },
         methods: {
@@ -87,23 +95,52 @@
                 return this.$store.getters.kitLastId + 1
             },
             addKit() {
-                
-                for (let j in this.users) {
 
-                            if (this.users[j].userType === "cliente") {
-                                this.users[j].notifications.push({txt:'O Menu' + this.name  + " - "
-                                 + this.type + ' foi adicionado a galeria de menus!'  }) 
-                                localStorage.setItem("users", JSON.stringify(this.users));
-                            }
+
+                if (this.newType !== "") {
+                    for (let j in this.users) {
+
+                        if (this.users[j].userType === "cliente") {
+                            this.users[j].notifications.push({
+                                txt: 'O Menu' + this.name + " - " +
+                                    this.newType + ' foi adicionado a galeria de menus!'
+                            })
+                            localStorage.setItem("users", JSON.stringify(this.users));
+                        }
+                    }
+                    this.$store.commit('ADD_KIT', {
+                        id: this.getLastId(),
+                        name: this.name,
+                        type: this.newType,
+                        drinks: this.checkedDrink,
+                        food: this.checkedFood,
+                        img: this.img
+                    })
+                    this.menuTypes.push(this.newType)
+                    localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes));
+
+
+                } else {
+                    for (let j in this.users) {
+
+                        if (this.users[j].userType === "cliente") {
+                            this.users[j].notifications.push({
+                                txt: 'O Menu' + this.name + " - " +
+                                    this.type + ' foi adicionado a galeria de menus!'
+                            })
+                            localStorage.setItem("users", JSON.stringify(this.users));
+                        }
+                    }
+                    this.$store.commit('ADD_KIT', {
+                        id: this.getLastId(),
+                        name: this.name,
+                        type: this.type,
+                        drinks: this.checkedDrink,
+                        food: this.checkedFood,
+                        img: this.img
+                    })
                 }
-                this.$store.commit('ADD_KIT', {
-                    id: this.getLastId(),
-                    name: this.name,
-                    type: this.type,
-                    drinks: this.checkedDrink,
-                    food: this.checkedFood,
-                    img: this.img
-                })
+
 
                 alert("adicionado")
             },
