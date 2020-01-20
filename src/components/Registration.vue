@@ -97,7 +97,8 @@
             confPassword: "",
             show: true,
             schools: [],
-            schoolExists: false
+            schoolExists: false,
+            school: "",
         }),
         created: function () {
             window.addEventListener('unload', this.saveStorage)
@@ -115,6 +116,7 @@
             for (let i = 0; i <= this.schools.length; i++) {
                 if (this.email.includes((this.schools[i].name).toLowerCase())) {
                     this.schoolExists = true
+                    this.school = this.schools[i].name
                     break
                 } else {
                     this.schoolExists = false
@@ -135,7 +137,8 @@
                         lastName: this.lastName,
                         password: this.password,
                         number: this.number,
-                        confPassword: this.confPassword
+                        confPassword: this.confPassword,
+                        school: this.school,
                     })
                 } else {
                     alert("Introduza um mail valido do IPP")

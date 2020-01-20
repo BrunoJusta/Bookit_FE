@@ -2,14 +2,19 @@
     <div>
         <div id="CoffeeBreaks" class="container">
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
-            <div class="container" style="max-width:300px">
-                <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
+            <div class="container" >
+                <div class="row" style="margin:auto;max-width: 470px;">
+                         <b-form-input  size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt" placeholder="Pesquisar...">
                 </b-form-input>
-
+     
                 <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
                     <option selected>Todos</option>
                     <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
                 </select>
+
+                <button @click="clearFilters()">X</button>
+                </div>
+           
             </div>
 
             <div class="row">
@@ -100,9 +105,12 @@
                     }
                 }
             },
-        },
-        updated() {
+            clearFilters(){
+                this.selectTxt = "Todos";
+                this.searchTxt = "";
+                return this.kits;
 
+            }
         },
         computed: {
             searchKits() {
@@ -124,10 +132,7 @@
                                 }
                                 return filterResult
                             }
-                            /* if (kit.type.includes(this.searchTxt)) {
-                                filterResult = kit.type.includes(this.searchTxt)
-                                return filterResult
-                            } */
+                       
                         }
                     )
                 } else {
@@ -191,5 +196,19 @@
 
     .card {
         border-radius: 0 !important;
+    }
+    #searchInput{
+        width: 200px;
+        margin: 10px;
+         border: 1px solid #C0C0C0;
+
+
+    }
+    #inputGroupSelect01{
+        width: 200px;
+         margin: 10px;
+         border: 1px solid #C0C0C0;
+         color: #5C5C5C;
+
     }
 </style>

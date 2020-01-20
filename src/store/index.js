@@ -275,6 +275,7 @@ export default new Vuex.Store({
             email: payload.email,
             password: payload.password,
             number: payload.number,
+            school: payload.school,
             img: require('../assets/logo.png'),
             userType: "cliente",
             notifications: [],
@@ -304,6 +305,7 @@ export default new Vuex.Store({
             password: user.password,
             number: user.number,
             img: user.img,
+            school: user.school,
             userType: user.userType,
             notifications: user.notifications
           });
@@ -524,6 +526,9 @@ export default new Vuex.Store({
     },
     getContact(state) {
       return state.loggedUser.number
+    },
+    getSchool(state){
+      return state.loggedUser.school
     },
     getUserImg(state) {
       return state.loggedUser.img

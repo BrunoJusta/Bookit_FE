@@ -7,8 +7,11 @@
                 </div>
                 <div class="col-sm-2" id="nameColumn">
                     <p id="nameTxt">{{getFullName}}</p>
-                    <p id="emailTxt">{{getEmail}}</p>
-                    <p id="contactTxt">{{getContact}}</p>
+                    <div align="left" style="margin-left:-39px;">
+                        <p  id="schoolTxt">{{getSchool}}</p>
+                        <p  id="contactTxt">{{getContact}}</p>
+                        <p  id="emailTxt">{{getEmail}}</p>
+                    </div>
                 </div>
                 <div class="col-sm-8" id="optionsColumn">
                     <a v-on:click="displaySettings()" class="options border-0">
@@ -171,7 +174,8 @@
                 eventsFont: "bold",
                 AreasFont: "normal",
                 WorkshopsFont: "normal",
-                showProfile: "block"
+                showProfile: "block",
+                userScool: "",
             }
         },
         created() {
@@ -191,6 +195,8 @@
             this.lastNameUser = this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail
             this.userContact = this.$store.getters.getContact
+            this.userSchool = this.$store.getters.getSchool
+
         },
         updated() {
             this.userContact = this.$store.getters.getContact
@@ -287,6 +293,9 @@
             getContact() {
                 return this.userContact
             },
+            getSchool() {
+                return this.userSchool
+            },
             filteredBookings() {
                 return this.bookings.filter(
                     booking => booking.userEmail === this.userEmail
@@ -349,20 +358,10 @@
         color: black;
     }
 
-    #emailTxt {
-        margin-top: -5px;
-        float: left;
-        margin-left: -45px;
+    #emailTxt, #contactTxt,  #schoolTxt {
         font-size: 15px;
         color: black;
-    }
-
-    #contactTxt {
-        margin-top: -15px;
-        float: left;
-        margin-left: -45px;
-        font-size: 15px;
-        color: black;
+        margin-bottom: 5px;
     }
 
     @font-face {
