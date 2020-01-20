@@ -51,10 +51,15 @@
         data: function () {
             return {
                 path: "login",
-                onlineUser: ""
+                onlineUser: "",
+                kits: [],
+                menuTypes: []
             }
         },
         created() {
+            if (localStorage.getItem("kits")) {
+                this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
+            }
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
@@ -65,7 +70,24 @@
             } else if (this.$store.getters.getUserType === "cliente") {
                 this.path = "profile"
             }
+            this.kits = this.$store.state.kits
             this.$store.commit('STORE_ITEMS')
+            
+            for (let i in this.kits) {
+                let createType = true
+                for (let j in this.menuTypes) {
+                    if (this.menuTypes[j] == this.kits[i].type) {
+                        alert(this.kits[i].type + "--- " + this.menuTypes[j])
+                        createType = false;
+                    }
+                }
+                if (createType == true) {
+                    this.menuTypes.push(
+                        this.kits[i].type
+                    )
+                }
+            }
+            localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes))
         },
         updated: function () {
             if (this.$store.getters.getName === "Entrar") {
