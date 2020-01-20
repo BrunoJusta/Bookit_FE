@@ -6,7 +6,7 @@
                 <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
                 </b-form-input>
 
-                <select id="inputGroupSelect01" @change="filteredKits($event)" v-model="selectTxt">
+                <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
                     <option selected>Todos</option>
                     <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
                 </select>
@@ -44,7 +44,7 @@
                 choose: "",
                 users: [],
                 searchTxt: "",
-                selectTxt: "",
+                selectTxt: "Todos",
                 reset: {
                     kitname: "",
                     kitType: "",
@@ -102,35 +102,36 @@
             },
         },
         updated() {
-            
+
         },
         computed: {
             searchKits() {
                 return this.kits;
             },
-            filteredKits(e) {
-                if (this.selectTxt != "" && this.selectTxt != " ") {
-                    alert("ola")
-                    return this.kits.filter(
-                        (kit) => kit.type === this.selectTxt
-                    )
-                } else {
+            filteredKits() {
+                if (this.searchTxt != "" || this.selectTxt != "Todos") {
                     return this.kits.filter(
                         (kit) => {
                             let filterResult = true
-                            if (this.searchTxt == "") {
+                            if (this.searchTxt == "" && this.selectTxt == "Todos") {
                                 return filterResult
                             }
                             if (kit.name.includes(this.searchTxt)) {
-                                filterResult = kit.name.includes(this.searchTxt)
+                                if (this.selectTxt != "Todos") {
+                                    filterResult = kit.type.includes(this.selectTxt)
+                                } else {
+                                    filterResult = kit.name.includes(this.searchTxt)
+                                }
                                 return filterResult
                             }
-                            if (kit.type.includes(this.searchTxt)) {
+                            /* if (kit.type.includes(this.searchTxt)) {
                                 filterResult = kit.type.includes(this.searchTxt)
                                 return filterResult
-                            }
+                            } */
                         }
                     )
+                } else {
+                    return this.kits
                 }
             }
         }
