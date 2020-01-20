@@ -6,11 +6,6 @@
         <br>
         <br>
         <br>
-        <button @click="searchTypes()">try me</button>
-        <div v-for="t in types" :key="t.name">
-            <p>{{t.name}}</p>
-
-        </div>
         <br>
         <br>
         <br>
@@ -148,28 +143,6 @@
                     }
                 }
             },
-            searchTypes() {
-                for (let i in this.kits) {
-
-                    for (let j in this.types) {
-                        if (this.types[j].name == this.kits[i].type) {
-                            alert("Duig")
-
-                            break
-
-                        } 
-                        else {
-                            this.types.push({
-                                name: this.kits[i].type
-                            })
-                            alert("d")
-                            break
-                        }
-                    }
-
-                }
-
-            }
         },
         computed: {
             searchKits() {

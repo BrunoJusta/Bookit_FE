@@ -30,6 +30,7 @@ export default new Vuex.Store({
         food: ["bolo"],
         type: "Coffee Break",
         img: require('../assets/eventosCatering.png'),
+        popularity: 10
       },
       {
         id: 1,
@@ -37,7 +38,9 @@ export default new Vuex.Store({
         drinks: ["café", "leite"],
         food: ["bolo"],
         type: "Coffee Break",
-        img: require('../assets/eventosCatering.png')
+        img: require('../assets/eventosCatering.png'),
+        popularity: 20
+
 
       },
       {
@@ -46,7 +49,9 @@ export default new Vuex.Store({
         drinks: ["café", "leite"],
         food: ["bolo"],
         type: "Coffee Break",
-        img: require('../assets/eventosCatering.png')
+        img: require('../assets/eventosCatering.png'),
+        popularity: 120
+
 
       },
       {
@@ -55,7 +60,9 @@ export default new Vuex.Store({
         drinks: ["café", "leite"],
         food: ["bolo"],
         type: "Jantar de Gala",
-        img: require('../assets/eventosCatering.png')
+        img: require('../assets/eventosCatering.png'),
+        popularity: 340
+
 
       },
       {
@@ -64,7 +71,9 @@ export default new Vuex.Store({
         drinks: ["café", "leite"],
         food: ["bolo"],
         type: "Jantar de Gala",
-        img: require('../assets/eventosCatering.png')
+        img: require('../assets/eventosCatering.png'),
+        popularity: 0
+
 
       },
       {
@@ -73,7 +82,9 @@ export default new Vuex.Store({
         drinks: ["café", "leite"],
         food: ["bolo"],
         type: "Jantar de Gala",
-        img: require('../assets/eventosCatering.png')
+        img: require('../assets/eventosCatering.png'),
+        popularity: 0
+
 
       }
     ],
@@ -152,7 +163,7 @@ export default new Vuex.Store({
     userExists: false,
     bookings: [],
     areaBookings: [],
-    menuTypes: ['Coffee Break', 'Jantar de Gala', 'Porto de Honra'],
+    menuTypes: [],
     ingredients: [{
         id: 0,
         name: "Sem Bebida",
@@ -217,6 +228,24 @@ export default new Vuex.Store({
         name: "Outfit_3"
 
       },
+      {
+        id: 3,
+        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        name: "Outfit_4"
+
+      },
+      {
+        id: 4,
+        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        name: "Outfit_5"
+
+      },
+      {
+        id: 5,
+        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        name: "Outfit_6"
+
+      }
     ],
     schools: [{
       id: 0,

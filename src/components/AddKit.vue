@@ -12,7 +12,7 @@
                 <p>Tipo de Menu:</p>
                 <b-form-input list="my-list-id" v-model="type" placeholder="Tipo de Menu"></b-form-input>
                 <datalist id="my-list-id">
-                    <option v-for="type in types" :key="type">{{type}}</option>
+                    <option v-for="type in this.menuTypes" :key="type">{{type}}</option>
                 </datalist>
                 <br>
                 <br>

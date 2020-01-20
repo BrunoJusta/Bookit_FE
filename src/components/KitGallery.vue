@@ -2,19 +2,21 @@
     <div>
         <div id="CoffeeBreaks" class="container">
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
-            <div class="container" >
-                <div class="row" style="margin:auto;max-width: 470px;">
-                         <b-form-input  size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt" placeholder="Pesquisar...">
-                </b-form-input>
-     
-                <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
-                    <option selected>Todos</option>
-                    <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
-                </select>
+            <div class="container">
+                <div class="row" style="margin:auto;max-width: 620px;">
+                    <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
+                        placeholder="Pesquisar...">
+                    </b-form-input>
 
-                <button @click="clearFilters()">X</button>
+                    <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
+                        <option selected>Todos</option>
+                        <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
+                    </select>
+                    <button id="btnClear" class="btn rounded-0" @click="filterByPopularity()">Popularidade</button>
+
+                    <button id="btnClear" class="btn rounded-0" @click="clearFilters()">X</button>
                 </div>
-           
+
             </div>
 
             <div class="row">
@@ -105,11 +107,20 @@
                     }
                 }
             },
-            clearFilters(){
+            clearFilters() {
+                this.kits = this.$store.state.kits
                 this.selectTxt = "Todos";
                 this.searchTxt = "";
                 return this.kits;
 
+            },
+            comparePopularity(a, b) {
+                if (parseInt(a.popularity) > parseInt(b.popularity)) return -1
+                if (parseInt(a.popularity) < parseInt(b.popularity)) return 1
+                else return 0
+            },
+            filterByPopularity() {
+                this.kits.sort(this.comparePopularity)
             }
         },
         computed: {
@@ -132,7 +143,7 @@
                                 }
                                 return filterResult
                             }
-                       
+
                         }
                     )
                 } else {
@@ -184,6 +195,16 @@
 
     }
 
+    #btnClear {
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 12px;
+        background-color: #0A2463;
+        color: white;
+        height: 31px;
+    }
+
     .card-title {
         font-size: 20px;
         margin-bottom: .0rem;
@@ -197,18 +218,20 @@
     .card {
         border-radius: 0 !important;
     }
-    #searchInput{
+
+    #searchInput {
         width: 200px;
         margin: 10px;
-         border: 1px solid #C0C0C0;
+        border: 1px solid #C0C0C0;
 
 
     }
-    #inputGroupSelect01{
+
+    #inputGroupSelect01 {
         width: 200px;
-         margin: 10px;
-         border: 1px solid #C0C0C0;
-         color: #5C5C5C;
+        margin: 10px;
+        border: 1px solid #C0C0C0;
+        color: #5C5C5C;
 
     }
 </style>

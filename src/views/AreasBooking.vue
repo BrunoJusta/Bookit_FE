@@ -77,21 +77,35 @@
                 return this.$store.getters.areaBookingLastId + 1
             },
             saveAreaBooking() {
-                this.$store.commit('ADD_AREA_BOOKING', {
-                    id: this.getLastId(),
-                    userName: this.$store.getters.getName,
-                    userEmail: this.$store.getters.getEmail,
-                    areaName: this.$store.getters.getCurrentArea,
-                    areaImg: this.$store.getters.getCurrentAreaImg,
-                    reason: this.reason,
-                    date: this.date,
-                    duration: this.hi + "-" + this.hf,
-                    state: "Pendente"
-                })
-                alert("Enviado")
-                router.push({
-                    name: 'home'
-                })
+
+                let splited = this.date.split('-')
+                let year = splited[0]
+                let day = splited[2]
+                let month = splited[1]
+                if (parseInt(year) < new Date().getFullYear() || parseInt(year) > new Date().getFullYear() + 2) {
+                    alert("Introduza um ano correto (max ano atual + 2)")
+                } else {
+                    if (parseInt(day) <= new Date().getDate() && parseInt(month) == new Date().getMonth() + 1) {
+                        alert("Introduza um dia correto")
+                    } else {
+                        this.$store.commit('ADD_AREA_BOOKING', {
+                            id: this.getLastId(),
+                            userName: this.$store.getters.getName,
+                            userEmail: this.$store.getters.getEmail,
+                            areaName: this.$store.getters.getCurrentArea,
+                            areaImg: this.$store.getters.getCurrentAreaImg,
+                            reason: this.reason,
+                            date: this.date,
+                            duration: this.hi + "-" + this.hf,
+                            state: "Pendente"
+                        })
+                        alert("Enviado")
+                        router.push({
+                            name: 'home'
+                        })
+                    }
+                }
+
             }
         },
 

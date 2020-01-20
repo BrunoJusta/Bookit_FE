@@ -4,22 +4,17 @@
         </h3>
 
         <div class="container navOptn" style="justify-content: center;">
-            <button  class="optionsButton border-0"
-                v-bind:style="{fontWeight: kitInfoFont}">Informações
+            <button class="optionsButton border-0" v-bind:style="{fontWeight: kitInfoFont}">Informações
             </button>
-            <button  class="optionsButton border-0" v-bind:style="{fontWeight: addOnsFont}">
+            <button class="optionsButton border-0" v-bind:style="{fontWeight: addOnsFont}">
                 Complementos</button>
-            <button  class="optionsButton border-0"
-                v-bind:style="{fontWeight: extraFont}">Extras
+            <button class="optionsButton border-0" v-bind:style="{fontWeight: extraFont}">Extras
             </button>
-            <button  class="optionsButton border-0"
-                v-bind:style="{fontWeight: decorsFont}">Decoração
+            <button class="optionsButton border-0" v-bind:style="{fontWeight: decorsFont}">Decoração
             </button>
-            <button  class="optionsButton border-0"
-                v-bind:style="{fontWeight: outfitFont}">Fardas
+            <button class="optionsButton border-0" v-bind:style="{fontWeight: outfitFont}">Fardas
             </button>
-            <button  class="optionsButton border-0"
-                v-bind:style="{fontWeight: resumeFont}">Resumo
+            <button class="optionsButton border-0" v-bind:style="{fontWeight: resumeFont}">Resumo
             </button>
         </div>
         <form @submit.prevent="saveBooking()">
@@ -137,15 +132,13 @@
             </div>
             <div class="container" v-bind:style="{display: outfit}">
                 <div class="row">
-                    <div v-for="i in searchOutfits" :key="i.id">
-                        <div class="col-sm-4">
-                            <b-form-group>
-                                <b-form-checkbox-group id="checkbox-group-2" v-model="checkedImage">
-                                    <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
-                                    <img style="height:300px; width:auto" v-bind:src="i.source" />
-                                </b-form-checkbox-group>
-                            </b-form-group>
-                        </div>
+                    <div v-for="i in searchOutfits" :key="i.id" class="col-sm-2">
+                        <b-form-group>
+                            <b-form-checkbox-group id="checkbox-group-2" v-model="checkedImage">
+                                <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                                <img style="height:230px; width:auto" v-bind:src="i.source" />
+                            </b-form-checkbox-group>
+                        </b-form-group>
                     </div>
                 </div>
                 <button type="button" v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0"
@@ -251,7 +244,9 @@
                 checkedDecor: [],
                 checkedImage: [],
                 schools: [],
-                location: ""
+                location: "",
+                kits: [],
+
             }
         },
         created() {
@@ -266,6 +261,11 @@
                 this.ingredients = this.$store.state.ingredients
 
             }
+            if (localStorage.getItem("kits")) {
+                this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
+                this.kits = this.$store.state.kits
+
+            }
             this.extras = this.$store.state.extras
             this.decor = this.$store.state.decor
             this.outfits = this.$store.state.outfits
@@ -274,8 +274,8 @@
             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             this.kitName = this.$store.getters.getCurrentKitName
             this.kitType = this.$store.getters.getCurrentKitType
-
             this.schools = JSON.parse(localStorage.getItem("schools"))
+
         },
         components: {
             /*  KitInfo,
@@ -305,25 +305,37 @@
                 this.resumeFont = "normal"
             },
             displayAddOns() {
-                if(this.reason != "" && this.date !=  "" && this.hi != "" 
-                && this.hf != "" && this.schools != "" && this.location != ""
-                && this.people != "" ){
-     this.kitInfo = "none"
-                this.addOns = "block"
-                this.extra = "none"
-                this.decors = "none"
-                this.outfit = "none"
-                this.resume = "none"
-                this.kitInfoFont = "normal"
-                this.addOnsFont = "bold"
-                this.extraFont = "normal"
-                this.decorsFont = "normal"
-                this.outfitFont = "normal"
-                this.resumeFont = "normal"
-                }else{
+                if (this.reason != "" && this.date != "" && this.hi != "" &&
+                    this.hf != "" && this.schools != "" && this.location != "" &&
+                    this.people != "") {
+                    let splited = this.date.split('-')
+                    let year = splited[0]
+                    let day = splited[2]
+                    let month = splited[1]
+                    if (parseInt(year) < new Date().getFullYear() || parseInt(year) > new Date().getFullYear() + 2) {
+                        alert("Introduza um ano correto (max ano atual + 2)")
+                    } else {
+                        if (parseInt(day) <= new Date().getDate() && parseInt(month) == new Date().getMonth() + 1) {
+                            alert("Introduza um dia correto")
+                        } else {
+                            this.kitInfo = "none"
+                            this.addOns = "block"
+                            this.extra = "none"
+                            this.decors = "none"
+                            this.outfit = "none"
+                            this.resume = "none"
+                            this.kitInfoFont = "normal"
+                            this.addOnsFont = "bold"
+                            this.extraFont = "normal"
+                            this.decorsFont = "normal"
+                            this.outfitFont = "normal"
+                            this.resumeFont = "normal"
+                        }
+                    }
+                } else {
                     alert("PREENCHA")
                 }
-           
+
             },
             displayExtras() {
                 this.kitInfo = "none"
@@ -385,6 +397,12 @@
                 return this.$store.getters.bookingLastId + 1
             },
             saveBooking() {
+                for (let i in this.kits) {
+                    if (this.kits[i].name == this.kitName && this.kits[i].type == this.kitType) {
+                        this.kits[i].popularity = this.kits[i].popularity + 1
+                    }
+                }
+                localStorage.setItem("kits", JSON.stringify(this.kits));
                 this.$store.commit('ADD_BOOKING', {
                     id: this.getLastId(),
                     userName: this.userName,
