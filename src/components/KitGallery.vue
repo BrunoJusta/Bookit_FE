@@ -3,8 +3,8 @@
         <div id="CoffeeBreaks" class="container">
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
             <div class="container">
-                <div class="row" style="margin:auto;max-width: 620px;">
-                    
+                <div class="row" style="margin:auto;max-width: 680px;">
+
                     <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
                         <option selected>Todos</option>
                         <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
@@ -12,10 +12,11 @@
                     <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
                         placeholder="Nome do Menu...">
                     </b-form-input>
-
-                    <button id="btnClear" class="btn rounded-0" @click="filterByPopularity()">Popularidade</button>
-
-                    <button id="btnClear" class="btn rounded-0" @click="clearFilters()">X</button>
+                    <select id="inputGroupSelect02" @change="orderKits()" v-model="orderTxt">
+                        <option value="" disabled selected hidden>Ordenar por:</option>
+                        <option>Data de Criação</option>
+                        <option>Popularidade</option>
+                    </select>
                 </div>
 
             </div>
@@ -25,7 +26,9 @@
                     <div id="card-maker">
                         <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem"
                             :img-src="k.img" img-height="180rem" class="mb-2 border-0">
-                            <p align="right" style="padding-top:20px; margin-bottom: -40px; color: #0A2463"><img style="width:20px; padding-bottom: 5px;" src="../assets/star.svg" alt="" srcset=""> {{k.popularity}}</p>
+                            <p align="right" style="padding-top:20px; margin-bottom: -40px; color: #0A2463"><img
+                                    style="width:20px; padding-bottom: 5px;" src="../assets/star.svg" alt="" srcset="">
+                                {{k.popularity}}</p>
                             <b-button class="btn-book" squared>
                                 <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
                                     Ver Mais </router-link>
@@ -54,6 +57,7 @@
                 users: [],
                 searchTxt: "",
                 selectTxt: "Todos",
+                orderTxt: "",
                 reset: {
                     kitname: "",
                     kitType: "",
@@ -109,8 +113,15 @@
                     }
                 }
             },
+            orderKits() {
+                if (this.orderTxt == "Data de Criação") {
+                    this.clearFilters();
+                } else if (this.orderTxt == "Popularidade") {
+                    this.filterByPopularity();
+                }
+            },
             clearFilters() {
-                this.kits =  JSON.parse(localStorage.getItem("kits"))
+                this.kits = JSON.parse(localStorage.getItem("kits"))
                 this.selectTxt = "Todos";
                 this.searchTxt = "";
                 return this.kits;
@@ -225,8 +236,6 @@
         width: 200px;
         margin: 10px;
         border: 1px solid #C0C0C0;
-
-
     }
 
     #inputGroupSelect01 {
@@ -234,6 +243,16 @@
         margin: 10px;
         border: 1px solid #C0C0C0;
         color: #5C5C5C;
+    }
 
+    #inputGroupSelect02 {
+        width: 200px;
+        margin: 10px;
+        border: 1px solid #C0C0C0;
+        color: #5C5C5C;
+    }
+
+    label {
+        color: #5C5C5C;
     }
 </style>
