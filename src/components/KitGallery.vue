@@ -4,14 +4,15 @@
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
             <div class="container">
                 <div class="row" style="margin:auto;max-width: 620px;">
-                    <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
-                        placeholder="Pesquisar...">
-                    </b-form-input>
-
+                    
                     <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
                         <option selected>Todos</option>
                         <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
                     </select>
+                    <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
+                        placeholder="Nome do Menu...">
+                    </b-form-input>
+
                     <button id="btnClear" class="btn rounded-0" @click="filterByPopularity()">Popularidade</button>
 
                     <button id="btnClear" class="btn rounded-0" @click="clearFilters()">X</button>
@@ -108,7 +109,7 @@
                 }
             },
             clearFilters() {
-                this.kits = this.$store.state.kits
+                this.kits =  JSON.parse(localStorage.getItem("kits"))
                 this.selectTxt = "Todos";
                 this.searchTxt = "";
                 return this.kits;

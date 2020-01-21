@@ -77,7 +77,6 @@
                 let createType = true
                 for (let j in this.menuTypes) {
                     if (this.menuTypes[j] == this.kits[i].type) {
-                        alert(this.kits[i].type + "--- " + this.menuTypes[j])
                         createType = false;
                     }
                 }
