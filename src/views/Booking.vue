@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <button type="button" v-on:click="displayInfo()" class="btn btn-primary border-0 rounded-0"
-                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                    v-bind:style="{fontWeight: kitInfoFont}">Anterior
                 </button>
                 <button type="button" v-on:click="displayExtras()" class="btn btn-primary border-0 rounded-0"
                     v-bind:style="{fontWeight: extraFont}">Seguinte
@@ -109,7 +109,7 @@
                     </b-form-group>
                 </div>
                 <button type="button" v-on:click="displayAddOns()" class="btn btn-primary border-0 rounded-0"
-                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                    v-bind:style="{fontWeight: kitInfoFont}">Anterior
                 </button>
                 <button type="button" v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0"
                     v-bind:style="{fontWeight: extraFont}">Seguinte
@@ -124,7 +124,7 @@
                     </b-form-group>
                 </div>
                 <button type="button" v-on:click="displayExtras()" class="btn btn-primary border-0 rounded-0"
-                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                    v-bind:style="{fontWeight: kitInfoFont}">Anterior
                 </button>
                 <button type="button" v-on:click="displayOutfit()" class="btn btn-primary border-0 rounded-0"
                     v-bind:style="{fontWeight: extraFont}">Seguinte
@@ -142,7 +142,7 @@
                     </div>
                 </div>
                 <button type="button" v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0"
-                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                    v-bind:style="{fontWeight: kitInfoFont}">Anterior
                 </button>
                 <button type="button" v-on:click="displayResume()" class="btn btn-primary border-0 rounded-0"
                     v-bind:style="{fontWeight: extraFont}">Seguinte
@@ -173,39 +173,17 @@
                     </div>
                 </div>
                 <button type="button" v-on:click="displayOutfit()" class="btn btn-primary border-0 rounded-0"
-                    v-bind:style="{fontWeight: kitInfoFont}">Voltar
+                    v-bind:style="{fontWeight: kitInfoFont}">Anterior
                 </button>
                 <b-button type="submit" @click="saveCurrentKit()" value="Adicionar" class="btn btn-primary border-0"
                     squared>Confirmar
                 </b-button>
             </div>
-            <!-- <div v-if="kitInfo">
-                <KitInfo  v-bind:style="{display: kitInfo} " />
-            </div>
-            <div v-if="addOns">
-                <AddOns v-bind:style="{display: addOns}" />
-            </div>
-            <div v-if="extras">
-                <Extras v-bind:style="{display: extras}" />
-            </div>
-            <div v-if="decor">
-                <Decorations v-bind:style="{display: decor}" />
-            </div>
-            <div v-if="outfits">
-                <Outfits v-bind:style="{display: outfits}" />
-            </div>
-            <br> -->
-
         </form>
     </div>
 </template>
 
 <script>
-    /*  import KitInfo from '@/components/KitInfo.vue';
-    import AddOns from '@/components/AddOns.vue';
-    import Extras from '@/components/Extras.vue';
-    import Decorations from '@/components/Decorations.vue';
-    import Outfits from '@/components/Outfits.vue'; */
     import router from '../router';
 
     export default {

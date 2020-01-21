@@ -4,35 +4,47 @@
         <div class="container col-sm-4">
             <form @submit.prevent="addKit()">
                 <!-- NOME -->
-                <label for="name">Nome:</label>
+                <label for="name" id="title">Nome:</label>
                 <input id="name" v-model="name">
                 <br>
                 <br>
                 <!-- Tipo de Menu -->
-                <p>Tipo de Menu:</p>
-                <b-form-input list="my-list-id" v-model="type" placeholder="Tipo de Menu"></b-form-input>
-                <datalist id="my-list-id">
-                    <option v-for="type in this.menuTypes" :key="type">{{type}}</option>
-                </datalist>
-                <br>
-                <br>
-                <!-- NOME -->
-                <label for="name">Image link:</label>
-                <input id="img" v-model="img">
-                <!-- INGREDIENTES -->
-                <label for="ing">Ingredientes:</label>
-                <div class="container" id="ing" v-for="i in searchKits" :key="i.id">
-                    <div v-if="i.type == 'Food'">
-                        <input type="checkbox" :value="i.name" v-model="checkedFood">{{i.name}}
+                <p id="title">Tipo de Menu:</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <b-form-input list="my-list-id" v-model="type" placeholder="Tipo de Menu"></b-form-input>
+                        <datalist id="my-list-id">
+                            <option v-for="type in this.menuTypes" :key="type">{{type}}</option>
+                        </datalist>
                     </div>
-                    <div v-if="i.type == 'Drink'">
-                        <input type="checkbox" :value="i.name" v-model="checkedDrink">{{i.name}}
+                    <div class="col-sm-6">
+                        <input type="text" v-model="newType" @click="teste()" placeholder="outro...">
                     </div>
                 </div>
-                <input type="text" name="" v-model="newType" id="" placeholder="outro...">
+                <br>
+                <!-- NOME -->
+                <label for="name" id="title">Image link:</label>
+                <input id="img" v-model="img">
+                <!-- INGREDIENTES -->
+                <div class="row" style="width:300px; margin: auto;">
+                    <div class="col-sm-6">
+                        <label for="ing" id="title">Comidas:</label>
+                        <div class="container" id="ing" v-for="i in filteredFood" :key="i.id">
+                            <input type="checkbox" :value="i.name" v-model="checkedFood">{{i.name}}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="ing2" id="title">Bebidas:</label>
+                        <div class="container" id="ing2" v-for="j in filteredDrinks" :key="j.id">
+                            <input type="checkbox" :value="j.name" v-model="checkedDrink">{{j.name}}
+                        </div>
+                    </div>
+                </div>  
                 <br>
                 <br>
-                <img :src="img" alt="" srcset="">
+                <img :src="img" style="height:100px;">
+                <br>
+                <br>
                 <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
             </form>
         </div>
@@ -75,28 +87,15 @@
             if (localStorage.getItem("menuTypes")) {
                 this.$store.state.menuTypes = JSON.parse(localStorage.getItem("menuTypes"))
             }
-
             this.menuTypes = this.$store.state.menuTypes
             this.users = this.$store.state.users
             this.ingredients = this.$store.state.ingredients
-
-
-        },
-        computed: {
-            searchKits() {
-
-                return this.ingredients;
-
-
-            }
         },
         methods: {
             getLastId() {
                 return this.$store.getters.kitLastId + 1
             },
             addKit() {
-
-
                 if (this.newType !== "") {
                     for (let j in this.users) {
 
@@ -118,8 +117,6 @@
                     })
                     this.menuTypes.push(this.newType)
                     localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes));
-
-
                 } else {
                     for (let j in this.users) {
 
@@ -140,14 +137,29 @@
                         img: this.img
                     })
                 }
-
-
                 alert("adicionado")
+            }
+        },
+        computed: {
+            searchKits() {
+                return this.ingredients;
             },
+            filteredFood() {
+                return this.ingredients.filter(
+                    (x) => x.type == "Food"
+                )
+            },
+            filteredDrinks() {
+                return this.ingredients.filter(
+                    (x) => x.type == "Drink"
+                )
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-
+    #title {
+        font-weight: bold;
+    }
 </style>
