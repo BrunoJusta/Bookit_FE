@@ -3,7 +3,7 @@
         <div id="CoffeeBreaks" class="container">
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
             <div class="container">
-                <div class="row" style="margin:auto;max-width: 820px;">
+                <div class="row" style="margin:auto;max-width: 680px;">
 
                     <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
                         <option selected>Todos</option>
@@ -14,7 +14,7 @@
                     </b-form-input>
                     <select id="inputGroupSelect02" @change="orderKits()" v-model="orderTxt">
                         <option value="" disabled selected hidden>Ordenar por:</option>
-                        <option>Sem ordenação</option>
+                        <option>Data de Criação</option>
                         <option>Popularidade</option>
                     </select>
                 </div>
@@ -114,8 +114,7 @@
                 }
             },
             orderKits() {
-                alert(this.orderTxt)
-                if (this.orderTxt == "Sem ordenação") {
+                if (this.orderTxt == "Data de Criação") {
                     this.clearFilters();
                 } else if (this.orderTxt == "Popularidade") {
                     this.filterByPopularity();
