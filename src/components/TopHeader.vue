@@ -11,7 +11,7 @@
                             </b-button>
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
-                                <router-link to="/">Sair</router-link>
+                                <router-link style="color:black;" to="/">Sair</router-link>
                             </b-button>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
             }
             this.kits = this.$store.state.kits
             this.$store.commit('STORE_ITEMS')
-            
+
             for (let i in this.kits) {
                 let createType = true
                 for (let j in this.menuTypes) {
@@ -149,8 +149,9 @@
     }
 
     #logout-btn {
-        background-color: #0a2463;
+        background-color: white;
         margin-left: 10px;
+        border: 0px;
     }
 
     a {
