@@ -131,26 +131,48 @@
                                     this.form.newPW = ""
                                     this.form.oldPW = ""
                                     this.form.confirmPW = ""
-                                    alert("Palavra-Passe alterada com sucesso!")
+
+                                    const toast = swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 1000,
+                                        timerProgressBar: true
+                                    });
+
+                                    toast.fire({
+                                        icon: 'success',
+                                        title: 'Palavra-passe alterada!'
+                                    })
+
                                     this.displayInfo();
                                 } else {
                                     this.oldPW = ""
                                     this.newPW = ""
                                     this.confirmPW = ""
-                                    alert("As Palavras-Passe não coincidem!")
+                                    Swal.fire({
+                                        icon: 'error',
+                                        text: 'As palavras-passe não coincidem!'
+                                    })
                                 }
                             } else {
                                 this.oldPW = ""
                                 this.newPW = ""
                                 this.confirmPW = ""
-                                alert("A nova Palavra-passe não pode ser igual à palavra-passe atual!")
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: 'A nova Palavra-passe não pode ser igual à palavra-passe atual!'
+                                })
                             }
 
                         } else {
                             this.oldPW = ""
                             this.newPW = ""
                             this.confirmPW = ""
-                            alert("Palavra-Passe atual errada!")
+                            Swal.fire({
+                                icon: 'error',
+                                text: 'A Palavra-passe atual está errada!'
+                            })
                         }
                     }
                 }
@@ -166,11 +188,25 @@
                             localStorage.setItem("users", JSON.stringify(this.users));
                             localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser));
                             this.form.newContact = ""
-                            alert("Contacto atualizado com sucesso!")
+                            const toast = swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 1000,
+                                timerProgressBar: true
+                            });
+
+                            toast.fire({
+                                icon: 'success',
+                                title: 'Contacto atualizado!'
+                            })
                             this.displayInfo();
                         } else {
                             this.form.newContact = ""
-                            alert("O novo contacto não podem ser igual ao atual!")
+                            Swal.fire({
+                                icon: 'error',
+                                text: 'O novo contacto não podem ser igual ao atual!'
+                            })
                         }
                     }
                 }
@@ -185,7 +221,18 @@
                         localStorage.setItem("users", JSON.stringify(this.users));
                         localStorage.setItem("loggedUser", JSON.stringify(this.$store.state.loggedUser));
                         this.form.newImg = ""
-                        alert("Contacto atualizado com sucesso!")
+                        const toast = swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true
+                        });
+
+                        toast.fire({
+                            icon: 'success',
+                            title: 'Imagem atualizada!'
+                        })
                         this.displayInfo();
                     }
                 }

@@ -141,7 +141,10 @@
                         school: this.school,
                     })
                 } else {
-                    alert("Introduza um mail valido do IPP")
+                    Swal.fire({
+                    icon: 'warning',
+                    text: 'Introduza um email válido do IPP!',
+                })
                 }
 
             },

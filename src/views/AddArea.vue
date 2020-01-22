@@ -52,8 +52,8 @@
                 name: "",
                 description: "",
                 img: "",
-                users:[],
-                areas:[]
+                users: [],
+                areas: []
             }
         },
         created() {
@@ -83,7 +83,10 @@
                     img: this.img
 
                 })
-                alert("adicionado")
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Adicionado!'
+                })
             },
         }
     }

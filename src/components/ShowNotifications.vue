@@ -131,7 +131,6 @@
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        alert("Removido")
                     }
                 }
             },
@@ -146,14 +145,12 @@
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        alert("Removido")
                     }
                 }
             },
             achived(txt) {
                 for (let i in this.notifications) {
                     if (this.notifications[i].txt === txt) {
-                        alert(this.notifications[i].txt)
                         for (let j in this.users) {
                             if (this.users[j].email === this.$store.getters.getEmail) {
                                 this.users[j].archivations.push({
@@ -165,7 +162,17 @@
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        alert("Arquivado")
+                        const toast = swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true
+                        });
+
+                        toast.fire({
+                            title: 'Notificação Arquivada'
+                        })
                     }
                 }
             },
@@ -182,7 +189,6 @@
 </script>
 
 <style lang="scss" scoped>
-
     #redTitle {
         font-family: "bookMan";
         font-size: 45px;

@@ -2,7 +2,8 @@
     <div>
         <div class="container">
             <div class="container" style="max-width:300px">
-            <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar..."></b-form-input>
+                <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
+                </b-form-input>
             </div>
             <div class="row">
                 <div class="col-sm-4" v-for="a in filteredRunnings" :key="a.id">
@@ -13,8 +14,8 @@
                                 <router-link :to="{name: x, params: {areaId: a.id}}" class="teste" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
-                             <b-button @click="deleteArea(a.name)" class="btn-remove border-0" :id="a.id"
-                               v-if="show === 'admin'" squared> X </b-button>
+                            <b-button @click="deleteArea(a.name)" class="btn-remove border-0" :id="a.id"
+                                v-if="show === 'admin'" squared> X </b-button>
                         </b-card>
                     </div>
 
@@ -55,7 +56,7 @@
             return {
                 areas: [],
                 x: "",
-                show: this.$store.getters.getUserType ,
+                show: this.$store.getters.getUserType,
                 teste: this.$store.state.logged,
                 searchTxt: "",
                 reset: {
@@ -77,14 +78,14 @@
             this.$store.state.currentArea = ({
                 areaName: "",
             })
-            
+
         },
-        methods:{
-               deleteArea(name) {
+        methods: {
+            deleteArea(name) {
 
                 for (let i = 0; i <= this.areas.length; i++) {
                     if (this.areas[i].name === name) {
-                          for (let j in this.users) {
+                        for (let j in this.users) {
 
                             if (this.users[j].userType === "cliente") {
                                 this.users[j].notifications.push({
@@ -96,7 +97,10 @@
                         }
                         this.areas.splice(i, 1)
                         localStorage.setItem("areas", JSON.stringify(this.areas));
-                        alert("AREA ELIMINADA")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Espaço eliminado!',
+                        })
                     }
 
 
@@ -139,8 +143,8 @@
     .card {
         border-radius: 0 !important;
     }
-    
-      .btn-remove {
+
+    .btn-remove {
         font-size: 10px;
         background-color: #B91C3B;
         margin-top: -208px;

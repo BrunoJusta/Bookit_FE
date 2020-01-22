@@ -100,7 +100,22 @@
         },
         methods: {
             logout() {
-                alert("logout efetuado com sucesso")
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true
+                });
+
+                toast.fire({
+                    icon: 'success',
+                    title: 'Terminou sessão com sucesso!'
+                })
+
+                /* Swal.fire({
+                    text: 'Sessão terminada!'
+                }) */
                 this.$store.commit('LOGOUT')
             }
         },

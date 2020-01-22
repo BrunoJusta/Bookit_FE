@@ -2,7 +2,8 @@
     <div>
         <div class="container">
             <div class="container" style="max-width:300px">
-            <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar..."></b-form-input>
+                <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
+                </b-form-input>
 
             </div>
             <div class="row">
@@ -35,7 +36,7 @@
         data: function () {
             return {
                 workshops: [],
-                users:[],
+                users: [],
                 searchTxt: "",
                 x: "",
                 remove: "",
@@ -60,7 +61,7 @@
                 this.choose = "visible"
             }
 
-            
+
             if (localStorage.getItem("users")) {
                 this.$store.state.users = JSON.parse(localStorage.getItem("users"))
             }
@@ -73,7 +74,7 @@
 
                 for (let i = 0; i <= this.workshops.length; i++) {
                     if (this.workshops[i].name === name) {
-                          for (let j in this.users) {
+                        for (let j in this.users) {
 
                             if (this.users[j].userType === "cliente") {
                                 this.users[j].notifications.push({
@@ -85,7 +86,10 @@
                         }
                         this.workshops.splice(i, 1)
                         localStorage.setItem("workshops", JSON.stringify(this.workshops));
-                        alert("WORKSHOP ELIMINADO")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Workshop eliminado!'
+                        })
                     }
 
 
@@ -99,7 +103,7 @@
             searchWorkshops() {
                 return this.workshops;
             },
-             filteredRunnings() {
+            filteredRunnings() {
                 return this.workshops.filter(
                     (run) => {
                         let filterResult = true
@@ -154,7 +158,7 @@
         border-radius: 0 !important;
     }
 
-      .btn-remove {
+    .btn-remove {
         font-size: 10px;
         background-color: #B91C3B;
         margin-top: -218px;

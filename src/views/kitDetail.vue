@@ -174,14 +174,20 @@
             }
             if (this.checkedFood.length != 0) {
               if (this.checkedFood.length != 1 && this.checkedFood.some(food => food === "Sem Comida")) {
-                alert("Escolha a comida correta!")
+                Swal.fire({
+                  icon: 'warning',
+                  text: 'Escolha a comida correta!'
+                })
               } else {
                 this.kits[k].food = this.checkedFood
               }
             }
             if (this.checkedDrinks.length != 0) {
               if (this.checkedDrinks.length != 1 && this.checkedDrinks.some(drink => drink === "Sem Bebida")) {
-                alert("Escolha a bebida correta!")
+                Swal.fire({
+                  icon: 'warning',
+                  text: 'Escolha a bebida correta!'
+                })
               } else {
                 this.kits[k].drinks = this.checkedDrinks
               }

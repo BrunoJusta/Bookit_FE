@@ -22,7 +22,8 @@
 
         <!-- MOSTRA TABELA DAS RESERVAS -->
         <div class="container" v-if="this.bookings.length != 0" v-bind:style="{display:  bookingTable}">
-            <b-input class="rounded-0" type="text" v-model="searchBookings" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
+            <b-input class="rounded-0" type="text" v-model="searchBookings" style="max-width: 300px; margin: auto;"
+                placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredBookings" :fields="fields">
@@ -71,7 +72,8 @@
 
         <!-- MOSTRA TABELA DAS AREAS -->
         <div v-if="this.areas.length != 0" class="container" v-bind:style="{display: areasTable}">
-            <b-input type="text" class="rounded-0"  v-model="searchAreas" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
+            <b-input type="text" class="rounded-0" v-model="searchAreas" style="max-width: 300px; margin: auto;"
+                placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredAreas" :fields="fields2">
@@ -254,7 +256,10 @@
                     if (this.bookings[i].id === id) {
                         this.bookings = this.bookings.filter(booking => this.bookings[i].id != booking.id);
                         localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                        alert("Removido")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Removido'
+                        })
                     }
                 }
 
@@ -264,7 +269,10 @@
                     if (this.areas[i].id === id) {
                         this.areas = this.areas.filter(area => this.areas[i].id != area.id);
                         localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                        alert("Removido")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Removido'
+                        })
                     }
                 }
             },
@@ -283,7 +291,10 @@
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        alert("aprovado")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Aprovado'
+                        })
                     }
                 }
             },
@@ -302,7 +313,10 @@
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        alert("Recusado")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Recusado'
+                        })
                     }
                 }
             },
@@ -313,7 +327,6 @@
                         localStorage.setItem("areasBooking", JSON.stringify(this.areas));
                         for (let j in this.users) {
                             if (this.users[j].email === userEmail) {
-                                alert("olaaa")
                                 this.users[j].notifications.push({
                                     txt: 'A sua reserva do ' + this.areas[i].areaName +
                                         ' para a data ' + this.areas[i].date + ' foi aceite!'
@@ -321,7 +334,10 @@
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        alert("aprovado")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Aprovado'
+                        })
                     }
                 }
             },
@@ -339,7 +355,10 @@
                                 localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        alert("Recusado")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Recusado'
+                        })
                     }
                 }
             }

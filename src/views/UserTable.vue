@@ -10,7 +10,8 @@
         </div>
 
         <div class="container">
-            <b-input class="rounded-0" type="text" v-model="searchUsers" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
+            <b-input class="rounded-0" type="text" v-model="searchUsers" style="max-width: 300px; margin: auto;"
+                placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredUsers" :fields="fields">
@@ -92,7 +93,10 @@
                     if (this.users[i].id === id) {
                         this.users = this.users.filter(user => this.users[i].id != user.id);
                         localStorage.setItem("users", JSON.stringify(this.users));
-                        alert("Removido")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Utilizador removido!'
+                        })
                     }
                 }
 
@@ -102,7 +106,10 @@
                     if (this.users[i].id === id) {
                         this.users[i].userType = "admin"
                         localStorage.setItem("users", JSON.stringify(this.users));
-                        alert("aprovado")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Tipo de utilizador alterado!'
+                        })
                     }
                 }
             },
@@ -111,7 +118,10 @@
                     if (this.users[i].id === id) {
                         this.users[i].userType = "cliente"
                         localStorage.setItem("users", JSON.stringify(this.users));
-                        alert("aprovado")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Tipo de utilizador alterado!'
+                        })
                     }
                 }
             }
@@ -149,8 +159,8 @@
             }
         },
         rows() {
-                return this.users.length
-            },
+            return this.users.length
+        },
     }
 </script>
 

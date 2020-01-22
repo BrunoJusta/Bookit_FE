@@ -128,10 +128,10 @@
                     type: ingType
                 })
                 localStorage.setItem("ingredients", JSON.stringify(this.ingredients));
-                alert("Adicionado!")
-
-
-
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Adicionado!',
+                })
             },
             remove(id) {
                 for (let i in this.ingredients) {
@@ -139,7 +139,10 @@
                         this.ingredients = this.ingredients.filter(ingredient => this.ingredients[i].id != ingredient
                             .id);
                         localStorage.setItem("ingredients", JSON.stringify(this.ingredients));
-                        alert("Removido")
+                        Swal.fire({
+                    icon: 'success',
+                    text: 'Removido!',
+                })
                     }
                 }
             },

@@ -110,7 +110,10 @@
                     img: this.img
 
                 })
-                alert("adicionado")
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Adicionado!',
+                })
             },
         }
     }

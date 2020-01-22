@@ -143,9 +143,23 @@
               })
               this.workshops[j].vacancies = this.workshops[j].vacancies - 1
               localStorage.setItem("workshops", JSON.stringify(this.workshops));
-              alert("Inscrito com sucesso!")
+              const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true
+              });
+
+              toast.fire({
+                icon: 'success',
+                title: 'Inscrito com sucesso!'
+              })
             } else {
-              alert("Já inscrito")
+              Swal.fire({
+                icon: 'warning',
+                text: 'Já inscrito!'
+              })
             }
           }
         }
@@ -199,7 +213,10 @@
             }
             this.workshops[a].description = newDesc
             localStorage.setItem("workshops", JSON.stringify(this.workshops));
-            alert("Alterado")
+            Swal.fire({
+              icon: 'success',
+              text: 'Alterado!'
+            })
 
           }
         }

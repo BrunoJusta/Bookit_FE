@@ -103,7 +103,10 @@
                     name: this.name,
                 })
                 localStorage.setItem("extras", JSON.stringify(this.extras));
-                alert("Adicionado!")
+               Swal.fire({
+                    icon: 'success',
+                    text: 'Adicionado!',
+                })
 
 
 
@@ -114,7 +117,10 @@
                         this.extras = this.extras.filter(extra => this.extras[i].id != extra
                             .id);
                         localStorage.setItem("extras", JSON.stringify(this.extras));
-                        alert("Removido")
+                        Swal.fire({
+                    icon: 'success',
+                    text: 'Removido!',
+                })
                     }
                 }
             }

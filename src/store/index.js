@@ -295,7 +295,10 @@ export default new Vuex.Store({
     ADD_USER(state, payload) {
       if (!state.users.some(user => user.email === payload.email)) {
         if (payload.password != payload.confPassword) {
-          alert("PASSWORDS DIFERENTES");
+          Swal.fire({
+            icon: 'error',
+            text: 'As palavras-passe não coincidem!'
+          })
         } else {
           state.users.push({
             id: payload.id,
@@ -311,13 +314,19 @@ export default new Vuex.Store({
             archivations: [],
           });
           localStorage.setItem("users", JSON.stringify(state.users));
-          alert("Registado");
+          Swal.fire({
+            icon: 'success',
+            text: 'Registado com sucesso!'
+          })
           router.push({
             name: 'login'
           })
         }
       } else {
-        alert("E-MAIL JÁ EXISTENTE");
+        Swal.fire({
+          icon: 'error',
+          text: 'Este email já está a ser usado!'
+        })
       }
     },
     LOGIN(state, payload) {
@@ -349,7 +358,32 @@ export default new Vuex.Store({
               name: 'home',
             })
             if (state.loggedUser.notifications.length != 0) {
-              alert("Tem " + state.loggedUser.notifications.length + " Notificações!")
+              const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
+              });
+
+              toast.fire({
+                icon: 'success',
+                title: 'Bem-vindo ' + state.loggedUser.name,
+                text: "Tem " + state.loggedUser.notifications.length + " Notificações!",
+              })
+            } else {
+              const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true
+              });
+
+              toast.fire({
+                icon: 'success',
+                title: 'Bem-vindo ' + state.loggedUser.name,
+              })
             }
           }
           break
@@ -358,7 +392,10 @@ export default new Vuex.Store({
         }
       }
       if (state.userExists === false) {
-        alert("Credenciais Inválidas");
+        Swal.fire({
+          icon: 'error',
+          text: 'Credenciais erradas!'
+        })
       }
     },
     LOGOUT(state) {
@@ -380,7 +417,10 @@ export default new Vuex.Store({
         });
         localStorage.setItem("kits", JSON.stringify(state.kits));
       } else {
-        alert("Nome já em uso!");
+        Swal.fire({
+          icon: 'warning',
+          text: 'Já existe um menu com esse nome!'
+        })
       }
     },
     ADD_WORKSHOP(state, payload) {
@@ -396,7 +436,10 @@ export default new Vuex.Store({
         });
         localStorage.setItem("workshops", JSON.stringify(state.workshops));
       } else {
-        alert("Workshop já existe!");
+        Swal.fire({
+          icon: 'warning',
+          text: 'Já existe um workshop com esse nome!'
+        })
       }
     },
     ADD_AREA(state, payload) {
@@ -409,7 +452,10 @@ export default new Vuex.Store({
         });
         localStorage.setItem("areas", JSON.stringify(state.areas));
       } else {
-        alert("Area já existe!");
+        Swal.fire({
+          icon: 'warning',
+          text: 'Já existe um espaço com esse nome!'
+        })
       }
     },
     ADD_BOOKING(state, payload) {
@@ -459,7 +505,10 @@ export default new Vuex.Store({
         });
         localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
       } else {
-        alert("Ingrediente já existe!");
+        Swal.fire({
+          icon: 'warning',
+          text: 'Já existe este ingrediente!'
+        })
       }
     }
   },
@@ -556,7 +605,7 @@ export default new Vuex.Store({
     getContact(state) {
       return state.loggedUser.number
     },
-    getSchool(state){
+    getSchool(state) {
       return state.loggedUser.school
     },
     getUserImg(state) {

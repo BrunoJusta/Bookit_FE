@@ -291,10 +291,16 @@
                     let day = splited[2]
                     let month = splited[1]
                     if (parseInt(year) < new Date().getFullYear() || parseInt(year) > new Date().getFullYear() + 2) {
-                        alert("Introduza um ano correto (max ano atual + 2)")
+                        Swal.fire({
+                        icon: 'warning',
+                        text: 'Introduza um ano válido!'
+                    })
                     } else {
                         if (parseInt(day) <= new Date().getDate() && parseInt(month) == new Date().getMonth() + 1) {
-                            alert("Introduza um dia correto")
+                            Swal.fire({
+                            icon: 'warning',
+                            text: 'Introduza um dia válido!'
+                        })
                         } else {
                             this.kitInfo = "none"
                             this.addOns = "block"
@@ -311,7 +317,10 @@
                         }
                     }
                 } else {
-                    alert("PREENCHA")
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'Toda a informação desta página deve ser preenchida!'
+                    })
                 }
 
             },
@@ -400,7 +409,18 @@
                     outfit: this.checkedImage,
                     state: "Pendente"
                 })
-                alert("Reserva Concluida")
+                const toast = swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true
+                        });
+
+                        toast.fire({
+                            icon: 'success',
+                            title: 'A sua reserva foi enviada!'
+                        })
                 router.push({
                     name: 'home'
                 })

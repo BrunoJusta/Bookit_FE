@@ -10,7 +10,8 @@
         </div>
 
         <div class="container table" v-if="this.workshops.length != 0">
-            <b-input class="rounded-0" type="text" v-model="searchWorkshops" style="max-width: 300px; margin: auto;" placeholder="Pesquisar..."></b-input>
+            <b-input class="rounded-0" type="text" v-model="searchWorkshops" style="max-width: 300px; margin: auto;"
+                placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredWorkshops" :fields="fields">
@@ -21,7 +22,7 @@
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
-         <div class="container" v-else>
+        <div class="container" v-else>
             <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
             <h4> Não existem Workshops</h4>
         </div>
@@ -75,11 +76,17 @@
                 for (let i in this.workshops) {
                     if (this.workshops[i].id === id) {
                         if (this.workshops[i].inscriptions.length !== 0) {
-                            alert("Não pode remover este workshop porque já existem incrições feitas!")
+                            Swal.fire({
+                                icon: 'warning',
+                                text: 'Não pode remover este workshop porque já existem incrições feitas!'
+                            })
                         } else {
                             this.workshops = this.workshops.filter(workshop => this.workshops[i].id != workshop.id);
                             localStorage.setItem("workshops", JSON.stringify(this.workshops));
-                            alert("Removido")
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'Removido'
+                            })
                         }
                     }
                 }
@@ -103,11 +110,11 @@
             }
         },
         searchInscriptions() {
-                return this.workshops;
-            },
-            rows() {
-                return this.workshops.length
-            }
+            return this.workshops;
+        },
+        rows() {
+            return this.workshops.length
+        }
     }
 </script>
 

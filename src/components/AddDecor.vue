@@ -12,9 +12,7 @@
         <h2>Gerir Decoração</h2>
 
         <div class="container">
-
             <div class="row">
-
                 <div align="center" id="AddIng" class="col-sm-6">
                     <form @submit.prevent="addDecor()">
                         <input type="text" v-model="name" name="" id="ingNome" placeholder="Decoração">
@@ -22,10 +20,7 @@
                         <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
                     </form>
                 </div>
-
-
                 <div class="col-sm-6">
-
                     <div class="container table" v-if="this.decor.length != 0">
                         <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
@@ -41,24 +36,9 @@
                         <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
                         <h4> Não existem decorações</h4>
                     </div>
-
                 </div>
-
-
-
-
-
-
             </div>
-
         </div>
-
-
-
-
-
-
-
     </div>
 </template>
 
@@ -91,7 +71,7 @@
         },
         created() {
             if (JSON.parse(localStorage.getItem("decor"))) {
-                this.$store.state.decor= JSON.parse(localStorage.getItem("decor"))
+                this.$store.state.decor = JSON.parse(localStorage.getItem("decor"))
             }
             this.decor = this.$store.state.decor
 
@@ -103,10 +83,10 @@
                     name: this.name,
                 })
                 localStorage.setItem("decor", JSON.stringify(this.decor));
-                alert("Adicionado!")
-
-
-
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Adicionado!'
+                })
             },
             remove(id) {
                 for (let i in this.decor) {
@@ -114,7 +94,10 @@
                         this.decor = this.decor.filter(d => this.decor[i].id != d
                             .id);
                         localStorage.setItem("decor", JSON.stringify(this.decor));
-                        alert("Removido")
+                        Swal.fire({
+                    icon: 'success',
+                    text: 'Removido!',
+                })
                     }
                 }
             }

@@ -115,7 +115,10 @@
               this.areas[a].description = newDesc
               localStorage.setItem("areas", JSON.stringify(this.areas));
             }
-            alert("Alterado")
+            Swal.fire({
+                    icon: 'success',
+                    text: 'Alterado!'
+                })
           }
         }
       },

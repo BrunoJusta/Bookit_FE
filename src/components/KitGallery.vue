@@ -2,7 +2,7 @@
     <div>
         <div id="CoffeeBreaks" class="container">
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
-            <div  v-if="this.userType == 'admin'" class="container">
+            <div v-if="this.userType == 'admin'" class="container">
                 <div class="row" style="margin:auto;max-width: 680px;">
 
                     <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
@@ -12,7 +12,7 @@
                     <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
                         placeholder="Nome do Menu...">
                     </b-form-input>
-                    <select  id="inputGroupSelect02" @change="orderKits()" v-model="orderTxt">
+                    <select id="inputGroupSelect02" @change="orderKits()" v-model="orderTxt">
                         <option value="" disabled selected hidden>Ordenar por:</option>
                         <option>Data de Criação</option>
                         <option>Popularidade</option>
@@ -20,7 +20,7 @@
                 </div>
 
             </div>
-                 <div v-else class="container">
+            <div v-else class="container">
                 <div class="row" style="margin:auto;max-width: 460px;">
 
                     <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
@@ -30,7 +30,8 @@
                     <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
                         placeholder="Nome do Menu...">
                     </b-form-input>
-                    <select v-if="this.userType == 'admin'" id="inputGroupSelect02" @change="orderKits()" v-model="orderTxt">
+                    <select v-if="this.userType == 'admin'" id="inputGroupSelect02" @change="orderKits()"
+                        v-model="orderTxt">
                         <option value="" disabled selected hidden>Ordenar por:</option>
                         <option>Data de Criação</option>
                         <option>Popularidade</option>
@@ -57,7 +58,7 @@
                     </div>
                 </div>
             </div>
-             <div v-else class="row">
+            <div v-else class="row">
                 <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredKits" :key="k.id">
                     <div id="card-maker">
                         <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem"
@@ -144,7 +145,10 @@
                         }
                         this.kits.splice(i, 1)
                         localStorage.setItem("kits", JSON.stringify(this.kits));
-                        alert("KIT ELIMINADO")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Menu eliminado!',
+                        })
                     }
                 }
             },

@@ -93,7 +93,7 @@
         },
         created() {
             if (JSON.parse(localStorage.getItem("outfits"))) {
-                this.$store.state.outfits= JSON.parse(localStorage.getItem("outfits"))
+                this.$store.state.outfits = JSON.parse(localStorage.getItem("outfits"))
             }
             this.outfits = this.$store.state.outfits
 
@@ -106,10 +106,10 @@
                     source: this.source
                 })
                 localStorage.setItem("outfits", JSON.stringify(this.outfits));
-                alert("Adicionado!")
-
-
-
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Adicionado!',
+                })
             },
             remove(id) {
                 for (let i in this.outfits) {
@@ -117,7 +117,10 @@
                         this.outfits = this.outfits.filter(d => this.outfits[i].id != d
                             .id);
                         localStorage.setItem("outfits", JSON.stringify(this.outfits));
-                        alert("Removido")
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Removido!',
+                        })
                     }
                 }
             }
