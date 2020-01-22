@@ -266,6 +266,11 @@
     background-color: #0A2463;
     margin: 20px;
     margin-top: 50px;
+    transition: all .2s ease-in-out;
+  }
+
+  .btn-book:hover{
+     transform: scale(1.1); 
   }
 
   .overflow-hidden {

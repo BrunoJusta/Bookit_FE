@@ -211,38 +211,38 @@ export default new Vuex.Store({
       id: 2,
       name: "Fitas Coloridas"
     }],
-    outfits: [{
+   outfits: [{
         id: 0,
-        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        source:  require('../assets/farda01.png'),
         name: "Outfit_1"
       },
       {
         id: 1,
-        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        source: require('../assets/farda03.png'),
         name: "Outfit_2"
 
       },
       {
         id: 2,
-        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        source: require('../assets/farda04.png'),
         name: "Outfit_3"
 
       },
       {
         id: 3,
-        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        source: require('../assets/farda02.png'),
         name: "Outfit_4"
 
       },
       {
         id: 4,
-        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        source:require('../assets/farda05.png'),
         name: "Outfit_5"
 
       },
       {
         id: 5,
-        source: "https://i.pinimg.com/736x/fb/53/67/fb536700b0fc7f07b7e7542835103eb7--uniform-design-uniform-ideas.jpg",
+        source: require('../assets/farda06.png'),
         name: "Outfit_6"
 
       }

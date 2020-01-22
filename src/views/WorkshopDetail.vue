@@ -293,8 +293,12 @@
     margin: 20px;
     margin-top: 50px;
 
+    transition: all .2s ease-in-out;
   }
 
+  .btn-book:hover {
+    transform: scale(1.1);
+  }
   .overflow-hidden {
     -webkit-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
     -moz-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);

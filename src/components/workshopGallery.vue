@@ -130,8 +130,13 @@
     #card-maker {
         padding-bottom: 60px;
         padding-top: 30px;
+        transition: all .2s ease-in-out;
     }
 
+    #card-maker:hover{
+         transform: scale(1.1); 
+
+    }
     .border-0 {
         --webkit-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
         -moz-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);

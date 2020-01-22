@@ -14,16 +14,22 @@
                     </div>
                 </div>
                 <div class="col-sm-8" id="optionsColumn">
-                    <a v-on:click="displaySettings()" class="options border-0">
+                    <a v-on:click="displaySettings()" id="optn" class="options border-0">
+
                         <b-img v-bind:src="settingsOn" id="settingsImg"></b-img>
+                        <p id="settingsLabel"> Opções </p>
+
                     </a>
-                    <button v-on:click="displayNotifications()" class="options border-0"
-                        v-bind:style="{fontWeight: notificFont, color: notifiColor}">
-                        Notificações</button>
-                    <p class="options" style="padding: 10px">|</p>
-                    <button v-on:click="displayBookings()" class="options border-0"
-                        v-bind:style="{fontWeight: bookingsFont,color: bookingsColor}">Reservas
-                    </button>
+                    <div>
+                        <button v-on:click="displayNotifications()" class="options border-0"
+                            v-bind:style="{fontWeight: notificFont, color: notifiColor}">
+                            Notificações</button>
+                        <p class="options" style="padding: 10px">|</p>
+                        <button v-on:click="displayBookings()" class="options border-0"
+                            v-bind:style="{fontWeight: bookingsFont,color: bookingsColor}">Reservas
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -133,7 +139,8 @@
             </div>
 
             <div class="container" v-bind:style="{display: showSettings}">
-                <b-button v-on:click="hideSettings()" class="rounded-0 border-0 btn-primary" style="fontSize: 16px;" variant="primary" id="goBackBtn">Voltar ao Perfil
+                <b-button v-on:click="hideSettings()" class="rounded-0 border-0 btn-primary" style="fontSize: 16px;"
+                    variant="primary" id="goBackBtn">Voltar ao Perfil
                 </b-button>
             </div>
         </div>
@@ -336,10 +343,19 @@
 
     #settingsImg {
         margin-top: -125px;
+        margin-right: 15px;
+        width: 50px;
+        float: right;
+        cursor: pointer;
+    }
+
+    #settingsLabel {
+        margin-top: -125px;
         margin-right: -25px;
         width: 50px;
         float: right;
         cursor: pointer;
+
     }
 
     #imgPerfil {
@@ -409,8 +425,17 @@
 
     .btn-primary {
         font-size: 18px;
-        background-color: #0A2463;
+        background-color: white;
         margin: 20px;
         margin-top: 50px;
+        color: black;
+        transition: all .2s ease-in-out;
+
     }
+
+    .btn-primary:hover {
+        transform: scale(1.1);
+    }
+
+
 </style>

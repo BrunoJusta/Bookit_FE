@@ -43,19 +43,22 @@
     <div class="container  options">
       <div class="row">
         <div class="col-sm-4">
-          <b-card img-src="../assets/eventosCatering.png" class="mb-2 border-0">
-            <router-link id="link" to="/menuKits">Eventos & Catering</router-link>
-          </b-card>
+          <router-link id="link" to="/menuKits">
+            <b-card title="Eventos & Catering" img-src="../assets/eventosCatering.png" class="mb-2 border-0">
+            </b-card>
+          </router-link>
         </div>
         <div class="col-sm-4">
-          <b-card img-src="../assets/bar.png" class="mb-2 border-0">
-            <router-link id="link" to="/areas">Espaços</router-link>
-          </b-card>
+          <router-link id="link" to="/areas">
+            <b-card title="Espaços" img-src="../assets/bar.png" class="mb-2 border-0">
+            </b-card>
+          </router-link>
         </div>
         <div class="col-sm-4">
-          <b-card img-src="../assets/workshopTemplate.png" class="mb-2 border-0 ">
-            <router-link id="link" to="/workshops">Workshops</router-link>
-          </b-card>
+          <router-link id="link" to="/workshops">
+            <b-card title="Workshops" img-src="../assets/workshopTemplate.png" class="mb-2 border-0 ">
+            </b-card>
+          </router-link>
         </div>
       </div>
     </div>
@@ -104,6 +107,11 @@
     margin-top: -150px;
     border-color: white;
     font-size: 18px;
+    transition: all .2s ease-in-out;
+  }
+
+  #banner-btn:hover {
+    transform: scale(1.1);
   }
 
   #whiteRect {
@@ -159,5 +167,11 @@
 
   .card-img {
     border-radius: 0 !important;
+    transition: all .2s ease-in-out;
+
+  }
+
+  .card-img:hover {
+    transform: scale(1.1);
   }
 </style>

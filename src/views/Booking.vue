@@ -133,12 +133,10 @@
             <div class="container" v-bind:style="{display: outfit}">
                 <div class="row">
                     <div v-for="i in searchOutfits" :key="i.id" class="col-sm-2">
-                        <b-form-group>
-                            <b-form-checkbox-group id="checkbox-group-2" v-model="checkedImage">
-                                <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
-                                <img style="height:230px; width:auto" v-bind:src="i.source" />
-                            </b-form-checkbox-group>
-                        </b-form-group>
+                        <button type="button" style="background-color:transparent" class="border-0"
+                            @click="choosOutfit(i.name)" >
+                            <img style="height:230px; width:auto" id="btnImg" v-bind:src="i.source" />
+                        </button>
                     </div>
                 </div>
                 <button type="button" v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0"
@@ -220,7 +218,7 @@
                 checkedFood: [],
                 checkedExtras: [],
                 checkedDecor: [],
-                checkedImage: [],
+                checkedImage: "",
                 schools: [],
                 location: "",
                 kits: [],
@@ -292,15 +290,15 @@
                     let month = splited[1]
                     if (parseInt(year) < new Date().getFullYear() || parseInt(year) > new Date().getFullYear() + 2) {
                         Swal.fire({
-                        icon: 'warning',
-                        text: 'Introduza um ano válido!'
-                    })
+                            icon: 'warning',
+                            text: 'Introduza um ano válido!'
+                        })
                     } else {
                         if (parseInt(day) <= new Date().getDate() && parseInt(month) == new Date().getMonth() + 1) {
                             Swal.fire({
-                            icon: 'warning',
-                            text: 'Introduza um dia válido!'
-                        })
+                                icon: 'warning',
+                                text: 'Introduza um dia válido!'
+                            })
                         } else {
                             this.kitInfo = "none"
                             this.addOns = "block"
@@ -410,20 +408,24 @@
                     state: "Pendente"
                 })
                 const toast = swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 2000,
-                            timerProgressBar: true
-                        });
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
 
-                        toast.fire({
-                            icon: 'success',
-                            title: 'A sua reserva foi enviada!'
-                        })
+                toast.fire({
+                    icon: 'success',
+                    title: 'A sua reserva foi enviada!'
+                })
                 router.push({
                     name: 'home'
                 })
+            },
+            choosOutfit(name) {
+                this.checkedImage = name
+                this.displayResume()
             }
         },
         computed: {
@@ -487,7 +489,27 @@
         background-color: #0A2463;
         margin: 20px;
         margin-top: 50px;
+        transition: all .2s ease-in-out;
     }
+
+    .btn-primary:hover {
+        transform: scale(1.1);
+    }
+
+    #btnImg {
+        border: 0px solid #0A2463;
+
+        transition: all .2s ease-in-out;
+         transition: border-width 0.2s linear;
+
+    }
+
+    #btnImg:hover {
+        border-width: 2px;
+        transform: scale(1.1);
+
+    }
+
 
     .optionsButton {
         background-color: transparent;

@@ -116,9 +116,9 @@
               localStorage.setItem("areas", JSON.stringify(this.areas));
             }
             Swal.fire({
-                    icon: 'success',
-                    text: 'Alterado!'
-                })
+              icon: 'success',
+              text: 'Alterado!'
+            })
           }
         }
       },
@@ -168,7 +168,11 @@
     background-color: #0A2463;
     margin: 20px;
     margin-top: 50px;
+    transition: all .2s ease-in-out;
+  }
 
+  .btn-book:hover {
+    transform: scale(1.1);
   }
 
   .overflow-hidden {
