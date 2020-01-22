@@ -1,31 +1,23 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h2>Gerir Extras</h2>
-
+        <div class="container-full title" style="padding-top: 80px; padding-bottom: 30px;">
+            <h1 id="redTitle">GERIR EXTRAS</h1>
+            <hr class="back-line">
+            <div class="container"
+                style="background-color:white; margin-top:-35px; height:35px; width:400px;position: relative;display: block; z-index:6">
+            </div>
+        </div>
         <div class="container">
-
             <div class="row">
-
                 <div align="center" id="AddIng" class="col-sm-6">
                     <form @submit.prevent="addExtra()">
-                        <input type="text" v-model="name" name="" id="ingNome" placeholder="Extra">
-                        <br>
-                        <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
+                        <div class="row">
+                            <input type="text" v-model="name" id="ingNome" placeholder="Extra">
+                            <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
+                        </div>
                     </form>
                 </div>
-
-
                 <div class="col-sm-6">
-
                     <div class="container table" v-if="this.extras.length != 0">
                         <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
@@ -41,24 +33,9 @@
                         <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
                         <h4> Não existem Extras</h4>
                     </div>
-
                 </div>
-
-
-
-
-
-
             </div>
-
         </div>
-
-
-
-
-
-
-
     </div>
 </template>
 
@@ -91,7 +68,7 @@
         },
         created() {
             if (JSON.parse(localStorage.getItem("extras"))) {
-                this.$store.state.extras= JSON.parse(localStorage.getItem("extras"))
+                this.$store.state.extras = JSON.parse(localStorage.getItem("extras"))
             }
             this.extras = this.$store.state.extras
 
@@ -103,7 +80,7 @@
                     name: this.name,
                 })
                 localStorage.setItem("extras", JSON.stringify(this.extras));
-               Swal.fire({
+                Swal.fire({
                     icon: 'success',
                     text: 'Adicionado!',
                 })
@@ -118,9 +95,9 @@
                             .id);
                         localStorage.setItem("extras", JSON.stringify(this.extras));
                         Swal.fire({
-                    icon: 'success',
-                    text: 'Removido!',
-                })
+                            icon: 'success',
+                            text: 'Removido!',
+                        })
                     }
                 }
             }
@@ -158,5 +135,23 @@
         margin: 20px;
         margin-top: 50px;
 
+    }
+
+    #redTitle {
+        font-family: "bookMan";
+        font-size: 45px;
+        color: #B91C3B;
+        display: block;
+        z-index: 7;
+        position: relative;
+    }
+
+    .back-line {
+        background-color: #0A2463;
+        margin-top: -35px;
+        width: 90%;
+        display: block;
+        z-index: 5;
+        position: relative;
     }
 </style>

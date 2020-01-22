@@ -7,32 +7,36 @@
         <br>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
+
+        <h1 id="redTitle">ADICIONAR ESPAÇO</h1>
+        <hr class="back-line">
+        <div class="container"
+            style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
+            <p style="color:white">s</p>
+        </div>
         <br>
         <br>
         <div class="container col-sm-4">
             <form @submit.prevent="addWorkshop()">
-                <!-- NOME -->
-                <label for="name">Nome:</label>
-                <input id="name" v-model="name">
-                <br>
-                <br>
-                <!-- NOME -->
-                <label for="img">Image Link:</label>
-                <input id="img" v-model="img">
-                <!-- MOTIVAÇÃO -->
-                <br>
-                <br>
-                <label for="description">Descrição</label>
-                <br>
-                <textarea id="description" v-model="description" rows="4" cols="50"></textarea>
-                <br>
-                <img :src="img" alt="" srcset="">
-
+                <div class="row" style="margin:auto; width:500px;">
+                    <div class="col-sm-6">
+                        <input id="name" placeholder="Nome do espaço" v-model="name">
+                    </div>
+                    <div class="col-sm-6">
+                        <input id="img" placeholder="Link da Imagem" v-model="img">
+                    </div>
+                </div>
+                <div class="row" style="margin:auto;padding-top:20px; width:500px;">
+                    <div class="col-sm-6">
+                        <label for="description">Descrição</label>
+                        <textarea id="description" v-model="description" rows="4" cols="20"></textarea>
+                    </div>
+                    <div class="col-sm-6" v-if="this.img != ''">
+                        <label for="imgArea">Imagem do espaço</label>
+                        <img :src="img" id="imgArea" style="width: 100px; height: 100px;">
+                    </div>
+                </div>
                 <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
-
             </form>
         </div>
         <br>
@@ -93,5 +97,21 @@
 </script>
 
 <style lang="scss" scoped>
+    #redTitle {
+        font-family: "bookMan";
+        font-size: 45px;
+        color: #B91C3B;
+        display: block;
+        z-index: 7;
+        position: relative;
+    }
 
+    .back-line {
+        background-color: #0A2463;
+        margin-top: -35px;
+        width: 90%;
+        display: block;
+        z-index: 5;
+        position: relative;
+    }
 </style>

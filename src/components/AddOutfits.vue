@@ -1,33 +1,27 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h2>Gerir Fardas</h2>
-
+        <div class="container-full title" style="padding-top: 80px; padding-bottom: 30px;">
+            <h1 id="redTitle">GERIR FARDAS</h1>
+            <hr class="back-line">
+            <div class="container"
+                style="background-color:white; margin-top:-35px; height:35px; width:400px;position: relative;display: block; z-index:6">
+            </div>
+        </div>
         <div class="container">
-
             <div class="row">
-
                 <div align="center" id="AddIng" class="col-sm-6">
                     <form @submit.prevent="addOutfit()">
-                        <input type="text" v-model="name" name="" id="ingNome" placeholder="Farda">
-                        <br>
-                        <input type="link" v-model="source" name="" id="ingNome" placeholder="link">
-                        <br>
-                        <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
+                        <div class="row">
+                            <input type="text" v-model="name" id="ingNome" style="margin-bottom: -30px;"
+                                placeholder="Farda">
+                            <input type="link" v-model="source" id="ingNome" placeholder="link">
+                        </div>
+                        <div class="row">
+                            <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
+                        </div>
                     </form>
                 </div>
-
-
                 <div class="col-sm-6">
-
                     <div class="container table" v-if="this.outfits.length != 0">
                         <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
@@ -150,13 +144,29 @@
         margin-bottom: 20px;
     }
 
-
     .btn-book {
         font-size: 18px;
         background-color: #0A2463;
         color: white;
         margin: 20px;
         margin-top: 50px;
+    }
 
+    #redTitle {
+        font-family: "bookMan";
+        font-size: 45px;
+        color: #B91C3B;
+        display: block;
+        z-index: 7;
+        position: relative;
+    }
+
+    .back-line {
+        background-color: #0A2463;
+        margin-top: -35px;
+        width: 90%;
+        display: block;
+        z-index: 5;
+        position: relative;
     }
 </style>

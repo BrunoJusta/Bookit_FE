@@ -4,8 +4,6 @@
         <extras/>
         <decor/>
         <outfits/>
-
-
     </div>
 </template>
 

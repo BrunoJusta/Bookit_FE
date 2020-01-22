@@ -1,63 +1,48 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         <div class="container col-sm-4">
             <form @submit.prevent="addWorkshop()">
-                <!-- NOME -->
-                <label for="name">Nome:</label>
-                <input id="name" v-model="name">
-                <br>
-                <br>
-                <!-- PROFESSOR -->
-                <label for="teacher">Professor:</label>
-                <input id="teacher" v-model="teacher">
-                <br>
-                <br>
-                <!-- NOME -->
-                <label for="img">Image Link:</label>
-                <input id="img" v-model="img">
-                <!-- MOTIVAÇÃO -->
-                <label for="date">Data:</label>
-                <input type="date" v-model="date">
-                <br>
-                <br>
-                <!-- MOTIVAÇÃO -->
-                <label for="hi">Hora de Início:</label>
-                <input type="time" id="hi" v-model="hi">
-                <br>
-                <!-- MOTIVAÇÃO -->
-                <label for="hf">Hora do Final:</label>
-                <input type="time" id="hf" v-model="hf">
-                <br>
-                <br>
-                <!-- MOTIVAÇÃO -->
-                <label for="description">Descrição</label>
-                <br>
-                <textarea id="description" v-model="description" rows="4" cols="50"></textarea>
-                <br>
-                <img :src="img" alt="" srcset="">
-
+                <div class="container">
+                    <div class="row" style="margin:auto; width:500px;">
+                        <div class="col-sm-6">
+                            <input id="name" placeholder="Nome do workshop" v-model="name">
+                        </div>
+                        <div class="col-sm-6">
+                            <input id="teacher" placeholder="Professor" v-model="teacher">
+                        </div>
+                    </div>
+                    <div class="row" style="margin:auto;padding-top:20px; width:500px;">
+                        <div class="col-sm-6">
+                            <input id="img" placeholder="Link da imagem" v-model="img">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="date" placeholder="Data" v-model="date">
+                        </div>
+                    </div>
+                    <div class="row" style="width:500px; margin:auto; padding-top:20px;">
+                        <div class="col-sm-6">
+                            <label for="hi">Hora de Início:</label>
+                            <input type="time" id="hi" v-model="hi">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="hf">Hora Final:</label>
+                            <input type="time" id="hf" v-model="hf">
+                        </div>
+                    </div>
+                    <div class="row" style="width:500px; margin:auto; padding-top:20px;">
+                        <div class="col-sm-6">
+                            <label for="description">Descrição</label>
+                            <textarea id="description" v-model="description" rows="4" cols="20"></textarea>
+                        </div>
+                        <div class="col-sm-6" v-if="this.img != ''">
+                            <label for="imgWorkshop">Imagem do Workshop</label>
+                            <img :src="img" id="imgWorkshop" style="width: 100px; height: 100px;">
+                        </div>
+                    </div>
+                </div>
                 <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
-
             </form>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
 </template>
 
@@ -74,7 +59,7 @@
                 description: "",
                 time: this.hi + "-" + this.hf,
                 img: "",
-                users:[]
+                users: []
             }
         },
         created() {

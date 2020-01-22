@@ -1,22 +1,17 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h2>Gerir Decoração</h2>
-
+        <div class="container-full title" style="padding-top: 80px; padding-bottom: 30px;">
+            <h1 id="redTitle">GERIR DECORAÇÃO</h1>
+            <hr class="back-line">
+            <div class="container"
+                style="background-color:white; margin-top:-35px; height:35px; width:500px;position: relative;display: block; z-index:6">
+            </div>
+        </div>
         <div class="container">
             <div class="row">
                 <div align="center" id="AddIng" class="col-sm-6">
                     <form @submit.prevent="addDecor()">
                         <input type="text" v-model="name" name="" id="ingNome" placeholder="Decoração">
-                        <br>
                         <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
                     </form>
                 </div>
@@ -95,9 +90,9 @@
                             .id);
                         localStorage.setItem("decor", JSON.stringify(this.decor));
                         Swal.fire({
-                    icon: 'success',
-                    text: 'Removido!',
-                })
+                            icon: 'success',
+                            text: 'Removido!',
+                        })
                     }
                 }
             }
@@ -135,5 +130,23 @@
         margin: 20px;
         margin-top: 50px;
 
+    }
+
+    #redTitle {
+        font-family: "bookMan";
+        font-size: 45px;
+        color: #B91C3B;
+        display: block;
+        z-index: 7;
+        position: relative;
+    }
+
+    .back-line {
+        background-color: #0A2463;
+        margin-top: -35px;
+        width: 90%;
+        display: block;
+        z-index: 5;
+        position: relative;
     }
 </style>
