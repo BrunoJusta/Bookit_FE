@@ -4,11 +4,8 @@
             <form @submit.prevent="addKit()">
                 <div class="container">
                     <div class="row" style="margin:auto; width:500px;">
-
                         <input type="text" style="margin:auto;" id="name" v-model="name" placeholder="Nome do Menu" required>
-
                         <input type="link" style="margin:auto;" id="img" v-model="img" placeholder="Link da Imagem" required>
-                        
                     </div>
                     <div class="row" style="margin:auto;padding-top:20px; width:500px;">
                             <div class="col-sm-6">
@@ -36,15 +33,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                         <img :src="img" style="height:200px; margin:30px;"><br>
-
-
-
                 <!-- INGREDIENTES -->
-
-             
                 <button type="submit" value="Adicionar" class="btn btn-primary rounded-0 border-0" >Adicionar</button>
             </form>
     </div>
