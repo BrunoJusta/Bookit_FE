@@ -46,11 +46,11 @@
                   </div>
                 </div>
                 <div class="col-sm-6 drinks" v-bind:style="{display: show2}">
-                  <h6>BEBIDA</h6>
+                  <h6><i class="fas fa-wine-glass-alt" id="icon"></i>BEBIDA</h6>
                   <p> {{ drinks.length == 0 ? 'Fechar' : '' + drinks }}</p>
                 </div>
                 <div class="col-sm-6 food" v-bind:style="{display: show2}">
-                  <h6>COMIDA</h6>
+                  <h6><i class="fas fa-cheese" id="icon"></i>COMIDA</h6>
                   <p> {{ food.length == 0 ? 'Fechar' : '' + food }}</p>
                 </div>
               </div>
@@ -269,8 +269,8 @@
     transition: all .2s ease-in-out;
   }
 
-  .btn-book:hover{
-     transform: scale(1.1); 
+  .btn-book:hover {
+    transform: scale(1.1);
   }
 
   .overflow-hidden {
@@ -285,5 +285,9 @@
   .food,
   .drinks {
     padding-top: 50px;
+  }
+
+  #icon {
+    padding-right: 6px;
   }
 </style>

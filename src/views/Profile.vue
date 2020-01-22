@@ -8,9 +8,9 @@
                 <div class="col-sm-2" id="nameColumn">
                     <p id="nameTxt">{{getFullName}}</p>
                     <div align="left" style="margin-left:-39px;">
-                        <p id="schoolTxt">{{getSchool}}</p>
-                        <p id="contactTxt">{{getContact}}</p>
-                        <p id="emailTxt">{{getEmail}}</p>
+                        <p id="schoolTxt"><i class="fas fa-graduation-cap" id="icon"></i>{{getSchool}}</p>
+                        <p id="contactTxt"><i class="fas fa-phone" id="icon"></i>{{getContact}}</p>
+                        <p id="emailTxt"><i class="fas fa-envelope" id="icon"></i>{{getEmail}}</p>
                     </div>
                 </div>
                 <div class="col-sm-8" id="optionsColumn">
@@ -437,5 +437,7 @@
         transform: scale(1.1);
     }
 
-
+    #icon {
+        padding-right: 6px;
+    }
 </style>

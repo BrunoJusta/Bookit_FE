@@ -8,9 +8,7 @@
                 <p id="space">space</p>
             </div>
         </div>
-
         <div class="container col-sm-4">
-
             <b-form v-on:submit.prevent="login()" v-if="show">
                 <b-form-group id="input-group-1">
                     <label for="input-1">Email</label>
@@ -18,28 +16,21 @@
                         placeholder="Introduzir email">
                     </b-form-input>
                 </b-form-group>
-
                 <b-form-group id="input-group-4">
                     <label for="input-4">Password</label>
                     <b-form-input id="input-4" class="rounded-0" v-model="passwordLogin" type="password" required
                         placeholder="Introduzir password">
                     </b-form-input>
                 </b-form-group>
-
                 <div class="container">
                     <b-button id="show-btn" style="background-color:#0A2463; margin:10px" squared>
                         <router-link id="link" to="/register">Registar</router-link>
                     </b-button>
                     <b-button type="submit" id="show-btn" style="background-color:#0A2463; margin:10px" squared>
                         Entrar</b-button>
-
-
                 </div>
-
-
             </b-form>
         </div>
-
     </div>
 </template>
 
@@ -50,7 +41,7 @@
             emailLogin: "",
             passwordLogin: "",
             show: true,
-            
+
         }),
         created: function () { //qd abres esta pagina vai acontecer isto
             if (localStorage.getItem("users")) {
@@ -66,7 +57,7 @@
                     email: this.emailLogin,
                     password: this.passwordLogin,
                 })
-               
+
             },
         },
     };
@@ -124,5 +115,15 @@
         position: relative;
         display: block;
         z-index: 5;
+    }
+
+    #show-btn {
+        background-color: #0A2463;
+        transition: all .2s ease-in-out;
+    }
+
+    #show-btn:hover {
+        transform: scale(1.1);
+        text-decoration: underline;
     }
 </style>

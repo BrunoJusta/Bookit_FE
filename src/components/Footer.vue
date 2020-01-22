@@ -12,7 +12,7 @@
                             <h5>Sobre nós</h5>
                         </li>
                         <li>
-                            <router-link to="/" style="color:white">Ler o nosso blog</router-link>
+                            <router-link to="/pageNotFound" style="color:white">Ler o nosso blog</router-link>
                         </li>
                         <li>
                             <router-link to="/choose" style="color:white">Fazer reserva
@@ -30,7 +30,7 @@
                             <h5>Suporte</h5>
                         </li>
                         <li>
-                            <router-link to="/" style="color:white">Perguntas frequentes</router-link>
+                            <router-link to="/pageNotFound" style="color:white">Perguntas frequentes</router-link>
                         </li>
                         <li>
                             <router-link to="/menuKits" style="color:white">Galeria de menus</router-link>

@@ -89,22 +89,41 @@
         methods: {
             addIng() {
                 let ingType
+                let createType = true
                 if (this.type == "Comida") {
                     ingType = "Food"
                 }
                 if (this.type == "Bebida") {
                     ingType = "Drink"
                 }
-                this.ingredients.push({
-                    id: this.$store.getters.ingredientLastId + 1,
-                    name: this.name,
-                    type: ingType
-                })
-                localStorage.setItem("ingredients", JSON.stringify(this.ingredients));
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Adicionado!',
-                })
+                //verificar se existe
+                for (let i in this.ingredients) {
+                    if (this.name.toLowerCase() == this.ingredients[i].name.toLowerCase()) {
+                        createType = false;
+                    }
+                }
+                if (createType == true) {
+                    this.ingredients.push({
+                        id: this.$store.getters.ingredientLastId + 1,
+                        name: this.name,
+                        type: ingType
+                    })
+                    localStorage.setItem("ingredients", JSON.stringify(this.ingredients));
+                    this.name = ""
+                    this.type = ""
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Adicionado!',
+                    })
+                } else {
+                    this.name = ""
+                    this.type = ""
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Ingrediente já existe!',
+                    })
+                }
+
             },
             remove(id) {
                 for (let i in this.ingredients) {
@@ -147,11 +166,12 @@
 
 
     .btn-book {
+        height: 40px;
         font-size: 18px;
         background-color: #0A2463;
         color: white;
         margin: 20px;
-        margin-top: 50px;
+        margin-top: 10px;
 
     }
 

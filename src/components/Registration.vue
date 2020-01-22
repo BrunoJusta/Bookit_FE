@@ -211,4 +211,14 @@
         display: block;
         z-index: 5;
     }
+
+    #show-btn {
+        background-color: #0A2463;
+        transition: all .2s ease-in-out;
+    }
+
+    #show-btn:hover {
+        transform: scale(1.1);
+        text-decoration: underline;
+    }
 </style>

@@ -11,8 +11,10 @@
             <div class="row">
                 <div align="center" id="AddIng" class="col-sm-6">
                     <form @submit.prevent="addDecor()">
-                        <input type="text" v-model="name" name="" id="ingNome" placeholder="Decoração">
-                        <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
+                        <div class="row">
+                            <input type="text" v-model="name" name="" id="ingNome" placeholder="Decoração">
+                            <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
+                        </div>
                     </form>
                 </div>
                 <div class="col-sm-6">
@@ -73,15 +75,31 @@
         },
         methods: {
             addDecor() {
-                this.decor.push({
-                    id: this.$store.getters.decorLastId + 1,
-                    name: this.name,
-                })
-                localStorage.setItem("decor", JSON.stringify(this.decor));
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Adicionado!'
-                })
+                let createType = true
+                //verificar se existe
+                for (let i in this.decor) {
+                    if (this.name.toLowerCase() == this.decor[i].name.toLowerCase()) {
+                        createType = false;
+                    }
+                }
+                if (createType == true) {
+                    this.decor.push({
+                        id: this.$store.getters.decorLastId + 1,
+                        name: this.name
+                    })
+                    localStorage.setItem("decor", JSON.stringify(this.decor));
+                    this.name = ""
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Adicionado!'
+                    })
+                } else {
+                    this.name = ""
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Esta Decoração já existe!',
+                    })
+                }
             },
             remove(id) {
                 for (let i in this.decor) {
@@ -124,11 +142,12 @@
 
 
     .btn-book {
+        height: 40px;
         font-size: 18px;
         background-color: #0A2463;
         color: white;
         margin: 20px;
-        margin-top: 50px;
+        margin-top: 55px;
 
     }
 

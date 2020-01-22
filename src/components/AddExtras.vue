@@ -75,18 +75,31 @@
         },
         methods: {
             addExtra() {
-                this.extras.push({
-                    id: this.$store.getters.extrasLastId + 1,
-                    name: this.name,
-                })
-                localStorage.setItem("extras", JSON.stringify(this.extras));
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Adicionado!',
-                })
-
-
-
+                let createType = true
+                //verificar se existe
+                for (let i in this.extras) {
+                    if (this.name.toLowerCase() == this.extras[i].name.toLowerCase()) {
+                        createType = false;
+                    }
+                }
+                if (createType == true) {
+                    this.extras.push({
+                        id: this.$store.getters.extrasLastId + 1,
+                        name: this.name
+                    })
+                    localStorage.setItem("extras", JSON.stringify(this.extras));
+                    this.name = ""
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Adicionado!',
+                    })
+                } else {
+                    this.name = ""
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Este extra já existe!',
+                    })
+                }
             },
             remove(id) {
                 for (let i in this.extras) {
@@ -129,11 +142,12 @@
 
 
     .btn-book {
+        height: 40px;
         font-size: 18px;
         background-color: #0A2463;
         color: white;
         margin: 20px;
-        margin-top: 50px;
+        margin-top: 55px;
 
     }
 

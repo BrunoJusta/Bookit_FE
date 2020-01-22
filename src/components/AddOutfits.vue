@@ -12,16 +12,17 @@
                 <div align="center" id="AddIng" class="col-sm-6">
                     <form @submit.prevent="addOutfit()">
                         <div class="row">
-                            <input type="text" v-model="name" id="ingNome" style="margin-bottom: -30px;"
-                                placeholder="Farda">
+                            <input type="text" v-model="name" id="ingNome" placeholder="Farda">
+                        </div>
+                        <div class="row" style="margin-top:-55px;">
                             <input type="link" v-model="source" id="ingNome" placeholder="link">
                         </div>
-                        <div class="row">
+                        <div class="row" style="margin-top:-55px;">
                             <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6" v-if="this.source == ''">
                     <div class="container table" v-if="this.outfits.length != 0">
                         <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
@@ -37,24 +38,13 @@
                         <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
                         <h4> Não existem Fardas</h4>
                     </div>
-
                 </div>
-
-
-
-
-
-
+                <div class="col-sm-6" v-else>
+                    <label for="imgWorkshop">Imagem da Farda:</label>
+                    <img :src="source" id="imgWorkshop" style="width: 350px; height: auto;">
+                </div>
             </div>
-
         </div>
-
-
-
-
-
-
-
     </div>
 </template>
 
@@ -63,7 +53,7 @@
         name: "AddOns",
         data: function () {
             return {
-                decor: [],
+                outfits: [],
                 perPage: 3,
                 currentPage: 1,
                 fields: [{
@@ -82,7 +72,7 @@
                 currentDate: "",
                 searchWorkshops: "",
                 name: "",
-                type: "",
+                source: "",
             }
         },
         created() {
@@ -94,16 +84,34 @@
         },
         methods: {
             addOutfit() {
-                this.outfits.push({
-                    id: this.$store.getters.outfitLastId + 1,
-                    name: this.name,
-                    source: this.source
-                })
-                localStorage.setItem("outfits", JSON.stringify(this.outfits));
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Adicionado!',
-                })
+                let createType = true
+                //verificar se existe
+                for (let i in this.outfits) {
+                    if (this.name.toLowerCase() == this.outfits[i].name.toLowerCase()) {
+                        createType = false;
+                    }
+                }
+                if (createType == true) {
+                    this.outfits.push({
+                        id: this.$store.getters.outfitLastId + 1,
+                        name: this.name,
+                        source: this.source
+                    })
+                    localStorage.setItem("outfits", JSON.stringify(this.outfits));
+                    this.name = ""
+                    this.source = ""
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Adicionado!',
+                    })
+                } else {
+                    this.name = ""
+                    this.source = ""
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Esta farda já existe!',
+                    })
+                }
             },
             remove(id) {
                 for (let i in this.outfits) {
@@ -145,6 +153,7 @@
     }
 
     .btn-book {
+        height: 40px;
         font-size: 18px;
         background-color: #0A2463;
         color: white;

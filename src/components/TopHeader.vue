@@ -7,7 +7,7 @@
                     <div>
                         <div class="container">
                             <b-button id="logged-btn" squared>
-                                <router-link :to="{name:this.path}">{{this.$store.getters.getName}}</router-link>
+                                <router-link :to="{name:this.path}"><i class="fas fa-user" v-if="this.$store.getters.getName != 'Entrar'" id="icon"></i>{{this.$store.getters.getName}}</router-link>
                             </b-button>
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
@@ -190,5 +190,9 @@
 
     #logoNavbar {
         width: 190px;
+    }
+
+    #icon {
+        padding-right: 6px;
     }
 </style>
