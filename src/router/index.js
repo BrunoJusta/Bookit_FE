@@ -8,22 +8,61 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+       if(user && user.userType == "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
+    
   },
   {
     path: "/register",
     name: "register",
-    component: () => import("../views/Register.vue")
+    component: () => import("../views/Register.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(user && user.length != 0){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/login",
     name: "login",
-    component: () => import("../views/Login.vue")
+    component: () => import("../views/Login.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(user && user.length != 0){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/profile",
     name: "profile",
-    component: () => import("../views/Profile.vue")
+    component: () => import("../views/Profile.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound")
+      }else if(user.userType == "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/menuKits",
@@ -48,76 +87,235 @@ const routes = [
   {
     path: "/kitDetail",
     name: "kitDetail",
-    component: () => import("../views/kitDetail.vue")
+    component: () => import("../views/kitDetail.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/workshopDetail",
     name: "workshopDetail",
-    component: () => import("../views/WorkshopDetail.vue")
+    component: () => import("../views/WorkshopDetail.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   }
   ,
   {
     path: "/areaDetail",
     name: "areaDetail",
-    component: () => import("../views/AreaDetail.vue")
+    component: () => import("../views/AreaDetail.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/adminHome",
     name: "adminHome",
-    component: () => import("../views/AdminHome.vue")
+    component: () => import("../views/AdminHome.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+       else if(user.userType == "cliente"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/inscriptions",
     name: "inscriptions",
-    component: () => import("../views/Inscriptions.vue")
+    component: () => import("../views/Inscriptions.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+       else if(user.userType != "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/booking",
     name: "booking",
-    component: () => import("../views/Booking.vue")
+    component: () => import("../views/Booking.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/login")
+      }else if(user.userType == "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
+
   },
   {
     path: "/kitManeger",
     name: "kitManeger",
-    component: () => import("../views/KitManeger.vue")
+    component: () => import("../views/KitManeger.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+       else if(user.userType != "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/WorkshopManeger",
     name: "WorkshopManeger",
-    component: () => import("../views/WorkshopManeger.vue")
+    component: () => import("../views/WorkshopManeger.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+       else if(user.userType != "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/areasbooking",
     name: "areasbooking",
-    component: () => import("../views/AreasBooking.vue")
+    component: () => import("../views/AreasBooking.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+       else if(user.userType == "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/bookingTables",
     name: "bookingTables",
-    component: () => import("../views/BookingTable.vue")
+    component: () => import("../views/BookingTable.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+       else if(user.userType != "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/userTables",
     name: "userTables",
-    component: () => import("../views/UserTable.vue")
+    component: () => import("../views/UserTable.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+       else if(user.userType != "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/addArea",
     name: "addArea",
-    component: () => import("../views/AddArea.vue")
+    component: () => import("../views/AddArea.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+       else if(user.userType != "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: "/menuAddOns",
     name: "menuAddOns",
-    component: () => import("../views/MenuAddOns.vue")
+    component: () => import("../views/MenuAddOns.vue"),
+    beforeEnter(to, from, next){
+      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      if(!user || user.length == 0){
+        next("/pageNotFound");
+      }
+       else if(user.userType != "admin"){
+        next("/pageNotFound");
+      }
+      else{
+        next()
+      }
+    }
+  },
+  {
+    path: "/pageNotFound",
+    name: "pageNotFound",
+    component: () => import("../views/ErrorPage.vue")
   }
 ]
+
+
+
+
+
 
 const router = new VueRouter({
   mode: "history",
   routes,  
   scrollBehavior () {
-    return { x: 0, y: 0 }}
+    return { x: 0, y: 0 }},
+    
 })
+
 
 export default router

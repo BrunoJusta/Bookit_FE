@@ -1,9 +1,9 @@
 <template>
     <!--FOOTER-->
     <footer id="myFooter" style="background-color:#B91C3B; padding-top:50px;">
-        <div class="container">
+        <div class="container ">
             <div class="row" id="firstRow">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <img src="../assets/bookit_white2.svg" id="bookitLogo">
                 </div>
                 <div class="col-sm-3" align="left">
@@ -24,7 +24,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div  class="col-sm-3">
                     <ul>
                         <li>
                             <h5>Suporte</h5>
@@ -40,8 +40,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-4">
-                    <google-map />
+                <div class="col-sm-3">
+                    <google-map style=" margin-top:40px; margin-right:-80px;" />
                 </div>
             </div>
 
@@ -74,13 +74,9 @@
         float: left;
     }
 
-    ul {
-        margin-top: -30px;
-    }
 
     #hrLine {
         background-color: white;
-        height: 0.5px;
         width: 97%;
     }
 
@@ -91,19 +87,16 @@
     }
 
     #firstRow {
-        margin-top: 30px;
-        margin-left: -20px;
+        font-size: 14px;
     }
 
     #bookitLogo {
-        margin-left: -100px;
+        height: 80px;
+        margin-top: 20px;
+        margin-left: -100px
+
     }
 
-    #aboutColumn {
-        margin-left: 100px;
-    }
 
-    #helpColumn {
-        margin-left: 10px;
-    }
+
 </style>

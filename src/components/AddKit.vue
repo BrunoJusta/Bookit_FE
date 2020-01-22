@@ -1,59 +1,52 @@
 <template>
     <div>
 
-        <div class="container col-sm-4">
             <form @submit.prevent="addKit()">
-                <!-- NOME -->
-                <label for="name" id="title">Nome:</label>
-                <input id="name" v-model="name">
-                <br>
-                <br>
-                <!-- Tipo de Menu -->
-                <p id="title">Tipo de Menu:</p>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <b-form-input list="my-list-id" v-model="type" placeholder="Tipo de Menu"></b-form-input>
-                        <datalist id="my-list-id">
-                            <option v-for="type in this.menuTypes" :key="type">{{type}}</option>
-                        </datalist>
+                <div class="container">
+                    <div class="row" style="margin:auto; width:500px;">
+
+                        <input type="text" style="margin:auto;" id="name" v-model="name" placeholder="Nome do Menu" required>
+
+                        <input type="link" style="margin:auto;" id="img" v-model="img" placeholder="Link da Imagem" required>
+                        
                     </div>
-                    <div class="col-sm-6">
-                        <input type="text" v-model="newType" @click="teste()" placeholder="outro...">
+                    <div class="row" style="margin:auto;padding-top:20px; width:500px;">
+                            <div class="col-sm-6">
+                                <b-form-input style="margin-left:15px; width:192px; height:30px;"  list="my-list-id" v-model="type" placeholder="Tipo de Menu">
+                                </b-form-input>
+                                <datalist id="my-list-id">
+                                    <option v-for="type in this.menuTypes" :key="type">{{type}}</option>
+                                </datalist>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" v-model="newType" @click="teste()" placeholder="outro...">
+                            </div>
                     </div>
+                    <div class="row" style="width:400px; margin:auto; padding-top:20px;">
+                        <div align="left" class="col-sm-6">
+                            <label for="ing" id="title">Comidas:</label>
+                            <div class="container" id="ing" v-for="i in filteredFood" :key="i.id">
+                                <input type="checkbox" :value="i.name" v-model="checkedFood">{{i.name}}
+                            </div>
+                        </div>
+                        <div align="left"  class="col-sm-6">
+                            <label for="ing2" id="title">Bebidas:</label>
+                            <div class="container" id="ing2" v-for="j in filteredDrinks" :key="j.id">
+                                <input type="checkbox" :value="j.name" v-model="checkedDrink">{{j.name}}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <br>
-                <!-- NOME -->
-                <label for="name" id="title">Image link:</label>
-                <input id="img" v-model="img">
+                        <img :src="img" style="height:200px; margin:30px;"><br>
+
+
+
                 <!-- INGREDIENTES -->
-                <div class="row" style="width:300px; margin: auto;">
-                    <div class="col-sm-6">
-                        <label for="ing" id="title">Comidas:</label>
-                        <div class="container" id="ing" v-for="i in filteredFood" :key="i.id">
-                            <input type="checkbox" :value="i.name" v-model="checkedFood">{{i.name}}
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="ing2" id="title">Bebidas:</label>
-                        <div class="container" id="ing2" v-for="j in filteredDrinks" :key="j.id">
-                            <input type="checkbox" :value="j.name" v-model="checkedDrink">{{j.name}}
-                        </div>
-                    </div>
-                </div>  
-                <br>
-                <br>
-                <img :src="img" style="height:100px;">
-                <br>
-                <br>
-                <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
+
+             
+                <button type="submit" value="Adicionar" class="btn btn-primary rounded-0 border-0" >Adicionar</button>
             </form>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
 </template>
 
@@ -161,5 +154,12 @@
 <style lang="scss" scoped>
     #title {
         font-weight: bold;
+    }
+
+      .btn-primary {
+        font-size: 18px;
+        background-color: #0A2463;
+        margin: 20px;
+        margin-top: 50px;
     }
 </style>
