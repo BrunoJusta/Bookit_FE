@@ -23,23 +23,23 @@
                 <b-form @submit="changePassword">
                     <b-form-group id="input-group-1">
                         <label for="input-1">Palavra-Passe Atual:</label>
-                        <b-form-input id="input-1" type="password" v-model="form.oldPW" required
+                        <b-form-input id="input-1" class="rounded-0" type="password" v-model="form.oldPW" required
                             placeholder="Introduza a palavra-passe atual">
                         </b-form-input>
                     </b-form-group>
 
                     <b-form-group id="input-group-2">
                         <label for="input-2">Palavra-Passe Nova:</label>
-                        <b-form-input id="input-2" v-model="form.newPW" type="password" pattern=".{6,}" required
+                        <b-form-input id="input-2" class="rounded-0" v-model="form.newPW" type="password" pattern=".{6,}" required
                             placeholder="Introduza a palavra-passe nova"></b-form-input>
                     </b-form-group>
 
                     <b-form-group id="input-group-3">
                         <label for="input-3">Confirmar Palavra-Passe Nova:</label>
-                        <b-form-input id="input-3" v-model="form.confirmPW" type="password" pattern=".{6,}" required
+                        <b-form-input id="input-3" class="rounded-0" v-model="form.confirmPW" type="password" pattern=".{6,}" required
                             placeholder="Confirme a Palavra-Passe nova"></b-form-input>
                     </b-form-group>
-                    <b-button type="submit" variant="primary">Alterar</b-button>
+                    <b-button type="submit" class="rounded-0 border-0 btn-primary" variant="primary">Alterar</b-button>
                 </b-form>
             </div>
         </div>
@@ -51,10 +51,10 @@
                 <b-form @submit="changeImg">
                     <b-form-group id="input-group-4">
                         <label for="input-4">Link da Nova Imagem:</label>
-                        <b-form-input id="input-4" v-model="form.newImg" type="link" required
+                        <b-form-input id="input-4" class="rounded-0" v-model="form.newImg" type="link" required
                             placeholder="Introduza o link da nova imagem"></b-form-input>
                     </b-form-group>
-                    <b-button type="submit" variant="primary">Atualizar</b-button>
+                    <b-button type="submit" class="rounded-0 border-0 btn-primary" variant="primary">Atualizar</b-button>
                 </b-form>
             </div>
         </div>
@@ -65,10 +65,10 @@
                 <b-form @submit="changeContact">
                     <b-form-group id="input-group-5">
                         <label for="input-5">Contacto Novo:</label>
-                        <b-form-input id="input-5" v-model="form.newContact" type="text" pattern="[0-9]{9}" required
+                        <b-form-input id="input-5" class="rounded-0" v-model="form.newContact" type="text" pattern="[0-9]{9}" required
                             placeholder="Introduza o contacto novo"></b-form-input>
                     </b-form-group>
-                    <b-button type="submit" variant="primary" id="submitBtn">Atualizar</b-button>
+                    <b-button type="submit" class="rounded-0 border-0 btn-primary" variant="primary" id="submitBtn">Atualizar</b-button>
                 </b-form>
             </div>
         </div>
@@ -319,5 +319,12 @@
 
     .bookingOptions[data-v-25112270]:focus {
         outline: 0;
+    }
+
+    .btn-primary {
+        font-size: 18px;
+        background-color: #0A2463;
+        margin: 20px;
+        margin-top: 50px;
     }
 </style>

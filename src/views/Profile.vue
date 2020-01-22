@@ -8,9 +8,9 @@
                 <div class="col-sm-2" id="nameColumn">
                     <p id="nameTxt">{{getFullName}}</p>
                     <div align="left" style="margin-left:-39px;">
-                        <p  id="schoolTxt">{{getSchool}}</p>
-                        <p  id="contactTxt">{{getContact}}</p>
-                        <p  id="emailTxt">{{getEmail}}</p>
+                        <p id="schoolTxt">{{getSchool}}</p>
+                        <p id="contactTxt">{{getContact}}</p>
+                        <p id="emailTxt">{{getEmail}}</p>
                     </div>
                 </div>
                 <div class="col-sm-8" id="optionsColumn">
@@ -133,7 +133,7 @@
             </div>
 
             <div class="container" v-bind:style="{display: showSettings}">
-                <b-button v-on:click="hideSettings()" style="fontSize: 20px;" variant="primary" id="goBackBtn">Voltar
+                <b-button v-on:click="hideSettings()" class="rounded-0 border-0 btn-primary" style="fontSize: 16px;" variant="primary" id="goBackBtn">Voltar ao Perfil
                 </b-button>
             </div>
         </div>
@@ -358,7 +358,9 @@
         color: black;
     }
 
-    #emailTxt, #contactTxt,  #schoolTxt {
+    #emailTxt,
+    #contactTxt,
+    #schoolTxt {
         font-size: 15px;
         color: black;
         margin-bottom: 5px;
@@ -403,5 +405,12 @@
 
     #goBackBtn {
         margin-top: 20px;
+    }
+
+    .btn-primary {
+        font-size: 18px;
+        background-color: #0A2463;
+        margin: 20px;
+        margin-top: 50px;
     }
 </style>
