@@ -7,8 +7,13 @@
                     <div>
                         <div class="container">
                             <b-button id="logged-btn" squared>
-                                <router-link :to="{name:this.path}"><i class="fas fa-user" v-if="this.$store.getters.getName != 'Entrar'" id="icon"></i>{{this.$store.getters.getName}}</router-link>
+                                <router-link :to="{name:this.path}"><i class="fas fa-user"
+                                        v-if="this.$store.getters.getName != 'Entrar'"
+                                        id="icon"></i>{{this.$store.getters.getName}}
+                                </router-link>
                             </b-button>
+                                 <!--    <span v-if="this.$store.getters.getName != 'Entrar'" class="dot">{{this.$store.state.loggedUser.notifications.length}}</span> -->
+
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
                                 <router-link style="color:black;" to="/">Sair</router-link>
@@ -194,5 +199,17 @@
 
     #icon {
         padding-right: 6px;
+    }
+
+    .dot {
+        margin-left: -10px;
+        margin-top: -29px;
+        height: 20px;
+        width: 20px;
+        font-size: 13px;
+        background-color: #B91C3B;
+        color: white;
+        border-radius: 50%;
+        display: inline-block;
     }
 </style>
