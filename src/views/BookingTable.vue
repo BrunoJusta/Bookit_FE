@@ -124,7 +124,7 @@
             return {
                 bookings: [],
                 areas: [],
-                perPage: 10,
+                perPage: 2,
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
@@ -222,14 +222,6 @@
             }
             if (localStorage.getItem("users")) {
                 this.users = JSON.parse(localStorage.getItem("users"))
-            }
-        },
-        computed: {
-            rows() {
-                return this.bookings.length
-            },
-            rows2() {
-                return this.areas.length
             }
         },
         methods: {
@@ -415,6 +407,12 @@
                     }
                 )
             },
+              rows() {
+                return this.bookings.length
+            },
+            rows2() {
+                return this.areas.length
+            }
         }
     }
 </script>
