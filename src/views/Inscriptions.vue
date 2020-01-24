@@ -73,23 +73,32 @@
         },
         methods: {
             remove(id) {
-                for (let i in this.workshops) {
-                    if (this.workshops[i].id === id) {
-                        if (this.workshops[i].inscriptions.length !== 0) {
-                            Swal.fire({
-                                icon: 'warning',
-                                text: 'Não pode remover este workshop porque já existem incrições feitas!'
-                            })
-                        } else {
-                            this.workshops = this.workshops.filter(workshop => this.workshops[i].id != workshop.id);
-                            localStorage.setItem("workshops", JSON.stringify(this.workshops));
-                            Swal.fire({
-                                icon: 'success',
-                                text: 'Removido'
-                            })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Quer mesmo remover?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.workshops) {
+                            if (this.workshops[i].id === id) {
+                                if (this.workshops[i].inscriptions.length !== 0) {
+                                    Swal.fire({
+                                        icon: 'warning',
+                                        text: 'Não pode remover este workshop porque já existem incrições feitas!'
+                                    })
+                                } else {
+                                    this.workshops = this.workshops.filter(workshop => this.workshops[i].id !=
+                                        workshop.id);
+                                    localStorage.setItem("workshops", JSON.stringify(this.workshops));
+                                    Swal.fire({
+                                        icon: 'success',
+                                        text: 'Workshop removido!'
+                                    })
+                                }
+                            }
                         }
                     }
-                }
+                })
             }
         },
         computed: {

@@ -102,17 +102,25 @@
                 }
             },
             remove(id) {
-                for (let i in this.extras) {
-                    if (this.extras[i].id === id) {
-                        this.extras = this.extras.filter(extra => this.extras[i].id != extra
-                            .id);
-                        localStorage.setItem("extras", JSON.stringify(this.extras));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Removido!',
-                        })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover este extra?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.extras) {
+                            if (this.extras[i].id === id) {
+                                this.extras = this.extras.filter(extra => this.extras[i].id != extra
+                                    .id);
+                                localStorage.setItem("extras", JSON.stringify(this.extras));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Removido!',
+                                })
+                            }
+                        }
                     }
-                }
+                })
             }
         },
         computed: {

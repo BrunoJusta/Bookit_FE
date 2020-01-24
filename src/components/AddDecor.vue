@@ -102,17 +102,25 @@
                 }
             },
             remove(id) {
-                for (let i in this.decor) {
-                    if (this.decor[i].id === id) {
-                        this.decor = this.decor.filter(d => this.decor[i].id != d
-                            .id);
-                        localStorage.setItem("decor", JSON.stringify(this.decor));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Removido!',
-                        })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover esta decoração?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.decor) {
+                            if (this.decor[i].id === id) {
+                                this.decor = this.decor.filter(d => this.decor[i].id != d
+                                    .id);
+                                localStorage.setItem("decor", JSON.stringify(this.decor));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Removido!',
+                                })
+                            }
+                        }
                     }
-                }
+                })
             }
         },
         computed: {

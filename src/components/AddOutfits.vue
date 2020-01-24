@@ -114,17 +114,25 @@
                 }
             },
             remove(id) {
-                for (let i in this.outfits) {
-                    if (this.outfits[i].id === id) {
-                        this.outfits = this.outfits.filter(d => this.outfits[i].id != d
-                            .id);
-                        localStorage.setItem("outfits", JSON.stringify(this.outfits));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Removido!',
-                        })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover este outfit?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.outfits) {
+                            if (this.outfits[i].id === id) {
+                                this.outfits = this.outfits.filter(d => this.outfits[i].id != d
+                                    .id);
+                                localStorage.setItem("outfits", JSON.stringify(this.outfits));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Removido!',
+                                })
+                            }
+                        }
                     }
-                }
+                })
             }
         },
         computed: {

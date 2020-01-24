@@ -126,17 +126,26 @@
 
             },
             remove(id) {
-                for (let i in this.ingredients) {
-                    if (this.ingredients[i].id === id) {
-                        this.ingredients = this.ingredients.filter(ingredient => this.ingredients[i].id != ingredient
-                            .id);
-                        localStorage.setItem("ingredients", JSON.stringify(this.ingredients));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Removido!',
-                        })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover este ingrediente?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.ingredients) {
+                            if (this.ingredients[i].id === id) {
+                                this.ingredients = this.ingredients.filter(ingredient => this.ingredients[i]
+                                    .id != ingredient
+                                    .id);
+                                localStorage.setItem("ingredients", JSON.stringify(this.ingredients));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Removido!',
+                                })
+                            }
+                        }
                     }
-                }
+                })
             },
         },
         computed: {

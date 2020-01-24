@@ -124,7 +124,7 @@
             return {
                 bookings: [],
                 areas: [],
-                perPage: 2,
+                perPage: 10,
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
@@ -240,115 +240,168 @@
                 this.searchAreas = ""
             },
             removeBooking(id) {
-                for (let i in this.bookings) {
-                    if (this.bookings[i].id === id) {
-                        this.bookings = this.bookings.filter(booking => this.bookings[i].id != booking.id);
-                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Removido'
-                        })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Quer mesmo remover?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.bookings) {
+                            if (this.bookings[i].id === id) {
+                                this.bookings = this.bookings.filter(booking => this.bookings[i].id != booking
+                                    .id);
+                                localStorage.setItem("bookings", JSON.stringify(this.bookings));
+                                Swal.fire(
+                                    'Removido',
+                                    'Reserva foi removida!',
+                                    'success'
+                                )
+                            }
+                        }
                     }
-                }
-
+                })
             },
             removeAreaBooking(id) {
-                for (let i in this.areas) {
-                    if (this.areas[i].id === id) {
-                        this.areas = this.areas.filter(area => this.areas[i].id != area.id);
-                        localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Removido'
-                        })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Quer mesmo remover?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.areas) {
+                            if (this.areas[i].id === id) {
+                                this.areas = this.areas.filter(area => this.areas[i].id != area.id);
+                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Removido'
+                                })
+                            }
+                        }
                     }
-                }
+                })
             },
             acceptBooking(id, userEmail) {
-                for (let i in this.bookings) {
-                    if (this.bookings[i].id === id) {
-                        this.bookings[i].state = "Aprovado"
-                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                        for (let j in this.users) {
-                            if (this.users[j].email === userEmail) {
-                                this.users[j].notifications.push({
-                                    txt: 'A sua reserva do ' + this.bookings[i].kitName + " - " +
-                                        this.bookings[i].kitType + ' para a data ' + this.bookings[i].date +
-                                        ' foi aceite!'
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Aceitar esta reserva?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.bookings) {
+                            if (this.bookings[i].id === id) {
+                                this.bookings[i].state = "Aprovado"
+                                localStorage.setItem("bookings", JSON.stringify(this.bookings));
+                                for (let j in this.users) {
+                                    if (this.users[j].email === userEmail) {
+                                        this.users[j].notifications.push({
+                                            txt: 'A sua reserva do ' + this.bookings[i].kitName +
+                                                " - " +
+                                                this.bookings[i].kitType + ' para a data ' + this
+                                                .bookings[i].date +
+                                                ' foi aceite!'
+                                        })
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                    }
+                                }
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Reserva aceite!'
                                 })
-                                localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Aprovado'
-                        })
                     }
-                }
+                })
             },
             refuseBooking(id, userEmail) {
-                for (let i in this.bookings) {
-                    if (this.bookings[i].id === id) {
-                        this.bookings[i].state = "Recusado"
-                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                        for (let j in this.users) {
-                            if (this.users[j].email === userEmail) {
-                                this.users[j].notifications.push({
-                                    txt: 'A sua reserva do ' + this.bookings[i].kitName + " - " +
-                                        this.bookings[i].kitType + ' para a data ' + this.bookings[i].date +
-                                        ' foi recusada!'
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Recusar esta reserva?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.bookings) {
+                            if (this.bookings[i].id === id) {
+                                this.bookings[i].state = "Recusado"
+                                localStorage.setItem("bookings", JSON.stringify(this.bookings));
+                                for (let j in this.users) {
+                                    if (this.users[j].email === userEmail) {
+                                        this.users[j].notifications.push({
+                                            txt: 'A sua reserva do ' + this.bookings[i].kitName +
+                                                " - " +
+                                                this.bookings[i].kitType + ' para a data ' + this
+                                                .bookings[i].date +
+                                                ' foi recusada!'
+                                        })
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                    }
+                                }
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Reserva recusada!'
                                 })
-                                localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Recusado'
-                        })
                     }
-                }
+                })
             },
             acceptAreaBooking(id, userEmail) {
-                for (let i in this.areas) {
-                    if (this.areas[i].id === id) {
-                        this.areas[i].state = "Aprovado"
-                        localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                        for (let j in this.users) {
-                            if (this.users[j].email === userEmail) {
-                                this.users[j].notifications.push({
-                                    txt: 'A sua reserva do ' + this.areas[i].areaName +
-                                        ' para a data ' + this.areas[i].date + ' foi aceite!'
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Aceitar esta reserva?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.areas) {
+                            if (this.areas[i].id === id) {
+                                this.areas[i].state = "Aprovado"
+                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
+                                for (let j in this.users) {
+                                    if (this.users[j].email === userEmail) {
+                                        this.users[j].notifications.push({
+                                            txt: 'A sua reserva do ' + this.areas[i].areaName +
+                                                ' para a data ' + this.areas[i].date + ' foi aceite!'
+                                        })
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                    }
+                                }
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Reserva aceite!'
                                 })
-                                localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Aprovado'
-                        })
                     }
-                }
+                })
             },
             refuseAreaBooking(id, userEmail) {
-                for (let i in this.areas) {
-                    if (this.areas[i].id === id) {
-                        this.areas[i].state = "Recusado"
-                        localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                        for (let j in this.users) {
-                            if (this.users[j].email === userEmail) {
-                                this.users[j].notifications.push({
-                                    txt: 'A sua reserva do ' + this.areas[i].areaName +
-                                        ' para a data ' + this.areas[i].date + ' foi recusada!'
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Recusar esta reserva?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.areas) {
+                            if (this.areas[i].id === id) {
+                                this.areas[i].state = "Recusado"
+                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
+                                for (let j in this.users) {
+                                    if (this.users[j].email === userEmail) {
+                                        this.users[j].notifications.push({
+                                            txt: 'A sua reserva do ' + this.areas[i].areaName +
+                                                ' para a data ' + this.areas[i].date + ' foi recusada!'
+                                        })
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                    }
+                                }
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Reserva recusada!'
                                 })
-                                localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Recusado'
-                        })
                     }
-                }
+                })
             }
         },
         computed: {
@@ -407,7 +460,7 @@
                     }
                 )
             },
-              rows() {
+            rows() {
                 return this.bookings.length
             },
             rows2() {

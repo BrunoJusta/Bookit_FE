@@ -89,41 +89,64 @@
         },
         methods: {
             remove(id) {
-                for (let i in this.users) {
-                    if (this.users[i].id === id) {
-                        this.users = this.users.filter(user => this.users[i].id != user.id);
-                        localStorage.setItem("users", JSON.stringify(this.users));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Utilizador removido!'
-                        })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover este utilizador?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.users) {
+                            if (this.users[i].id === id) {
+                                this.users = this.users.filter(user => this.users[i].id != user.id);
+                                localStorage.setItem("users", JSON.stringify(this.users));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Utilizador removido!'
+                                })
+                            }
+                        }
                     }
-                }
-
+                })
             },
             changeToAdmin(id) {
-                for (let i in this.users) {
-                    if (this.users[i].id === id) {
-                        this.users[i].userType = "admin"
-                        localStorage.setItem("users", JSON.stringify(this.users));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Tipo de utilizador alterado!'
-                        })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Tornar este utilizador em "Admin"?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.users) {
+                            if (this.users[i].id === id) {
+                                this.users[i].userType = "admin"
+                                localStorage.setItem("users", JSON.stringify(this.users));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Tipo de utilizador alterado!'
+                                })
+                            }
+                        }
                     }
-                }
+                })
             },
             changeToClient(id) {
-                for (let i in this.users) {
-                    if (this.users[i].id === id) {
-                        this.users[i].userType = "cliente"
-                        localStorage.setItem("users", JSON.stringify(this.users));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Tipo de utilizador alterado!'
-                        })
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Tornar este utilizador em "cliente"?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.users) {
+                            if (this.users[i].id === id) {
+                                this.users[i].userType = "cliente"
+                                localStorage.setItem("users", JSON.stringify(this.users));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Tipo de utilizador alterado!'
+                                })
+                            }
+                        }
                     }
-                }
+                })
             }
         },
         computed: {

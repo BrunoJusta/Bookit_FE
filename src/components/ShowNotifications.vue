@@ -125,66 +125,94 @@
                 this.acrchiveFont = "normal"
             },
             removeNotification(txt) {
-                for (let i in this.notifications) {
-                    if (this.notifications[i].txt === txt) {
-                        this.notifications = this.notifications.filter(notification => this.notifications[i].txt !=
-                            notification.txt);
-                        for (let i in this.users) {
-                            if (this.users[i].email === this.$store.getters.getEmail) {
-                                this.users[i].notifications = this.notifications
-                                this.loggedUser.notifications = this.notifications
-                                localStorage.setItem("users", JSON.stringify(this.users));
-                                localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover esta notificação?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.notifications) {
+                            if (this.notifications[i].txt === txt) {
+                                this.notifications = this.notifications.filter(notification => this
+                                    .notifications[i]
+                                    .txt !=
+                                    notification.txt);
+                                for (let i in this.users) {
+                                    if (this.users[i].email === this.$store.getters.getEmail) {
+                                        this.users[i].notifications = this.notifications
+                                        this.loggedUser.notifications = this.notifications
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                        localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
+                                    }
+                                }
                             }
                         }
                     }
-                }
+                })
             },
             removeArchive(txt) {
-                for (let i in this.archivations) {
-                    if (this.archivations[i].txt === txt) {
-                        this.archivations = this.archivations.filter(notification => this.archivations[i].txt !=
-                            notification.txt);
-                        for (let i in this.users) {
-                            if (this.users[i].email === this.$store.getters.getEmail) {
-                                this.users[i].archivations = this.archivations
-                                this.loggedUser.archivations = this.archivations
-                                localStorage.setItem("users", JSON.stringify(this.users));
-                                localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover este arquivo?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.archivations) {
+                            if (this.archivations[i].txt === txt) {
+                                this.archivations = this.archivations.filter(notification => this.archivations[
+                                        i].txt !=
+                                    notification.txt);
+                                for (let i in this.users) {
+                                    if (this.users[i].email === this.$store.getters.getEmail) {
+                                        this.users[i].archivations = this.archivations
+                                        this.loggedUser.archivations = this.archivations
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                        localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
+                                    }
+                                }
                             }
                         }
                     }
-                }
+                })
+
             },
             achived(txt) {
-                for (let i in this.notifications) {
-                    if (this.notifications[i].txt === txt) {
-                        for (let j in this.users) {
-                            if (this.users[j].email === this.$store.getters.getEmail) {
-                                this.users[j].archivations.push({
-                                    txt: this.notifications[i].txt
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja arquivar esta notificação?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.notifications) {
+                            if (this.notifications[i].txt === txt) {
+                                for (let j in this.users) {
+                                    if (this.users[j].email === this.$store.getters.getEmail) {
+                                        this.users[j].archivations.push({
+                                            txt: this.notifications[i].txt
+                                        })
+                                        this.notifications = this.notifications.filter(notification => this
+                                            .notifications[i]
+                                            .txt != notification.txt);
+                                        this.users[j].notifications = this.notifications
+                                        this.loggedUser.notifications = this.notifications
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                        localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
+                                    }
+                                }
+                                const toast = swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                    timerProgressBar: true
+                                });
+                                toast.fire({
+                                    title: 'Notificação Arquivada'
                                 })
-                                this.notifications = this.notifications.filter(notification => this.notifications[i]
-                                    .txt != notification.txt);
-                                this.users[j].notifications = this.notifications
-                                this.loggedUser.notifications = this.notifications
-                                localStorage.setItem("users", JSON.stringify(this.users));
-                                localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
                             }
                         }
-                        const toast = swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 1000,
-                            timerProgressBar: true
-                        });
-
-                        toast.fire({
-                            title: 'Notificação Arquivada'
-                        })
                     }
-                }
+                })
             },
         },
         computed: {
