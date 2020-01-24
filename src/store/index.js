@@ -211,9 +211,9 @@ export default new Vuex.Store({
       id: 2,
       name: "Fitas Coloridas"
     }],
-   outfits: [{
+    outfits: [{
         id: 0,
-        source:  require('../assets/farda01.png'),
+        source: require('../assets/farda01.png'),
         name: "Outfit_1"
       },
       {
@@ -236,7 +236,7 @@ export default new Vuex.Store({
       },
       {
         id: 4,
-        source:require('../assets/farda05.png'),
+        source: require('../assets/farda05.png'),
         name: "Outfit_5"
 
       },
@@ -630,6 +630,15 @@ export default new Vuex.Store({
       var today = new Date();
       var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
       return date
+    },
+    getNumberNotifications(state) {
+      if (state.loggedUser.notifications) {
+        if (state.loggedUser.notifications.length != 0) {
+          return true
+        } else {
+          return false
+        }
+      }
     },
     getAreaLastId(state) {
       if (state.areas.length) {

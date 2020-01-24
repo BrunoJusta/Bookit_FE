@@ -12,7 +12,9 @@
                                         id="icon"></i>{{this.$store.getters.getName}}
                                 </router-link>
                             </b-button>
-                                 <!--    <span v-if="this.$store.getters.getName != 'Entrar'" class="dot">{{this.$store.state.loggedUser.notifications.length}}</span> -->
+                            <p
+                                v-if="this.$store.getters.getName != 'Entrar' && this.$store.getters.getNumberNotifications"
+                                class="dot"></p>
 
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>

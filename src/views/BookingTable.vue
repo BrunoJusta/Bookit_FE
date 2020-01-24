@@ -75,7 +75,7 @@
             <b-input type="text" class="rounded-0" v-model="searchAreas" style="max-width: 300px; margin: auto;"
                 placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
-            <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
+            <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredAreas" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
                     <b-button size="sm" class="mr-1" @click="row2.toggleDetails">
@@ -100,7 +100,7 @@
                     </b-card>
                 </template>
             </b-table>
-            <b-pagination v-model="currentPage" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
+            <b-pagination v-model="currentPage2" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
         <div class="container" v-else v-bind:style="{display: areasTable}">
@@ -122,8 +122,11 @@
         name: "BookingTable",
         data: function () {
             return {
+                bookings: [],
+                areas: [],
                 perPage: 10,
                 currentPage: 1,
+                currentPage2: 1,
                 fields: [{
                         key: 'kitType',
                         label: "Evento",
@@ -163,8 +166,6 @@
                         label: "Ações",
                         sortable: false
                     },
-
-
                 ],
                 fields2: [{
                         key: 'areaName',
@@ -201,11 +202,7 @@
                         label: "Ações",
                         sortable: false
                     },
-
-
                 ],
-                bookings: [],
-                areas: [],
                 bookingTable: "block",
                 areasTable: "none",
                 eventsFont: "bold",
@@ -226,7 +223,6 @@
             if (localStorage.getItem("users")) {
                 this.users = JSON.parse(localStorage.getItem("users"))
             }
-
         },
         computed: {
             rows() {
@@ -324,7 +320,7 @@
                 for (let i in this.areas) {
                     if (this.areas[i].id === id) {
                         this.areas[i].state = "Aprovado"
-                        localStorage.setItem("areasBooking", JSON.stringify(this.areas));
+                        localStorage.setItem("areaBookings", JSON.stringify(this.areas));
                         for (let j in this.users) {
                             if (this.users[j].email === userEmail) {
                                 this.users[j].notifications.push({
@@ -345,7 +341,7 @@
                 for (let i in this.areas) {
                     if (this.areas[i].id === id) {
                         this.areas[i].state = "Recusado"
-                        localStorage.setItem("areasBooking", JSON.stringify(this.areas));
+                        localStorage.setItem("areaBookings", JSON.stringify(this.areas));
                         for (let j in this.users) {
                             if (this.users[j].email === userEmail) {
                                 this.users[j].notifications.push({

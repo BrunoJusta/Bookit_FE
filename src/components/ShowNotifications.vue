@@ -92,6 +92,7 @@
                 acrchiveFont: "normal",
                 x: "",
                 users: [],
+                loggedUser: [],
                 notifications: [],
                 archivations: [],
             }
@@ -105,6 +106,9 @@
                         this.archivations = this.users[i].archivations
                     }
                 }
+            }
+            if (localStorage.getItem("loggedUser")) {
+                this.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
         },
         methods: {
@@ -128,7 +132,9 @@
                         for (let i in this.users) {
                             if (this.users[i].email === this.$store.getters.getEmail) {
                                 this.users[i].notifications = this.notifications
+                                this.loggedUser.notifications = this.notifications
                                 localStorage.setItem("users", JSON.stringify(this.users));
+                                localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
                             }
                         }
                     }
@@ -142,7 +148,9 @@
                         for (let i in this.users) {
                             if (this.users[i].email === this.$store.getters.getEmail) {
                                 this.users[i].archivations = this.archivations
+                                this.loggedUser.archivations = this.archivations
                                 localStorage.setItem("users", JSON.stringify(this.users));
+                                localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
                             }
                         }
                     }
@@ -159,7 +167,9 @@
                                 this.notifications = this.notifications.filter(notification => this.notifications[i]
                                     .txt != notification.txt);
                                 this.users[j].notifications = this.notifications
+                                this.loggedUser.notifications = this.notifications
                                 localStorage.setItem("users", JSON.stringify(this.users));
+                                localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
                             }
                         }
                         const toast = swal.mixin({
@@ -183,6 +193,9 @@
             },
             rows2() {
                 return this.archivations.length
+            },
+            updateNotifications() {
+                return this.$store.getters.getNumberNotifications
             }
         },
     }
