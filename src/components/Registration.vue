@@ -9,7 +9,6 @@
             </div>
         </div>
 
-
         <div class="container col-sm-6">
             <b-form v-on:submit.prevent="addUser()" v-if="show">
                 <div class="container">
@@ -24,7 +23,8 @@
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-6">
                                 <label for="input-6">Apelido</label>
-                                <b-form-input id="input-6" class="rounded-0" v-model="lastName" required placeholder="Apelido">
+                                <b-form-input id="input-6" class="rounded-0" v-model="lastName" required
+                                    placeholder="Apelido">
                                 </b-form-input>
                             </b-form-group>
                         </div>
@@ -36,17 +36,35 @@
                             <b-form-group class="input" id="input-group-1">
                                 <label for="input-1">Email</label>
                                 <b-form-input id="input-1" class="rounded-0" v-model="email" type="email"
-                                    pattern="[a-z0-9._%+-]+@+[a-z]+.ipp.pt" required
-                                    placeholder="email@escola.ipp.pt">
+                                    pattern="[a-z0-9._%+-]+@+[a-z]+.ipp.pt" required placeholder="email@escola.ipp.pt">
                                 </b-form-input>
                             </b-form-group>
                         </div>
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-3">
                                 <label for="input-3">Contacto</label>
-                                <b-form-input id="input-3" class="rounded-0" v-model="number" type="tel" pattern="[0-9]{9}" required
-                                    placeholder="Contacto">
+                                <b-form-input id="input-3" class="rounded-0" v-model="number" type="tel"
+                                    pattern="[0-9]{9}" required placeholder="Contacto">
                                 </b-form-input>
+                            </b-form-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <b-form-group class="input" id="input-group-7">
+                                <label for="input-7">Data de Nascimento</label>
+                                <b-form-input id="input-7" class="rounded-0" v-model="birthDate" type="date" required>
+                                </b-form-input>
+                            </b-form-group>
+                        </div>
+                        <div class="col-sm-6">
+                            <b-form-group class="input" id="input-group-8">
+                                <label for="input-8">Género</label>
+                                <b-form-select id="input-8" class="rounded-0" v-model="gender"
+                                    :options="options" required>
+                                </b-form-select>
                             </b-form-group>
                         </div>
                     </div>
@@ -56,16 +74,16 @@
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-4">
                                 <label for="input-4">Password</label>
-                                <b-form-input id="input-4" class="rounded-0" v-model="password" type="password" pattern=".{6,}" required
-                                    placeholder="Introduzir password (min 6)">
+                                <b-form-input id="input-4" class="rounded-0" v-model="password" type="password"
+                                    pattern=".{6,}" required placeholder="Introduzir password (min 6)">
                                 </b-form-input>
                             </b-form-group>
                         </div>
                         <div class="col-sm-6">
                             <b-form-group class="input" id="input-group-5">
                                 <label for="input-5">Confirmar Password</label>
-                                <b-form-input id="input-5" class="rounded-0" v-model="confPassword" type="password" pattern=".{6,}"
-                                    required placeholder="Confirmar password">
+                                <b-form-input id="input-5" class="rounded-0" v-model="confPassword" type="password"
+                                    pattern=".{6,}" required placeholder="Confirmar password">
                                 </b-form-input>
                             </b-form-group>
                         </div>
@@ -91,6 +109,21 @@
             id: 0,
             email: "",
             name: "",
+            birthDate: "",
+            options: [{
+                    value: null,
+                    text: 'Escolher'
+                },
+                {
+                    value: 'Masculino',
+                    text: 'Masculino'
+                },
+                {
+                    value: 'Feminino',
+                    text: 'Feminino'
+                }
+            ],
+            gender: null,
             lastName: "",
             password: "",
             number: "",
@@ -112,7 +145,6 @@
 
         },
         updated() {
-
             for (let i = 0; i <= this.schools.length; i++) {
                 if (this.email.includes((this.schools[i].name).toLowerCase())) {
                     this.schoolExists = true
@@ -122,7 +154,6 @@
                     this.schoolExists = false
                 }
             }
-
         },
         methods: {
             getLastId() {
@@ -135,6 +166,8 @@
                         email: this.email,
                         name: this.name,
                         lastName: this.lastName,
+                        birthDate: this.birthDate,
+                        gender: this.gender,
                         password: this.password,
                         number: this.number,
                         confPassword: this.confPassword,
@@ -142,9 +175,9 @@
                     })
                 } else {
                     Swal.fire({
-                    icon: 'warning',
-                    text: 'Introduza um email válido do IPP!',
-                })
+                        icon: 'warning',
+                        text: 'Introduza um email válido do IPP!',
+                    })
                 }
 
             },
@@ -198,7 +231,7 @@
     }
 
     .title {
-        padding-top: 100px;
+        padding-top: 150px;
         padding-bottom: 50px;
     }
 

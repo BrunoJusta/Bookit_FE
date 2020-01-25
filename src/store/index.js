@@ -300,15 +300,23 @@ export default new Vuex.Store({
             text: 'As palavras-passe não coincidem!'
           })
         } else {
+          let imgProfile
+          if (payload.gender == "Masculino") {
+            imgProfile = require('../assets/male.svg')
+          } else if (payload.gender == "Feminino") {
+            imgProfile = require('../assets/female.svg')
+          }
           state.users.push({
             id: payload.id,
             name: payload.name,
             lastName: payload.lastName,
+            birthDate: payload.birthDate,
+            gender: payload.gender,
             email: payload.email,
             password: payload.password,
             number: payload.number,
             school: payload.school,
-            img: require('../assets/logo.png'),
+            img: imgProfile,
             userType: "cliente",
             notifications: [],
             archivations: [],
@@ -339,6 +347,8 @@ export default new Vuex.Store({
             id: user.id,
             name: user.name,
             lastName: user.lastName,
+            birthDate: user.birthDate,
+            gender: user.gender,
             email: user.email,
             password: user.password,
             number: user.number,
@@ -607,6 +617,9 @@ export default new Vuex.Store({
     },
     getSchool(state) {
       return state.loggedUser.school
+    },
+    getBirthDate(state) {
+      return state.loggedUser.birthDate
     },
     getUserImg(state) {
       return state.loggedUser.img

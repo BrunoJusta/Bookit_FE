@@ -11,6 +11,7 @@
                         <p id="schoolTxt"><i class="fas fa-graduation-cap" id="icon"></i>{{getSchool}}</p>
                         <p id="contactTxt"><i class="fas fa-phone" id="icon"></i>{{getContact}}</p>
                         <p id="emailTxt"><i class="fas fa-envelope" id="icon"></i>{{getEmail}}</p>
+                        <p id="birthDateTxt"><i class="fas fa-calendar-alt" id="icon"></i>{{this.birthDate}}</p>
                     </div>
                 </div>
                 <div class="col-sm-8" id="optionsColumn">
@@ -165,6 +166,7 @@
                 userWorkshops: [],
                 firstNameUser: "",
                 lastNameUser: "",
+                birthDate: "",
                 userEmail: "",
                 userContact: "",
                 showBookings: "block", //mostrar reservas
@@ -203,7 +205,7 @@
             this.userEmail = this.$store.getters.getEmail
             this.userContact = this.$store.getters.getContact
             this.userSchool = this.$store.getters.getSchool
-
+            this.birthDate = this.$store.getters.getBirthDate
         },
         updated() {
             this.userContact = this.$store.getters.getContact
@@ -376,7 +378,8 @@
 
     #emailTxt,
     #contactTxt,
-    #schoolTxt {
+    #schoolTxt,
+    #birthDateTxt {
         font-size: 15px;
         color: black;
         margin-bottom: 5px;
