@@ -4,7 +4,6 @@
             <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
             <div v-if="this.userType == 'admin'" class="container">
                 <div class="row" style="margin:auto;max-width: 680px;">
-
                     <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
                         <option selected>Todos</option>
                         <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
@@ -22,7 +21,6 @@
             </div>
             <div v-else class="container">
                 <div class="row" style="margin:auto;max-width: 460px;">
-
                     <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
                         <option selected>Todos</option>
                         <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
@@ -132,25 +130,33 @@
         },
         methods: {
             deleteKit(name) {
-                for (let i = 0; i <= this.kits.length; i++) {
-                    if (this.kits[i].name === name) {
-                        for (let j in this.users) {
-                            if (this.users[j].userType === "cliente") {
-                                this.users[j].notifications.push({
-                                    txt: 'O Menu ' + this.kits[i].name +
-                                        ' foi removido da galeria de menus!'
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover este menu?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i = 0; i <= this.kits.length; i++) {
+                            if (this.kits[i].name === name) {
+                                for (let j in this.users) {
+                                    if (this.users[j].userType === "cliente") {
+                                        this.users[j].notifications.push({
+                                            txt: 'O Menu ' + this.kits[i].name +
+                                                ' foi removido da galeria de menus!'
+                                        })
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                    }
+                                }
+                                this.kits.splice(i, 1)
+                                localStorage.setItem("kits", JSON.stringify(this.kits));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Menu eliminado!',
                                 })
-                                localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        this.kits.splice(i, 1)
-                        localStorage.setItem("kits", JSON.stringify(this.kits));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Menu eliminado!',
-                        })
                     }
-                }
+                })
             },
             orderKits() {
                 if (this.orderTxt == "Data de Criação") {
@@ -213,12 +219,12 @@
         transition: all .2s ease-in-out;
     }
 
-    #card-maker:hover{
-         transform: scale(1.1); 
+    #card-maker:hover {
+        transform: scale(1.1);
 
     }
 
-   
+
 
     #redSubTitle {
         font-family: "bookMan";

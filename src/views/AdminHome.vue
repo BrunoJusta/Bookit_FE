@@ -17,54 +17,61 @@
 
       <div class="container">
         <div class="row">
-          <div class="col">
-            <router-link id="link" to="/bookingTables">
-              <b-card img-src="../assets/booking_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
+          <router-link id="link" to="/bookingTables">
+            <div class="col" style="width:140px; height: 180px;">
+              <b-card title="Gestão de Reservas" img-src="../assets/booking_m.svg" style="max-width: 12rem;"
+                class="mb-2 border-0">
               </b-card>
-              Gerir Reservas
-            </router-link>
+            </div>
+          </router-link>
 
-          </div>
-          <div class="col">
-            <router-link id="link" to="/inscriptions">
-              <b-card img-src="../assets/workshop_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              </b-card>Gerir Workshops
-            </router-link>
+          <router-link id="link" to="/inscriptions">
+            <div class="col" style="width:140px; height: 180px;">
+              <b-card title="Gestão de Workshops" img-src="../assets/workshop_m.svg" style="max-width: 12rem;"
+                class="mb-2 border-0">
+              </b-card>
+            </div>
+          </router-link>
 
-          </div>
-          <div class="col">
-            <router-link id="link" to="/userTables">
-              <b-card img-src="../assets/user_m.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              </b-card>Gerir Utilizadores
-            </router-link>
+          <router-link id="link" to="/userTables">
+            <div class="col" style="width:140px; height: 180px;">
+              <b-card title="Gestão de Utilizadores" img-src="../assets/user_m.svg" style="max-width: 12rem;"
+                class="mb-2 border-0">
+              </b-card>
+            </div>
+          </router-link>
 
-          </div>
-          <div class="col">
-            <router-link id="link" to="/kitManeger">
-              <b-card img-src="../assets/add_menu.svg" tyle="max-width: 12rem;" class="mb-2 border-0">
-              </b-card>Adicionar Menu
-            </router-link>
+          <router-link id="link" to="/menuAddOns">
+            <div class="col" style="width:140px; height: 180px;">
+              <b-card title="Gestão de Complementos" img-src="../assets/add_comp.svg" style="max-width: 12rem;"
+                class="mb-2 border-0">
+              </b-card>
+            </div>
+          </router-link>
 
-          </div>
-          <div class="col">
-            <router-link id="link" to="/WorkshopManeger">
-              <b-card img-src="../assets/add_workshop.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              </b-card>Adicionar Workshop
-            </router-link>
+          <router-link id="link" to="/kitManeger">
+            <div class="col" style="width:140px; height: 180px;">
+              <b-card title="Adicionar Menus" img-src="../assets/add_menu.svg" tyle="max-width: 12rem;"
+                class="mb-2 border-0">
+              </b-card>
+            </div>
+          </router-link>
 
-          </div>
-          <div class="col">
-            <router-link id="link" to="/addArea">
-              <b-card img-src="../assets/add_area.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              </b-card>Adicionar Espaços
-            </router-link>
-          </div>
-          <div class="col">
-            <router-link id="link" to="/menuAddOns">
-              <b-card img-src="../assets/add_workshop.svg" style="max-width: 12rem;" class="mb-2 border-0">
-              </b-card>Gerir Complementos
-            </router-link>
-          </div>
+          <router-link id="link" to="/WorkshopManeger">
+            <div class="col" style="width:140px; height: 180px;">
+              <b-card title="Adicionar Workshops" img-src="../assets/add_workshop.svg" style="max-width: 12rem;"
+                class="mb-2 border-0">
+              </b-card>
+            </div>
+          </router-link>
+
+          <router-link id="link" to="/addArea">
+            <div class="col" style="width:140px; height: 180px;">
+              <b-card title="Adicionar Espaços" img-src="../assets/add_area.svg" style="max-width: 12rem;"
+                class="mb-2 border-0">
+              </b-card>
+            </div>
+          </router-link>
         </div>
       </div>
       <br>
@@ -91,7 +98,17 @@
 
   #link {
     color: black;
-    font-size: 16px;
+  }
+
+  .col {
+    margin: 10px;
+    border: 0.5px gainsboro solid;
+    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.1);
+    transition: all .2s ease-in-out;
+  }
+
+  .col:hover {
+    transform: scale(1.1);
   }
 
   #space {
@@ -116,6 +133,11 @@
   .card-body {
     padding: 0rem;
     padding-top: 1rem;
+  }
+
+
+  .card-title {
+    font-size: 14px;
   }
 
   .back-line {

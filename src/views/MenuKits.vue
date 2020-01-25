@@ -1,56 +1,52 @@
 <template>
-  <div >
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
-
-    <h1 id="redTitle">EVENTOS & CATERING</h1>
-     <hr class="back-line">
-     <div class="container" style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
-            <p style="color:white">s</p>
-        </div>
-    <br>
-    <br>
-    <br>
-    <KitGallery/>
+  <div>
+    <div id="title">
+      <h1 id="redTitle">EVENTOS & CATERING</h1>
+      <hr class="back-line">
+      <div class="container"
+        style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
+        <p style="color:white">s</p>
+      </div>
+    </div>
+    <KitGallery />
 
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import KitGallery from '@/components/KitGallery.vue'
+  // @ is an alias to /src
+  import KitGallery from '@/components/KitGallery.vue'
 
 
 
-export default {
-  components: {
-    KitGallery
+  export default {
+    components: {
+      KitGallery
+    }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-
-#redTitle{
-  font-family:"bookMan";
-  font-size: 45px;
-  color: #B91C3B;
-  display: block; 
+  #redTitle {
+    font-family: "bookMan";
+    font-size: 45px;
+    color: #B91C3B;
+    display: block;
     z-index: 7;
     position: relative;
-}
-.back-line{
-    background-color:#0A2463;
+  }
+
+  .back-line {
+    background-color: #0A2463;
     margin-top: -35px;
-     width: 90%;
-    display: block; 
+    width: 90%;
+    display: block;
     z-index: 5;
     position: relative;
-}
+  }
+
+  #title {
+    padding-top: 170px;
+    padding-bottom: 50px;
+  }
 </style>
