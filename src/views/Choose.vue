@@ -10,24 +10,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-5">
-                    <div id="card-maker">
-                        <b-card img-src="../assets/eventosCatering.png" class="border-0">
-                            <h3 class=" card-title">
-                                <router-link to="/menuKits" class="link">EVENTOS & CATERING</router-link>
-                            </h3>
-                        </b-card>
-                    </div>
+                    <router-link to="/menuKits" class="link">
+                        <div id="card-maker">
+                            <b-card title="EVENTOS & CATERING" img-src="../assets/eventosCatering.png" class="border-0">
+                                <h3 class=" card-title">
+
+                                </h3>
+                            </b-card>
+                        </div>
+                    </router-link>
                 </div>
                 <div class="col-sm-2">
                 </div>
                 <div class="col-sm-5">
-                    <div id="card-maker">
-                        <b-card img-src="../assets/bar.png" class="border-0">
-                            <h3 class=" card-title">
-                                <router-link to="/areas" class="link">ESPAÇOS</router-link>
-                            </h3>
-                        </b-card>
-                    </div>
+                    <router-link to="/areas" class="link">
+                        <div id="card-maker">
+                            <b-card title="ESPAÇOS" img-src="../assets/bar.png" class="border-0">
+                                <h3 class=" card-title">
+                                </h3>
+                            </b-card>
+                        </div>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -91,4 +94,13 @@
     .card-img {
         border-radius: 0 !important;
     }
+  
+  #card-maker{
+  transition: all .2s ease-in-out;
+  }
+
+  #card-maker:hover {
+    transform: scale(1.1);
+  }
+
 </style>
