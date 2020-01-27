@@ -14,13 +14,10 @@
                         <p id="birthDateTxt"><i class="fas fa-calendar-alt" id="icon"></i>{{this.birthDate}}</p>
                     </div>
                 </div>
-                <div class="col-sm-8" id="optionsColumn">
-                    <a v-on:click="displaySettings()" id="optn" class="options border-0">
-
-                        <b-img v-bind:src="settingsOn" id="settingsImg"></b-img>
-                        <p id="settingsLabel"> Opções </p>
-
-                    </a>
+                <div class="col-sm-8">
+                    <button v-on:click="displaySettings()" class="options border-0" style="margin-top: 0px;">
+                        <i class="fas fa-user-cog" id="icon"></i>Opções
+                    </button>
                     <div>
                         <button v-on:click="displayNotifications()" class="options border-0"
                             v-bind:style="{fontWeight: notificFont, color: notifiColor}">
@@ -140,9 +137,9 @@
             </div>
 
             <div class="container" v-bind:style="{display: showSettings}">
-                <b-button v-on:click="hideSettings()" class="rounded-0 border-0 btn-primary" style="fontSize: 16px;"
-                    variant="primary" id="goBackBtn">Voltar ao Perfil
-                </b-button>
+                <button v-on:click="hideSettings()" class="border-0 options btn-p2" style="fontSize: 16px;"
+                    id="goBackBtn">Voltar ao Perfil
+                </button>
             </div>
         </div>
 
@@ -323,7 +320,6 @@
     #perfilContainer {
         margin-top: 180px;
         border-bottom: solid 8px #0A2463;
-
     }
 
     .options {
@@ -341,23 +337,6 @@
 
     .card-img {
         border-radius: 0 !important;
-    }
-
-    #settingsImg {
-        margin-top: -125px;
-        margin-right: 15px;
-        width: 50px;
-        float: right;
-        cursor: pointer;
-    }
-
-    #settingsLabel {
-        margin-top: -125px;
-        margin-right: -25px;
-        width: 50px;
-        float: right;
-        cursor: pointer;
-
     }
 
     #imgPerfil {
@@ -390,12 +369,6 @@
         src: url(../assets/bookman.ttf);
     }
 
-    .option2 {
-        padding-top: 60px;
-        padding-bottom: 150px;
-
-    }
-
     #link {
         color: black;
         font-size: 25px;
@@ -426,17 +399,15 @@
         margin-top: 20px;
     }
 
-    .btn-primary {
+    .btn-p2 {
         font-size: 18px;
         background-color: white;
-        margin: 20px;
-        margin-top: 50px;
         color: black;
+        margin-right: 468px;
         transition: all .2s ease-in-out;
-
     }
 
-    .btn-primary:hover {
+    .btn-p2:hover {
         transform: scale(1.1);
     }
 
