@@ -14,7 +14,6 @@
       <h1 id="redTitle">SOBRE NÓS</h1>
       <hr class="back-line">
       <div class="container" id="whiteRect">
-        <p id="space">space</p>
       </div>
     </div>
 
@@ -35,7 +34,6 @@
       <h1 id="redTitle">RESERVAS</h1>
       <hr class="back-line">
       <div class="container" id="whiteRect">
-        <p id="space">space</p>
       </div>
     </div>
 
@@ -127,10 +125,6 @@
   .txt {
     padding-top: 30px;
     padding-bottom: 50px;
-  }
-
-  #space {
-    color: white;
   }
 
   #link {
