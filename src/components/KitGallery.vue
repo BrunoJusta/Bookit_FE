@@ -47,7 +47,7 @@
                                     style="width:20px; padding-bottom: 5px;" src="../assets/star.svg" alt="" srcset="">
                                 {{k.popularity}}</p>
                             <b-button class="btn-book" squared>
-                                <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
+                                <router-link :to="{name: x, params: {kitId: k.id}}" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
                             <b-button @click="deleteKit(k.name)" class="btn-remove border-0" :id="k.id"
@@ -62,7 +62,7 @@
                         <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem"
                             :img-src="k.img" img-height="180rem" class="mb-2 border-0">
                             <b-button class="btn-book" squared>
-                                <router-link :to="{name: x, params: {kitId: k.id}}" class="teste" style="color:white">
+                                <router-link :to="{name: x, params: {kitId: k.id}}" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
                             <b-button @click="deleteKit(k.name)" class="btn-remove border-0" :id="k.id"

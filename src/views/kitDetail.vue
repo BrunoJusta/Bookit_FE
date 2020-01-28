@@ -126,7 +126,8 @@
           kit => kit.id === id
         )[0].id
 
-        this.menuIng = this.food + this.drinks
+        this.menuIng = this.food + "," + this.drinks
+
         return this.kits.filter(
           kit => kit.id === id
         )[0]

@@ -28,30 +28,6 @@
 <script>
     export default {
         name: 'AreasGallery',
-        computed: {
-            searchAreas() {
-                return this.areas;
-            },
-            filteredRunnings() {
-                return this.areas.filter(
-                    (run) => {
-                        let filterResult = true
-
-
-                        if (this.searchTxt == "") {
-                            return filterResult
-                        }
-                        if (run.name.includes(this.searchTxt)) {
-                            filterResult = run.name.includes(this.searchTxt)
-                            return filterResult
-                        }
-
-                    }
-                )
-
-
-            }
-        },
         data: function () {
             return {
                 areas: [],
@@ -62,7 +38,6 @@
                 reset: {
                     areaName: "",
                 }
-
             };
         },
         created() {
@@ -78,7 +53,6 @@
             this.$store.state.currentArea = ({
                 areaName: "",
             })
-
         },
         methods: {
             deleteArea(name) {
@@ -91,7 +65,6 @@
                         for (let i = 0; i <= this.areas.length; i++) {
                             if (this.areas[i].name === name) {
                                 for (let j in this.users) {
-
                                     if (this.users[j].userType === "cliente") {
                                         this.users[j].notifications.push({
                                             txt: 'O Espaço' + this.areas[i].name +
@@ -110,6 +83,25 @@
                         }
                     }
                 })
+            }
+        },
+        computed: {
+            searchAreas() {
+                return this.areas;
+            },
+            filteredRunnings() {
+                return this.areas.filter(
+                    (run) => {
+                        let filterResult = true
+                        if (this.searchTxt == "") {
+                            return filterResult
+                        }
+                        if (run.name.includes(this.searchTxt)) {
+                            filterResult = run.name.includes(this.searchTxt)
+                            return filterResult
+                        }
+                    }
+                )
             }
         }
     }

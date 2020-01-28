@@ -71,8 +71,8 @@
                 <div class="row">
                     <div align="right" class="col-sm-5">
                         <h4 class="subtitle">Bebidas</h4>
-                        <div v-for="i in searchKits" :key="i.id">
-                            <b-form-group v-if="i.type=='Drink' && i.name !== 'Sem Bebida'">
+                        <div v-for="i in searchIngs" :key="i.id">
+                            <b-form-group v-if="i.type=='Drink' && i.name !== 'Sem Bebida' && !menuIngs.includes(i.name)">
                                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDrinks">
                                     <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
                                 </b-form-checkbox-group>
@@ -83,8 +83,8 @@
                     </div>
                     <div align="left" class="col-sm-5">
                         <h4 class="subtitle">Comida</h4>
-                        <div v-for="i in searchKits" :key="i.id">
-                            <b-form-group v-if="i.type=='Food' && i.name !== 'Sem Comida'">
+                        <div v-for="i in searchIngs" :key="i.id">
+                            <b-form-group v-if="i.type=='Food' && i.name !== 'Sem Comida' && !menuIngs.includes(i.name)">
                                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
                                     <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
                                 </b-form-checkbox-group>
@@ -134,7 +134,7 @@
                 <div class="row">
                     <div v-for="i in searchOutfits" :key="i.id" class="col-sm-2">
                         <button type="button" style="background-color:transparent" class="border-0"
-                            @click="choosOutfit(i.name)" >
+                            @click="chooseOutfit(i.name)">
                             <img style="height:230px; width:auto" id="btnImg" v-bind:src="i.source" />
                         </button>
                     </div>
@@ -222,7 +222,7 @@
                 schools: [],
                 location: "",
                 kits: [],
-
+                menuIngs: []
             }
         },
         created() {
@@ -240,7 +240,6 @@
             if (localStorage.getItem("kits")) {
                 this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
                 this.kits = this.$store.state.kits
-
             }
             this.extras = this.$store.state.extras
             this.decor = this.$store.state.decor
@@ -251,14 +250,9 @@
             this.kitName = this.$store.getters.getCurrentKitName
             this.kitType = this.$store.getters.getCurrentKitType
             this.schools = JSON.parse(localStorage.getItem("schools"))
-
         },
-        components: {
-            /*  KitInfo,
-             AddOns,
-             Extras,
-             Decorations,
-             Outfits */
+        updated() {
+            this.menuIngs = this.$store.getters.getCurrentKitIng
         },
         methods: {
             saveCurrentKit() {
@@ -423,13 +417,13 @@
                     name: 'home'
                 })
             },
-            choosOutfit(name) {
+            chooseOutfit(name) {
                 this.checkedImage = name
                 this.displayResume()
             }
         },
         computed: {
-            searchKits() {
+            searchIngs() {
                 return this.ingredients;
             },
             searchExtras() {
@@ -445,7 +439,6 @@
                 return this.currentKit
             }
         }
-
     }
 </script>
 
@@ -500,7 +493,7 @@
         border: 0px solid #0A2463;
 
         transition: all .2s ease-in-out;
-         transition: border-width 0.2s linear;
+        transition: border-width 0.2s linear;
 
     }
 
