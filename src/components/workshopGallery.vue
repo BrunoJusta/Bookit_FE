@@ -106,15 +106,13 @@
             },
             filteredRunnings() {
                 return this.workshops.filter(
-                    (run) => {
+                    (workS) => {
                         let filterResult = true
-
-
                         if (this.searchTxt == "") {
                             return filterResult
                         }
-                        if (run.name.includes(this.searchTxt)) {
-                            filterResult = run.name.includes(this.searchTxt)
+                        if (workS.name.toLowerCase().includes(this.searchTxt.toLowerCase())) {
+                            filterResult = workS.name.toLowerCase().includes(this.searchTxt.toLowerCase())
                             return filterResult
                         }
 

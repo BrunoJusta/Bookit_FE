@@ -108,8 +108,9 @@
                             return filterRunResult
                         }
                         //por workshop
-                        if (workshop.name.includes(this.searchWorkshops)) {
-                            filterRunResult = workshop.name.includes(this.searchWorkshops)
+                        if (workshop.name.toLowerCase().includes(this.searchWorkshops.toLowerCase())) {
+                            filterRunResult = workshop.name.toLowerCase().includes(this.searchWorkshops
+                            .toLowerCase())
                             return filterRunResult
                         }
                     }

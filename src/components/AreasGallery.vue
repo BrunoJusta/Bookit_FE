@@ -111,13 +111,13 @@
             },
             filteredRunnings() {
                 return this.areas.filter(
-                    (run) => {
+                    (area) => {
                         let filterResult = true
                         if (this.searchTxt == "") {
                             return filterResult
                         }
-                        if (run.name.includes(this.searchTxt)) {
-                            filterResult = run.name.includes(this.searchTxt)
+                        if (area.name.toLowerCase().includes(this.searchTxt.toLowerCase())) {
+                            filterResult = area.name.toLowerCase().includes(this.searchTxt.toLowerCase())
                             return filterResult
                         }
                     }

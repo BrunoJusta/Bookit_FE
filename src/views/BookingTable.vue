@@ -404,23 +404,27 @@
                             return filterRunResult
                         }
                         //por menu
-                        if (booking.kitName.includes(this.searchBookings)) {
-                            filterRunResult = booking.kitName.includes(this.searchBookings)
+                        if (booking.kitName.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.kitName.toLowerCase().includes(this.searchBookings
+                                .toLowerCase())
                             return filterRunResult
                         }
                         //por evento
-                        if (booking.kitType.includes(this.searchBookings)) {
-                            filterRunResult = booking.kitType.includes(this.searchBookings)
+                        if (booking.kitType.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.kitType.toLowerCase().includes(this.searchBookings
+                                .toLowerCase())
                             return filterRunResult
                         }
                         //por cliente
-                        if (booking.userName.includes(this.searchBookings)) {
-                            filterRunResult = booking.userName.includes(this.searchBookings)
+                        if (booking.userName.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.userName.toLowerCase().includes(this.searchBookings
+                                .toLowerCase())
                             return filterRunResult
                         }
                         //por email
-                        if (booking.userEmail.includes(this.searchBookings)) {
-                            filterRunResult = booking.userEmail.includes(this.searchBookings)
+                        if (booking.userEmail.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.userEmail.toLowerCase().includes(this.searchBookings
+                                .toLowerCase())
                             return filterRunResult
                         }
                     }
@@ -434,18 +438,18 @@
                             return filterRunResult
                         }
                         //por espaço
-                        if (area.areaName.includes(this.searchAreas)) {
-                            filterRunResult = area.areaName.includes(this.searchAreas)
+                        if (area.areaName.toLowerCase().includes(this.searchAreas.toLowerCase())) {
+                            filterRunResult = area.areaName.toLowerCase().includes(this.searchAreas.toLowerCase())
                             return filterRunResult
                         }
                         //por cliente
-                        if (area.userName.includes(this.searchAreas)) {
-                            filterRunResult = area.userName.includes(this.searchAreas)
+                        if (area.userName.toLowerCase().includes(this.searchAreas.toLowerCase())) {
+                            filterRunResult = area.userName.toLowerCase().includes(this.searchAreas.toLowerCase())
                             return filterRunResult
                         }
                         //por email
-                        if (area.userEmail.includes(this.searchAreas)) {
-                            filterRunResult = area.userEmail.includes(this.searchAreas)
+                        if (area.userEmail.toLowerCase().includes(this.searchAreas.toLowerCase())) {
+                            filterRunResult = area.userEmail.toLowerCase().includes(this.searchAreas.toLowerCase())
                             return filterRunResult
                         }
                     }

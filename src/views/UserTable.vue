@@ -150,18 +150,18 @@
                             return filterRunResult
                         }
                         //por nome
-                        if (user.name.includes(this.searchUsers)) {
-                            filterRunResult = user.name.includes(this.searchUsers)
+                        if (user.name.toLowerCase().includes(this.searchUsers.toLowerCase())) {
+                            filterRunResult = user.name.toLowerCase().includes(this.searchUsers.toLowerCase())
                             return filterRunResult
                         }
-                        //por apelido
-                        if (user.lastName.includes(this.searchUsers)) {
-                            filterRunResult = user.lastName.includes(this.searchUsers)
+                         //por apelido
+                        if (user.lastName.toLowerCase().includes(this.searchUsers.toLowerCase())) {
+                            filterRunResult = user.lastName.toLowerCase().includes(this.searchUsers.toLowerCase())
                             return filterRunResult
                         }
                         //por email
-                        if (user.email.includes(this.searchUsers)) {
-                            filterRunResult = user.email.includes(this.searchUsers)
+                        if (user.email.toLowerCase().includes(this.searchUsers.toLowerCase())) {
+                            filterRunResult = user.email.toLowerCase().includes(this.searchUsers.toLowerCase())
                             return filterRunResult
                         }
                         //por contacto
@@ -169,6 +169,11 @@
                             filterRunResult = user.number.includes(this.searchUsers)
                             return filterRunResult
                         }
+                        //por tipo
+                        if (user.userType.toLowerCase().includes(this.searchUsers.toLowerCase())) {
+                            filterRunResult = user.userType.toLowerCase().includes(this.searchUsers.toLowerCase())
+                            return filterRunResult
+                        }   
                     }
                 )
             }
