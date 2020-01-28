@@ -158,7 +158,8 @@ const routes = [{
         next("/login")
       } else if (user.userType == "admin") {
         next("/pageNotFound");
-      } else {
+      }
+       else {
         next()
       }
     }
@@ -272,6 +273,10 @@ const routes = [{
   {
     path: "/pageNotFound",
     name: "pageNotFound",
+    component: () => import("../views/ErrorPage.vue")
+  },
+  {
+    path: "*",
     component: () => import("../views/ErrorPage.vue")
   }
 ]
