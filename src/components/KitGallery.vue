@@ -50,7 +50,7 @@
                                 <router-link :to="{name: x, params: {kitId: k.id}}" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
-                            <b-button @click="deleteKit(k.name)" class="btn-remove border-0" :id="k.id"
+                            <b-button @click="deleteKit(k.name, k.type)" class="btn-remove border-0" :id="k.id"
                                 v-bind:style="{visibility: remove}" squared> X</b-button>
                         </b-card>
                     </div>
@@ -65,7 +65,7 @@
                                 <router-link :to="{name: x, params: {kitId: k.id}}" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
-                            <b-button @click="deleteKit(k.name)" class="btn-remove border-0" :id="k.id"
+                            <b-button @click="deleteKit(k.name, k.type)" class="btn-remove border-0" :id="k.id"
                                 v-bind:style="{visibility: remove}" squared> X</b-button>
                         </b-card>
                     </div>
@@ -91,6 +91,7 @@
                 searchTxt: "",
                 selectTxt: "Todos",
                 orderTxt: "",
+                bookings:[],
                 reset: {
                     kitname: "",
                     kitType: "",
@@ -106,13 +107,7 @@
             } else {
                 this.x = "kitDetail"
             }
-            if (this.$store.getters.getName === "Admin") {
-                this.remove = "visible"
-                this.choose = "hidden"
-            } else {
-                this.remove = "hidden"
-                this.choose = "visible"
-            }
+           
             localStorage.setItem("currentKit", JSON.stringify(this.reset));
             this.$store.state.currentKit = ({
                 kitname: "",
@@ -124,35 +119,52 @@
             if (localStorage.getItem("menuTypes")) {
                 this.$store.state.menuTypes = JSON.parse(localStorage.getItem("menuTypes"))
             }
+            if (localStorage.getItem("bookings")) {
+                this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
+            }
+            this.bookings = this.$store.state.bookings
             this.users = this.$store.state.users
             this.menuTypes = this.$store.state.menuTypes
             this.userType = this.$store.state.loggedUser.userType
         },
         methods: {
-            deleteKit(name) {
+            deleteKit(name, type) {
                 Swal.fire({
                     icon: 'warning',
                     text: 'Deseja remover este menu?',
                     showCancelButton: true,
                 }).then((result) => {
                     if (result.value) {
+                        let checker = false
                         for (let i = 0; i <= this.kits.length; i++) {
-                            if (this.kits[i].name === name) {
-                                for (let j in this.users) {
-                                    if (this.users[j].userType === "cliente") {
-                                        this.users[j].notifications.push({
-                                            txt: 'O Menu ' + this.kits[i].name +
-                                                ' foi removido da galeria de menus!'
-                                        })
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                    }
+                            for (let b in this.bookings) {
+                                if (name == this.bookings[b].kitName && type == this.bookings[b].kitType && this.bookings[b].state == "Aprovado") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        text: 'Não Pode eliminar um Menu com Reservas!',
+                                    })
+                                    checker = true
                                 }
-                                this.kits.splice(i, 1)
-                                localStorage.setItem("kits", JSON.stringify(this.kits));
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Menu eliminado!',
-                                })
+
+                            }
+                            if (checker == false) {
+                                if (this.kits[i].name === name && this.kits[i].type === type) {
+                                    for (let j in this.users) {
+                                        if (this.users[j].userType === "cliente") {
+                                            this.users[j].notifications.push({
+                                                txt: 'O Menu ' + this.kits[i].name +
+                                                    ' foi removido da galeria de menus!'
+                                            })
+                                            localStorage.setItem("users", JSON.stringify(this.users));
+                                        }
+                                    }
+                                    this.kits.splice(i, 1)
+                                    localStorage.setItem("kits", JSON.stringify(this.kits));
+                                    Swal.fire({
+                                        icon: 'success',
+                                        text: 'Menu eliminado!',
+                                    })
+                                }
                             }
                         }
                     }

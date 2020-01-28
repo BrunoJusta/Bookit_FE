@@ -23,10 +23,10 @@
                     </b-form-input>
                 </b-form-group>
                 <div class="container">
-                    <b-button id="show-btn" style="background-color:#0A2463; margin:10px" squared>
+                    <b-button id="show-btn" style="background-color:#0A2463; margin:10px; margin-bottom: 80px; margin-top: 50px;" squared>
                         <router-link id="link" to="/register">Registar</router-link>
                     </b-button>
-                    <b-button type="submit" id="show-btn" style="background-color:#0A2463; margin:10px" squared>
+                    <b-button type="submit" id="show-btn" style="background-color:#0A2463; margin:10px; margin-bottom: 80px; margin-top: 50px;" squared>
                         Entrar</b-button>
                 </div>
             </b-form>
@@ -121,6 +121,7 @@
     #show-btn {
         background-color: #0A2463;
         transition: all .2s ease-in-out;
+        
     }
 
     #show-btn:hover {

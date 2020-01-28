@@ -273,6 +273,8 @@
                 this.decorsFont = "normal"
                 this.outfitFont = "normal"
                 this.resumeFont = "normal"
+                window.scrollTo(0, 0);
+
             },
             displayAddOns() {
                 if (this.reason != "" && this.date != "" && this.hi != "" &&
@@ -306,6 +308,8 @@
                             this.decorsFont = "normal"
                             this.outfitFont = "normal"
                             this.resumeFont = "normal"
+                            window.scrollTo(0, 0);
+
                         }
                     }
                 } else {
@@ -329,6 +333,7 @@
                 this.decorsFont = "normal"
                 this.outfitFont = "normal"
                 this.resumeFont = "normal"
+                window.scrollTo(0, 0);
             },
             displayDecor() {
                 this.kitInfo = "none"
@@ -343,6 +348,8 @@
                 this.decorsFont = "bold"
                 this.outfitFont = "normal"
                 this.resumeFont = "normal"
+                window.scrollTo(0, 0);
+
             },
             displayOutfit() {
                 this.kitInfo = "none"
@@ -357,6 +364,8 @@
                 this.decorsFont = "normal"
                 this.outfitFont = "bold"
                 this.resumeFont = "normal"
+                window.scrollTo(0, 0);
+
             },
             displayResume() {
                 this.kitInfo = "none"
@@ -371,6 +380,8 @@
                 this.decorsFont = "normal"
                 this.outfitFont = "normal"
                 this.resumeFont = "bold"
+                window.scrollTo(0, 0);
+
             },
             getLastId() {
                 return this.$store.getters.bookingLastId + 1

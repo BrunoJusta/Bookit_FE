@@ -1,7 +1,9 @@
 <template>
     <div class="fixed-top">
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <router-link to="/"><img src="../assets/navbarLogo.svg" alt="" id="logoNavbar"></router-link>
+            <router-link v-if="this.$store.getters.getUserType !== 'admin'" to="/"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
+            <router-link v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
+
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <div>
@@ -195,7 +197,21 @@
 
     #logoNavbar {
         width: 190px;
+
     }
+
+    #logoNavbar:hover {
+           animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    }
+
+  @keyframes scale-up-center {
+  0% {
+            transform: scale(1);
+  }
+  100% {
+            transform: scale(1.1);
+  }
+}
 
     #icon {
         padding-right: 6px;
