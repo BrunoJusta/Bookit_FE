@@ -124,7 +124,7 @@
             }
         },
         computed: {
-            searchKits() {
+            searchExtras() {
                 return this.extras;
             },
             rows() {
@@ -175,5 +175,6 @@
         display: block;
         z-index: 5;
         position: relative;
+        height: 1px;
     }
 </style>

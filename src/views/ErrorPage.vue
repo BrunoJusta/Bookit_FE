@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container" style="padding-top:200px; padding-bottom:50px;">
-            <img style="width:250px;" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+            <img style="width:250px;" src="../assets/bookit_BLUE.svg" id="img">
             <h1>Página não encontrada!</h1>
             <b-button id="logged-btn" squared>
                 <router-link id="btn" :to="{name:this.path}">Início</router-link>
@@ -51,5 +51,33 @@
 
     #btn {
         color: white;
+    }
+
+    @-webkit-keyframes rotate-vert-center {
+        0% {
+            -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+        }
+
+        100% {
+            -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+        }
+    }
+
+    @keyframes rotate-vert-center {
+        0% {
+            -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+        }
+
+        100% {
+            -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+        }
+    }
+
+    #img {
+        animation: rotate-vert-center 4s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
     }
 </style>

@@ -19,15 +19,13 @@
 
 
     <div class="container txt">
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard
-        dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-        specimen book.
-        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-        unchanged. It was
-        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop
-        publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      <p>Os estudantes de <b> Gestão e Administração Hoteleira </b>, convidam-no a saborear as receitas criadas
+        para si. Venha conhecer-nos.</p>
+      <p>
+        O Restaurante de Aplicação da <b>Escola Superior de Hotelaria e Turismo</b> é da responsabilidade do Politécnico
+        do Porto, com capacidade para 50 pessoas sentadas.
+        Durante estes últimos anos, o Restaurante tem acolhido diversos eventos, conseguindo sempre estar à altura das
+        expectativas dos clientes.</p>
     </div>
 
     <div class="container-full title">
@@ -148,11 +146,12 @@
 
   .back-line {
     background-color: #0A2463;
-    margin-top: -35px;
+    margin-top: -36px;
     width: 90%;
     display: block;
     z-index: 5;
     position: relative;
+    height: 1px;
   }
 
   .mb-2 {

@@ -63,11 +63,9 @@
             }
         },
         created() {
-
             if (localStorage.getItem("users")) {
                 this.$store.state.users = JSON.parse(localStorage.getItem("users"))
             }
-
             this.users = this.$store.state.users
         },
         methods: {
@@ -76,7 +74,6 @@
             },
             addWorkshop() {
                 for (let j in this.users) {
-
                     if (this.users[j].userType === "cliente") {
                         this.users[j].notifications.push({
                             txt: 'O Workshop ' + this.name +
@@ -93,8 +90,15 @@
                     time: this.hi + "-" + this.hf,
                     description: this.description,
                     img: this.img
-
                 })
+                //limpar os campos
+                this.name = ""
+                this.teacher = ""
+                this.date = ""
+                this.img = ""
+                this.hi = ""
+                this.hf = ""
+                this.description = ""
                 Swal.fire({
                     icon: 'success',
                     text: 'Adicionado!',

@@ -1,11 +1,9 @@
 <template>
-    <div>
-
+    <div style="padding-bottom: 100px;">
         <div class="container-full title">
             <h1 id="redTitle">UTILIZADORES</h1>
             <hr class="back-line">
             <div class="container" id="whiteRect">
-                <p id="space">space</p>
             </div>
         </div>
 
@@ -27,12 +25,6 @@
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
                 style="float:right;"></b-pagination>
         </div>
-
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
 </template>
 

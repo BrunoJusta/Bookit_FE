@@ -43,6 +43,7 @@
     display: block;
     z-index: 5;
     position: relative;
+    height: 1px;
   }
 
   #title {

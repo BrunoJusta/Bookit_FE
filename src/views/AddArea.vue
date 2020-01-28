@@ -1,23 +1,14 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-
-        <h1 id="redTitle">ADICIONAR ESPAÇO</h1>
-        <hr class="back-line">
-        <div class="container"
-            style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
-            <p style="color:white">s</p>
+        <div id="title">
+            <h1 id="redTitle">ADICIONAR ESPAÇO</h1>
+            <hr class="back-line">
+            <div class="container"
+                style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
+            </div>
         </div>
-        <br>
-        <br>
         <div class="container col-sm-4">
-            <form @submit.prevent="addWorkshop()">
+            <form @submit.prevent="addAreas()">
                 <div class="row" style="margin:auto; width:500px;">
                     <div class="col-sm-6">
                         <input id="name" placeholder="Nome do espaço" v-model="name">
@@ -39,12 +30,6 @@
                 <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
             </form>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
 </template>
 
@@ -61,17 +46,14 @@
             }
         },
         created() {
-
             if (localStorage.getItem("users")) {
                 this.$store.state.users = JSON.parse(localStorage.getItem("users"))
             }
-
             this.users = this.$store.state.users
         },
         methods: {
-            addWorkshop() {
+            addAreas() {
                 for (let j in this.users) {
-
                     if (this.users[j].userType === "cliente") {
                         this.users[j].notifications.push({
                             txt: 'Nova Area ' + this.name +
@@ -85,8 +67,12 @@
                     name: this.name,
                     description: this.description,
                     img: this.img
-
                 })
+                //limpar os campos
+                this.name = ""
+                this.img = ""
+                this.description = ""
+                
                 Swal.fire({
                     icon: 'success',
                     text: 'Adicionado!'
@@ -113,5 +99,10 @@
         display: block;
         z-index: 5;
         position: relative;
+    }
+
+    #title {
+        padding-top: 150px;
+        padding-bottom: 50px;
     }
 </style>

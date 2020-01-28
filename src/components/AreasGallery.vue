@@ -8,8 +8,8 @@
             <div class="row">
                 <div class="col-sm-4" v-for="a in filteredRunnings" :key="a.id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card :title="a.name" :img-src="a.img" img-alt="Image" img-top tag="article"
-                            style="max-width: 30rem;" class="border-0">
+                        <b-card :title="a.name" :img-src="a.img" img-alt="Image" img-height="180rem" img-top
+                            tag="article" style="max-width: 30rem;" class="border-0">
                             <b-button class="btn-book" squared>
                                 <router-link :to="{name: x, params: {areaId: a.id}}" class="teste" style="color:white">
                                     Ver Mais </router-link>
@@ -82,32 +82,34 @@
         },
         methods: {
             deleteArea(name) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover este espaço?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i = 0; i <= this.areas.length; i++) {
+                            if (this.areas[i].name === name) {
+                                for (let j in this.users) {
 
-                for (let i = 0; i <= this.areas.length; i++) {
-                    if (this.areas[i].name === name) {
-                        for (let j in this.users) {
-
-                            if (this.users[j].userType === "cliente") {
-                                this.users[j].notifications.push({
-                                    txt: 'O Espaço' + this.areas[i].name +
-                                        ' foi removido da galeria de Espaços!'
+                                    if (this.users[j].userType === "cliente") {
+                                        this.users[j].notifications.push({
+                                            txt: 'O Espaço' + this.areas[i].name +
+                                                ' foi removido da galeria de Espaços!'
+                                        })
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                    }
+                                }
+                                this.areas.splice(i, 1)
+                                localStorage.setItem("areas", JSON.stringify(this.areas));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Espaço eliminado!',
                                 })
-                                localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        this.areas.splice(i, 1)
-                        localStorage.setItem("areas", JSON.stringify(this.areas));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Espaço eliminado!',
-                        })
                     }
-
-
-
-                }
-                location.reload()
-
+                })
             }
         }
     }
@@ -144,16 +146,16 @@
         border-radius: 0 !important;
     }
 
- #card-maker {
+    #card-maker {
         transition: all .2s ease-in-out;
     }
 
-    #card-maker:hover{
-         transform: scale(1.1); 
+    #card-maker:hover {
+        transform: scale(1.1);
 
     }
 
-   
+
 
 
     .btn-remove {

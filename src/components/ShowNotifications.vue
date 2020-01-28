@@ -1,13 +1,14 @@
 <template>
     <div>
         <div class="container" style="justify-content: center;">
-            <b-button v-on:click="displayB()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: notifyFont}">
+            <b-button v-on:click="displayB()" class="border-0"
+                style="background-color:transparent; color:black; padding:10px; fontSize: 20px;" v-bind:style="{fontWeight: notifyFont}">
                 Notificações
             </b-button>
-            <b-button v-on:click="displayA()" class="teste border-0"
-                style="background-color:transparent; color:black; padding:10px"
-                v-bind:style="{fontWeight: acrchiveFont}">
+            <label class="options" style="padding: 10px">|</label>
+            <b-button v-on:click="displayA()" class="border-0"
+                style="background-color:transparent; color:black; padding:10px; fontSize: 20px;"
+                v-bind:style="{fontWeight: archiveFont}">
                 Arquivo
             </b-button>
         </div>
@@ -89,7 +90,7 @@
                 notifyTable: "block",
                 archiveTable: "none",
                 notifyFont: "bold",
-                acrchiveFont: "normal",
+                archiveFont: "normal",
                 x: "",
                 users: [],
                 loggedUser: [],
@@ -116,13 +117,13 @@
                 this.notifyTable = "none"
                 this.archiveTable = "block"
                 this.notifyFont = "normal"
-                this.acrchiveFont = "bold"
+                this.archiveFont = "bold"
             },
             displayB() {
                 this.archiveTable = "none"
                 this.notifyTable = "block"
                 this.notifyFont = "bold"
-                this.acrchiveFont = "normal"
+                this.archiveFont = "normal"
             },
             removeNotification(txt) {
                 Swal.fire({

@@ -1,17 +1,11 @@
 <template>
   <div class="home">
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="container-full">
+    <div class="container-full" id="full">
       <img src="../assets/banner.jpg" style="max-width: 100%; height: auto;">
       <div class="container-full title">
         <h1 id="redTitle">OPÇÕES</h1>
         <hr class="back-line">
         <div class="container" id="whiteRect">
-          <p id="space">space</p>
         </div>
       </div>
 
@@ -162,5 +156,9 @@
 
   .card-img {
     border-radius: 0 !important;
+  }
+
+  #full {
+    padding-top: 120px;
   }
 </style>

@@ -72,7 +72,7 @@
                     <div align="right" class="col-sm-5">
                         <h4 class="subtitle">Bebidas</h4>
                         <div v-for="i in searchKits" :key="i.id">
-                            <b-form-group v-if="i.type=='Drink'">
+                            <b-form-group v-if="i.type=='Drink' && i.name !== 'Sem Bebida'">
                                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDrinks">
                                     <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
                                 </b-form-checkbox-group>
@@ -84,7 +84,7 @@
                     <div align="left" class="col-sm-5">
                         <h4 class="subtitle">Comida</h4>
                         <div v-for="i in searchKits" :key="i.id">
-                            <b-form-group v-if="i.type=='Food'">
+                            <b-form-group v-if="i.type=='Food' && i.name !== 'Sem Comida'">
                                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
                                     <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
                                 </b-form-checkbox-group>

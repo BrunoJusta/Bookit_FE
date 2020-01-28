@@ -54,7 +54,7 @@
                 <div class="container" v-bind:style="{display: showEvents}">
                     <div class="row" v-if="this.filteredBookings.length !== 0">
                         <div class="col-sm-3" v-for="k in filteredBookings" :key="k.id" style="padding-top: 20px;">
-                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.kitImg">
+                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.kitImg"  img-height="120rem">
                                 <b-card-body align="left" :title="k.kitName + ' - ' + k.kitType">
                                     <b-card-text style="margin: auto;">
                                         <b>Data:</b> {{k.date}}
@@ -74,7 +74,7 @@
                     </div>
                     <div v-else>
                         <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
-                        <h4> Não existem reservas de Eventos & Catering</h4>
+                        <h4> Não existem reservas de Eventos & Catering.</h4>
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                 <div class="container" v-bind:style="{display: showAreas}">
                     <div class="row" v-if="this.filteredAreas.length !== 0">
                         <div class="col-sm-3" v-for="k in filteredAreas" :key="k.id" style="padding-top: 20px;">
-                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.areaImg">
+                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.areaImg" img-height="120rem">
                                 <b-card-body align="left" :title="k.areaName">
                                     <b-card-text style="margin: auto;">
                                         <b>Data:</b> {{k.date}}
@@ -99,7 +99,7 @@
                     </div>
                     <div v-else>
                         <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
-                        <h4> Não existem reservas de Espaços</h4>
+                        <h4> Não existem reservas de Espaços.</h4>
                     </div>
                 </div>
 
@@ -107,7 +107,7 @@
                 <div class="container" v-bind:style="{display: showWorkshops}">
                     <div class="row" v-if="this.userWorkshops.length !== 0">
                         <div class="col-sm-3" v-for="k in this.userWorkshops" :key="k.id" style="padding-top: 20px;">
-                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.img">
+                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.img" img-height="120rem">
                                 <b-card-body align="left" :title="k.name">
                                     <b-card-text style="margin: auto;">
                                         <b>Data:</b> {{k.date}}
@@ -121,7 +121,7 @@
                     </div>
                     <div v-else>
                         <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
-                        <h4> Não existem inscrições em Workshops</h4>
+                        <h4> Não existem inscrições em Workshops.</h4>
                     </div>
                 </div>
             </div>

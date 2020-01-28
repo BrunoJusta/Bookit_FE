@@ -96,6 +96,7 @@
         display: block;
         z-index: 5;
         position: relative;
+        height: 1px;
     }
 
     #space {
@@ -103,7 +104,7 @@
     }
 
     .title {
-        padding-top: 100px;
+        padding-top: 150px;
         padding-bottom: 50px;
     }
 

@@ -12,8 +12,8 @@
                                         id="icon"></i>{{this.$store.getters.getName}}
                                 </router-link>
                             </b-button>
-                            <span v-if="this.$store.getters.getName != 'Entrar' && this.$store.getters.getNumberNotifications"
-                                class="dot"></span>
+                            <!-- <span v-if="this.$store.getters.getName != 'Entrar' && this.$store.getters.getNumberNotifications"
+                                class="dot"></span> -->
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
                                 <router-link style="color:black;" to="/">Sair</router-link>

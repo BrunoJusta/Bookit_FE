@@ -1,23 +1,12 @@
 <template>
     <div>
-
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-
+    <div id="title">
         <h1 id="redTitle">ADICIONAR MENU</h1>
         <hr class="back-line">
         <div class="container"
-            style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
-            <p style="color:white">s</p>
+            style="background-color:white; margin-top:-35px; height:35px; width:480px;position: relative;display: block; z-index:6">
         </div>
-        <br>
-        <br>
-
+        </div>
         <AddKit />
     </div>
 </template>
@@ -55,5 +44,11 @@
         display: block;
         z-index: 5;
         position: relative;
+        height: 1px;
+    }
+
+    #title {
+        padding-top: 150px;
+        padding-bottom: 50px;
     }
 </style>

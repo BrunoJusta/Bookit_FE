@@ -71,32 +71,33 @@
         },
         methods: {
             deleteWorkshop(name) {
-
-                for (let i = 0; i <= this.workshops.length; i++) {
-                    if (this.workshops[i].name === name) {
-                        for (let j in this.users) {
-
-                            if (this.users[j].userType === "cliente") {
-                                this.users[j].notifications.push({
-                                    txt: 'O Workshop' + this.workshops[i].name +
-                                        ' foi removido da galeria de workshops!'
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja remover este workshop?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i = 0; i <= this.workshops.length; i++) {
+                            if (this.workshops[i].name === name) {
+                                for (let j in this.users) {
+                                    if (this.users[j].userType === "cliente") {
+                                        this.users[j].notifications.push({
+                                            txt: 'O Workshop' + this.workshops[i].name +
+                                                ' foi removido da galeria de workshops!'
+                                        })
+                                        localStorage.setItem("users", JSON.stringify(this.users));
+                                    }
+                                }
+                                this.workshops.splice(i, 1)
+                                localStorage.setItem("workshops", JSON.stringify(this.workshops));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Workshop eliminado!'
                                 })
-                                localStorage.setItem("users", JSON.stringify(this.users));
                             }
                         }
-                        this.workshops.splice(i, 1)
-                        localStorage.setItem("workshops", JSON.stringify(this.workshops));
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Workshop eliminado!'
-                        })
                     }
-
-
-
-                }
-                location.reload()
-
+                })
             }
         },
         computed: {
@@ -133,10 +134,11 @@
         transition: all .2s ease-in-out;
     }
 
-    #card-maker:hover{
-         transform: scale(1.1); 
+    #card-maker:hover {
+        transform: scale(1.1);
 
     }
+
     .border-0 {
         --webkit-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);
         -moz-box-shadow: 0px 4px 5px -1px rgba(184, 184, 184, 0.31);

@@ -170,10 +170,11 @@
 
     .back-line {
         background-color: #0A2463;
-        margin-top: -35px;
+        margin-top: -36px;
         width: 90%;
         display: block;
         z-index: 5;
         position: relative;
+        height: 0.5px;
     }
 </style>

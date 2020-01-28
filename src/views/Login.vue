@@ -1,8 +1,5 @@
 <template>
     <div>
-        <br>
-        <br><br>
-        <br>
         <LoginForm/>
     </div>
 </template>

@@ -1,20 +1,12 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-
-        <h1 id="redTitle">ADICIONAR WORKSHOP</h1>
-        <hr class="back-line">
-        <div class="container"
-            style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
+        <div id="title">
+            <h1 id="redTitle">ADICIONAR WORKSHOP</h1>
+            <hr class="back-line">
+            <div class="container"
+                style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
+            </div>
         </div>
-        <br>
-        <br>
         <AddWorkshop />
     </div>
 </template>
@@ -48,5 +40,11 @@
         display: block;
         z-index: 5;
         position: relative;
+        height: 1px;
+    }
+
+    #title {
+        padding-top: 150px;
+        padding-bottom: 50px;
     }
 </style>

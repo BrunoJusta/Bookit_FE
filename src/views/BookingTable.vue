@@ -1,11 +1,9 @@
 <template>
-    <div>
-
+    <div style="padding-bottom: 100px;">
         <div class="container-full title">
             <h1 id="redTitle">RESERVAS</h1>
             <hr class="back-line">
             <div class="container" id="whiteRect">
-                <p id="space">space</p>
             </div>
         </div>
 
@@ -107,13 +105,6 @@
             <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
             <h4> Não existem reservas de Espaços</h4>
         </div>
-
-
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
 </template>
 

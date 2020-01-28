@@ -3,7 +3,7 @@
     <h3 class="display-2" v-bind:style="{display:show3}">{{getKitById($route.params.kitId).type}}</h3>
     <input type="text" v-model="newKitType" name="" :placeholder="kitType" id="editTitle" v-bind:style="{display:show}">
     <div class="container">
-      <b-card no-body class="overflow-hidden border-0" style="max-width: 1100px;">
+      <b-card no-body class="border-1" style="max-width: 1100px;">
         <b-row no-gutters>
           <b-col md="6">
             <b-card-img v-bind:src="getKitById($route.params.kitId).img" class="rounded-0"></b-card-img>
@@ -13,7 +13,6 @@
               <h3 class="display-3" v-bind:style="{display:show3}">{{getKitById($route.params.kitId).name}}</h3>
               <input type="text" v-model="newKitName" name="" :placeholder="kitname" v-bind:style="{display:show}">
               <div class="row">
-
                 <div class="container" id="showIngredients" v-bind:style="{display: show}">
                   <div class="row">
                     <div align="right" class="col-sm-5">
@@ -26,18 +25,13 @@
                         </b-form-group>
                       </div>
                     </div>
-
                     <div class="col-sm-2">
                     </div>
-
                     <div align="left" class="col-sm-5">
                       <h6 class="subtitle">Comida</h6>
                       <div v-for="i in searchKits" :key="i.id">
                         <b-form-group v-if="i.type=='Food'">
                           <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
-                            <!-- <div v-if="this.menuDrinks.some(drink => drink === i.name)">
-                              <b-form-checkbox checked :value="i.name"> {{i.name}}</b-form-checkbox>
-                            </div> -->
                             <b-form-checkbox :value="i.name" unchecked-value=""> {{i.name}}</b-form-checkbox>
                           </b-form-checkbox-group>
                         </b-form-group>
@@ -47,11 +41,11 @@
                 </div>
                 <div class="col-sm-6 drinks" v-bind:style="{display: show2}">
                   <h6><i class="fas fa-wine-glass-alt" id="icon"></i>BEBIDA</h6>
-                  <p> {{ drinks.length == 0 ? 'Fechar' : '' + drinks }}</p>
+                  <p>{{ drinks.length == 0 ? 'Fechar' : '' + drinks }}</p>
                 </div>
                 <div class="col-sm-6 food" v-bind:style="{display: show2}">
                   <h6><i class="fas fa-cheese" id="icon"></i>COMIDA</h6>
-                  <p> {{ food.length == 0 ? 'Fechar' : '' + food }}</p>
+                  <p>{{ food.length == 0 ? 'Fechar' : '' + food }}</p>
                 </div>
               </div>
             </b-card-body>
@@ -99,7 +93,7 @@
         newKitName: "",
         checkedDrinks: [],
         checkedFood: [],
-        menuDrinks: []
+        menuIng: []
       };
     },
     created() {
@@ -120,10 +114,6 @@
           kit => kit.id === id
         )[0].drinks
 
-        this.menuDrinks = this.kits.filter(
-          kit => kit.id === id
-        )[0].drinks
-
         this.kitname = this.kits.filter(
           kit => kit.id === id
         )[0].name
@@ -136,6 +126,7 @@
           kit => kit.id === id
         )[0].id
 
+        this.menuIng = this.food + this.drinks
         return this.kits.filter(
           kit => kit.id === id
         )[0]
@@ -145,6 +136,7 @@
           kitname: this.kitname,
           kitType: this.kitType,
           kitImg: this.kitImg,
+          menuIng: this.menuIng
         });
         localStorage.setItem("currentKit", JSON.stringify(this.currentKit));
         this.$store.state.currentKit = this.currentKit
@@ -273,9 +265,7 @@
     transform: scale(1.1);
   }
 
-  .overflow-hidden {
-    max-width: 1100px;
-    height: 350px;
+  .border-1 {
     -webkit-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
     -moz-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
     box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
@@ -284,7 +274,7 @@
 
   .food,
   .drinks {
-    padding-top: 50px;
+    padding-top: 0px;
   }
 
   #icon {

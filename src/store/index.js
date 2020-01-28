@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     currentKit: {
       kitname: "",
-      kitType: ""
+      kitType: "",
+      menuIng: ""
     },
     currentArea: {
       areaName: ""
@@ -16,144 +17,145 @@ export default new Vuex.Store({
     users: [{
       id: 0,
       name: "Admin",
-      lastName: "Istrador",
+      lastName: "Master",
       email: "admin@admin.admin",
       password: "123",
       number: "123",
-      img: require('../assets/logo.png'),
       userType: "admin"
     }],
     kits: [{
         id: 0,
-        name: "Menu A",
-        drinks: ["café", "leite"],
-        food: ["bolo"],
+        name: "Base",
+        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água"],
+        food: ["Triângulos Mistos"],
         type: "Coffee Break",
-        img: require('../assets/eventosCatering.png'),
-        popularity: 10
+        img: require('../assets/menuBase.jpg'),
+        popularity: 30
       },
       {
         id: 1,
-        name: "menu B",
-        drinks: ["café", "leite"],
-        food: ["bolo"],
+        name: "Estudante",
+        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água"],
+        food: ["Triângulos Mistos", "Fruta da Época"],
         type: "Coffee Break",
-        img: require('../assets/eventosCatering.png'),
-        popularity: 20
-
-
+        img: require('../assets/menuEstudante.jpg'),
+        popularity: 60
       },
       {
         id: 2,
-        name: "menu C",
-        drinks: ["café", "leite"],
-        food: ["bolo"],
+        name: "Executivo",
+        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada"],
+        food: ["Triângulos Mistos", "Fruta da Época", "Natinhas com Canela", "Queijadas"],
         type: "Coffee Break",
-        img: require('../assets/eventosCatering.png'),
+        img: require('../assets/MenuExecutivo.jpg'),
         popularity: 120
-
-
       },
       {
         id: 3,
-        name: "menu A",
-        drinks: ["café", "leite"],
-        food: ["bolo"],
-        type: "Jantar de Gala",
-        img: require('../assets/eventosCatering.png'),
-        popularity: 340
-
-
+        name: "Supremo",
+        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada", "Sumo de Morango e Goiaba"],
+        food: ["Triângulos Mistos", "Fruta da Época", "Natinhas com Canela", "Queijadas", "Pães variados", "Compotas variadas", "Queijo fresco", "Mini Croissants"],
+        type: "Coffee Break",
+        img: require('../assets/menuSupremo.jpg'),
+        popularity: 100
       },
       {
         id: 4,
-        name: "menu B",
-        drinks: ["café", "leite"],
-        food: ["bolo"],
-        type: "Jantar de Gala",
-        img: require('../assets/eventosCatering.png'),
-        popularity: 0
-
-
+        name: "Base",
+        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada"],
+        food: ["Pães variados", "Mini Croissants", "Compotas variadas", "Manteigas variadas"],
+        type: "Pequeno Almoço",
+        img: require('../assets/basePA.png'),
+        popularity: 55
       },
       {
         id: 5,
-        name: "Menu C",
-        drinks: ["café", "leite"],
-        food: ["bolo"],
-        type: "Jantar de Gala",
-        img: require('../assets/eventosCatering.png'),
-        popularity: 0
-
-
+        name: "Total",
+        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada", "Nectar de Manga"],
+        food: ["Fiambre", "Pães variados", "Mini Croissants", "Compotas variadas", "Manteigas variadas", "Queijo fresco", "Salada de Fruta", "Corn Flakes", "Iogurtes"],
+        type: "Pequeno Almoço",
+        img: require('../assets/completoPA.jpg'),
+        popularity: 130
+      },
+      {
+        id: 6,
+        name: "Base",
+        drinks: ["Sumo de Laranja", "Água"],
+        food: ["Fruta da Época", "Sanduiche Mista"],
+        type: "Almoços",
+        img: require('../assets/baseAlmoço.jpg'),
+        popularity: 23
+      },
+      {
+        id: 7,
+        name: "Piquenique",
+        drinks: ["Sumo de Laranja", "Água", "Água Gaseificada", "Nectar de Manga"],
+        food: ["Fruta da Época", "Sanduiche Mista", "Misto de Salgados"],
+        type: "Almoços",
+        img: require('../assets/piqueniqueAL.jpg'),
+        popularity: 5
+      },
+      {
+        id: 8,
+        name: "Base",
+        drinks: ["Café", "Sumo de Laranja", "Água", "Água Gaseificada", "Vinho Branco", "Vinho Tinto", "Sangria Branca", "Sangria Tinta", "Sangria Rosé"],
+        food: ["Bacalhau com migas de broa", "Arroz de Marisco", "Strogonoff de Frango", "Carne de Porco Alentejana", "Salada de Polvo", "Creme de cenoura", "Creme de ervilhas"],
+        type: "Buffet",
+        img: require('../assets/baseBuffet.jpg'),
+        popularity: 73
       }
     ],
     workshops: [{
         id: 0,
-        name: "Workshop A",
-        date: "20/12/2021",
+        name: "Criação de inquéritos",
+        date: "21/06/2020",
         time: "12h - 14h",
-        teacher: "João",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        img: require('../assets/workshopTemplate.png'),
+        teacher: "LimeSurvey",
+        description: "Neste workshop será facultada uma formação na construção e implementação de questionários eletrónicos. Esta formação incluirá a necessária abordagem dos requisitos metodológicos de base na aplicação de questionários eletrónicos e a explicitação do funcionamento prático da aplicação LimeSurvey.",
+        img: require('../assets/workshop1.jpg'),
         inscriptions: [],
         vacancies: 50
-
-
       },
       {
         id: 1,
-        name: "Workshop B",
-        date: "20/12/2019",
-        time: "12h - 14h",
-        teacher: "João",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        img: require('../assets/workshopTemplate.png'),
+        name: "Gastronómico",
+        date: "20/04/2021",
+        time: "13h - 15h",
+        teacher: "Rui Rodrigues",
+        description: "O evento integra uma mostra de gastronomia típica de Vila do Conde e Póvoa de Varzim que todos os visitantes poderão degustar, e ainda duas atividades de Showcooking em que estarão presentes, para além dos docentes de cozinha, dois chefes convidados: Rui Rodrigues, Chef executivo do grupo M e o Chef Eduardo Rodrigues do Republikarestaurante.",
+        img: require('../assets/workshop3.jpg'),
         inscriptions: [],
         vacancies: 50
-
-
       },
       {
         id: 2,
-        name: "Workshop C",
-        date: "20/12/2019",
-        time: "12h - 14h",
-        teacher: "João",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        img: require('../assets/workshopTemplate.png'),
+        name: "Comida Italiana",
+        date: "15/10/2020",
+        time: "10h - 12h",
+        teacher: "Chef Camilo Jaña",
+        description: "Aprenda a arte de fazer massa fresca com os mais diversas bases e sabores com o nosso chef chileno Camilo Jaña! Responsável pela cozinha dos clássicos da Foz – Cafeína, Portarossa, Casa Vasco e Terra, Camilo Janã vai encher a nossa cozinha de ritmo, energia e um sotaque espanhol, num workshop divertido e eletrizante que lhe vai revelar os segredos das massas frescas italianas. Inscreva-se e venha passar uma tarde incrível, com um dos chefs mais reconhecidos da cidade!",
+        img: require('../assets/workshop2.jpg'),
         inscriptions: [],
         vacancies: 50
-
-
       }
     ],
     areas: [{
         id: 0,
         name: "Restaurante de Aplicação",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        img: require('../assets/bar.png'),
+        description: "Restaurante com capacidade para 50 pessoas, onde são aplicados os métodos de serviço leccionados nas UC de Práticas Hoteleiras.",
+        img: require('../assets/restaurante.jpg'),
       },
       {
         id: 1,
         name: "Bar de Aplicação",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        description: "No Bar Aplicação, os estudantes poêm em prática os conhecimentos de serviço de bar, obtidos nas aulas da Licenciatura. É um espaço agradável e acolhedor. ",
         img: require('../assets/bar.png'),
-
       },
       {
         id: 2,
         name: "Cozinha de Aplicação",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        img: require('../assets/bar.png'),
-
-      },
-      {
-        id: 3,
-        name: "Restaurante da ESHT",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        img: require('../assets/bar.png'),
-
+        description: "Possuimos uma cozinha totalmente equipada e preparada para os mais diversos serviços.",
+        img: require('../assets/cozinhaFinal.jpg'),
       }
     ],
     x: 0,
@@ -183,24 +185,222 @@ export default new Vuex.Store({
         type: "Drink",
       }, {
         id: 4,
-        name: "Bolo",
-        type: "Food",
+        name: "Chá",
+        type: "Drink",
       }, {
         id: 5,
-        name: "Bolachas",
+        name: "Sumo de Laranja",
+        type: "Drink",
+      }, {
+        id: 6,
+        name: "Triângulos Mistos",
         type: "Food",
+      },
+      {
+        id: 7,
+        name: "Água",
+        type: "Drink",
+      }, {
+        id: 8,
+        name: "Pastelaria seca variada",
+        type: "Food",
+      },
+      {
+        id: 9,
+        name: "Fruta da Época",
+        type: "Food",
+      },
+      {
+        id: 10,
+        name: "Água Gaseificada",
+        type: "Drink",
+      },
+      {
+        id: 11,
+        name: "Natinhas com Canela",
+        type: "Food"
+      },
+      {
+        id: 12,
+        name: "Queijadas",
+        type: "Food"
+      },
+      {
+        id: 13,
+        name: "Sumo de Morango e Goiaba",
+        type: "Drink"
+      },
+      {
+        id: 14,
+        name: "Pães variados",
+        type: "Food"
+      },
+      {
+        id: 15,
+        name: "Compotas variadas",
+        type: "Food"
+      },
+      {
+        id: 16,
+        name: "Queijo fresco",
+        type: "Food"
+      },
+      {
+        id: 17,
+        name: "Mini Croissants",
+        type: "Food"
+      },
+      {
+        id: 18,
+        name: "Iogurtes",
+        type: "Food"
+      },
+      {
+        id: 19,
+        name: "Manteigas variadas",
+        type: "Food"
+      },
+      {
+        id: 20,
+        name: "Fiambre",
+        type: "Food"
+      },
+      {
+        id: 21,
+        name: "Corn Flakes",
+        type: "Food"
+      },
+      {
+        id: 22,
+        name: "Folhados doces",
+        type: "Food"
+      },
+      {
+        id: 23,
+        name: "Salada de fruta",
+        type: "Food"
+      },
+      {
+        id: 24,
+        name: "Nectar de Manga",
+        type: "Drink"
+      },
+      {
+        id: 25,
+        name: "Tostas",
+        type: "Food"
+      },
+      {
+        id: 26,
+        name: "Misto de Salgados",
+        type: "Food"
+      },
+      {
+        id: 27,
+        name: "Ovos mexidos",
+        type: "Food"
+      },
+      {
+        id: 28,
+        name: "Salsichas",
+        type: "Food"
+      },
+      {
+        id: 29,
+        name: "Bacalhau com natas",
+        type: "Food"
+      },
+      {
+        id: 30,
+        name: "Bolo de bolacha",
+        type: "Food"
+      },
+      {
+        id: 31,
+        name: "Sanduiche mista",
+        type: "Food"
+      },
+      {
+        id: 32,
+        name: "Cerveja nacional",
+        type: "Drink"
+      },
+      {
+        id: 33,
+        name: "Vinho Branco",
+        type: "Drink"
+      },
+      {
+        id: 34,
+        name: "Vinho Tinto",
+        type: "Drink"
+      },
+      {
+        id: 35,
+        name: "Sangria Branca",
+        type: "Drink"
+      },
+      {
+        id: 36,
+        name: "Sangria Tinta",
+        type: "Drink"
+      },
+      {
+        id: 37,
+        name: "Sangria Rosé",
+        type: "Drink"
+      },
+      {
+        id: 38,
+        name: "Creme de ervilhas",
+        type: "Food"
+      },
+      {
+        id: 39,
+        name: "Creme de cenoura",
+        type: "Food"
+      },
+      {
+        id: 40,
+        name: "Salada de Polvo",
+        type: "Food"
+      },
+      {
+        id: 41,
+        name: "Bacalhau com migas de broa",
+        type: "Food"
+      },
+      {
+        id: 42,
+        name: "Arroz de Marisco",
+        type: "Food"
+      },
+      {
+        id: 43,
+        name: "Strogonoff de Frango",
+        type: "Food"
+      },
+      {
+        id: 44,
+        name: "Carne de Porco Alentejana",
+        type: "Food"
       }
     ],
     extras: [{
-      id: 0,
-      name: "Babysiting"
-    }, {
-      id: 1,
-      name: "Palhaços"
-    }, {
-      id: 2,
-      name: "Atuação Musical"
-    }],
+        id: 0,
+        name: "Babysiting"
+      }, {
+        id: 1,
+        name: "Palhaços"
+      }, {
+        id: 2,
+        name: "Atuação Gatunos"
+      },
+      {
+        id: 3,
+        name: "Atuação Afrodituna"
+      }
+    ],
     decor: [{
       id: 0,
       name: "Centros de Mesa"
@@ -214,49 +414,63 @@ export default new Vuex.Store({
     outfits: [{
         id: 0,
         source: require('../assets/farda01.png'),
-        name: "Outfit_1"
+        name: "Completa"
       },
       {
         id: 1,
         source: require('../assets/farda03.png'),
-        name: "Outfit_2"
-
+        name: "Sem colete"
       },
       {
         id: 2,
         source: require('../assets/farda04.png'),
-        name: "Outfit_3"
-
+        name: "Sem casaco"
       },
       {
         id: 3,
         source: require('../assets/farda02.png'),
-        name: "Outfit_4"
-
+        name: "Sem colete e casaco"
       },
       {
         id: 4,
         source: require('../assets/farda05.png'),
-        name: "Outfit_5"
-
+        name: "Cozinha"
       },
       {
         id: 5,
         source: require('../assets/farda06.png'),
-        name: "Outfit_6"
-
+        name: "Cozinha sem avental"
       }
     ],
     schools: [{
-      id: 0,
-      name: "ESMAD"
-    }, {
-      id: 1,
-      name: "ESHT"
-    }, {
-      id: 2,
-      name: "ESS"
-    }]
+        id: 0,
+        name: "ESMAD"
+      }, {
+        id: 1,
+        name: "ESHT"
+      }, {
+        id: 2,
+        name: "ESS"
+      },
+      {
+        id: 3,
+        name: "ISEP"
+      }, {
+        id: 4,
+        name: "ISCAP"
+      }, {
+        id: 5,
+        name: "ESE"
+      },
+      {
+        id: 6,
+        name: "ESMAI"
+      },
+      {
+        id: 7,
+        name: "ESTG"
+      }
+    ]
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -423,7 +637,8 @@ export default new Vuex.Store({
           type: payload.type,
           drinks: payload.drinks,
           food: payload.food,
-          img: payload.img
+          img: payload.img,
+          popularity: 0
         });
         localStorage.setItem("kits", JSON.stringify(state.kits));
       } else {
@@ -629,6 +844,9 @@ export default new Vuex.Store({
     },
     getCurrentKitType(state) {
       return state.currentKit.kitType
+    },
+    getCurrentKitIng(state) {
+      return state.currentKit.menuIng
     },
     getCurrentArea(state) {
       return state.currentArea.areaName

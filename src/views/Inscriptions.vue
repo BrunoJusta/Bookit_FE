@@ -1,11 +1,9 @@
 <template>
-    <div>
-
+    <div style="padding-bottom: 100px;">
         <div class="container-full title">
             <h1 id="redTitle">INSCRIÇÕES</h1>
             <hr class="back-line">
             <div class="container" id="whiteRect">
-                <p id="space">space</p>
             </div>
         </div>
 
