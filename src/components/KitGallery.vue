@@ -65,8 +65,6 @@
                                 <router-link :to="{name: x, params: {kitId: k.id}}" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
-                            <b-button @click="deleteKit(k.name, k.type)" class="btn-remove border-0" :id="k.id"
-                                v-bind:style="{visibility: remove}" squared> X</b-button>
                         </b-card>
                     </div>
                 </div>
@@ -205,11 +203,11 @@
                             if (this.searchTxt == "" && this.selectTxt == "Todos") {
                                 return filterResult
                             }
-                            if (kit.name.includes(this.searchTxt)) {
+                            if (kit.name.toLowerCase().includes(this.searchTxt.toLowerCase())) {
                                 if (this.selectTxt != "Todos") {
                                     filterResult = kit.type.includes(this.selectTxt)
                                 } else {
-                                    filterResult = kit.name.includes(this.searchTxt)
+                                    filterResult = kit.name.toLowerCase().includes(this.searchTxt.toLowerCase())
                                 }
                                 return filterResult
                             }
