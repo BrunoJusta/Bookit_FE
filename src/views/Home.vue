@@ -40,19 +40,19 @@
       <div class="row">
         <div class="col-sm-4">
           <router-link id="link" to="/menuKits">
-            <b-card title="Eventos & Catering" img-src="../assets/eventosCatering.png" class="mb-2 border-0">
+            <b-card title="Eventos & Catering" img-src="../assets/eventosCateringg.jpg" class="mb-2 border-0">
             </b-card>
           </router-link>
         </div>
         <div class="col-sm-4">
           <router-link id="link" to="/areas">
-            <b-card title="Espaços" img-src="../assets/bar.png" class="mb-2 border-0">
+            <b-card title="Espaços" img-src="../assets/rooms.jpg" class="mb-2 border-0">
             </b-card>
           </router-link>
         </div>
         <div class="col-sm-4">
           <router-link id="link" to="/workshops">
-            <b-card title="Workshops" img-src="../assets/workshopTemplate.png" class="mb-2 border-0 ">
+            <b-card title="Workshops" img-src="../assets/workshoptem.jpg" class="mb-2 border-0 ">
             </b-card>
           </router-link>
         </div>
