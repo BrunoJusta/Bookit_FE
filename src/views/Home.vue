@@ -19,7 +19,7 @@
 
 
     <div class="container txt">
-      <p>Os estudantes de <b> Gestão e Administração Hoteleira </b>, convidam-no a saborear as receitas criadas
+      <p>Os estudantes de <b> Gestão e Administração Hoteleira </b> convidam-no a saborear as receitas criadas
         para si. Venha conhecer-nos.</p>
       <p>
         O Restaurante de Aplicação da <b>Escola Superior de Hotelaria e Turismo</b> é da responsabilidade do Politécnico
