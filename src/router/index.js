@@ -52,8 +52,6 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/pageNotFound")
-      } else if (user.userType == "admin") {
-        next("/pageNotFound");
       } else {
         next()
       }
@@ -156,8 +154,6 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/login")
-      } else if (user.userType == "admin") {
-        next("/pageNotFound");
       }
        else {
         next()
@@ -203,8 +199,7 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/pageNotFound");
-      } else if (user.userType == "admin") {
-        next("/pageNotFound");
+      
       } else {
         next()
       }

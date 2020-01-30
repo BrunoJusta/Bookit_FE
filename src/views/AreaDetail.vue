@@ -32,11 +32,11 @@
       <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
         <router-link to="/areas" style="color:white"> Voltar </router-link>
       </b-button>
-      <b-button v-if="this.$store.getters.getUserType !== 'admin'" @click="saveCurrentArea()" class="btn-book border-0"
+      <b-button  @click="saveCurrentArea()" class="btn-book border-0"
         squared>
         <router-link to="/areasbooking" class="teste" style="color:white"> Reservar </router-link>
       </b-button>
-      <b-button v-bind:style="{display:show2}" v-else @click="activateEdit()" class="btn-book border-0" squared>
+      <b-button v-bind:style="{display:show2}"  @click="activateEdit()" class="btn-book border-0" squared>
         Editar
       </b-button>
     </div>

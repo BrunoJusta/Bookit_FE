@@ -73,7 +73,7 @@
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
             } else if (this.$store.getters.getUserType === "admin") {
-                this.path = "adminHome"
+                this.path = "profile"
             } else if (this.$store.getters.getUserType === "cliente") {
                 this.path = "profile"
             }
@@ -99,7 +99,7 @@
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
             } else if (this.$store.getters.getUserType === "admin") {
-                this.path = "adminHome"
+                this.path = "profile"
             } else if (this.$store.getters.getUserType === "cliente") {
                 this.path = "profile"
             }

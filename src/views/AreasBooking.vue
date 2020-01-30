@@ -117,9 +117,15 @@
                             icon: 'success',
                             title: 'A sua reserva foi enviada!'
                         })
-                        router.push({
-                            name: 'home'
-                        })
+                        if (this.$store.getters.getUserType !== 'admin') {
+                            router.push({
+                                name: 'home'
+                            })
+                        } else {
+                            router.push({
+                                name: 'adminHome'
+                            })
+                        }
                     }
                 }
 

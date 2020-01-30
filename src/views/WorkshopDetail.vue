@@ -52,10 +52,10 @@
       <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
         <router-link to="/workshops" style="color:white"> Voltar </router-link>
       </b-button>
-      <b-button @click="sendInfo()" v-if="this.$store.getters.getUserType !== 'admin'" class="btn-book border-0"
+      <b-button @click="sendInfo()" class="btn-book border-0"
         squared>Inscrever
       </b-button>
-      <b-button v-bind:style="{display:show2}" v-else @click="activateEdit()" class="btn-book border-0" squared>
+      <b-button v-bind:style="{display:show2}" @click="activateEdit()" class="btn-book border-0" squared>
         Editar
       </b-button>
     </div>

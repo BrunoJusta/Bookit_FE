@@ -18,10 +18,16 @@ export default new Vuex.Store({
       id: 0,
       name: "Admin",
       lastName: "Master",
+      gender: "Masculino",
       email: "admin@admin.admin",
       password: "123",
       number: "123",
-      userType: "admin"
+      userType: "admin",
+      school: "ESHT",
+      img: require('../assets/male.svg'),
+      notifications: [],
+      archivations:[],
+      birthDate: "2000-03-25"
     }],
     kits: [{
         id: 0,

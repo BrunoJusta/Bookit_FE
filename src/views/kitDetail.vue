@@ -63,11 +63,15 @@
       <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
         <router-link to="/menuKits" style="color:white"> Voltar </router-link>
       </b-button>
-      <b-button v-if="this.$store.getters.getUserType !== 'admin'" @click="saveCurrentKit()"
+      <!-- <b-button v-if="this.$store.getters.getUserType !== 'admin'" @click="saveCurrentKit()"
+        v-bind:style="{display:show2}" class="btn-book border-0" squared>
+        <router-link to="/booking" style="color:white"> Reservar </router-link>
+      </b-button> -->
+        <b-button  @click="saveCurrentKit()"
         v-bind:style="{display:show2}" class="btn-book border-0" squared>
         <router-link to="/booking" style="color:white"> Reservar </router-link>
       </b-button>
-      <b-button v-bind:style="{display:show2}" v-else @click="activateEdit()" class="btn-book border-0" squared>
+      <b-button v-bind:style="{display:show2}"  @click="activateEdit()" class="btn-book border-0" squared>
         Editar
       </b-button>
     </div>
