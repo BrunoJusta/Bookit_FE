@@ -470,7 +470,7 @@ export default new Vuex.Store({
       },
       {
         id: 6,
-        name: "ESMAI"
+        name: "ESMAE"
       },
       {
         id: 7,

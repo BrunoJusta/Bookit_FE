@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <div class="container-full" id="full">
-      <img src="../assets/banner.jpg" style="max-width: 100%; height: auto;">
+      <img src="../assets/banner2.jpg" style="max-width: 100%; height: auto;">
       <div class="container-full title">
-        <h1 id="redTitle">OPÇÕES</h1>
+        <h1 id="redTitle">OPÇÕES DE ADMINISTRADOR</h1>
         <hr class="back-line">
         <div class="container" id="whiteRect">
         </div>
@@ -147,7 +147,7 @@
     background-color: white;
     margin-top: -35px;
     height: 35px;
-    width: 250px;
+    width: 730px;
     position: relative;
     display: block;
     z-index: 6

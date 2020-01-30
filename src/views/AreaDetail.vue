@@ -36,7 +36,7 @@
         squared>
         <router-link to="/areasbooking" class="teste" style="color:white"> Reservar </router-link>
       </b-button>
-      <b-button v-bind:style="{display:show2}"  @click="activateEdit()" class="btn-book border-0" squared>
+      <b-button v-bind:style="{display:show2}"  v-if="this.$store.getters.getUserType == 'admin'" @click="activateEdit()" class="btn-book border-0" squared>
         Editar
       </b-button>
     </div>
