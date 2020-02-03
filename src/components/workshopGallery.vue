@@ -53,7 +53,7 @@
             } else {
                 this.x = "workshopDetail"
             }
-            if (this.$store.getters.getName === "Admin") {
+            if (this.$store.getters.getUserType === "admin") {
                 this.remove = "visible"
                 this.choose = "hidden"
             } else {

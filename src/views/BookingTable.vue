@@ -286,7 +286,7 @@
                                 for (let j in this.users) {
                                     if (this.users[j].email === userEmail) {
                                         this.users[j].notifications.push({
-                                            txt: 'A sua reserva do ' + this.bookings[i].kitName +
+                                            txt: 'A sua reserva do menu ' + this.bookings[i].kitName +
                                                 " - " +
                                                 this.bookings[i].kitType + ' para a data ' + this
                                                 .bookings[i].date +
@@ -318,7 +318,7 @@
                                 for (let j in this.users) {
                                     if (this.users[j].email === userEmail) {
                                         this.users[j].notifications.push({
-                                            txt: 'A sua reserva do ' + this.bookings[i].kitName +
+                                            txt: 'A sua reserva do menu ' + this.bookings[i].kitName +
                                                 " - " +
                                                 this.bookings[i].kitType + ' para a data ' + this
                                                 .bookings[i].date +
@@ -350,7 +350,7 @@
                                 for (let j in this.users) {
                                     if (this.users[j].email === userEmail) {
                                         this.users[j].notifications.push({
-                                            txt: 'A sua reserva do ' + this.areas[i].areaName +
+                                            txt: 'A sua reserva do espaço ' + this.areas[i].areaName +
                                                 ' para a data ' + this.areas[i].date + ' foi aceite!'
                                         })
                                         localStorage.setItem("users", JSON.stringify(this.users));
@@ -379,7 +379,7 @@
                                 for (let j in this.users) {
                                     if (this.users[j].email === userEmail) {
                                         this.users[j].notifications.push({
-                                            txt: 'A sua reserva do ' + this.areas[i].areaName +
+                                            txt: 'A sua reserva do espaço ' + this.areas[i].areaName +
                                                 ' para a data ' + this.areas[i].date + ' foi recusada!'
                                         })
                                         localStorage.setItem("users", JSON.stringify(this.users));

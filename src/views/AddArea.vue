@@ -27,7 +27,7 @@
                         <img :src="img" id="imgArea" style="width: 100px; height: 100px;">
                     </div>
                 </div>
-                <button type="submit" value="Adicionar" class="btn btn-primary">Adicionar</button>
+                <button type="submit" value="Adicionar" class="btn btn-primary rounded-0 border-0">Adicionar</button>
             </form>
         </div>
     </div>
@@ -104,5 +104,13 @@
     #title {
         padding-top: 150px;
         padding-bottom: 50px;
+    }
+
+    
+    .btn-primary {
+        font-size: 18px;
+        background-color: #0A2463;
+        margin: 20px;
+        margin-top: 50px;
     }
 </style>
