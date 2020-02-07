@@ -278,6 +278,7 @@
                 window.scrollTo(0, 0);
 
             },
+            /*  -------------------------------- FUNCAO ANTIGA 
             displayAddOns() {
                 if (this.reason != "" && this.date != "" && this.hi != "" &&
                     this.hf != "" && this.schools != "" && this.location != "" &&
@@ -311,7 +312,6 @@
                             this.outfitFont = "normal"
                             this.resumeFont = "normal"
                             window.scrollTo(0, 0);
-
                         }
                     }
                 } else {
@@ -320,7 +320,67 @@
                         text: 'Toda a informação desta página deve ser preenchida!'
                     })
                 }
+            },
+            */
+            displayAddOns() {
+                if (this.reason != "" && this.date != "" && this.hi != "" &&
+                    this.hf != "" && this.schools != "" && this.location != "" &&
+                    this.people != "") {
+                    let splited = this.date.split('-')
+                    let year = splited[0]
+                    let day = splited[2]
+                    let month = splited[1]
+                    alert(parseInt(year) + "    " + parseInt(month) + "     " + parseInt(day))
+                    if (parseInt(year) < new Date().getFullYear() || parseInt(year) > new Date().getFullYear() + 2) {
+                        Swal.fire({
+                            icon: 'warning',
+                            text: 'Introduza um ano válido!'
+                        })
+                    } else {
+                        if (parseInt(day) <= new Date().getDate() && parseInt(month) > new Date().getMonth() +
+                            1) {
+                            this.kitInfo = "none"
+                            this.addOns = "block"
+                            this.extra = "none"
+                            this.decors = "none"
+                            this.outfit = "none"
+                            this.resume = "none"
+                            this.kitInfoFont = "normal"
+                            this.addOnsFont = "bold"
+                            this.extraFont = "normal"
+                            this.decorsFont = "normal"
+                            this.outfitFont = "normal"
+                            this.resumeFont = "normal"
+                            window.scrollTo(0, 0);
+                        } else if (parseInt(day) > new Date().getDate() && parseInt(month) >= new Date().getMonth() +
+                            1) {
+                            this.kitInfo = "none"
+                            this.addOns = "block"
+                            this.extra = "none"
+                            this.decors = "none"
+                            this.outfit = "none"
+                            this.resume = "none"
+                            this.kitInfoFont = "normal"
+                            this.addOnsFont = "bold"
+                            this.extraFont = "normal"
+                            this.decorsFont = "normal"
+                            this.outfitFont = "normal"
+                            this.resumeFont = "normal"
+                            window.scrollTo(0, 0);
 
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                text: 'Introduza uma data válida!'
+                            })
+                        }
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'Toda a informação desta página deve ser preenchida!'
+                    })
+                }
             },
             displayExtras() {
                 this.kitInfo = "none"
@@ -430,8 +490,7 @@
                     router.push({
                         name: 'home'
                     })
-                }
-                else{
+                } else {
                     router.push({
                         name: 'adminHome'
                     })
