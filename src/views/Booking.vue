@@ -35,11 +35,14 @@
                             </b-form-input>
                         </b-form-group>
                         <label class="lable" for="schools">Local</label>
-                        <b-form-input id="schools" class="rounded-0" list="my-list-id" v-model="location" required>
+                        <!-- <b-form-input id="schools" class="rounded-0" list="my-list-id" v-model="location" required>
                         </b-form-input>
                         <datalist id="my-list-id">
                             <option v-for="school in schools" :key="school.id">{{school.name}}</option>
-                        </datalist>
+                        </datalist> -->
+                         <select id="schools" style="width:255px; height:38px;border-color:#ced4da" class="rounded-0" v-model="location">
+                        <option v-for="school in schools" :key="school.id">{{school.name}}</option>
+                    </select>
                     </div>
                     <div class="col-sm-2">
                         <b-form-group class="input" id="input-group-6">
@@ -144,9 +147,9 @@
                 <button type="button" v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0"
                     v-bind:style="{fontWeight: kitInfoFont}">Anterior
                 </button>
-                <button type="button" v-on:click="displayResume()" class="btn btn-primary border-0 rounded-0"
+                <!-- <button type="button" v-on:click="displayResume()" class="btn btn-primary border-0 rounded-0"
                     v-bind:style="{fontWeight: extraFont}">Seguinte
-                </button>
+                </button> -->
             </div>
             <div class="container" v-bind:style="{display: resume}">
                 <div class="row">
@@ -278,50 +281,6 @@
                 window.scrollTo(0, 0);
 
             },
-            /*  -------------------------------- FUNCAO ANTIGA 
-            displayAddOns() {
-                if (this.reason != "" && this.date != "" && this.hi != "" &&
-                    this.hf != "" && this.schools != "" && this.location != "" &&
-                    this.people != "") {
-                    let splited = this.date.split('-')
-                    let year = splited[0]
-                    let day = splited[2]
-                    let month = splited[1]
-                    if (parseInt(year) < new Date().getFullYear() || parseInt(year) > new Date().getFullYear() + 2) {
-                        Swal.fire({
-                            icon: 'warning',
-                            text: 'Introduza um ano válido!'
-                        })
-                    } else {
-                        if (parseInt(day) <= new Date().getDate() && parseInt(month) == new Date().getMonth() + 1) {
-                            Swal.fire({
-                                icon: 'warning',
-                                text: 'Introduza um dia válido!'
-                            })
-                        } else {
-                            this.kitInfo = "none"
-                            this.addOns = "block"
-                            this.extra = "none"
-                            this.decors = "none"
-                            this.outfit = "none"
-                            this.resume = "none"
-                            this.kitInfoFont = "normal"
-                            this.addOnsFont = "bold"
-                            this.extraFont = "normal"
-                            this.decorsFont = "normal"
-                            this.outfitFont = "normal"
-                            this.resumeFont = "normal"
-                            window.scrollTo(0, 0);
-                        }
-                    }
-                } else {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'Toda a informação desta página deve ser preenchida!'
-                    })
-                }
-            },
-            */
             displayAddOns() {
                 if (this.reason != "" && this.date != "" && this.hi != "" &&
                     this.hf != "" && this.schools != "" && this.location != "" &&

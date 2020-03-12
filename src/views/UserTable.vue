@@ -14,11 +14,14 @@
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredUsers" :fields="fields">
                 <template v-slot:cell(actions)="row">
-                    <b-button size="sm" v-if="row.item.userType == 'cliente'" @click="changeToAdmin(row.item.id)"
-                        class="mr-1">Tornar Admin</b-button>
-                    <b-button size="sm" v-if="row.item.userType == 'admin'" @click="changeToClient(row.item.id)"
-                        class="mr-1">Tornar User</b-button>
-                    <b-button size="sm" @click="remove(row.item.id)" class="mr-1">X</b-button>
+                    <b-button size="sm" v-if="row.item.userType == 'cliente' && row.item.email != $store.getters.getEmail" @click="changeToAdmin(row.item.id)"
+                        class="mr-1 border-0 rounded-0">Tornar Admin</b-button>
+                    <b-button size="sm" v-if="row.item.userType == 'admin' && row.item.email != $store.getters.getEmail" @click="changeToClient(row.item.id) "
+                        class="mr-1 border-0 rounded-0">Tornar User</b-button>
+                        <b-button size="sm" v-if="row.item.email != $store.getters.getEmail" @click="changeToClient(row.item.id)"
+                        class="mr-1 border-0 rounded-0">Bloquear</b-button>
+                    <b-button size="sm" @click="remove(row.item.id)" v-if="row.item.email != $store.getters.getEmail" class="mr-1 border-0 rounded-0">X</b-button>
+                    <span v-else>Sem Ações</span>
 
                 </template>
             </b-table>

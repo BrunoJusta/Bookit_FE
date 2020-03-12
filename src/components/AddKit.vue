@@ -3,6 +3,20 @@
 
         <form @submit.prevent="addKit()">
             <div class="container">
+                <div class="text-center my-3" v-if="name != ''">
+                    <b-button id="popover-target-1" class="border-0"
+                        style="width: 550px; background-color: transparent">
+                        <b-button class="btn btn-2 rounded-0 border-0">
+                            Pre-visualizar o Menu
+                        </b-button>
+                    </b-button>
+                    <b-popover target="popover-target-1" triggers="hover" placement="leftbottom"
+                        style="margin-left: -500px">
+                        <preview v-if="name != ''" :name="name" :type="type" :newType="newType" :img="img"
+                            :food="checkedFood" :drinks="checkedDrink" />
+                    </b-popover>
+                </div>
+
                 <div class="row" style="margin:auto; width:500px;">
                     <input type="text" style="margin:auto;" id="name" v-model="name" placeholder="Nome do Menu"
                         required>
@@ -19,7 +33,7 @@
                         </datalist>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" v-model="newType" @click="teste()" placeholder="outro...">
+                        <input type="text" v-model="newType" placeholder="outro...">
                     </div>
                 </div>
                 <div class="row" style="width:400px; margin:auto; padding-top:20px;">
@@ -37,14 +51,16 @@
                     </div>
                 </div>
             </div>
-            <img :src="img" style="height:200px; margin:30px;"><br>
             <!-- INGREDIENTES -->
             <button type="submit" value="Adicionar" class="btn btn-primary rounded-0 border-0">Adicionar</button>
         </form>
+       
     </div>
 </template>
 
 <script>
+    import preview from "../components/MenuCard.vue";
+
     export default {
         name: "addKit",
         data: function () {
@@ -59,6 +75,9 @@
                 users: [],
                 menuTypes: []
             }
+        },
+        components: {
+            preview
         },
         created() {
             window.addEventListener('unload', this.saveStorage)
@@ -191,5 +210,16 @@
         background-color: #0A2463;
         margin: 20px;
         margin-top: 50px;
+    }
+    .btn-2 {
+        font-size: 18px;
+        background-color: #0A2463;
+        margin-bottom: 20px;
+
+    }
+
+    .popover {
+        border-color: transparent;
+        
     }
 </style>
