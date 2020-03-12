@@ -2,7 +2,8 @@
     <div>
         <div class="container" style="justify-content: center;">
             <b-button v-on:click="displayB()" class="border-0"
-                style="background-color:transparent; color:black; padding:10px; fontSize: 20px;" v-bind:style="{fontWeight: notifyFont}">
+                style="background-color:transparent; color:black; padding:10px; fontSize: 20px;"
+                v-bind:style="{fontWeight: notifyFont}">
                 Notificações
             </b-button>
             <label class="options" style="padding: 10px">|</label>
@@ -20,7 +21,9 @@
                 <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                     head-variant="dark" responsive="sm" :items="this.notifications" :fields="fields">
                     <template v-slot:cell(actions)="row">
-                        <b-button size="sm" @click="achived(row.item.txt)" class="mr-1">Arquivar</b-button>
+                        <b-button size="sm" @click="archived(row.item.txt)" class="mr-1">Arquivar</b-button>
+                        <b-button v-if="row.item.reason" size="sm" @click="showMotive(row.item.reason)" class="mr-1">Ver
+                            Motivo</b-button>
                         <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1">X</b-button>
                     </template>
                 </b-table>
@@ -39,6 +42,8 @@
             <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.archivations" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
+                    <b-button v-if="row2.item.reason" size="sm" @click="showMotive(row2.item.reason)" class="mr-1">Ver
+                        Motivo</b-button>
                     <b-button size="sm" @click="removeArchive(row2.item.txt)" class="mr-1">X</b-button>
                 </template>
             </b-table>
@@ -177,7 +182,7 @@
                 })
 
             },
-            achived(txt) {
+            archived(txt) {
                 Swal.fire({
                     icon: 'warning',
                     text: 'Deseja arquivar esta notificação?',
@@ -189,7 +194,8 @@
                                 for (let j in this.users) {
                                     if (this.users[j].email === this.$store.getters.getEmail) {
                                         this.users[j].archivations.push({
-                                            txt: this.notifications[i].txt
+                                            txt: this.notifications[i].txt,
+                                            reason: this.notifications[i].reason
                                         })
                                         this.notifications = this.notifications.filter(notification => this
                                             .notifications[i]
@@ -215,6 +221,12 @@
                     }
                 })
             },
+            showMotive(reason) {
+                Swal.fire({
+                    title: "Motivo: " + reason,
+                    confirmButtonText: 'Fechar'
+                })
+            }
         },
         computed: {
             rows() {

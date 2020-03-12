@@ -2,7 +2,7 @@
   <div id="app">
     <top-header></top-header>
     <router-view />
-    <bottom-footer/>
+    <bottom-footer />
   </div>
 </template>
 
@@ -14,12 +14,10 @@
       "top-header": TopHeader,
       "bottom-footer": Footer
     }
-
   }
 </script>
 
-<style  lang="scss" scoped>
-
+<style lang="scss" scoped>
   @font-face {
     font-family: gotham;
     src: url(./assets/Gotham-Book.otf);
@@ -45,5 +43,4 @@
   #nav a.router-link-exact-active {
     color: #42b983;
   }
-
 </style>

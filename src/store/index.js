@@ -26,7 +26,7 @@ export default new Vuex.Store({
       school: "ESHT",
       img: require('../assets/male.svg'),
       notifications: [],
-      archivations:[],
+      archivations: [],
       birthDate: "2000-03-25"
     }],
     kits: [{
@@ -169,6 +169,7 @@ export default new Vuex.Store({
     loggedUser: [],
     notLogged: "Entrar",
     userExists: false,
+    userBlocked: false,
     bookings: [],
     areaBookings: [],
     menuTypes: [],
@@ -559,69 +560,82 @@ export default new Vuex.Store({
     },
     LOGIN(state, payload) {
       for (const user of state.users) {
-        if (
-          user.email === payload.email &&
-          user.password === payload.password
-        ) {
-          state.loggedUser = ({
-            id: user.id,
-            name: user.name,
-            lastName: user.lastName,
-            birthDate: user.birthDate,
-            gender: user.gender,
-            email: user.email,
-            password: user.password,
-            number: user.number,
-            img: user.img,
-            school: user.school,
-            userType: user.userType,
-            notifications: user.notifications
-          });
-          state.userExists = true
-          localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
-          if (user.userType === "admin") {
-            router.push({
-              name: 'adminHome',
-            })
-          } else if (user.userType === "cliente") {
-            router.push({
-              name: 'home',
-            })
-            if (state.loggedUser.notifications.length != 0) {
-              const toast = swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: true
-              });
-
-              toast.fire({
-                icon: 'success',
-                title: 'Bem-vindo ' + state.loggedUser.name,
-                text: "Tem " + state.loggedUser.notifications.length + " Notificações!",
-              })
-            } else {
-              const toast = swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1000,
-                timerProgressBar: true
-              });
-
-              toast.fire({
-                icon: 'success',
-                title: 'Bem-vindo ' + state.loggedUser.name,
-              })
-            }
-          }
-          break
+        state.userBlocked = false
+        if (user.email === payload.email &&
+          user.password === payload.password && user.userType === "bloqueado") {
+            state.userBlocked = true;
+          break;
         } else {
-          state.userExists = false;
+          if (
+            user.email === payload.email &&
+            user.password === payload.password && user.userType !== "bloqueado"
+          ) {
+            state.loggedUser = ({
+              id: user.id,
+              name: user.name,
+              lastName: user.lastName,
+              birthDate: user.birthDate,
+              gender: user.gender,
+              email: user.email,
+              password: user.password,
+              number: user.number,
+              img: user.img,
+              school: user.school,
+              userType: user.userType,
+              notifications: user.notifications
+            });
+            state.userExists = true
+            state.userBlocked = false
+            localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
+            if (user.userType === "admin") {
+              router.push({
+                name: 'adminHome',
+              })
+            } else if (user.userType === "cliente") {
+              router.push({
+                name: 'home',
+              })
+              if (state.loggedUser.notifications.length != 0) {
+                const toast = swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true
+                });
+
+                toast.fire({
+                  icon: 'success',
+                  title: 'Bem-vindo ' + state.loggedUser.name,
+                  text: "Tem " + state.loggedUser.notifications.length + " Notificações!",
+                })
+              } else {
+                const toast = swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 1000,
+                  timerProgressBar: true
+                });
+
+                toast.fire({
+                  icon: 'success',
+                  title: 'Bem-vindo ' + state.loggedUser.name,
+                })
+              }
+            }
+            break
+          } else {
+            state.userExists = false;
+          }
         }
       }
-      if (state.userExists === false) {
+      if (state.userBlocked === true) {
+        Swal.fire({
+          icon: 'error',
+          text: 'Conta bloqueada!'
+        })
+      } else if (state.userExists === false) {
         Swal.fire({
           icon: 'error',
           text: 'Credenciais erradas!'

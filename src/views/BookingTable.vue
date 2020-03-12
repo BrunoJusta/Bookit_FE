@@ -309,30 +309,51 @@
                     icon: 'warning',
                     text: 'Recusar esta reserva?',
                     showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Recusar',
                 }).then((result) => {
                     if (result.value) {
-                        for (let i in this.bookings) {
-                            if (this.bookings[i].id === id) {
-                                this.bookings[i].state = "Recusado"
-                                localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                                for (let j in this.users) {
-                                    if (this.users[j].email === userEmail) {
-                                        this.users[j].notifications.push({
-                                            txt: 'A sua reserva do menu ' + this.bookings[i].kitName +
-                                                " - " +
-                                                this.bookings[i].kitType + ' para a data ' + this
-                                                .bookings[i].date +
-                                                ' foi recusada!'
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Motivo da recusa',
+                            input: 'textarea',
+                            inputAttributes: {
+                                autocapitalize: 'off'
+                            },
+                            showCancelButton: true,
+                            cancelButtonText: 'Cancelar',
+                            confirmButtonText: 'Submeter',
+                        }).then((result) => {
+                            if (result.value && result.value != "") {
+                                for (let i in this.bookings) {
+                                    if (this.bookings[i].id === id) {
+                                        this.bookings[i].state = "Recusado"
+                                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
+                                        for (let j in this.users) {
+                                            if (this.users[j].email === userEmail) {
+                                                this.users[j].notifications.push({
+                                                    txt: 'A sua reserva do menu ' + this
+                                                        .bookings[i].kitName +
+                                                        " - " +
+                                                        this.bookings[i].kitType +
+                                                        ' para a data ' + this
+                                                        .bookings[i].date +
+                                                        ' foi recusada!',
+                                                    reason: result.value
+                                                })
+                                                localStorage.setItem("users", JSON.stringify(this
+                                                    .users));
+                                            }
+                                        }
+                                        Swal.fire({
+                                            icon: 'success',
+                                            text: 'Reserva recusada!'
                                         })
-                                        localStorage.setItem("users", JSON.stringify(this.users));
                                     }
                                 }
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Reserva recusada!'
-                                })
                             }
-                        }
+                        })
+
                     }
                 })
             },
@@ -350,8 +371,10 @@
                                 for (let j in this.users) {
                                     if (this.users[j].email === userEmail) {
                                         this.users[j].notifications.push({
-                                            txt: 'A sua reserva do espaço ' + this.areas[i].areaName +
-                                                ' para a data ' + this.areas[i].date + ' foi aceite!'
+                                            txt: 'A sua reserva do espaço ' + this.areas[i]
+                                                .areaName +
+                                                ' para a data ' + this.areas[i].date +
+                                                ' foi aceite!'
                                         })
                                         localStorage.setItem("users", JSON.stringify(this.users));
                                     }
@@ -379,8 +402,10 @@
                                 for (let j in this.users) {
                                     if (this.users[j].email === userEmail) {
                                         this.users[j].notifications.push({
-                                            txt: 'A sua reserva do espaço ' + this.areas[i].areaName +
-                                                ' para a data ' + this.areas[i].date + ' foi recusada!'
+                                            txt: 'A sua reserva do espaço ' + this.areas[i]
+                                                .areaName +
+                                                ' para a data ' + this.areas[i].date +
+                                                ' foi recusada!'
                                         })
                                         localStorage.setItem("users", JSON.stringify(this.users));
                                     }
@@ -439,17 +464,20 @@
                         }
                         //por espaço
                         if (area.areaName.toLowerCase().includes(this.searchAreas.toLowerCase())) {
-                            filterRunResult = area.areaName.toLowerCase().includes(this.searchAreas.toLowerCase())
+                            filterRunResult = area.areaName.toLowerCase().includes(this.searchAreas
+                                .toLowerCase())
                             return filterRunResult
                         }
                         //por cliente
                         if (area.userName.toLowerCase().includes(this.searchAreas.toLowerCase())) {
-                            filterRunResult = area.userName.toLowerCase().includes(this.searchAreas.toLowerCase())
+                            filterRunResult = area.userName.toLowerCase().includes(this.searchAreas
+                                .toLowerCase())
                             return filterRunResult
                         }
                         //por email
                         if (area.userEmail.toLowerCase().includes(this.searchAreas.toLowerCase())) {
-                            filterRunResult = area.userEmail.toLowerCase().includes(this.searchAreas.toLowerCase())
+                            filterRunResult = area.userEmail.toLowerCase().includes(this.searchAreas
+                                .toLowerCase())
                             return filterRunResult
                         }
                     }

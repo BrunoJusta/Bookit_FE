@@ -18,7 +18,7 @@
                         class="mr-1 border-0 rounded-0">Tornar Admin</b-button>
                     <b-button size="sm" v-if="row.item.userType == 'admin' && row.item.email != $store.getters.getEmail" @click="changeToClient(row.item.id) "
                         class="mr-1 border-0 rounded-0">Tornar User</b-button>
-                        <b-button size="sm" v-if="row.item.email != $store.getters.getEmail" @click="changeToClient(row.item.id)"
+                        <b-button size="sm" v-if="row.item.email != $store.getters.getEmail" @click="block(row.item.id)"
                         class="mr-1 border-0 rounded-0">Bloquear</b-button>
                     <b-button size="sm" @click="remove(row.item.id)" v-if="row.item.email != $store.getters.getEmail" class="mr-1 border-0 rounded-0">X</b-button>
                     <span v-else>Sem Ações</span>
@@ -97,6 +97,26 @@
                                 Swal.fire({
                                     icon: 'success',
                                     text: 'Utilizador removido!'
+                                })
+                            }
+                        }
+                    }
+                })
+            },
+            block(id) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Deseja bloquear este utilizador?',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.value) {
+                        for (let i in this.users) {
+                            if (this.users[i].id === id) {
+                                this.users[i].userType = "bloqueado"
+                                localStorage.setItem("users", JSON.stringify(this.users));
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Utilizador bloqueado!'
                                 })
                             }
                         }
