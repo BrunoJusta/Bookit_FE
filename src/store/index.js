@@ -721,6 +721,7 @@ export default new Vuex.Store({
         extras: payload.extras,
         decor: payload.decor,
         outfit: payload.outfit,
+        observation: payload.observation,
         state: payload.state,
 
       });

@@ -35,14 +35,10 @@
                             </b-form-input>
                         </b-form-group>
                         <label class="lable" for="schools">Local</label>
-                        <!-- <b-form-input id="schools" class="rounded-0" list="my-list-id" v-model="location" required>
-                        </b-form-input>
-                        <datalist id="my-list-id">
+                        <select id="schools" style="width:255px; height:38px;border-color:#ced4da" class="rounded-0"
+                            v-model="location">
                             <option v-for="school in schools" :key="school.id">{{school.name}}</option>
-                        </datalist> -->
-                         <select id="schools" style="width:255px; height:38px;border-color:#ced4da" class="rounded-0" v-model="location">
-                        <option v-for="school in schools" :key="school.id">{{school.name}}</option>
-                    </select>
+                        </select>
                     </div>
                     <div class="col-sm-2">
                         <b-form-group class="input" id="input-group-6">
@@ -147,9 +143,6 @@
                 <button type="button" v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0"
                     v-bind:style="{fontWeight: kitInfoFont}">Anterior
                 </button>
-                <!-- <button type="button" v-on:click="displayResume()" class="btn btn-primary border-0 rounded-0"
-                    v-bind:style="{fontWeight: extraFont}">Seguinte
-                </button> -->
             </div>
             <div class="container" v-bind:style="{display: resume}">
                 <div class="row">
@@ -173,6 +166,13 @@
                             {{ checkedExtras.length == 0 ? 'Fechar' : '' + checkedExtras }}</p>
                         <p v-if="checkedImage.length != 0"><b>Farda</b>
                             {{ checkedImage.length == 0 ? 'Fechar' : '' + checkedImage }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" style="margin: auto;">
+                        <label for="observation" class="lable">Observações</label>
+                        <textarea class="form-control rounded-0" style="resize: none;" id="observation"
+                            v-model="observation" rows="4" cols="50" required></textarea>
                     </div>
                 </div>
                 <button type="button" v-on:click="displayOutfit()" class="btn btn-primary border-0 rounded-0"
@@ -211,6 +211,7 @@
                 outfitFont: "normal",
                 resumeFont: "normal",
                 reason: "",
+                observation: "",
                 date: "",
                 hi: "",
                 hf: "",
@@ -240,7 +241,6 @@
             if (localStorage.getItem("ingredients")) {
                 this.$store.state.ingredients = JSON.parse(localStorage.getItem("ingredients"))
                 this.ingredients = this.$store.state.ingredients
-
             }
             if (localStorage.getItem("kits")) {
                 this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
@@ -279,7 +279,6 @@
                 this.outfitFont = "normal"
                 this.resumeFont = "normal"
                 window.scrollTo(0, 0);
-
             },
             displayAddOns() {
                 if (this.reason != "" && this.date != "" && this.hi != "" &&
@@ -289,7 +288,6 @@
                     let year = splited[0]
                     let day = splited[2]
                     let month = splited[1]
-                    alert(parseInt(year) + "    " + parseInt(month) + "     " + parseInt(day))
                     if (parseInt(year) < new Date().getFullYear() || parseInt(year) > new Date().getFullYear() + 2) {
                         Swal.fire({
                             icon: 'warning',
@@ -431,6 +429,7 @@
                     extras: this.checkedExtras,
                     decor: this.checkedDecor,
                     outfit: this.checkedImage,
+                    observation: this.observation,
                     state: "Pendente"
                 })
                 const toast = swal.mixin({

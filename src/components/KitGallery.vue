@@ -41,7 +41,7 @@
             <div v-if="this.userType == 'admin'" class="row">
                 <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredKits" :key="k.id">
                     <div id="card-maker">
-                        <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem"
+                        <b-card :title="k.name + ' - ' + k.type" style="max-width: 20rem; min-width: 14rem;"
                             :img-src="k.img" img-height="180rem" class="mb-2 border-0">
                             <p align="right" style="padding-top:20px; margin-bottom: -40px; color: #0A2463"><img
                                     style="width:20px; padding-bottom: 5px;" src="../assets/star.svg" alt="" srcset="">
@@ -267,8 +267,6 @@
         margin-top: -10px;
         margin-left: -50px;
         width: 1200px;
-
-
     }
 
     #btnClear {

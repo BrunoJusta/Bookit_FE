@@ -24,7 +24,7 @@
                 placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.filteredBookings" :fields="fields">
+                head-variant="dark" responsive="sm" :items="this.filteredBookings.slice().reverse()" :fields="fields">
                 <template v-slot:cell(actions)="row">
                     <b-button size="sm" class="mr-1" @click="row.toggleDetails">
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
@@ -44,7 +44,7 @@
                                 <p id="listItem" v-if="key === 'date'"> Data: {{value}}</p>
                                 <p id="listItem" v-if="key === 'duration'"> Duração: {{value}}</p>
                                 <p id="listItem" v-if="key === 'numberPeople'"> Nº Pessoas: {{value}}</p>
-                                <p id="listItem" v-if="key === 'location'"> Local: {{vavalue}}</p>
+                                <p id="listItem" v-if="key === 'location'"> Local: {{value}}</p>
                                 <p id="listItem" v-if="key === 'drinks'"> Bebidas Complementares:
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'food'"> Comida Complementar:
@@ -54,6 +54,8 @@
                                 <p id="listItem" v-if="key === 'decor'"> Decoração:
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'outfit'"> Farda:
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
+                                <p id="listItem" v-if="key === 'observation'"> Observações:
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                             </h9>
                         </ul>
@@ -74,7 +76,7 @@
                 placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.filteredAreas" :fields="fields2">
+                head-variant="dark" responsive="sm" :items="this.filteredAreas.slice().reverse()" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
                     <b-button size="sm" class="mr-1" @click="row2.toggleDetails">
                         {{ row2.detailsShowing ? 'Fechar' : ' Ver Mais' }}
