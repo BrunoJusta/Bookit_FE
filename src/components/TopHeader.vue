@@ -1,7 +1,8 @@
 <template>
     <div class="fixed-top">
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <router-link v-if="this.$store.getters.getUserType !== 'admin'" to="/"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
+            <router-link v-if="this.$store.getters.getUserType !== 'admin'" to="/"><img src="../assets/navbarLogo.svg"
+                    id="logoNavbar"></router-link>
             <router-link v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
 
             <b-navbar-nav class="ml-auto">
@@ -60,6 +61,7 @@
                 path: "login",
                 onlineUser: "",
                 kits: [],
+                bookings: [],
                 menuTypes: []
             }
         },
@@ -69,6 +71,10 @@
             }
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+            }
+            if (localStorage.getItem("bookings")) {
+                this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
+                this.bookings = this.$store.state.bookings
             }
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
@@ -94,6 +100,26 @@
                 }
             }
             localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes))
+
+
+            for (let i in this.bookings) {
+
+                var g1 = new Date();
+                // (YYYY-MM-DD) 
+                var g2 = new Date(this.bookings[i].date);
+                if (g1.getTime() < g2.getTime()){
+                    alert("g1 is lesser than g2");
+                    this.bookings[i].state = "Concluído"
+                    }
+                else if (g1.getTime() > g2.getTime())
+                   alert("g1 is greater than g2");
+                else
+                    alert("both are equal");
+            }
+            localStorage.setItem("bookings", JSON.stringify(this.bookings))
+
+
+
         },
         updated: function () {
             if (this.$store.getters.getName === "Entrar") {
@@ -201,17 +227,18 @@
     }
 
     #logoNavbar:hover {
-           animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
     }
 
-  @keyframes scale-up-center {
-  0% {
+    @keyframes scale-up-center {
+        0% {
             transform: scale(1);
-  }
-  100% {
+        }
+
+        100% {
             transform: scale(1.1);
-  }
-}
+        }
+    }
 
     #icon {
         padding-right: 6px;
