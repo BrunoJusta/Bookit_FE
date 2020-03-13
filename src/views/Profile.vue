@@ -54,7 +54,8 @@
                 <div class="container" v-bind:style="{display: showEvents}">
                     <div class="row" v-if="this.filteredBookings.length !== 0">
                         <div class="col-sm-3" v-for="k in filteredBookings" :key="k.id" style="padding-top: 20px;">
-                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.kitImg"  img-height="120rem">
+                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.kitImg"
+                                img-height="120rem">
                                 <b-card-body align="left" :title="k.kitName + ' - ' + k.kitType">
                                     <b-card-text style="margin: auto;">
                                         <b>Data:</b> {{k.date}}
@@ -68,6 +69,9 @@
                                     <b-card-text style="margin: auto;">
                                         <b>Estado:</b> {{k.state}}
                                     </b-card-text>
+                                    <div v-if="k.state == 'Concluído'" style="margin: auto;">
+                                        <p>PONTUACAO</p>
+                                    </div>
                                 </b-card-body>
                             </b-card>
                         </div>
@@ -82,7 +86,8 @@
                 <div class="container" v-bind:style="{display: showAreas}">
                     <div class="row" v-if="this.filteredAreas.length !== 0">
                         <div class="col-sm-3" v-for="k in filteredAreas" :key="k.id" style="padding-top: 20px;">
-                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.areaImg" img-height="120rem">
+                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.areaImg"
+                                img-height="120rem">
                                 <b-card-body align="left" :title="k.areaName">
                                     <b-card-text style="margin: auto;">
                                         <b>Data:</b> {{k.date}}
@@ -93,6 +98,9 @@
                                     <b-card-text style="margin: auto;">
                                         <b>Estado:</b> {{k.state}}
                                     </b-card-text>
+                                    <div v-if="k.state == 'Concluído'" style="margin: auto;">
+                                        <p>PONTUACAO</p>
+                                    </div>
                                 </b-card-body>
                             </b-card>
                         </div>
@@ -107,7 +115,8 @@
                 <div class="container" v-bind:style="{display: showWorkshops}">
                     <div class="row" v-if="this.userWorkshops.length !== 0">
                         <div class="col-sm-3" v-for="k in this.userWorkshops" :key="k.id" style="padding-top: 20px;">
-                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.img" img-height="120rem">
+                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.img"
+                                img-height="120rem">
                                 <b-card-body align="left" :title="k.name">
                                     <b-card-text style="margin: auto;">
                                         <b>Data:</b> {{k.date}}
@@ -181,7 +190,7 @@
                 AreasFont: "normal",
                 WorkshopsFont: "normal",
                 showProfile: "block",
-                userScool: "",
+                userScool: ""
             }
         },
         created() {

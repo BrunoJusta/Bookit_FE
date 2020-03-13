@@ -62,6 +62,7 @@
                 onlineUser: "",
                 kits: [],
                 bookings: [],
+                areaBookings: [],
                 menuTypes: []
             }
         },
@@ -76,6 +77,12 @@
                 this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
                 this.bookings = this.$store.state.bookings
             }
+
+            if (localStorage.getItem("areaBookings")) {
+                this.$store.state.areaBookings = JSON.parse(localStorage.getItem("areaBookings"))
+                this.areaBookings = this.$store.state.areaBookings
+            }
+
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
             } else if (this.$store.getters.getUserType === "admin") {
@@ -103,20 +110,22 @@
 
 
             for (let i in this.bookings) {
-
                 var g1 = new Date();
-                // (YYYY-MM-DD) 
                 var g2 = new Date(this.bookings[i].date);
-                if (g1.getTime() < g2.getTime()){
-                    alert("g1 is lesser than g2");
+                if (g1.getTime() > g2.getTime() && this.bookings[i].state === "Aprovado") {
                     this.bookings[i].state = "Concluído"
-                    }
-                else if (g1.getTime() > g2.getTime())
-                   alert("g1 is greater than g2");
-                else
-                    alert("both are equal");
+                }
             }
             localStorage.setItem("bookings", JSON.stringify(this.bookings))
+
+            for (let i in this.areaBookings) {
+                var g1 = new Date();
+                var g2 = new Date(this.areaBookings[i].date);
+                if (g1.getTime() > g2.getTime() && this.areaBookings[i].state === "Aprovado") {
+                    this.areaBookings[i].state = "Concluído"
+                }
+            }
+            localStorage.setItem("areaBookings", JSON.stringify(this.areaBookings))
 
 
 
