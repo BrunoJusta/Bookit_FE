@@ -3,22 +3,20 @@
         <div class="container-full title" style="padding-top: 150px; padding-bottom: 30px;">
             <h1 id="redTitle">GERIR INGREDIENTES</h1>
             <hr class="back-line">
-            <div class="container"
-                style="background-color:white; margin-top:-35px; height:35px; width:560px;position: relative;display: block; z-index:6">
+            <div class="container box">
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div align="center" id="AddIng" class="col-sm-6">
+                <div class="col-sm-6">
                     <form @submit.prevent="addIng()">
-                        <input type="text" v-model="name" name="" id="ingNome" placeholder="Ingrediente">
-                        <b-form-input id="ingType" list="my-list-id" v-model="type" placeholder="Tipo de Menu">
-                        </b-form-input>
-                        <datalist id="my-list-id">
-                            <option> Comida </option>
+                        <b-input type="text" v-model="name" id="txtIngredient" placeholder="Ingrediente"></b-input>
+                        <b-select id="chooseType" v-model="type">
+                            <option value="" disabled selected>Escolher tipo</option>
+                            <option>Comida</option>
                             <option>Bebida</option>
-                        </datalist>
-                        <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
+                        </b-select>
+                        <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
                     </form>
                 </div>
                 <div class="col-sm-6">
@@ -27,7 +25,7 @@
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
                             hover head-variant="dark" responsive="sm" :items="this.ingredients" :fields="fields">
                             <template v-slot:cell(actions)="row">
-                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1">X</b-button>
+                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn">X</b-button>
                             </template>
                         </b-table>
                         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"
@@ -123,7 +121,6 @@
                         text: 'Ingrediente já existe!',
                     })
                 }
-
             },
             remove(id) {
                 Swal.fire({
@@ -160,28 +157,43 @@
 </script>
 
 <style lang="scss" scoped>
-    #ingNome {
+    .box {
+        background-color: white;
+        margin-top: -35px;
+        height: 35px;
+        width: 560px;
+        position: relative;
+        display: block;
+        z-index: 6
+    }
+
+    #txtIngredient {
+        border-radius: 0;
         width: 300px;
         height: 40px;
         margin-bottom: 20px;
         margin-top: 56px;
     }
 
-    #ingType {
-        width: 300px;
+    #chooseType {
+        border-radius: 0;
         height: 40px;
         margin-bottom: 20px;
     }
 
 
-    .btn-book {
+    .addBtn {
         height: 40px;
         font-size: 18px;
         background-color: #0A2463;
         color: white;
-        margin: 20px;
-        margin-top: 10px;
+        margin: auto;
+    }
 
+    .col-sm-6 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     #redTitle {
@@ -201,5 +213,11 @@
         z-index: 5;
         position: relative;
         height: 1px;
+    }
+
+    .deleteBtn {
+        background-color: #B91C3B;
+        border: none;
+        border-radius: 0;
     }
 </style>

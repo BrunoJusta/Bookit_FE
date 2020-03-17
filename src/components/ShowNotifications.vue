@@ -19,11 +19,14 @@
             <div v-if="this.notifications.length != 0">
                 <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
                 <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                    head-variant="dark" responsive="sm" :items="this.notifications" :fields="fields">
+                    head-variant="dark" responsive="sm" :items="this.notifications.slice().reverse()" :fields="fields">
                     <template v-slot:cell(actions)="row">
                         <b-button size="sm" @click="archived(row.item.txt)" class="mr-1">Arquivar</b-button>
                         <b-button v-if="row.item.reason" size="sm" @click="showMotive(row.item.reason)" class="mr-1">Ver
                             Motivo</b-button>
+                        <b-button v-if="row.item.opinion" size="sm" @click="showOpinion(row.item.opinion)"
+                            class="mr-1">Ver
+                            Opinião</b-button>
                         <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1">X</b-button>
                     </template>
                 </b-table>
@@ -40,10 +43,13 @@
         <div class="container" v-if="this.archivations.length !=0" v-bind:style="{display: archiveTable}">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage2 }}</p>
             <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.archivations" :fields="fields2">
+                head-variant="dark" responsive="sm" :items="this.archivations.slice().reverse()" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
                     <b-button v-if="row2.item.reason" size="sm" @click="showMotive(row2.item.reason)" class="mr-1">Ver
                         Motivo</b-button>
+                    <b-button v-if="row2.item.opinion" size="sm" @click="showOpinion(row2.item.opinion)" class="mr-1">
+                        Ver
+                        Opinião</b-button>
                     <b-button size="sm" @click="removeArchive(row2.item.txt)" class="mr-1">X</b-button>
                 </template>
             </b-table>
@@ -195,7 +201,8 @@
                                     if (this.users[j].email === this.$store.getters.getEmail) {
                                         this.users[j].archivations.push({
                                             txt: this.notifications[i].txt,
-                                            reason: this.notifications[i].reason
+                                            reason: this.notifications[i].reason,
+                                            opinion: this.notifications[i].opinion
                                         })
                                         this.notifications = this.notifications.filter(notification => this
                                             .notifications[i]
@@ -224,6 +231,12 @@
             showMotive(reason) {
                 Swal.fire({
                     title: "Motivo: " + reason,
+                    confirmButtonText: 'Fechar'
+                })
+            },
+            showOpinion(opinion) {
+                Swal.fire({
+                    title: "Opinião: " + opinion,
                     confirmButtonText: 'Fechar'
                 })
             }

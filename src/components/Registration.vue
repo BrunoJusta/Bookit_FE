@@ -220,7 +220,7 @@
     .back-line {
         background-color: #0A2463;
         margin-top: -35px;
-        width: 60%;
+        width: 60vw;
         display: block;
         z-index: 5;
         position: relative;

@@ -14,7 +14,7 @@
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredWorkshops" :fields="fields">
                 <template v-slot:cell(actions)="row">
-                    <b-button size="sm" @click="remove(row.item.id)" class="mr-1">X</b-button>
+                    <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn">X</b-button>
                 </template>
             </b-table>
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
@@ -178,5 +178,11 @@
 
     .table {
         padding-bottom: 100px;
+    }
+
+    .deleteBtn {
+        background-color: #B91C3B;
+        border: none;
+        border-radius: 0;
     }
 </style>

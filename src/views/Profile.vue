@@ -54,8 +54,8 @@
                 <div class="container" v-bind:style="{display: showEvents}">
                     <div class="row" v-if="this.filteredBookings.length !== 0">
                         <div class="col-sm-3" v-for="k in filteredBookings" :key="k.id" style="padding-top: 20px;">
-                            <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.kitImg"
-                                img-height="120rem">
+                            <b-card no-body class="overflow-hidden" style="max-width: 16rem; height: 20rem;"
+                                :img-src="k.kitImg" img-height="120rem">
                                 <b-card-body align="left" :title="k.kitName + ' - ' + k.kitType">
                                     <b-card-text style="margin: auto;">
                                         <b>Data:</b> {{k.date}}
@@ -69,9 +69,14 @@
                                     <b-card-text style="margin: auto;">
                                         <b>Estado:</b> {{k.state}}
                                     </b-card-text>
-                                    <div v-if="k.state == 'Concluído'" style="margin: auto;">
-                                        <p>PONTUACAO</p>
+                                    <div v-if="k.state == 'Concluído' && !k.opinion">
+                                        <b-button class="btn-book" @click="giveBookingOpinion(k.id)" squared>
+                                            Dar Opinião
+                                        </b-button>
                                     </div>
+                                    <b-card-text v-if="k.state == 'Concluído' && k.opinion" style="margin: auto;">
+                                        <b>Opinião:</b> Enviada
+                                    </b-card-text>
                                 </b-card-body>
                             </b-card>
                         </div>
@@ -98,9 +103,14 @@
                                     <b-card-text style="margin: auto;">
                                         <b>Estado:</b> {{k.state}}
                                     </b-card-text>
-                                    <div v-if="k.state == 'Concluído'" style="margin: auto;">
-                                        <p>PONTUACAO</p>
+                                    <div v-if="k.state == 'Concluído' && !k.opinion">
+                                        <b-button class="btn-book" @click="giveAreasOpinion(k.id)" squared>
+                                            Dar Opinião
+                                        </b-button>
                                     </div>
+                                    <b-card-text v-if="k.state == 'Concluído' && k.opinion" style="margin: auto;">
+                                        <b>Opinião:</b> Enviada
+                                    </b-card-text>
                                 </b-card-body>
                             </b-card>
                         </div>
@@ -166,6 +176,7 @@
         },
         data: function () {
             return {
+                users: [],
                 bookings: [],
                 areas: [],
                 workshops: [],
@@ -197,15 +208,25 @@
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
+            if (localStorage.getItem("users")) {
+                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
+                this.users = this.$store.state.users
+            }
             if (localStorage.getItem("bookings")) {
-                this.bookings = JSON.parse(localStorage.getItem("bookings"))
+                this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
+                this.bookings = this.$store.state.bookings
             }
             if (localStorage.getItem("areaBookings")) {
-                this.areas = JSON.parse(localStorage.getItem("areaBookings"))
+                this.$store.state.areaBookings = JSON.parse(localStorage.getItem("areaBookings"))
+                this.areas = this.$store.state.areaBookings
             }
             if (localStorage.getItem("workshops")) {
-                this.workshops = JSON.parse(localStorage.getItem("workshops"))
+                this.$store.state.workshops = JSON.parse(localStorage.getItem("workshops"))
+                this.workshops = this.$store.state.workshops
             }
+            this.bookings[14].state = "Concluído"
+            localStorage.setItem("bookings", JSON.stringify(this.bookings));
+
             this.firstNameUser = this.$store.getters.getName
             this.lastNameUser = this.$store.getters.getLastName
             this.userEmail = this.$store.getters.getEmail
@@ -215,6 +236,8 @@
         },
         updated() {
             this.userContact = this.$store.getters.getContact
+            this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
+            this.$store.state.areaBookings = JSON.parse(localStorage.getItem("areaBookings"))
         },
         methods: {
             logout() {
@@ -296,6 +319,85 @@
                 this.bookingsFont = "bold"
                 this.notificFont = "normal"
                 this.filteredBookings()
+            },
+            giveBookingOpinion(id) {
+                Swal.fire({
+                    title: 'Opinião',
+                    input: 'textarea',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Submeter',
+                }).then((result) => {
+                    if (result.value && result.value != "") {
+                        for (let i in this.bookings) {
+                            if (this.bookings[i].id === id) {
+                                this.bookings[i].opinion = result.value
+                                localStorage.setItem("bookings", JSON.stringify(this.bookings));
+                                for (let j in this.users) {
+                                    if (this.users[j].name == "Admin") {
+                                        this.users[j].notifications.push({
+                                            txt: 'Foi dada uma nova opinião do evento ' + this
+                                                .bookings[i].kitName +
+                                                " - " +
+                                                this.bookings[i].kitType +
+                                                ' realizado em ' + this
+                                                .bookings[i].date,
+                                            opinion: result.value
+                                        })
+                                        localStorage.setItem("users", JSON.stringify(this
+                                            .users));
+                                            location.reload();
+                                    }
+                                }
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Opinião enviada!'
+                                })
+                            }
+                        }
+                    }
+                })
+            },
+            giveAreasOpinion(id) {
+                Swal.fire({
+                    title: 'Opinião',
+                    input: 'textarea',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Submeter',
+                }).then((result) => {
+                    if (result.value && result.value != "") {
+                        for (let i in this.areas) {
+                            if (this.areas[i].id === id) {
+                                this.areas[i].opinion = result.value
+                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
+                                for (let j in this.users) {
+                                    if (this.users[j].userType === "admin") {
+                                        this.users[j].notifications.push({
+                                            txt: 'Foi dada uma nova opinião do espaço ' + this
+                                                .areas[i].areaName +
+                                                ' realizado em ' + this
+                                                .areas[i].date,
+                                            opinion: result.value
+                                        })
+                                        localStorage.setItem("users", JSON.stringify(this
+                                            .users));
+                                    }
+                                }
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Opinião enviada!'
+                                })
+                            }
+                        }
+                    }
+                })
             }
         },
         computed: {
@@ -337,6 +439,13 @@
         background-color: transparent;
         color: black;
         padding: 10px;
+    }
+
+    .btn-book {
+        font-size: 16px;
+        background-color: #0A2463;
+        margin-top: 10px;
+        margin-left: 20%;
     }
 
     .card-title {

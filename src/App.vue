@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <top-header></top-header>
+    <top-header />
     <router-view />
-    <bottom-footer />
+    <bottom-footer id="desktop-footer" />
+    <bottom-footer-mobile id="mobile-footer" />
   </div>
 </template>
 
 <script>
   import TopHeader from '@/components/TopHeader.vue';
   import Footer from '@/components/Footer.vue'
+  import MobileFooter from '@/components/MobileFooter.vue'
   export default {
     components: {
       "top-header": TopHeader,
-      "bottom-footer": Footer
+      "bottom-footer": Footer,
+      "bottom-footer-mobile": MobileFooter
     }
   }
 </script>
@@ -42,5 +45,18 @@
 
   #nav a.router-link-exact-active {
     color: #42b983;
+  }
+
+  #mobile-footer {
+    display: none;
+  }
+
+  @media screen and (max-width: 1096px) {
+    #desktop-footer {
+      display: none;
+    }
+    #mobile-footer {
+      display: flex;
+    }
   }
 </style>

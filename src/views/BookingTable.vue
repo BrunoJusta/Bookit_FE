@@ -26,36 +26,39 @@
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredBookings.slice().reverse()" :fields="fields">
                 <template v-slot:cell(actions)="row">
-                    <b-button size="sm" class="mr-1" @click="row.toggleDetails">
+                    <b-button size="sm" class="mr-1 showBtn" @click="row.toggleDetails">
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
-                        @click="acceptBooking(row.item.id, row.item.userEmail)" class="mr-1">Aceitar</b-button>
+                        @click="acceptBooking(row.item.id, row.item.userEmail)" class="mr-1 acceptBtn">Aceitar
+                    </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
-                        @click="refuseBooking(row.item.id, row.item.userEmail)" class="mr-1">Recusar</b-button>
-                    <b-button size="sm" @click="removeBooking(row.item.id)" class="mr-1">X</b-button>
+                        @click="refuseBooking(row.item.id, row.item.userEmail)" class="mr-1 refuseBtn">Recusar
+                    </b-button>
+                    <b-button size="sm" @click="removeBooking(row.item.id)" v-if="row.item.state !== 'Pendente'"
+                        class="mr-1 deleteBtn">X</b-button>
 
                 </template>
                 <template v-slot:row-details="row">
                     <b-card>
                         <ul>
                             <h9 v-for="(value, key) in row.item" :key="key">
-                                <p id="listItem" v-if="key === 'reason'"> Motivo: {{value}}</p>
-                                <p id="listItem" v-if="key === 'date'"> Data: {{value}}</p>
-                                <p id="listItem" v-if="key === 'duration'"> Duração: {{value}}</p>
-                                <p id="listItem" v-if="key === 'numberPeople'"> Nº Pessoas: {{value}}</p>
-                                <p id="listItem" v-if="key === 'location'"> Local: {{value}}</p>
-                                <p id="listItem" v-if="key === 'drinks'"> Bebidas Complementares:
+                                <p id="listItem" v-if="key === 'reason'"> <b>Motivo:</b> {{value}}</p>
+                                <p id="listItem" v-if="key === 'date'"> <b>Data:</b> {{value}}</p>
+                                <p id="listItem" v-if="key === 'duration'"> <b>Duração:</b> {{value}}</p>
+                                <p id="listItem" v-if="key === 'numberPeople'"> <b>Nº Pessoas:</b> {{value}}</p>
+                                <p id="listItem" v-if="key === 'location'"> <b>Local:</b> {{value}}</p>
+                                <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'food'"> Comida Complementar:
+                                <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'extras'"> Extras:
+                                <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'decor'"> Decoração:
+                                <p id="listItem" v-if="key === 'decor'"> <b>Decoração:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'outfit'"> Farda:
+                                <p id="listItem" v-if="key === 'outfit'"> <b>Farda:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'observation'"> Observações:
+                                <p id="listItem" v-if="key === 'observation'"> <b>Observações:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                             </h9>
                         </ul>
@@ -78,17 +81,17 @@
             <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredAreas.slice().reverse()" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
-                    <b-button size="sm" class="mr-1" @click="row2.toggleDetails">
+                    <b-button size="sm" class="mr-1 showBtn" @click="row2.toggleDetails">
                         {{ row2.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row2.item.state == 'Pendente'"
-                        @click="acceptAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1">Aceitar
+                        @click="acceptAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1 acceptBtn">Aceitar
                     </b-button>
                     <b-button size="sm" v-if="row2.item.state == 'Pendente'"
-                        @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1">Recusar
+                        @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1 refuseBtn">Recusar
                     </b-button>
                     <b-button size="sm" v-if="row2.item.state != 'Pendente'" @click="removeAreaBooking(row2.item.id)"
-                        class="mr-1">X</b-button>
+                        class="mr-1 deleteBtn">X</b-button>
                 </template>
                 <template v-slot:row-details="row2">
                     <b-card>
@@ -355,7 +358,6 @@
                                 }
                             }
                         })
-
                     }
                 })
             },
@@ -552,5 +554,29 @@
     #listItem {
         float: left;
         padding: 20px;
+    }
+
+    .showBtn {
+        background-color: #343A40;
+        border: none;
+        border-radius: 0;
+    }
+
+    .acceptBtn {
+        background-color: #0A2463;
+        border: none;
+        border-radius: 0;
+    }
+
+    .refuseBtn {
+        background-color: #B91C3B;
+        border: none;
+        border-radius: 0;
+    }
+
+    .deleteBtn {
+        background-color: #B91C3B;
+        border: none;
+        border-radius: 0;
     }
 </style>

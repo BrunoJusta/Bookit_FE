@@ -89,6 +89,12 @@
     padding-bottom: 150px;
   }
 
+  .col-sm-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   #banner-link {
     color: white;
   }

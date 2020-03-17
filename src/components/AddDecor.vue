@@ -3,18 +3,15 @@
         <div class="container-full title" style="padding-top: 80px; padding-bottom: 30px;">
             <h1 id="redTitle">GERIR DECORAÇÃO</h1>
             <hr class="back-line">
-            <div class="container"
-                style="background-color:white; margin-top:-35px; height:35px; width:500px;position: relative;display: block; z-index:6">
+            <div class="container box">
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div align="center" id="AddIng" class="col-sm-6">
+                <div class="col-sm-6">
                     <form @submit.prevent="addDecor()">
-                        <div class="row">
-                            <input type="text" v-model="name" name="" id="ingNome" placeholder="Decoração">
-                            <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
-                        </div>
+                        <b-input type="text" v-model="name" id="txtDecor" placeholder="Decoração"></b-input>
+                        <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
                     </form>
                 </div>
                 <div class="col-sm-6">
@@ -23,7 +20,7 @@
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
                             hover head-variant="dark" responsive="sm" :items="this.decor" :fields="fields">
                             <template v-slot:cell(actions)="row">
-                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1">X</b-button>
+                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn">X</b-button>
                             </template>
                         </b-table>
                         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"
@@ -135,28 +132,30 @@
 </script>
 
 <style lang="scss" scoped>
-    #ingNome {
+    .box {
+        background-color: white;
+        margin-top: -35px;
+        height: 35px;
+        width: 500px;
+        position: relative;
+        display: block;
+        z-index: 6
+    }
+
+    #txtDecor {
+        border-radius: 0;
         width: 300px;
         height: 40px;
         margin-bottom: 20px;
         margin-top: 56px;
     }
 
-    #ingType {
-        width: 300px;
-        height: 40px;
-        margin-bottom: 20px;
-    }
-
-
-    .btn-book {
+    .addBtn {
         height: 40px;
         font-size: 18px;
         background-color: #0A2463;
         color: white;
-        margin: 20px;
-        margin-top: 55px;
-
+        margin: auto;
     }
 
     #redTitle {
@@ -176,5 +175,17 @@
         z-index: 5;
         position: relative;
         height: 0.5px;
+    }
+
+    .deleteBtn {
+        background-color: #B91C3B;
+        border: none;
+        border-radius: 0;
+    }
+
+    .col-sm-6 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 </style>

@@ -1,25 +1,18 @@
 <template>
     <div>
-        <div class="container-full title" style="padding-top: 80px; padding-bottom: 30px;">
+        <div class="container-full title">
             <h1 id="redTitle">GERIR FARDAS</h1>
             <hr class="back-line">
-            <div class="container"
-                style="background-color:white; margin-top:-35px; height:35px; width:400px;position: relative;display: block; z-index:6">
+            <div class="container box">
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div align="center" id="AddIng" class="col-sm-6">
+                <div class="col-sm-6">
                     <form @submit.prevent="addOutfit()">
-                        <div class="row">
-                            <input type="text" v-model="name" id="ingNome" placeholder="Farda">
-                        </div>
-                        <div class="row" style="margin-top:-55px;">
-                            <input type="link" v-model="source" id="ingNome" placeholder="link">
-                        </div>
-                        <div class="row" style="margin-top:-55px;">
-                            <button type="submit" value="Adicionar" class="btn btn-book rounded-0">Adicionar</button>
-                        </div>
+                        <b-input type="text" v-model="name" id="txtOutfit" placeholder="Farda"></b-input>
+                        <b-input type="link" v-model="source" id="txtLink" placeholder="link"></b-input>
+                        <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
                     </form>
                 </div>
                 <div class="col-sm-6" v-if="this.source == ''">
@@ -28,20 +21,20 @@
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
                             hover head-variant="dark" responsive="sm" :items="this.outfits" :fields="fields">
                             <template v-slot:cell(actions)="row">
-                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1">X</b-button>
+                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn">X</b-button>
                             </template>
                         </b-table>
                         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"
                             aria-controls="my-table" style="float:right;"></b-pagination>
                     </div>
                     <div class="container" v-else>
-                        <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+                        <img src="../assets/bookit_BLUE.svg" class="clearOutfits">
                         <h4> Não existem Fardas</h4>
                     </div>
                 </div>
                 <div class="col-sm-6" v-else>
                     <label for="imgWorkshop">Imagem da Farda:</label>
-                    <img :src="source" id="imgWorkshop" style="width: 350px; height: auto;">
+                    <img :src="source" id="imgWorkshop">
                 </div>
             </div>
         </div>
@@ -147,26 +140,47 @@
 </script>
 
 <style lang="scss" scoped>
-    #ingNome {
+    .box {
+        background-color: white;
+        margin-top: -35px;
+        height: 35px;
+        width: 400px;
+        position: relative;
+        display: block;
+        z-index: 6
+    }
+
+    #txtOutfit {
+        border-radius: 0;
         width: 300px;
         height: 40px;
         margin-bottom: 20px;
         margin-top: 56px;
     }
 
-    #ingType {
+    #txtLink {
+        border-radius: 0;
         width: 300px;
         height: 40px;
         margin-bottom: 20px;
     }
 
-    .btn-book {
+    .clearOutfits {
+        width: 150px;
+        margin: 20px
+    }
+
+    #imgWorkshop {
+        width: 350px;
+        height: auto;
+    }
+
+    .addBtn {
         height: 40px;
         font-size: 18px;
         background-color: #0A2463;
         color: white;
-        margin: 20px;
-        margin-top: 50px;
+        margin: auto;
     }
 
     #redTitle {
@@ -178,6 +192,11 @@
         position: relative;
     }
 
+    .title {
+        padding-top: 80px;
+        padding-bottom: 30px;
+    }
+
     .back-line {
         background-color: #0A2463;
         margin-top: -36px;
@@ -186,5 +205,17 @@
         z-index: 5;
         position: relative;
         height: 1px;
+    }
+
+    .deleteBtn {
+        background-color: #B91C3B;
+        border: none;
+        border-radius: 0;
+    }
+
+    .col-sm-6 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 </style>

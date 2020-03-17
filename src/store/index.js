@@ -28,6 +28,36 @@ export default new Vuex.Store({
       notifications: [],
       archivations: [],
       birthDate: "2000-03-25"
+    },
+    {
+      id: 1,
+      name: "Nuno",
+      lastName: "Gomes",
+      gender: "Masculino",
+      email: "9180580@esmad.ipp.pt",
+      password: "123123",
+      number: "123",
+      userType: "cliente",
+      school: "ESMAD",
+      img: require('../assets/male.svg'),
+      notifications: [],
+      archivations: [],
+      birthDate: "2000-02-05"
+    },
+    {
+      id: 2,
+      name: "Bruno",
+      lastName: "Justa",
+      gender: "Masculino",
+      email: "9180155@esmad.ipp.pt",
+      password: "123123",
+      number: "123",
+      userType: "cliente",
+      school: "ESMAD",
+      img: require('../assets/male.svg'),
+      notifications: [],
+      archivations: [],
+      birthDate: "1998-07-27"
     }],
     kits: [{
         id: 0,
@@ -563,7 +593,7 @@ export default new Vuex.Store({
         state.userBlocked = false
         if (user.email === payload.email &&
           user.password === payload.password && user.userType === "bloqueado") {
-            state.userBlocked = true;
+          state.userBlocked = true;
           break;
         } else {
           if (
@@ -723,7 +753,7 @@ export default new Vuex.Store({
         outfit: payload.outfit,
         observation: payload.observation,
         state: payload.state,
-
+        opinion: payload.opinion
       });
       localStorage.setItem("bookings", JSON.stringify(state.bookings));
     },
@@ -738,7 +768,7 @@ export default new Vuex.Store({
         date: payload.date,
         duration: payload.duration,
         state: payload.state,
-
+        opinion: payload.opinion
       });
       localStorage.setItem("areaBookings", JSON.stringify(state.areaBookings));
     },

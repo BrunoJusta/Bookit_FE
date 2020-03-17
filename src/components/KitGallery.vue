@@ -1,43 +1,40 @@
 <template>
     <div>
+        <div v-if="this.userType == 'admin'" class="container">
+            <div class="row filters" style="margin:auto;max-width: 680px;">
+                <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
+                    <option selected>Todos</option>
+                    <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
+                </select>
+                <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
+                    placeholder="Nome do Menu...">
+                </b-form-input>
+                <select id="inputGroupSelect02" @change="orderKits()" v-model="orderTxt">
+                    <option value="" disabled selected hidden>Ordenar por:</option>
+                    <option>Data de Criação</option>
+                    <option>Popularidade</option>
+                </select>
+            </div>
+        </div>
+        <div v-else class="container">
+            <div class="row filters" style="margin:auto;max-width: 460px;">
+                <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
+                    <option selected>Todos</option>
+                    <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
+                </select>
+                <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
+                    placeholder="Nome do Menu...">
+                </b-form-input>
+                <select v-if="this.userType == 'admin'" id="inputGroupSelect02" @change="orderKits()"
+                    v-model="orderTxt">
+                    <option value="" disabled selected hidden>Ordenar por:</option>
+                    <option>Data de Criação</option>
+                    <option>Popularidade</option>
+                </select>
+            </div>
+        </div>
+
         <div id="CoffeeBreaks" class="container">
-            <!--    <h2 id="redSubTitle">Coffee Break</h2> -->
-            <div v-if="this.userType == 'admin'" class="container">
-                <div class="row" style="margin:auto;max-width: 680px;">
-                    <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
-                        <option selected>Todos</option>
-                        <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
-                    </select>
-                    <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
-                        placeholder="Nome do Menu...">
-                    </b-form-input>
-                    <select id="inputGroupSelect02" @change="orderKits()" v-model="orderTxt">
-                        <option value="" disabled selected hidden>Ordenar por:</option>
-                        <option>Data de Criação</option>
-                        <option>Popularidade</option>
-                    </select>
-                </div>
-
-            </div>
-            <div v-else class="container">
-                <div class="row" style="margin:auto;max-width: 460px;">
-                    <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
-                        <option selected>Todos</option>
-                        <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
-                    </select>
-                    <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt"
-                        placeholder="Nome do Menu...">
-                    </b-form-input>
-                    <select v-if="this.userType == 'admin'" id="inputGroupSelect02" @change="orderKits()"
-                        v-model="orderTxt">
-                        <option value="" disabled selected hidden>Ordenar por:</option>
-                        <option>Data de Criação</option>
-                        <option>Popularidade</option>
-                    </select>
-                </div>
-
-            </div>
-
             <div v-if="this.userType == 'admin'" class="row">
                 <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredKits" :key="k.id">
                     <div id="card-maker">
@@ -89,7 +86,7 @@
                 searchTxt: "",
                 selectTxt: "Todos",
                 orderTxt: "",
-                bookings:[],
+                bookings: [],
                 reset: {
                     kitname: "",
                     kitType: "",
@@ -105,7 +102,7 @@
             } else {
                 this.x = "kitDetail"
             }
-           
+
             localStorage.setItem("currentKit", JSON.stringify(this.reset));
             this.$store.state.currentKit = ({
                 kitname: "",
@@ -136,7 +133,8 @@
                         let checker = false
                         for (let i = 0; i <= this.kits.length; i++) {
                             for (let b in this.bookings) {
-                                if (name == this.bookings[b].kitName && type == this.bookings[b].kitType && this.bookings[b].state == "Aprovado") {
+                                if (name == this.bookings[b].kitName && type == this.bookings[b].kitType && this
+                                    .bookings[b].state == "Aprovado") {
                                     Swal.fire({
                                         icon: 'error',
                                         text: 'Não Pode eliminar um Menu com Reservas!',
@@ -231,10 +229,7 @@
 
     #card-maker:hover {
         transform: scale(1.1);
-
     }
-
-
 
     #redSubTitle {
         font-family: "bookMan";
@@ -315,5 +310,19 @@
 
     label {
         color: #5C5C5C;
+    }
+
+    .col-sm-4 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    @media screen and (max-width: 1096px) {
+        .filters {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     }
 </style>

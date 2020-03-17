@@ -33,7 +33,7 @@
               </div>
 
               <p v-bind:style="{display:show2}"> {{getWorkshopById($route.params.workshopId).description}}</p>
-              <textarea id="description" rows="4" cols="50" style="height: 80px"
+              <textarea id="description" rows="4" cols="50" style="resize: none; width: 100%;"
                 v-bind:style="{display:show}">{{getWorkshopById($route.params.workshopId).description}}</textarea>
             </b-card-body>
 
@@ -52,7 +52,7 @@
       <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
         <router-link to="/workshops" style="color:white"> Voltar </router-link>
       </b-button>
-      <b-button @click="sendInfo()" class="btn-book border-0"
+      <b-button  v-bind:style="{display:show4}" @click="sendInfo()" class="btn-book border-0"
         squared>Inscrever
       </b-button>
       <b-button v-bind:style="{display:show2}" v-if="this.$store.getters.getUserType == 'admin'" @click="activateEdit()" class="btn-book border-0" squared>
@@ -80,6 +80,7 @@
         show: "none",
         show2: "inline",
         show3: "block",
+        show4: "inline",
         inscriptions: [],
         newDate: "",
         newTime: "",
@@ -168,12 +169,14 @@
         this.show = "inline"
         this.show2 = "none"
         this.show3 = "none"
+        this.show4 = "none"
 
       },
       saveEdit() {
         this.show2 = "inline"
         this.show = "none"
         this.show3 = "block"
+        this.show4 = "inline"
         let newDesc = document.getElementById('description').value
 
         for (let a in this.workshops) {
@@ -226,7 +229,7 @@
         this.show2 = "inline"
         this.show = "none"
         this.show3 = "block"
-
+        this.show4 = "inline"
       }
     },
     created() {

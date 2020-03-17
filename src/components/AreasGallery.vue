@@ -1,10 +1,10 @@
 <template>
     <div>
+        <div class="container filter" style="">
+            <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
+            </b-form-input>
+        </div>
         <div class="container">
-            <div class="container" style="max-width:300px">
-                <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
-                </b-form-input>
-            </div>
             <div class="row">
                 <div class="col-sm-4" v-for="a in filteredRunnings" :key="a.id">
                     <div id="card-maker" style="padding-bottom: 60px">
@@ -140,10 +140,6 @@
         margin-bottom: -60px;
     }
 
-    .col-sm-4 {
-        padding-top: 30px;
-    }
-
     .card-title {
         font-size: 20px;
         margin-bottom: .0rem;
@@ -164,11 +160,7 @@
 
     #card-maker:hover {
         transform: scale(1.1);
-
     }
-
-
-
 
     .btn-remove {
         font-size: 10px;
@@ -176,5 +168,16 @@
         margin-top: -208px;
         margin-right: -15px;
         float: right;
+    }
+
+    .col-sm-4 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filter {
+        max-width:300px;
+        padding-bottom: 30px;
     }
 </style>

@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div class="container">
             <div class="container" style="max-width:300px">
                 <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
                 </b-form-input>
-
             </div>
+        <div class="container">
             <div class="row">
                 <div class="col-sm-4" v-for="w in filteredRunnings" :key="w.id">
                     <div id="card-maker" style="padding-bottom: 60px">
@@ -17,7 +16,6 @@
                                     Ver Mais </router-link>
                             </b-button>
                             <p v-else>CHEIO</p>
-
                             <b-button @click="deleteWorkshop(w.name)" class="btn-remove border-0" :id="w.id"
                                 v-bind:style="{visibility: remove}" squared> X </b-button>
                         </b-card>
@@ -26,7 +24,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -169,5 +166,12 @@
         margin-top: -218px;
         margin-right: -15px;
         float: right;
+    }
+
+    .col-sm-4 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
     }
 </style>

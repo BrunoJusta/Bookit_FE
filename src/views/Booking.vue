@@ -2,20 +2,19 @@
     <div>
         <h3 class="menuNameType">{{this.$store.getters.getCurrentKitType}} - {{this.$store.getters.getCurrentKitName}}
         </h3>
-
-        <div class="container navOptn" style="justify-content: center;">
-            <button class="optionsButton border-0" v-bind:style="{fontWeight: kitInfoFont}">Informações
-            </button>
-            <button class="optionsButton border-0" v-bind:style="{fontWeight: addOnsFont}">
-                Complementos</button>
-            <button class="optionsButton border-0" v-bind:style="{fontWeight: extraFont}">Extras
-            </button>
-            <button class="optionsButton border-0" v-bind:style="{fontWeight: decorsFont}">Decoração
-            </button>
-            <button class="optionsButton border-0" v-bind:style="{fontWeight: outfitFont}">Fardas
-            </button>
-            <button class="optionsButton border-0" v-bind:style="{fontWeight: resumeFont}">Resumo
-            </button>
+        <div class="container span">
+            <span v-bind:style="{fontWeight: kitInfoFont}">Informações
+            </span>
+            <span v-bind:style="{fontWeight: addOnsFont}">
+                Complementos</span>
+            <span v-bind:style="{fontWeight: extraFont}">Extras
+            </span>
+            <span v-bind:style="{fontWeight: decorsFont}">Decoração
+            </span>
+            <span v-bind:style="{fontWeight: outfitFont}">Fardas
+            </span>
+            <span v-bind:style="{fontWeight: resumeFont}">Resumo
+            </span>
         </div>
         <form @submit.prevent="saveBooking()">
             <div class="container" v-bind:style="{display: kitInfo}">
@@ -35,8 +34,7 @@
                             </b-form-input>
                         </b-form-group>
                         <label class="lable" for="schools">Local</label>
-                        <select id="schools" style="width:255px; height:38px;border-color:#ced4da" class="rounded-0"
-                            v-model="location">
+                        <select id="schools" class="rounded-0" v-model="location">
                             <option v-for="school in schools" :key="school.id">{{school.name}}</option>
                         </select>
                     </div>
@@ -169,10 +167,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group" style="margin: auto;">
+                    <div class="form-group observation">
                         <label for="observation" class="lable">Observações</label>
                         <textarea class="form-control rounded-0" style="resize: none;" id="observation"
-                            v-model="observation" rows="4" cols="50" required></textarea>
+                            v-model="observation" rows="4" cols="50"></textarea>
                     </div>
                 </div>
                 <button type="button" v-on:click="displayOutfit()" class="btn btn-primary border-0 rounded-0"
@@ -498,17 +496,11 @@
         font-weight: bold;
     }
 
-
-
     .subtitle {
         padding-bottom: 10px;
         color: #0A2463;
         font-weight: bold;
 
-    }
-
-    .navOptn {
-        padding-bottom: 70px;
     }
 
     textarea {
@@ -541,14 +533,29 @@
 
     }
 
-
-    .optionsButton {
-        background-color: transparent;
-        color: black;
+    span {
         padding: 10px;
     }
 
-    .optionsButton[data-v-bbb6eae2]:focus {
-        outline: 0;
+    .span {
+        padding-bottom: 70px;
+    }
+
+    #schools {
+        width: 100%;
+        height: 38px;
+        border-color: #ced4da;
+    }
+
+    .observation {
+        margin: auto;
+        width: 60%;
+    }
+
+    @media screen and (max-width: 1096px) {
+        .observation {
+            margin: auto;
+            width: 91vw;
+        }
     }
 </style>

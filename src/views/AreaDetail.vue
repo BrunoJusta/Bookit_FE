@@ -32,9 +32,9 @@
       <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
         <router-link to="/areas" style="color:white"> Voltar </router-link>
       </b-button>
-      <b-button  @click="saveCurrentArea()" class="btn-book border-0"
+      <b-button  @click="saveCurrentArea()" v-bind:style="{display:show4}" class="btn-book border-0"
         squared>
-        <router-link to="/areasbooking" class="teste" style="color:white"> Reservar </router-link>
+        <router-link to="/areasbooking" style="color:white"> Reservar </router-link>
       </b-button>
       <b-button v-bind:style="{display:show2}"  v-if="this.$store.getters.getUserType == 'admin'" @click="activateEdit()" class="btn-book border-0" squared>
         Editar
@@ -57,7 +57,8 @@
         areaImg: "",
         show: "none",
         show2: "inline",
-        show3: "block"
+        show3: "block",
+        show4: "inline"
       };
     },
     created() {
@@ -97,12 +98,14 @@
         this.show = "inline"
         this.show2 = "none"
         this.show3 = "none"
+        this.show4 = "none"
 
       },
       saveEdit() {
         this.show2 = "inline"
         this.show = "none"
         this.show3 = "block"
+        this.show4 = "inline"
         let newDesc = document.getElementById('description').value
 
         for (let a in this.areas) {
@@ -126,6 +129,7 @@
         this.show2 = "inline"
         this.show = "none"
         this.show3 = "block"
+        this.show4 = "inline"
       }
     }
   }

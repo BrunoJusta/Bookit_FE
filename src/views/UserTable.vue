@@ -16,17 +16,17 @@
                 <template v-slot:cell(actions)="row">
                     <b-button size="sm"
                         v-if="row.item.userType == 'cliente' && row.item.email != $store.getters.getEmail"
-                        @click="changeToAdmin(row.item.id)" class="mr-1 border-0 rounded-0">Tornar Admin</b-button>
+                        @click="changeToAdmin(row.item.id)" class="mr-1 adminBtn">Tornar administrador</b-button>
                     <b-button size="sm" v-if="row.item.userType == 'admin' && row.item.email != $store.getters.getEmail"
-                        @click="changeToClient(row.item.id) " class="mr-1 border-0 rounded-0">Tornar User</b-button>
+                        @click="changeToClient(row.item.id) " class="mr-1 userBtn">Tornar cliente</b-button>
                     <b-button size="sm"
                         v-if="row.item.email != $store.getters.getEmail && row.item.userType !== 'bloqueado'"
-                        @click="block(row.item.id)" class="mr-1 border-0 rounded-0">Bloquear</b-button>
+                        @click="block(row.item.id)" class="mr-1 blockBtn">Bloquear</b-button>
                     <b-button size="sm"
                         v-if="row.item.email != $store.getters.getEmail && row.item.userType === 'bloqueado'"
-                        @click="block(row.item.id)" class="mr-1 border-0 rounded-0">Desbloquear</b-button>
+                        @click="block(row.item.id)" class="mr-1 unlockBtn">Desbloquear</b-button>
                     <b-button size="sm" @click="remove(row.item.id)" v-if="row.item.email != $store.getters.getEmail"
-                        class="mr-1 border-0 rounded-0">X</b-button>
+                        class="mr-1 deleteBtn">X</b-button>
                     <span v-else>Sem Ações</span>
 
                 </template>
@@ -282,5 +282,35 @@
 
     .table {
         padding-bottom: 100px;
+    }
+
+    .deleteBtn {
+        background-color: #B91C3B;
+        border: none;
+        border-radius: 0;
+    }
+
+    .unlockBtn {
+        background-color: #343A40;
+        border: none;
+        border-radius: 0;
+    }
+
+    .blockBtn {
+        background-color: #343A40;
+        border: none;
+        border-radius: 0;
+    }
+
+    .userBtn {
+        background-color: #0A2463;
+        border: none;
+        border-radius: 0;
+    }
+
+    .adminBtn {
+        background-color: #0A2463;
+        border: none;
+        border-radius: 0;   
     }
 </style>
