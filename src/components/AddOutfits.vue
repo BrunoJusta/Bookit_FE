@@ -140,6 +140,7 @@
 </script>
 
 <style lang="scss" scoped>
+
     .box {
         background-color: white;
         margin-top: -35px;

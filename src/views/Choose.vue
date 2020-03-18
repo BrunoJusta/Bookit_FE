@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-5">
-                    <router-link to="/menuKits" class="link">
+                    <router-link to="/menuGallery" class="link">
                         <div id="card-maker">
                             <b-card title="EVENTOS & CATERING" img-src="../assets/eventosCatering.png" class="border-0">
                                 <h3 class=" card-title">
@@ -23,7 +23,7 @@
                 <div class="col-sm-2">
                 </div>
                 <div class="col-sm-5">
-                    <router-link to="/areas" class="link">
+                    <router-link to="/areasGallery" class="link">
                         <div id="card-maker">
                             <b-card title="ESPAÇOS" img-src="../assets/bar.png" class="border-0">
                                 <h3 class=" card-title">

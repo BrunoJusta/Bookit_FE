@@ -100,7 +100,7 @@
             if (this.$store.getters.getName == "Entrar") {
                 this.x = "login"
             } else {
-                this.x = "kitDetail"
+                this.x = "menuDetail"
             }
 
             localStorage.setItem("currentKit", JSON.stringify(this.reset));

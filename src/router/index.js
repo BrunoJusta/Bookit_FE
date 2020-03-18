@@ -58,14 +58,14 @@ const routes = [{
     }
   },
   {
-    path: "/menuKits",
-    name: "menuKits",
-    component: () => import("../views/MenuKits.vue")
+    path: "/menuGallery",
+    name: "menuGallery",
+    component: () => import("../views/MenuGallery.vue")
   },
   {
     path: "/workshops",
     name: "workshops",
-    component: () => import("../views/Workshops.vue")
+    component: () => import("../views/WorkshopGallery.vue")
   },
   {
     path: "/choose",
@@ -73,14 +73,14 @@ const routes = [{
     component: () => import("../views/Choose.vue")
   },
   {
-    path: "/areas",
-    name: "areas",
-    component: () => import("../views/Areas.vue")
+    path: "/areasGallery",
+    name: "areasGallery",
+    component: () => import("../views/AreasGallery.vue")
   },
   {
-    path: "/kitDetail",
-    name: "kitDetail",
-    component: () => import("../views/kitDetail.vue"),
+    path: "/menuDetail",
+    name: "menuDetail",
+    component: () => import("../views/MenuDetail.vue"),
     beforeEnter(to, from, next) {
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
@@ -106,7 +106,7 @@ const routes = [{
   {
     path: "/areaDetail",
     name: "areaDetail",
-    component: () => import("../views/AreaDetail.vue"),
+    component: () => import("../views/AreasDetail.vue"),
     beforeEnter(to, from, next) {
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
@@ -132,9 +132,9 @@ const routes = [{
     }
   },
   {
-    path: "/inscriptions",
-    name: "inscriptions",
-    component: () => import("../views/Inscriptions.vue"),
+    path: "/workshopTable",
+    name: "workshopTable",
+    component: () => import("../views/WorkshopTable.vue"),
     beforeEnter(to, from, next) {
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
@@ -162,9 +162,9 @@ const routes = [{
 
   },
   {
-    path: "/kitManeger",
-    name: "kitManeger",
-    component: () => import("../views/KitManeger.vue"),
+    path: "/menuManager",
+    name: "menuManager",
+    component: () => import("../views/MenuManager.vue"),
     beforeEnter(to, from, next) {
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
@@ -177,9 +177,9 @@ const routes = [{
     }
   },
   {
-    path: "/WorkshopManeger",
-    name: "WorkshopManeger",
-    component: () => import("../views/WorkshopManeger.vue"),
+    path: "/WorkshopManager",
+    name: "WorkshopManager",
+    component: () => import("../views/WorkshopManager.vue"),
     beforeEnter(to, from, next) {
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
@@ -236,9 +236,9 @@ const routes = [{
     }
   },
   {
-    path: "/addArea",
-    name: "addArea",
-    component: () => import("../views/AddArea.vue"),
+    path: "/areasManager",
+    name: "areasManager",
+    component: () => import("../views/AreasManager.vue"),
     beforeEnter(to, from, next) {
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {

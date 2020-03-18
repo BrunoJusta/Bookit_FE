@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <top-header />
+    <navbar />
     <router-view />
     <bottom-footer id="desktop-footer" />
     <bottom-footer-mobile id="mobile-footer" />
@@ -8,12 +8,12 @@
 </template>
 
 <script>
-  import TopHeader from '@/components/TopHeader.vue';
+  import NavBar from '@/components/NavBar.vue';
   import Footer from '@/components/Footer.vue'
   import MobileFooter from '@/components/MobileFooter.vue'
   export default {
     components: {
-      "top-header": TopHeader,
+      "navbar": NavBar,
       "bottom-footer": Footer,
       "bottom-footer-mobile": MobileFooter
     }

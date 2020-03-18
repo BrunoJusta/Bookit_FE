@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div class="container-full title" style="padding-top: 150px; padding-bottom: 30px;">
+               <div class="container-full title" style="padding-top: 150px; padding-bottom: 30px;">
+
             <h1 id="redTitle">GERIR INGREDIENTES</h1>
             <hr class="back-line">
             <div class="container box">
@@ -32,7 +33,7 @@
                             aria-controls="my-table" style="float:right;"></b-pagination>
                     </div>
                     <div class="container" v-else>
-                        <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+                        <img class="image" src="../assets/bookit_BLUE.svg" alt="" srcset="">
                         <h4> Não existem Ingredientes</h4>
                     </div>
                 </div>
@@ -157,6 +158,12 @@
 </script>
 
 <style lang="scss" scoped>
+    .image {
+        width: 150px;
+        margin: 20px;
+    }
+
+
     .box {
         background-color: white;
         margin-top: -35px;

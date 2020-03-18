@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container-full title" style="padding-top: 80px; padding-bottom: 30px;">
+        <div class="container-full title">
             <h1 id="redTitle">GERIR EXTRAS</h1>
             <hr class="back-line">
             <div class="container box">
@@ -27,7 +27,7 @@
                             aria-controls="my-table" style="float:right;"></b-pagination>
                     </div>
                     <div class="container" v-else>
-                        <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+                        <img class="image" src="../assets/bookit_BLUE.svg" alt="" srcset="">
                         <h4> Não existem Extras</h4>
                     </div>
                 </div>
@@ -42,6 +42,8 @@
         data: function () {
             return {
                 extras: [],
+                name: "",
+                type: "",
                 perPage: 3,
                 currentPage: 1,
                 fields: [{
@@ -55,12 +57,7 @@
                         sortable: false
                     },
                 ],
-                workshops: [],
-                x: "",
-                currentDate: "",
-                searchWorkshops: "",
-                name: "",
-                type: "",
+
             }
         },
         created() {
@@ -132,6 +129,16 @@
 </script>
 
 <style lang="scss" scoped>
+    .image {
+        width: 150px;
+        margin: 20px;
+    }
+
+    .title {
+        padding-top: 80px;
+        padding-bottom: 30px;
+    }
+
     .box {
         background-color: white;
         margin-top: -35px;

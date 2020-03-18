@@ -32,7 +32,7 @@
                         <router-link to="/pageNotFound" style="color:white">Perguntas frequentes</router-link>
                     </li>
                     <li>
-                        <router-link to="/menuKits" style="color:white">Galeria de menus</router-link>
+                        <router-link to="/menuGallery" style="color:white">Galeria de menus</router-link>
                     </li>
                     <li>
                         <router-link to="/workshops" style="color:white">Galeria de workshops</router-link>

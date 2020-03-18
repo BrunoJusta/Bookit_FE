@@ -1,27 +1,26 @@
 <template>
   <div>
     <div id="title">
-      <h1 id="redTitle">EVENTOS & CATERING</h1>
+      <h1 id="redTitle">WORKSHOPS</h1>
       <hr class="back-line">
       <div class="container"
-        style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
-        <p style="color:white">s</p>
+        style="background-color:white; margin-top:-35px; height:35px; width:340px;position: relative;display: block; z-index:6">
       </div>
     </div>
-    <KitGallery />
+    <WorkshopGallery />
 
   </div>
 </template>
 
 <script>
   // @ is an alias to /src
-  import KitGallery from '@/components/KitGallery.vue'
+  import WorkshopGallery from '@/components/WorkshopCards.vue'
 
 
 
   export default {
     components: {
-      KitGallery
+      WorkshopGallery
     }
   }
 </script>
@@ -31,9 +30,9 @@
     font-family: "bookMan";
     font-size: 45px;
     color: #B91C3B;
+    position: relative;
     display: block;
     z-index: 7;
-    position: relative;
   }
 
   .back-line {

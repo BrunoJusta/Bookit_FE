@@ -4,7 +4,6 @@
             <router-link v-if="this.$store.getters.getUserType !== 'admin'" to="/"><img src="../assets/navbarLogo.svg"
                     id="logoNavbar"></router-link>
             <router-link v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
-
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <div>
@@ -15,8 +14,6 @@
                                         id="icon"></i>{{this.$store.getters.getName}}
                                 </router-link>
                             </b-button>
-                            <!-- <span v-if="this.$store.getters.getName != 'Entrar' && this.$store.getters.getNumberNotifications"
-                                class="dot"></span> -->
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
                                 <router-link style="color:black;" to="/">Sair</router-link>
@@ -30,25 +27,20 @@
             <div class="container">
                 <router-link to="/" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Início
                 </router-link>
+                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Menus
+                </router-link>
+                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Espaços
+                </router-link>
+                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Workshops
+                </router-link>
                 <router-link to="/adminHome" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Início
                 </router-link>
-                <router-link to="/menuKits" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Menus
+                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Menus
                 </router-link>
-                <router-link to="/areas" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Espaços
+                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Workshops
                 </router-link>
-
-                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">
-                    Workshops
+                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Espaços
                 </router-link>
-                <router-link to="/menuKits" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Menus
-                </router-link>
-                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">
-                    Workshops
-                </router-link>
-                <router-link to="/areas" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Espaços
-                </router-link>
-
-
             </div>
         </b-navbar>
     </div>
@@ -69,6 +61,8 @@
         created() {
             if (localStorage.getItem("kits")) {
                 this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
+                this.kits = this.$store.state.kits
+
             }
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
@@ -77,12 +71,10 @@
                 this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
                 this.bookings = this.$store.state.bookings
             }
-
             if (localStorage.getItem("areaBookings")) {
                 this.$store.state.areaBookings = JSON.parse(localStorage.getItem("areaBookings"))
                 this.areaBookings = this.$store.state.areaBookings
             }
-
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
             } else if (this.$store.getters.getUserType === "admin") {
@@ -90,7 +82,6 @@
             } else if (this.$store.getters.getUserType === "cliente") {
                 this.path = "profile"
             }
-            this.kits = this.$store.state.kits
             this.$store.commit('STORE_ITEMS')
 
             for (let i in this.kits) {
@@ -107,7 +98,6 @@
                 }
             }
             localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes))
-
 
             for (let i in this.bookings) {
                 var g1 = new Date();
@@ -127,8 +117,6 @@
             }
             localStorage.setItem("areaBookings", JSON.stringify(this.areaBookings))
 
-
-
         },
         updated: function () {
             if (this.$store.getters.getName === "Entrar") {
@@ -138,7 +126,6 @@
             } else if (this.$store.getters.getUserType === "cliente") {
                 this.path = "profile"
             }
-
         },
         methods: {
             logout() {

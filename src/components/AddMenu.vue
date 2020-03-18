@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="addKit()">
+        <form @submit.prevent="addMenu()">
             <div class="container">
                 <div class="text-center my-3" v-if="name != ''">
                     <b-button id="popover-target-1" class="showBtn border-0 rounded-0">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-sm-5">
                         <b-select id="selectTxt" v-model="type">
-                            <option disabled selected>Tipo de Menu</option>
+                            <option value="" disabled selected>Tipo de Menu</option>
                             <option v-for="type in this.menuTypes" :key="type">{{type}}</option>
                         </b-select>
                         <b-input type="text" id="txtName" v-model="newType" placeholder="outro..."></b-input>
@@ -56,10 +56,10 @@
 </template>
 
 <script>
-    import preview from "../components/MenuCard.vue";
-
+    import preview from "../components/MenuCardPreview.vue";
+    
     export default {
-        name: "addKit",
+        name: "addMenu",
         data: function () {
             return {
                 name: "",
@@ -97,7 +97,7 @@
             getLastId() {
                 return this.$store.getters.kitLastId + 1
             },
-            addKit() {
+            addMenu() {
                 let correctOptions = true
                 if (this.checkedFood.length != 0) {
                     if (this.checkedFood.length != 1 && this.checkedFood.some(food => food === "Sem Comida")) {
@@ -143,7 +143,6 @@
                         this.checkedFood = ""
                         this.img = ""
                         this.newType = ""
-
                         this.menuTypes.push(this.newType)
                         localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes));
                     } else {

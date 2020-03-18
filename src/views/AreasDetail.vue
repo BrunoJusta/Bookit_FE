@@ -30,7 +30,7 @@
       </b-button>
 
       <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
-        <router-link to="/areas" style="color:white"> Voltar </router-link>
+        <router-link to="/areasGallery" style="color:white"> Voltar </router-link>
       </b-button>
       <b-button  @click="saveCurrentArea()" v-bind:style="{display:show4}" class="btn-book border-0"
         squared>

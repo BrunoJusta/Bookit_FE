@@ -39,7 +39,6 @@
 
 <script>
     export default {
-        name: "BookingTable",
         data: function () {
             return {
                 perPage: 10,
@@ -76,10 +75,6 @@
 
                 ],
                 users: [],
-                areas: [],
-                bookingTable: "block",
-                areasTable: "none",
-                x: "",
                 searchUsers: ""
             }
         },

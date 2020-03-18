@@ -149,7 +149,6 @@
         border-radius: 0 !important;
     }
 
-
     .card {
         border-radius: 0 !important;
     }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container-full title" style="padding-top: 80px; padding-bottom: 30px;">
+        <div class="container-full title">
             <h1 id="redTitle">GERIR DECORAÇÃO</h1>
             <hr class="back-line">
             <div class="container box">
@@ -27,7 +27,7 @@
                             aria-controls="my-table" style="float:right;"></b-pagination>
                     </div>
                     <div class="container" v-else>
-                        <img style="width: 150px;  margin:20px" src="../assets/bookit_BLUE.svg" alt="" srcset="">
+                        <img class="image" src="../assets/bookit_BLUE.svg">
                         <h4> Não existem decorações</h4>
                     </div>
                 </div>
@@ -42,6 +42,8 @@
         data: function () {
             return {
                 decor: [],
+                name: "",
+                type: "",
                 perPage: 3,
                 currentPage: 1,
                 fields: [{
@@ -55,12 +57,6 @@
                         sortable: false
                     },
                 ],
-                workshops: [],
-                x: "",
-                currentDate: "",
-                searchWorkshops: "",
-                name: "",
-                type: "",
             }
         },
         created() {
@@ -68,7 +64,6 @@
                 this.$store.state.decor = JSON.parse(localStorage.getItem("decor"))
             }
             this.decor = this.$store.state.decor
-
         },
         methods: {
             addDecor() {
@@ -132,6 +127,12 @@
 </script>
 
 <style lang="scss" scoped>
+
+    .title {
+        padding-top: 80px;
+        padding-bottom: 30px;
+    }
+
     .box {
         background-color: white;
         margin-top: -35px;
@@ -187,5 +188,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    .image {
+        width: 150px;
+        margin: 20px;
     }
 </style>

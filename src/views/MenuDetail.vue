@@ -1,5 +1,5 @@
 <template>
-  <div class="kitDetail">
+  <div class="menuDetail">
     <h3 class="display-2" v-bind:style="{display:show3}">{{getKitById($route.params.kitId).type}}</h3>
     <input type="text" v-model="newKitType" name="" :placeholder="kitType" id="editTitle" v-bind:style="{display:show}">
     <div class="container">
@@ -61,7 +61,7 @@
       </b-button>
 
       <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
-        <router-link to="/menuKits" style="color:white"> Voltar </router-link>
+        <router-link to="/menuGallery" style="color:white"> Voltar </router-link>
       </b-button>
       <!-- <b-button v-if="this.$store.getters.getUserType !== 'admin'" @click="saveCurrentKit()"
         v-bind:style="{display:show2}" class="btn-book border-0" squared>

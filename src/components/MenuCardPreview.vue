@@ -1,5 +1,5 @@
 <template>
-    <div class="kitDetail">
+    <div class="menuDetail">
         <div class="container">
             <b-card no-body class="border-1" style="width: 1100px;">
                 <b-row no-gutters>
@@ -95,16 +95,10 @@
         box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
     }
 
-
     .food,
     .drinks {
         padding-top: 0px;
     }
-
-
-    // .drinks {
-    //     margin-left: 5px;
-    // }
 
     #icon {
         padding-right: 6px;

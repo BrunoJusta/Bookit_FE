@@ -39,13 +39,13 @@
     <div class="container  options">
       <div class="row">
         <div class="col-sm-4">
-          <router-link id="link" to="/menuKits">
+          <router-link id="link" to="/menuGallery">
             <b-card title="Eventos & Catering" img-src="../assets/eventosCateringg.jpg" class="mb-2 border-0">
             </b-card>
           </router-link>
         </div>
         <div class="col-sm-4">
-          <router-link id="link" to="/areas">
+          <router-link id="link" to="/areasGallery">
             <b-card title="Espaços" img-src="../assets/rooms.jpg" class="mb-2 border-0">
             </b-card>
           </router-link>

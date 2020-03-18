@@ -6,19 +6,19 @@
             <div class="container box">
             </div>
         </div>
-        <AddKit />
+        <AddMenu />
     </div>
 </template>
 
 <script>
-    import AddKit from '@/components/AddKit.vue';
+    import AddMenu from '@/components/AddMenu.vue';
 
     export default {
         data: function () {
             return {}
         },
         components: {
-            AddKit
+            AddMenu
         }
     }
 </script>

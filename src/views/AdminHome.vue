@@ -19,7 +19,7 @@
             </div>
           </router-link>
 
-          <router-link id="link" to="/inscriptions">
+          <router-link id="link" to="/workshopTable">
             <div class="col" style="width:140px; height: 180px;">
               <b-card title="Gestão de Workshops" img-src="../assets/workshop_m.svg" style="max-width: 12rem;"
                 class="mb-2 border-0">
@@ -43,7 +43,7 @@
             </div>
           </router-link>
 
-          <router-link id="link" to="/kitManeger">
+          <router-link id="link" to="/menuManager">
             <div class="col" style="width:140px; height: 180px;">
               <b-card title="Adicionar Menus" img-src="../assets/add_menu.svg" tyle="max-width: 12rem;"
                 class="mb-2 border-0">
@@ -51,7 +51,7 @@
             </div>
           </router-link>
 
-          <router-link id="link" to="/WorkshopManeger">
+          <router-link id="link" to="/WorkshopManager">
             <div class="col" style="width:140px; height: 180px;">
               <b-card title="Adicionar Workshops" img-src="../assets/add_workshop.svg" style="max-width: 12rem;"
                 class="mb-2 border-0">
@@ -59,7 +59,7 @@
             </div>
           </router-link>
 
-          <router-link id="link" to="/addArea">
+          <router-link id="link" to="/areasManager">
             <div class="col" style="width:140px; height: 180px;">
               <b-card title="Adicionar Espaços" img-src="../assets/add_area.svg" style="max-width: 12rem;"
                 class="mb-2 border-0">

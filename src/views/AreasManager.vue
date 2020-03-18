@@ -7,29 +7,29 @@
                 style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
             </div>
         </div>
-        <div class="container col-sm-4">
             <form @submit.prevent="addAreas()">
-                <div class="row" style="margin:auto; width:500px;">
+        <div class="container">
+
+                <div class="row" >
                     <div class="col-sm-6">
-                        <input id="name" placeholder="Nome do espaço" v-model="name">
+                        <b-input id="inputs" placeholder="Nome do espaço" v-model="name"></b-input>
                     </div>
                     <div class="col-sm-6">
-                        <input id="img" placeholder="Link da Imagem" v-model="img">
+
+                        <b-input id="inputs" placeholder="Link da Imagem" v-model="img"></b-input>
                     </div>
                 </div>
-                <div class="row" style="margin:auto;padding-top:20px; width:500px;">
-                    <div class="col-sm-6">
-                        <label for="description">Descrição</label>
-                        <textarea id="description" v-model="description" rows="4" cols="20"></textarea>
-                    </div>
-                    <div class="col-sm-6" v-if="this.img != ''">
-                        <label for="imgArea">Imagem do espaço</label>
-                        <img :src="img" id="imgArea" style="width: 100px; height: 100px;">
-                    </div>
+                <div class="row" >
+                        <textarea id="description" placeholder="Descrição..."  style="resize:none;" v-model="description" rows="4" cols="20"></textarea>
                 </div>
+                <div class="row" v-if="this.img != ''">
+                        <img :src="img" id="imgArea">
+                </div>
+
                 <button type="submit" value="Adicionar" class="btn btn-primary rounded-0 border-0">Adicionar</button>
-            </form>
         </div>
+            
+            </form>
     </div>
 </template>
 
@@ -112,5 +112,35 @@
         background-color: #0A2463;
         margin: 20px;
         margin-top: 50px;
+    }
+
+
+
+
+    #description{
+        border-color: #ced4da;
+        margin-top: 5px;
+        margin-bottom: 20px;
+
+    }
+
+    .col-sm-6 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        #imgArea {
+        width: 80%;
+        height: auto;
+        border: 3px solid #0A2463;
+    }
+
+    #inputs{
+        width: 300px;
+        border-radius: 0;
+        height: 40px;
+        margin-bottom: 20px;
+
     }
 </style>
