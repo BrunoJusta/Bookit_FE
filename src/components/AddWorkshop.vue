@@ -1,41 +1,33 @@
 <template>
     <div>
-        <div class="container col-sm-4">
-            <form @submit.prevent="addWorkshop()">
-                <div class="container">
-                    <div class="row" >
-                        <div class="col-sm-6">
-                            <b-input id="inputs" placeholder="Nome do workshop" v-model="name"></b-input>
-                            <b-input id="inputs" placeholder="Link da imagem" v-model="img"></b-input>
-                            <label for="hi"><b>Hora Início</b></label>
-                            <b-input type="time" id="hi" v-model="hi"></b-input>
-
-                        </div>
-                        <div class="col-sm-6">
-                            <b-input id="inputs" placeholder="Professor" v-model="teacher"></b-input>
-                            <b-input id="inputs" type="date" placeholder="Data" v-model="date"></b-input>
-                            <label for="hf"><b>Hora Final</b></label>
-                            <b-input type="time" id="hf" v-model="hf"></b-input>
-                        </div>
+        <form @submit.prevent="addWorkshop()">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-4">
+                        <b-input id="inputs" placeholder="Nome do workshop" v-model="name"></b-input>
+                        <b-input id="inputs" placeholder="Link da imagem" v-model="img"></b-input>
+                        <label for="hi"><b>Hora Início</b></label>
+                        <b-input type="time" id="hi" v-model="hi"></b-input>
                     </div>
-                    <div class="row" style="padding-top:20px;">
-                        <div class="col-sm-12">
-
-                            <textarea id="description" placeholder="Descrição..." style="resize:none;"
-                                v-model="description" rows="4" cols="51"></textarea>
-                        </div>
+                    <div class="col-sm-4">
+                        <b-input id="inputs" placeholder="Professor" v-model="teacher"></b-input>
+                        <b-input id="inputs" type="date" placeholder="Data" v-model="date"></b-input>
+                        <label for="hf"><b>Hora Final</b></label>
+                        <b-input type="time" id="hf" v-model="hf"></b-input>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12" v-if="this.img != ''">
-
-                            <img :src="img" id="imgWorkshop">
-                        </div>
-
-                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <textarea id="description" placeholder="Descrição..." style="resize:none;" v-model="description"
+                        rows="4" cols="20"></textarea>
+                </div>
+                <div class="row" v-if="this.img != ''">
+                    <img :src="img" id="imgWorkshop">
                 </div>
                 <button type="submit" value="Adicionar" class="btn btn-primary rounded-0 border-0">Adicionar</button>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </template>
 
@@ -108,42 +100,33 @@
         margin-top: 30px;
     }
 
-    #imgWorkshop {
-        width: 80%;
-        height: auto;
-        border: 3px solid #0A2463;
+    .col-sm-4 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    #description{
+    #description {
         border-color: #ced4da;
+        width: 680px;
+        margin: auto;
         margin-top: 5px;
         margin-bottom: 20px;
-
     }
 
-    .col-sm-6 {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
+    #imgWorkshop {
+        width: 40%;
+        height: auto;
+        border: 3px solid #0A2463;
+        margin: auto;
     }
 
-    .row{
-        width: 100%;
-    }
-
-    .col-sm-12 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #inputs, #hi, #hf{
-
+    #inputs,
+    #hi,
+    #hf {
+        width: 300px;
         border-radius: 0;
         height: 40px;
         margin-bottom: 20px;
-
     }
-
 </style>

@@ -3,33 +3,33 @@
         <div id="title">
             <h1 id="redTitle">ADICIONAR ESPAÇO</h1>
             <hr class="back-line">
-            <div class="container"
-                style="background-color:white; margin-top:-35px; height:35px; width:580px;position: relative;display: block; z-index:6">
+            <div class="container box">
             </div>
         </div>
-            <form @submit.prevent="addAreas()">
-        <div class="container">
-
-                <div class="row" >
-                    <div class="col-sm-6">
+        <form @submit.prevent="addAreas()">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-4">
                         <b-input id="inputs" placeholder="Nome do espaço" v-model="name"></b-input>
                     </div>
-                    <div class="col-sm-6">
-
+                    <div class="col-sm-4">
                         <b-input id="inputs" placeholder="Link da Imagem" v-model="img"></b-input>
                     </div>
+                    <div class="col-sm-2">
+                    </div>
                 </div>
-                <div class="row" >
-                        <textarea id="description" placeholder="Descrição..."  style="resize:none;" v-model="description" rows="4" cols="20"></textarea>
+                <div class="row">
+                    <textarea id="description" placeholder="Descrição..." style="resize:none;" v-model="description"
+                        rows="4" cols="20"></textarea>
                 </div>
                 <div class="row" v-if="this.img != ''">
-                        <img :src="img" id="imgArea">
+                    <img :src="img" id="imgArea">
                 </div>
-
                 <button type="submit" value="Adicionar" class="btn btn-primary rounded-0 border-0">Adicionar</button>
-        </div>
-            
-            </form>
+            </div>
+        </form>
     </div>
 </template>
 
@@ -72,7 +72,7 @@
                 this.name = ""
                 this.img = ""
                 this.description = ""
-                
+
                 Swal.fire({
                     icon: 'success',
                     text: 'Adicionado!'
@@ -83,6 +83,16 @@
 </script>
 
 <style lang="scss" scoped>
+    .box {
+        background-color: white;
+        margin-top: -35px;
+        height: 35px;
+        width: 580px;
+        position: relative;
+        display: block;
+        z-index: 6
+    }
+
     #redTitle {
         font-family: "bookMan";
         font-size: 45px;
@@ -106,41 +116,56 @@
         padding-bottom: 50px;
     }
 
-    
+
     .btn-primary {
         font-size: 18px;
         background-color: #0A2463;
         margin: 20px;
-        margin-top: 50px;
+        margin-top: 25px;
     }
 
-
-
-
-    #description{
-        border-color: #ced4da;
-        margin-top: 5px;
-        margin-bottom: 20px;
-
-    }
-
-    .col-sm-6 {
+    .col-sm-4 {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-        #imgArea {
-        width: 80%;
-        height: auto;
-        border: 3px solid #0A2463;
+    #description {
+        border-color: #ced4da;
+        width: 680px;
+        margin: auto;
+        margin-top: 5px;
+        margin-bottom: 20px;
     }
 
-    #inputs{
+    #imgArea {
+        width: 40%;
+        height: auto;
+        border: 3px solid #0A2463;
+        margin: auto;
+    }
+
+    #inputs {
         width: 300px;
         border-radius: 0;
         height: 40px;
         margin-bottom: 20px;
+    }
 
+    @media screen and (max-width: 1096px) {
+        #description {
+            border-color: #ced4da;
+            width: 300px;
+            margin: auto;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        #imgArea {
+        width: 60%;
+        height: auto;
+        border: 3px solid #0A2463;
+        margin: auto;
+    }
     }
 </style>

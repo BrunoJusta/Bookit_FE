@@ -18,7 +18,6 @@
         </div>
         <form @submit.prevent="saveBooking()">
             <div class="container" v-bind:style="{display: kitInfo}">
-                <!-- MOTIVO -->
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="form-group">

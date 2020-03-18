@@ -1,5 +1,4 @@
 <template>
-    <!--FOOTER-->
     <div class="footer-container">
         <div class="row">
             <img src="../assets/bookit_white2.svg" id="bookitLogo">
@@ -9,7 +8,12 @@
             <router-link id="link" to="/pageNotFound" style="color:white">Suporte</router-link>
         </div>
         <div class="row">
-            <google-map class="map" />
+            <i class="fas fa-map-marker-alt" id="icon"></i>
+            <span>Rua D. Sancho I, 981</span>
+            <i class="fas fa-home" id="icon"></i>
+            <span>4480-876 Vila do Conde</span>
+            <i class="fas fa-phone" id="icon"></i>
+            <span>252 291 700</span>
         </div>
         <div class="row">
             <hr>
@@ -30,6 +34,7 @@
 <style lang="scss" scoped>
     .row #link {
         margin: 20px;
+        font-size: 20px;
     }
 
     .row hr {
@@ -48,11 +53,6 @@
         align-items: center;
     }
 
-    .row {
-        font-size: 14px;
-    }
-
-
     #bookitLogo {
         height: 80px;
     }
@@ -63,7 +63,14 @@
         margin: auto;
     }
 
-    .map {
-        margin-top: 60px;
+    span {
+        color: white;
+        font-size: 11px;
+    }
+
+    #icon {
+        padding-left: 20px;
+        padding-right: 6px;
+        color: white;
     }
 </style>

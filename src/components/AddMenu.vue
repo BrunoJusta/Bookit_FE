@@ -29,35 +29,41 @@
                     <div class="col-sm-1">
                     </div>
                 </div>
-                <div class="row" style="margin:auto; padding-top:20px;">
-                    <div class="col-sm-1">
+                <div class="row">
+                    <div class="col-sm-2">
                     </div>
-                    <div align="left" class="col-sm-5">
-                        <label for="food" id="title">Comidas:</label>
-                        <div class="container" id="food" v-for="i in filteredFood" :key="i.id">
-                            <input type="checkbox" :value="i.name" v-model="checkedFood">{{i.name}}
+                    <div class="col-sm-4" align="left" id="foodColumn">
+                        <label id="title">Comida:</label>
+                        <div v-for="i in filteredFood" :key="i.id">
+                            <b-form-group>
+                                <b-form-checkbox-group v-model="checkedFood">
+                                    <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                                </b-form-checkbox-group>
+                            </b-form-group>
                         </div>
                     </div>
-                    <div align="left" class="col-sm-5" style="padding-top:20px;">
-                        <label for="drinks" id="title">Bebidas:</label>
-                        <div class="container" id="drinks" v-for="j in filteredDrinks" :key="j.id">
-                            <input type="checkbox" :value="j.name" v-model="checkedDrink">{{j.name}}
-                        </div>
+                    <div class="col-sm-2">
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-4" align="left" id="drinkColumn">
+                        <label id="title">Bebida:</label>
+                        <div v-for="i in filteredDrinks" :key="i.id">
+                            <b-form-group>
+                                <b-form-checkbox-group v-model="checkedDrink">
+                                    <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                                </b-form-checkbox-group>
+                            </b-form-group>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- INGREDIENTES -->
             <b-button type="submit" value="Adicionar" class="addBtn rounded-0 border-0">Adicionar</b-button>
         </form>
-
     </div>
 </template>
 
 <script>
     import preview from "../components/MenuCardPreview.vue";
-    
+
     export default {
         name: "addMenu",
         data: function () {
@@ -233,6 +239,14 @@
         align-items: center;
     }
 
+    #food,
+    #drinks {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 100px;
+    }
+
     .popover {
         border-color: transparent;
         border-radius: 0;
@@ -243,11 +257,23 @@
         display: inline;
     }
 
+    #drinkColumn {
+        margin-left: -94px;
+    }
+
+    #foodColumn {
+        margin-left: -22px;
+    }
+
     @media screen and (max-width: 1096px) {
         .showBtn {
             width: 200px;
             background-color: #0A2463;
             display: none;
+        }
+
+        #drinkColumn, #foodColumn {
+            margin-left: 100px;
         }
     }
 </style>
