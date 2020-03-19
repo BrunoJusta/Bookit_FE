@@ -21,13 +21,16 @@
                 <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                     head-variant="dark" responsive="sm" :items="this.notifications.slice().reverse()" :fields="fields">
                     <template v-slot:cell(actions)="row">
-                        <b-button size="sm" @click="archived(row.item.txt)" class="mr-1">Arquivar</b-button>
-                        <b-button v-if="row.item.reason" size="sm" @click="showMotive(row.item.reason)" class="mr-1">Ver
+                        <b-button size="sm" @click="archived(row.item.txt)" class="mr-1 blackBtn">Arquivar</b-button>
+                        <b-button v-if="row.item.reason" size="sm" @click="showMotive(row.item.reason)"
+                            class="mr-1 blueBtn">Ver
                             Motivo</b-button>
                         <b-button v-if="row.item.opinion" size="sm" @click="showOpinion(row.item.opinion)"
-                            class="mr-1">Ver
+                            class="mr-1 blueBtn">
+                            Ver
                             Opinião</b-button>
-                        <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1">X</b-button>
+                        <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1 deleteBtn">X
+                        </b-button>
                     </template>
                 </b-table>
                 <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
@@ -45,12 +48,14 @@
             <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.archivations.slice().reverse()" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
-                    <b-button v-if="row2.item.reason" size="sm" @click="showMotive(row2.item.reason)" class="mr-1">Ver
+                    <b-button v-if="row2.item.reason" size="sm" @click="showMotive(row2.item.reason)"
+                        class="mr-1 blueBtn">Ver
                         Motivo</b-button>
-                    <b-button v-if="row2.item.opinion" size="sm" @click="showOpinion(row2.item.opinion)" class="mr-1">
+                    <b-button v-if="row2.item.opinion" size="sm" @click="showOpinion(row2.item.opinion)"
+                        class="mr-1 blueBtn">
                         Ver
                         Opinião</b-button>
-                    <b-button size="sm" @click="removeArchive(row2.item.txt)" class="mr-1">X</b-button>
+                    <b-button size="sm" @click="removeArchive(row2.item.txt)" class="mr-1 deleteBtn">X</b-button>
                 </template>
             </b-table>
             <b-pagination v-model="currentPage2" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
@@ -318,5 +323,23 @@
         color: #fff;
         background-color: #0A2463;
         border-color: #0A2463;
+    }
+
+    .deleteBtn {
+        background-color: #B91C3B;
+        border: none;
+        border-radius: 0;
+    }
+
+    .blackBtn {
+        background-color: #343A40;
+        border: none;
+        border-radius: 0;
+    }
+
+    .blueBtn {
+        background-color: #0A2463;
+        border: none;
+        border-radius: 0;
     }
 </style>
