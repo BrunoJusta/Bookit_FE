@@ -1,18 +1,16 @@
 <template>
     <div>
         <div>
-            <div class="container optnContainer" style="justify-content: center;">
-                <button v-on:click="displayPW()" v-bind:style="{fontWeight: passwordFont}" style="fontSize: 16px;"
-                    class="bookingOptions border-0">
+            <div class="container optnContainer">
+                <button v-on:click="displayPW()" v-bind:style="{fontWeight: passwordFont}"
+                    class="settingsOptions border-0">
                     Alterar Palavra-Passe
-                    <span class="bookingOptions" v-bind:style="{fontWeight: defaultFont}" style="padding: 10px">|</span>
                 </button>
                 <button v-on:click="displayProfileImg()" v-bind:style="{fontWeight: imgProfileFont}"
-                    style="fontSize: 16px;" class="bookingOptions border-0">Atualizar Foto de Perfil
-                    <span class="bookingOptions" v-bind:style="{fontWeight: defaultFont}" style="padding: 10px">|</span>
+                    class="settingsOptions border-0">Atualizar Foto de Perfil
                 </button>
-                <button v-on:click="displayContact()" v-bind:style="{fontWeight: contactFont}" style="fontSize: 16px;"
-                    class="bookingOptions border-0">Atualizar Contacto
+                <button v-on:click="displayContact()" v-bind:style="{fontWeight: contactFont}"
+                    class="settingsOptions border-0">Atualizar Contacto
                 </button>
             </div>
         </div>
@@ -30,14 +28,14 @@
 
                     <b-form-group id="input-group-2">
                         <label for="input-2">Palavra-Passe Nova:</label>
-                        <b-form-input id="input-2" class="rounded-0" v-model="form.newPW" type="password" pattern=".{6,}" required
-                            placeholder="Introduza a palavra-passe nova"></b-form-input>
+                        <b-form-input id="input-2" class="rounded-0" v-model="form.newPW" type="password"
+                            pattern=".{6,}" required placeholder="Introduza a palavra-passe nova"></b-form-input>
                     </b-form-group>
 
                     <b-form-group id="input-group-3">
                         <label for="input-3">Confirmar Palavra-Passe Nova:</label>
-                        <b-form-input id="input-3" class="rounded-0" v-model="form.confirmPW" type="password" pattern=".{6,}" required
-                            placeholder="Confirme a Palavra-Passe nova"></b-form-input>
+                        <b-form-input id="input-3" class="rounded-0" v-model="form.confirmPW" type="password"
+                            pattern=".{6,}" required placeholder="Confirme a Palavra-Passe nova"></b-form-input>
                     </b-form-group>
                     <b-button type="submit" class="rounded-0 border-0 btn-primary" variant="primary">Alterar</b-button>
                 </b-form>
@@ -54,7 +52,8 @@
                         <b-form-input id="input-4" class="rounded-0" v-model="form.newImg" type="link" required
                             placeholder="Introduza o link da nova imagem"></b-form-input>
                     </b-form-group>
-                    <b-button type="submit" class="rounded-0 border-0 btn-primary" variant="primary">Atualizar</b-button>
+                    <b-button type="submit" class="rounded-0 border-0 btn-primary" variant="primary">Atualizar
+                    </b-button>
                 </b-form>
             </div>
         </div>
@@ -65,10 +64,11 @@
                 <b-form @submit="changeContact">
                     <b-form-group id="input-group-5">
                         <label for="input-5">Contacto Novo:</label>
-                        <b-form-input id="input-5" class="rounded-0" v-model="form.newContact" type="text" pattern="[0-9]{9}" required
-                            placeholder="Introduza o contacto novo"></b-form-input>
+                        <b-form-input id="input-5" class="rounded-0" v-model="form.newContact" type="text"
+                            pattern="[0-9]{9}" required placeholder="Introduza o contacto novo"></b-form-input>
                     </b-form-group>
-                    <b-button type="submit" class="rounded-0 border-0 btn-primary" variant="primary" id="submitBtn">Atualizar</b-button>
+                    <b-button type="submit" class="rounded-0 border-0 btn-primary" variant="primary" id="submitBtn">
+                        Atualizar</b-button>
                 </b-form>
             </div>
         </div>
@@ -284,7 +284,7 @@
         margin-top: 130px;
     }
 
-    .bookingOptions {
+    .settingsOptions {
         background-color: transparent;
         color: black;
         padding: 10px;
@@ -317,7 +317,7 @@
         box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
     }
 
-    .bookingOptions[data-v-25112270]:focus {
+    .settingsOptions[data-v-25112270]:focus {
         outline: 0;
     }
 
@@ -326,10 +326,16 @@
         background-color: #0A2463;
         margin: 20px;
         margin-top: 50px;
-       transition: all .2s ease-in-out;
-  }
+        transition: all .2s ease-in-out;
+    }
 
-  .btn-primary:hover {
-    transform: scale(1.1);
-  }
+    .btn-primary:hover {
+        transform: scale(1.1);
+    }
+
+    @media screen and (max-width: 1096px) {
+        #showContainer {
+            width: 70vw;
+        }
+    }
 </style>

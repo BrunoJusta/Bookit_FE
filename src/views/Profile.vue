@@ -1,52 +1,54 @@
 <template>
     <div>
         <div class="container" id="perfilContainer" v-bind:style="{display: showProfile}">
-            <div class="row" style="height: 180px">
-                <div class="col-sm-2">
+            <div class="row">
+                <div class="col-sm-7">
                     <b-img :src="this.$store.getters.getUserImg" id="imgPerfil"></b-img>
-                </div>
-                <div class="col-sm-2" id="nameColumn">
-                    <p id="nameTxt">{{getFullName}}</p>
-                    <div align="left" style="margin-left:-39px;">
-                        <p id="schoolTxt"><i class="fas fa-graduation-cap" id="icon"></i>{{getSchool}}</p>
-                        <p id="contactTxt"><i class="fas fa-phone" id="icon"></i>{{getContact}}</p>
-                        <p id="emailTxt"><i class="fas fa-envelope" id="icon"></i>{{getEmail}}</p>
-                        <p id="birthDateTxt"><i class="fas fa-calendar-alt" id="icon"></i>{{this.birthDate}}</p>
+                    <div id="infoDiv">
+                        <span id="nameTxt">{{getFullName}}</span>
+                        <span id="schoolTxt"><i class="fas fa-graduation-cap" id="icon"></i>{{getSchool}}</span>
+                        <span id="contactTxt"><i class="fas fa-phone" id="icon"></i>{{getContact}}</span>
+                        <span id="emailTxt"><i class="fas fa-envelope" id="icon"></i>{{getEmail}}</span>
+                        <span id="birthDateTxt"><i class="fas fa-calendar-alt" id="icon"></i>{{this.birthDate}}</span>
                     </div>
                 </div>
-                <div class="col-sm-8">
-                    <button v-on:click="displaySettings()" class="options border-0" style="margin-top: 0px;">
-                        <i class="fas fa-user-cog" id="icon"></i>Opções
-                    </button>
-                    <div>
-                        <button v-on:click="displayNotifications()" class="options border-0"
-                            v-bind:style="{fontWeight: notificFont, color: notifiColor}">
-                            Notificações</button>
-                        <p class="options" style="padding: 10px">|</p>
-                        <button v-on:click="displayBookings()" class="options border-0"
-                            v-bind:style="{fontWeight: bookingsFont,color: bookingsColor}">Reservas
+                <div class="col-sm-5">
+                    <div class="row" id="desktopSettings">
+                        <button v-on:click="displaySettings()" class="options border-0">
+                            <i class="fas fa-user-cog" id="icon"></i>Opções
                         </button>
                     </div>
-
+                    <div class="row" id="rightColumn">
+                        <button v-on:click="displayBookings()" class="options border-0"
+                            v-bind:style="{fontWeight: bookingsFont,color: bookingsColor}"><i class="fas fa-cocktail"
+                                id="icon"></i>Reservas
+                        </button>
+                        <button v-on:click="displayNotifications()" class="options border-0"
+                            v-bind:style="{fontWeight: notificFont, color: notifiColor}"><i class="fas fa-thumbtack"
+                                id="icon"></i>
+                            Notificações</button>
+                        <button v-on:click="displaySettings()" class="options mobileSettings border-0">
+                            <i class="fas fa-user-cog" id="icon"></i>Opções
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         <br>
-
         <!-- MOSTRA AS RESERVAS -->
         <div class="container">
             <div v-bind:style="{display: showBookings}">
-                <div class="container" style="justify-content: center;">
-                    <button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}" style="fontSize: 20px;"
+                <div class="container">
+                    <button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}"
                         class="bookingOptions border-0">Eventos & Catering
                     </button>
-                    <span class="bookingOptions" style="padding: 10px">|</span>
-                    <button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}" style="fontSize: 20px;"
+                    <span class="bookingOptions">|</span>
+                    <button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}"
                         class="bookingOptions border-0">
                         Espaços</button>
-                    <span class="bookingOptions" style="padding: 10px; padding-bottom: 30px;">|</span>
+                    <span class="bookingOptions">|</span>
                     <button v-on:click="displayWorkshops()" v-bind:style="{fontWeight: WorkshopsFont}"
-                        style="fontSize: 20px;" class="bookingOptions border-0">Workshops
+                        class="bookingOptions border-0">Workshops
                     </button>
                 </div>
 
@@ -151,13 +153,9 @@
             </div>
 
             <!-- DEFINIÇOES -->
-            <div class="container" v-bind:style="{display: showSettings}">
+            <div class="container teste" v-bind:style="{display: showSettings}">
                 <show-settings />
-            </div>
-
-            <div class="container" v-bind:style="{display: showSettings}">
-                <button v-on:click="hideSettings()" class="border-0 options btn-p2" style="fontSize: 16px;"
-                    id="goBackBtn">Voltar ao Perfil
+                <button v-on:click="hideSettings()" class="border-0 options btn-p2" id="goBackBtn">Voltar ao Perfil
                 </button>
             </div>
         </div>
@@ -349,7 +347,7 @@
                                         })
                                         localStorage.setItem("users", JSON.stringify(this
                                             .users));
-                                            location.reload();
+                                        location.reload();
                                     }
                                 }
                                 Swal.fire({
@@ -431,14 +429,37 @@
     #perfilContainer {
         margin-top: 180px;
         border-bottom: solid 8px #0A2463;
+        width: 70vw;
+    }
+
+    #infoDiv {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .col-sm-5 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-left: -20px;
+    }
+
+    .col-sm-3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #rightColumn {
+        display: flex;
+        align-items: flex-start;
     }
 
     .options {
-        float: right;
-        margin-top: 110px;
         background-color: transparent;
         color: black;
-        padding: 10px;
     }
 
     .btn-book {
@@ -461,13 +482,12 @@
         height: 150px;
         width: 150px;
         float: left;
-        margin-left: -14px;
+        margin-left: 10px;
         margin-top: -5px;
+        padding-right: 10px;
     }
 
     #nameTxt {
-        margin-top: -13px;
-        margin-left: -90px;
         font-size: 25px;
         font-weight: bold;
         color: black;
@@ -479,7 +499,6 @@
     #birthDateTxt {
         font-size: 15px;
         color: black;
-        margin-bottom: 5px;
     }
 
     @font-face {
@@ -498,6 +517,7 @@
         background-color: transparent;
         color: black;
         padding: 10px;
+        font-size: 20px;
 
     }
 
@@ -514,7 +534,10 @@
     }
 
     #goBackBtn {
-        margin-top: 20px;
+        background-color: transparent;
+        font-size: 16px;
+        margin: auto;
+        padding-top: 10px;
     }
 
     .btn-p2 {
@@ -531,5 +554,28 @@
 
     #icon {
         padding-right: 6px;
+    }
+
+    .mobileSettings {
+        display: none;
+    }
+
+    @media screen and (max-width: 1096px) {
+        .mobileSettings {
+            display: flex;
+        }
+
+        #desktopSettings {
+            display: none;
+        }
+
+        #rightColumn {
+            margin: auto;
+            padding-top: 20px;
+        }
+
+        #perfilContainer {
+            width: 90vw;
+        }
     }
 </style>
