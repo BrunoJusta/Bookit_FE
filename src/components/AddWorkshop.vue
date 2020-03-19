@@ -5,22 +5,22 @@
                 <div class="row">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-4">
-                        <b-input id="inputs" placeholder="Nome do workshop" v-model="name"></b-input>
-                        <b-input id="inputs" placeholder="Link da imagem" v-model="img"></b-input>
+                        <b-input id="inputs" placeholder="Nome do workshop" v-model="name" required></b-input>
+                        <b-input id="inputs" placeholder="Link da imagem" v-model="img" required></b-input>
                         <label for="hi"><b>Hora Início</b></label>
-                        <b-input type="time" id="hi" v-model="hi"></b-input>
+                        <b-input type="time" id="hi" v-model="hi" required></b-input>
                     </div>
                     <div class="col-sm-4">
-                        <b-input id="inputs" placeholder="Professor" v-model="teacher"></b-input>
-                        <b-input id="inputs" type="date" placeholder="Data" v-model="date"></b-input>
+                        <b-input id="inputs" placeholder="Professor" v-model="teacher" required></b-input>
+                        <b-input id="inputs" type="date" placeholder="Data" v-model="date" required></b-input>
                         <label for="hf"><b>Hora Final</b></label>
-                        <b-input type="time" id="hf" v-model="hf"></b-input>
+                        <b-input type="time" id="hf" v-model="hf" required></b-input>
                     </div>
                     <div class="col-sm-2"></div>
                 </div>
                 <div class="row">
                     <textarea id="description" placeholder="Descrição..." style="resize:none;" v-model="description"
-                        rows="4" cols="20"></textarea>
+                        rows="4" cols="20" required></textarea>
                 </div>
                 <div class="row" v-if="this.img != ''">
                     <img :src="img" id="imgWorkshop">

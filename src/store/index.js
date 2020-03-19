@@ -691,6 +691,9 @@ export default new Vuex.Store({
           popularity: 0
         });
         localStorage.setItem("kits", JSON.stringify(state.kits));
+        router.push({
+          name: 'menuGallery'
+        })
       } else {
         Swal.fire({
           icon: 'warning',
@@ -710,6 +713,9 @@ export default new Vuex.Store({
           img: payload.img
         });
         localStorage.setItem("workshops", JSON.stringify(state.workshops));
+        router.push({
+          name: 'workshops'
+        })
       } else {
         Swal.fire({
           icon: 'warning',
@@ -726,6 +732,9 @@ export default new Vuex.Store({
           img: payload.img
         });
         localStorage.setItem("areas", JSON.stringify(state.areas));
+        router.push({
+          name: 'areasGallery'
+        })
       } else {
         Swal.fire({
           icon: 'warning',

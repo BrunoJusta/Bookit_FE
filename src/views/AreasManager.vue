@@ -12,17 +12,17 @@
                     <div class="col-sm-2">
                     </div>
                     <div class="col-sm-4">
-                        <b-input id="inputs" placeholder="Nome do espaço" v-model="name"></b-input>
+                        <b-input id="inputs" placeholder="Nome do espaço" v-model="name" required></b-input>
                     </div>
                     <div class="col-sm-4">
-                        <b-input id="inputs" placeholder="Link da Imagem" v-model="img"></b-input>
+                        <b-input id="inputs" placeholder="Link da Imagem" v-model="img" required></b-input>
                     </div>
                     <div class="col-sm-2">
                     </div>
                 </div>
                 <div class="row">
                     <textarea id="description" placeholder="Descrição..." style="resize:none;" v-model="description"
-                        rows="4" cols="20"></textarea>
+                        rows="4" cols="20" required></textarea>
                 </div>
                 <div class="row" v-if="this.img != ''">
                     <img :src="img" id="imgArea">

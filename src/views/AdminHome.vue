@@ -51,17 +51,17 @@
             </div>
           </router-link>
 
-          <router-link id="link" to="/WorkshopManager">
+          <router-link id="link" to="/areasManager">
             <div class="col" style="width:140px; height: 180px;">
-              <b-card title="Adicionar Workshops" img-src="../assets/add_workshop.svg" style="max-width: 12rem;"
+              <b-card title="Adicionar Espaços" img-src="../assets/add_area.svg" style="max-width: 12rem;"
                 class="mb-2 border-0">
               </b-card>
             </div>
           </router-link>
 
-          <router-link id="link" to="/areasManager">
+          <router-link id="link" to="/WorkshopManager">
             <div class="col" style="width:140px; height: 180px;">
-              <b-card title="Adicionar Espaços" img-src="../assets/add_area.svg" style="max-width: 12rem;"
+              <b-card title="Adicionar Workshops" img-src="../assets/add_workshop.svg" style="max-width: 12rem;"
                 class="mb-2 border-0">
               </b-card>
             </div>

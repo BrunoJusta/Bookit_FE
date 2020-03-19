@@ -123,6 +123,13 @@
                         })
                     }
                 }
+                if(this.type == "" && this.newType == "") {
+                    correctOptions = false
+                        Swal.fire({
+                            icon: 'warning',
+                            text: 'Escolha um tipo de menu!'
+                        })
+                }
                 if (correctOptions == true) {
                     if (this.newType !== "") {
                         for (let j in this.users) {
@@ -142,13 +149,6 @@
                             food: this.checkedFood,
                             img: this.img
                         })
-                        //limpar os campos
-                        this.name = ""
-                        this.type = ""
-                        this.checkedDrink = ""
-                        this.checkedFood = ""
-                        this.img = ""
-                        this.newType = ""
                         this.menuTypes.push(this.newType)
                         localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes));
                     } else {
@@ -169,14 +169,19 @@
                             food: this.checkedFood,
                             img: this.img
                         })
-                        //limpar os campos
-                        this.name = ""
-                        this.type = ""
-                        this.checkedDrink = ""
-                        this.checkedFood = ""
-                        this.newType = ""
-                        this.img = ""
                     }
+                    /* const toast = swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true
+                    });
+
+                    toast.fire({
+                        icon: 'success',
+                        title: 'A sua reserva foi enviada!'
+                    })*/
                     Swal.fire({
                         icon: 'success',
                         text: 'Adicionado!',
@@ -272,7 +277,8 @@
             display: none;
         }
 
-        #drinkColumn, #foodColumn {
+        #drinkColumn,
+        #foodColumn {
             margin-left: 100px;
         }
     }
