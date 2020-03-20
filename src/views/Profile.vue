@@ -222,8 +222,6 @@
                 this.$store.state.workshops = JSON.parse(localStorage.getItem("workshops"))
                 this.workshops = this.$store.state.workshops
             }
-            this.bookings[14].state = "Concluído"
-            localStorage.setItem("bookings", JSON.stringify(this.bookings));
 
             this.firstNameUser = this.$store.getters.getName
             this.lastNameUser = this.$store.getters.getLastName
