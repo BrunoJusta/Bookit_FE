@@ -1,7 +1,5 @@
 <template>
-
   <div class="home">
-
     <div class="container-full banner">
       <img id="banner-img" src="../assets/banner.jpg">
       <b-button squared id="banner-btn">
@@ -9,14 +7,12 @@
       </b-button>
     </div>
 
-
     <div class="container-full title">
       <h1 id="redTitle">SOBRE NÓS</h1>
       <hr class="back-line">
-      <div class="container" id="whiteRect">
+      <div class="container box">
       </div>
     </div>
-
 
     <div class="container txt">
       <p>Os estudantes de <b> Gestão e Administração Hoteleira </b> convidam-no a saborear as receitas criadas
@@ -31,12 +27,12 @@
     <div class="container-full title">
       <h1 id="redTitle">RESERVAS</h1>
       <hr class="back-line">
-      <div class="container" id="whiteRect">
+      <div class="container box">
       </div>
     </div>
 
 
-    <div class="container  options">
+    <div class="container options">
       <div class="row">
         <div class="col-sm-4">
           <router-link id="link" to="/menuGallery">
@@ -73,6 +69,16 @@
   @font-face {
     font-family: bookMan;
     src: url(../assets/bookman.ttf);
+  }
+
+  .box {
+    background-color: white;
+    margin-top: -35px;
+    height: 35px;
+    width: 340px;
+    position: relative;
+    display: block;
+    z-index: 6
   }
 
   .banner {
@@ -114,16 +120,6 @@
 
   #banner-btn:hover {
     transform: scale(1.1);
-  }
-
-  #whiteRect {
-    background-color: white;
-    margin-top: -35px;
-    height: 35px;
-    width: 340px;
-    position: relative;
-    display: block;
-    z-index: 6
   }
 
   .txt {

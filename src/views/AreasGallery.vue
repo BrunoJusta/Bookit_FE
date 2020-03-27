@@ -3,9 +3,7 @@
     <div id="title">
       <h1 id="redTitle">ESPAÇOS</h1>
       <hr class="back-line">
-      <div class="container"
-        style="background-color:white; margin-top:-35px; height:35px; width:270px;position: relative;display: block; z-index:6">
-        <p style="color:white">s</p>
+      <div class="container box">
       </div>
     </div>
     <AreaCards />
@@ -27,6 +25,16 @@
 </script>
 
 <style lang="scss" scoped>
+  .box {
+    background-color: white;
+    margin-top: -35px;
+    height: 35px;
+    width: 270px;
+    position: relative;
+    display: block;
+    z-index: 6
+  }
+
   #redTitle {
     font-family: "bookMan";
     font-size: 45px;

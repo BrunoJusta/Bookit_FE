@@ -1,18 +1,17 @@
 <template>
     <div>
-            <div class="container" style="max-width:300px">
-                <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
-                </b-form-input>
-            </div>
+        <div class="container" style="max-width:300px">
+            <b-form-input size="sm" class="mr-sm rounded-0" v-model="searchTxt" placeholder="Pesquisar...">
+            </b-form-input>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-sm-4" v-for="w in filteredRunnings" :key="w.id">
                     <div id="card-maker" style="padding-bottom: 60px">
                         <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem"
-                            class="mb-2 border-0">
+                            class="border-0">
                             <b-button v-if="w.vacancies !== 0" class="btn-book" squared>
-                                <router-link :to="{name: x, params: {workshopId: w.id}}" class="teste"
-                                    style="color:white">
+                                <router-link :to="{name: x, params: {workshopId: w.id}}" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
                             <p v-else>CHEIO</p>
@@ -131,7 +130,6 @@
 
     #card-maker:hover {
         transform: scale(1.1);
-
     }
 
     .border-0 {
@@ -154,7 +152,6 @@
     .card-img {
         border-radius: 0 !important;
     }
-
 
     .card {
         border-radius: 0 !important;
