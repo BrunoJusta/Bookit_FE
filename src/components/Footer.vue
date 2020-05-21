@@ -93,6 +93,7 @@
         padding-top: 50px;
         position: absolute;
         width: 100%;
+        padding-right: 50px;
         margin-top: 100px;
     }
 
