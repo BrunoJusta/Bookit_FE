@@ -8,6 +8,8 @@
       </div>
     </div>
     <WorkshopGallery />
+    <br>
+    <br>
 
   </div>
 </template>

@@ -151,6 +151,7 @@
 
     .card {
         border-radius: 0 !important;
+        
     }
 
     #card-maker {

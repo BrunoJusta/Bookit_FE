@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router';
 
+import bookitService from "@/apis/bookitService.js"
+
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -15,50 +18,51 @@ export default new Vuex.Store({
       areaName: ""
     },
     users: [{
-      id: 0,
-      name: "Admin",
-      lastName: "Master",
-      gender: "Masculino",
-      email: "admin@admin.admin",
-      password: "123",
-      number: "123",
-      userType: "admin",
-      school: "ESHT",
-      img: require('../assets/male.svg'),
-      notifications: [],
-      archivations: [],
-      birthDate: "2000-03-25"
-    },
-    {
-      id: 1,
-      name: "Nuno",
-      lastName: "Gomes",
-      gender: "Masculino",
-      email: "9180580@esmad.ipp.pt",
-      password: "123123",
-      number: "123",
-      userType: "cliente",
-      school: "ESMAD",
-      img: require('../assets/male.svg'),
-      notifications: [],
-      archivations: [],
-      birthDate: "2000-02-05"
-    },
-    {
-      id: 2,
-      name: "Bruno",
-      lastName: "Justa",
-      gender: "Masculino",
-      email: "9180155@esmad.ipp.pt",
-      password: "123123",
-      number: "123",
-      userType: "cliente",
-      school: "ESMAD",
-      img: require('../assets/male.svg'),
-      notifications: [],
-      archivations: [],
-      birthDate: "1998-07-27"
-    }],
+        id: 0,
+        name: "Admin",
+        lastName: "Master",
+        gender: "Masculino",
+        email: "admin@admin.admin",
+        password: "123",
+        number: "123",
+        userType: "admin",
+        school: "ESHT",
+        img: require('../assets/male.svg'),
+        notifications: [],
+        archivations: [],
+        birthDate: "2000-03-25"
+      },
+      {
+        id: 1,
+        name: "Nuno",
+        lastName: "Gomes",
+        gender: "Masculino",
+        email: "9180580@esmad.ipp.pt",
+        password: "123123",
+        number: "123",
+        userType: "cliente",
+        school: "ESMAD",
+        img: require('../assets/male.svg'),
+        notifications: [],
+        archivations: [],
+        birthDate: "2000-02-05"
+      },
+      {
+        id: 2,
+        name: "Bruno",
+        lastName: "Justa",
+        gender: "Masculino",
+        email: "9180155@esmad.ipp.pt",
+        password: "123123",
+        number: "123",
+        userType: "cliente",
+        school: "ESMAD",
+        img: require('../assets/male.svg'),
+        notifications: [],
+        archivations: [],
+        birthDate: "1998-07-27"
+      }
+    ],
     kits: [{
         id: 0,
         name: "Base",
@@ -507,7 +511,8 @@ export default new Vuex.Store({
         id: 7,
         name: "ESTG"
       }
-    ]
+    ],
+    menus: []
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -795,148 +800,159 @@ export default new Vuex.Store({
           text: 'Já existe este ingrediente!'
         })
       }
+    },
+    SET_MENUS(state, menus) {
+      state.menus = menus
     }
   },
-  getters: {
-    lastId(state) {
-      if (state.users.length) {
-        return state.users[state.users.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    kitLastId(state) {
-      if (state.kits.length) {
-        return state.kits[state.kits.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    workshopLastId(state) {
-      if (state.workshops.length) {
-        return state.workshops[state.workshops.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    ingredientLastId(state) {
-      if (state.ingredients.length) {
-        return state.ingredients[state.ingredients.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    extrasLastId(state) {
-      if (state.extras.length) {
-        return state.extras[state.extras.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    outfitLastId(state) {
-      if (state.outfits.length) {
-        return state.outfits[state.outfits.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    decorLastId(state) {
-      if (state.decor.length) {
-        return state.decor[state.decor.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    bookingLastId(state) {
-      if (state.bookings.length) {
-        return state.bookings[state.bookings.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    areaBookingLastId(state) {
-      if (state.areaBookings.length) {
-        return state.areaBookings[state.areaBookings.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    getUserOn(state) {
-      if (state.loggedUser.length) {
-        state.logged = true
-        return state.logged;
-      } else {
-        state.logged = false
-        return state.logged;
-      }
-    },
-    getName(state) {
-      if (state.loggedUser.length == 0) {
-        return state.notLogged
-      } else {
-        return state.loggedUser.name
-
-      }
-    },
-    getUserType(state) {
-      return state.loggedUser.userType
-    },
-    getLastName(state) {
-      return state.loggedUser.lastName
-    },
-    getEmail(state) {
-      return state.loggedUser.email
-    },
-    getContact(state) {
-      return state.loggedUser.number
-    },
-    getSchool(state) {
-      return state.loggedUser.school
-    },
-    getBirthDate(state) {
-      return state.loggedUser.birthDate
-    },
-    getUserImg(state) {
-      return state.loggedUser.img
-    },
-    getCurrentKitName(state) {
-      return state.currentKit.kitname
-    },
-    getCurrentKitType(state) {
-      return state.currentKit.kitType
-    },
-    getCurrentKitIng(state) {
-      return state.currentKit.menuIng
-    },
-    getCurrentArea(state) {
-      return state.currentArea.areaName
-    },
-    getCurrentKitImg(state) {
-      return state.currentKit.kitImg
-    },
-    getCurrentAreaImg(state) {
-      return state.currentArea.areaImg
-    },
-    getCurrentDate() {
-      var today = new Date();
-      var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
-      return date
-    },
-    getNumberNotifications(state) {
-      if (state.loggedUser.notifications) {
-        if (state.loggedUser.notifications.length != 0) {
-          return true
+  actions: {
+    async fetchMenus({
+      commit
+    }) {
+      commit("SET_MENUS", await bookitService.getMenus())
+    }
+  },
+    getters: {
+      getMenus: state => state.menus,
+      lastId(state) {
+        if (state.users.length) {
+          return state.users[state.users.length - 1].id;
         } else {
-          return false
+          return 0;
+        }
+      },
+      kitLastId(state) {
+        if (state.kits.length) {
+          return state.kits[state.kits.length - 1].id;
+        } else {
+          return 0;
+        }
+      },
+      workshopLastId(state) {
+        if (state.workshops.length) {
+          return state.workshops[state.workshops.length - 1].id;
+        } else {
+          return 0;
+        }
+      },
+      ingredientLastId(state) {
+        if (state.ingredients.length) {
+          return state.ingredients[state.ingredients.length - 1].id;
+        } else {
+          return 0;
+        }
+      },
+      extrasLastId(state) {
+        if (state.extras.length) {
+          return state.extras[state.extras.length - 1].id;
+        } else {
+          return 0;
+        }
+      },
+      outfitLastId(state) {
+        if (state.outfits.length) {
+          return state.outfits[state.outfits.length - 1].id;
+        } else {
+          return 0;
+        }
+      },
+      decorLastId(state) {
+        if (state.decor.length) {
+          return state.decor[state.decor.length - 1].id;
+        } else {
+          return 0;
+        }
+      },
+      bookingLastId(state) {
+        if (state.bookings.length) {
+          return state.bookings[state.bookings.length - 1].id;
+        } else {
+          return 0;
+        }
+      },
+      areaBookingLastId(state) {
+        if (state.areaBookings.length) {
+          return state.areaBookings[state.areaBookings.length - 1].id;
+        } else {
+          return 0;
+        }
+      },
+      getUserOn(state) {
+        if (state.loggedUser.length) {
+          state.logged = true
+          return state.logged;
+        } else {
+          state.logged = false
+          return state.logged;
+        }
+      },
+      getName(state) {
+        if (state.loggedUser.length == 0) {
+          return state.notLogged
+        } else {
+          return state.loggedUser.name
+
+        }
+      },
+      getUserType(state) {
+        return state.loggedUser.userType
+      },
+      getLastName(state) {
+        return state.loggedUser.lastName
+      },
+      getEmail(state) {
+        return state.loggedUser.email
+      },
+      getContact(state) {
+        return state.loggedUser.number
+      },
+      getSchool(state) {
+        return state.loggedUser.school
+      },
+      getBirthDate(state) {
+        return state.loggedUser.birthDate
+      },
+      getUserImg(state) {
+        return state.loggedUser.img
+      },
+      getCurrentKitName(state) {
+        return state.currentKit.kitname
+      },
+      getCurrentKitType(state) {
+        return state.currentKit.kitType
+      },
+      getCurrentKitIng(state) {
+        return state.currentKit.menuIng
+      },
+      getCurrentArea(state) {
+        return state.currentArea.areaName
+      },
+      getCurrentKitImg(state) {
+        return state.currentKit.kitImg
+      },
+      getCurrentAreaImg(state) {
+        return state.currentArea.areaImg
+      },
+      getCurrentDate() {
+        var today = new Date();
+        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        return date
+      },
+      getNumberNotifications(state) {
+        if (state.loggedUser.notifications) {
+          if (state.loggedUser.notifications.length != 0) {
+            return true
+          } else {
+            return false
+          }
+        }
+      },
+      getAreaLastId(state) {
+        if (state.areas.length) {
+          return state.areas[state.areas.length - 1].id;
+        } else {
+          return 0;
         }
       }
-    },
-    getAreaLastId(state) {
-      if (state.areas.length) {
-        return state.areas[state.areas.length - 1].id;
-      } else {
-        return 0;
-      }
     }
-  }
 })

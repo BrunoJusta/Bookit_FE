@@ -56,7 +56,16 @@
             </b-card>
           </router-link>
         </div>
+        <p>{{this.menus}}</p>
+        
       </div>
+      <div v-for="a in menus" :key="a.menu_id"> 
+        <b-card :title="a.name" :img-src="a.img" img-alt="Image" img-height="180rem" img-top
+                            tag="article" style="max-width: 20rem;" class="border-0">
+                        </b-card>
+
+      </div>
+      
     </div>
 
   </div>
@@ -64,8 +73,33 @@
 </template>
 
 <script>
+  import {
+    mapGetters
+  } from "vuex"
+
   export default {
     name: 'home',
+    data: function () {
+      return {
+        menus: []
+      }
+    },
+    computed: {
+      ...mapGetters(["getMenus"])
+    },
+    methods: {
+      async getMyMenus() {
+        try {
+          await this.$store.dispatch("fetchMenus")
+          this.menus = this.getMenus.rows
+        } catch (err) {
+          alert(err)
+        }
+      }
+    },
+    created() {
+      this.getMyMenus()
+    }
   }
 </script>
 

@@ -84,6 +84,7 @@
             }
             this.$store.commit('STORE_ITEMS')
 
+
             for (let i in this.kits) {
                 let createType = true
                 for (let j in this.menuTypes) {

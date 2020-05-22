@@ -35,7 +35,7 @@
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
                         @click="refuseBooking(row.item.id, row.item.userEmail)" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" @click="removeBooking(row.item.id)" v-if="row.item.state !== 'Pendente'"
+                    <b-button size="sm" @click="removeBooking(row.item.id)" v-if="row.item.state === 'Concluído'"
                         class="mr-1 deleteBtn">X</b-button>
 
                 </template>

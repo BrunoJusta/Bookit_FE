@@ -9,6 +9,8 @@
       </div>
     </div>
     <AreaCards />
+ <br>
+    <br>
 
   </div>
 </template>

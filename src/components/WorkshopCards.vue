@@ -158,6 +158,7 @@
 
     .card {
         border-radius: 0 !important;
+        
     }
 
     .btn-remove {

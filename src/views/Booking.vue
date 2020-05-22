@@ -527,10 +527,23 @@
     }
 
     #btnImg:hover {
-        border-width: 2px;
-        transform: scale(1.1);
-
+    animation: slide-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
+
+
+@keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+}
+
+
+
 
     span {
         padding: 10px;
