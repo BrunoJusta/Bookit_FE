@@ -3,8 +3,7 @@
     <div id="title">
       <h1 id="redTitle">WORKSHOPS</h1>
       <hr class="back-line">
-      <div class="container"
-        style="background-color:white; margin-top:-35px; height:35px; width:340px;position: relative;display: block; z-index:6">
+      <div class="container box">
       </div>
     </div>
     <WorkshopGallery />
@@ -28,6 +27,16 @@
 </script>
 
 <style lang="scss" scoped>
+  .box {
+    background-color: white;
+    margin-top: -35px;
+    height: 35px;
+    width: 340px;
+    position: relative;
+    display: block;
+    z-index: 6
+  }
+
   #redTitle {
     font-family: "bookMan";
     font-size: 45px;
