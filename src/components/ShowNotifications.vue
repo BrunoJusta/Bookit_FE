@@ -29,7 +29,7 @@
                             class="mr-1 blueBtn">
                             Ver
                             Opinião</b-button>
-                        <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1 deleteBtn">X
+                        <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i>
                         </b-button>
                     </template>
                 </b-table>
@@ -55,7 +55,7 @@
                         class="mr-1 blueBtn">
                         Ver
                         Opinião</b-button>
-                    <b-button size="sm" @click="removeArchive(row2.item.txt)" class="mr-1 deleteBtn">X</b-button>
+                    <b-button size="sm" @click="removeArchive(row2.item.txt)" class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                 </template>
             </b-table>
             <b-pagination v-model="currentPage2" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"

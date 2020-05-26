@@ -21,12 +21,12 @@
                         @click="changeToClient(row.item.id) " class="mr-1 userBtn">Tornar cliente</b-button>
                     <b-button size="sm"
                         v-if="row.item.email != $store.getters.getEmail && row.item.userType !== 'bloqueado'"
-                        @click="block(row.item.id)" class="mr-1 blockBtn">Bloquear</b-button>
+                        @click="block(row.item.id)" class="mr-1 blockBtn">Bloquear <i class="fas fa-lock"></i></b-button>
                     <b-button size="sm"
                         v-if="row.item.email != $store.getters.getEmail && row.item.userType === 'bloqueado'"
-                        @click="block(row.item.id)" class="mr-1 unlockBtn">Desbloquear</b-button>
+                        @click="block(row.item.id)" class="mr-1 unlockBtn">Desbloquear <i class="fas fa-lock-open"></i></b-button>
                     <b-button size="sm" @click="remove(row.item.id)" v-if="row.item.email != $store.getters.getEmail"
-                        class="mr-1 deleteBtn">X</b-button>
+                        class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                     <span v-else>Sem Ações</span>
 
                 </template>

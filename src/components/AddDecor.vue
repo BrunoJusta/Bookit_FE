@@ -20,7 +20,7 @@
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
                             hover head-variant="dark" responsive="sm" :items="this.decor" :fields="fields">
                             <template v-slot:cell(actions)="row">
-                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn">X</b-button>
+                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                             </template>
                         </b-table>
                         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"

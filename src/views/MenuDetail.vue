@@ -74,6 +74,7 @@
       <b-button v-bind:style="{display:show2}" v-if="this.$store.getters.getUserType == 'admin'" @click="activateEdit()" class="btn-book border-0" squared>
         Editar
       </b-button>
+      <br><br><br>
     </div>
   </div>
 

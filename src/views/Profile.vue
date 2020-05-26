@@ -73,7 +73,7 @@
                                     </b-card-text>
                                     <div v-if="k.state == 'Concluído' && !k.opinion">
                                         <b-button class="btn-book" @click="giveBookingOpinion(k.id)" squared>
-                                            Dar Opinião
+                                            Dar Opinião 
                                         </b-button>
                                     </div>
                                     <b-card-text v-if="k.state == 'Concluído' && k.opinion" style="margin: auto;">

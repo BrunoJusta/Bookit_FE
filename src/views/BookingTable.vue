@@ -35,8 +35,8 @@
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
                         @click="refuseBooking(row.item.id, row.item.userEmail)" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" @click="removeBooking(row.item.id)" v-if="row.item.state === 'Concluído'"
-                        class="mr-1 deleteBtn">X</b-button>
+                    <b-button size="sm" @click="removeBooking(row.item.id)" v-if="row.item.state !== 'Pendente'"
+                        class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
 
                 </template>
                 <template v-slot:row-details="row">
@@ -90,8 +90,8 @@
                     <b-button size="sm" v-if="row2.item.state == 'Pendente'"
                         @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state != 'Pendente'" @click="removeAreaBooking(row2.item.id)"
-                        class="mr-1 deleteBtn">X</b-button>
+                    <b-button size="sm" v-if="row2.item.state !== 'Pendente'" @click="removeAreaBooking(row2.item.id)"
+                        class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                 </template>
                 <template v-slot:row-details="row2">
                     <b-card>
