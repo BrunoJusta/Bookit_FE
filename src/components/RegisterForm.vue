@@ -115,11 +115,11 @@
                     text: 'Escolher'
                 },
                 {
-                    value: 'Masculino',
+                    value: 'male',
                     text: 'Masculino'
                 },
                 {
-                    value: 'Feminino',
+                    value: 'female',
                     text: 'Feminino'
                 }
             ],
@@ -144,25 +144,12 @@
             this.schools = JSON.parse(localStorage.getItem("schools"))
 
         },
-        updated() {
-            for (let i = 0; i <= this.schools.length; i++) {
-                if (this.email.includes((this.schools[i].name).toLowerCase())) {
-                    this.schoolExists = true
-                    this.school = this.schools[i].name
-                    break
-                } else {
-                    this.schoolExists = false
-                }
-            }
-        },
         methods: {
             getLastId() {
                 return this.$store.getters.lastId + 1
             },
             addUser() {
-                if (this.schoolExists === true) {
                     this.$store.commit('ADD_USER', {
-                        id: this.getLastId(),
                         email: this.email,
                         name: this.name,
                         lastName: this.lastName,
@@ -170,16 +157,8 @@
                         gender: this.gender,
                         password: this.password,
                         number: this.number,
-                        confPassword: this.confPassword,
-                        school: this.school,
+                        password2: this.confPassword,
                     })
-                } else {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'Introduza um email válido do IPP!',
-                    })
-                }
-
             },
             saveStorage() {
                 localStorage.setItem("users", JSON.stringify(this.$store.state.users))

@@ -22,6 +22,9 @@
         do Porto, com capacidade para 50 pessoas sentadas.
         Durante estes últimos anos, o Restaurante tem acolhido diversos eventos, conseguindo sempre estar à altura das
         expectativas dos clientes.</p>
+         <p>
+      </p>
+      
     </div>
 
     <div class="container-full title">
@@ -53,10 +56,9 @@
           </router-link>
         </div>
       </div>
-
-      
+    <p>{{this.menus}}</p>
+     
     </div>
-
   </div>
 
 </template>
@@ -80,15 +82,15 @@
       async getMyMenus() {
         try {
           await this.$store.dispatch("fetchMenus")
-          this.menus = this.getMenus.rows
+          this.menus = this.getMenus.data
         } catch (err) {
           alert(err)
         }
       }
     },
-    // created() {
-    //   this.getMyMenus()
-    // }
+    created() {
+      this.getMyMenus()
+    }
   }
 </script>
 
