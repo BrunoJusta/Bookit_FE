@@ -543,9 +543,9 @@ export default new Vuex.Store({
       if (!localStorage.getItem("outfits")) {
         localStorage.setItem("outfits", JSON.stringify(state.outfits));
       }
-      if (!localStorage.getItem("menuTypes")) {
-        localStorage.setItem("menuTypes", JSON.stringify(state.menuTypes));
-      }
+      // if (!localStorage.getItem("menuTypes")) {
+      //   localStorage.setItem("menuTypes", JSON.stringify(state.menuTypes));
+      // }
       localStorage.setItem("schools", JSON.stringify(state.schools));
     },
     ADD_USER(state, payload) {
@@ -559,92 +559,91 @@ export default new Vuex.Store({
     LOGIN(state, payload) {
 
 
-      bookitService.login(payload.email, payload.password)
-     
+      // bookitService.login(payload.email, payload.password)
     
 
-      // for (const user of state.users) {
-      //   state.userBlocked = false
-      //   if (user.email === payload.email &&
-      //     user.password === payload.password && user.userType === "bloqueado") {
-      //     state.userBlocked = true;
-      //     break;
-      //   } else {
-      //     if (
-      //       user.email === payload.email &&
-      //       user.password === payload.password && user.userType !== "bloqueado"
-      //     ) {
-      //       state.loggedUser = ({
-      //         id: user.id,
-      //         name: user.name,
-      //         lastName: user.lastName,
-      //         birthDate: user.birthDate,
-      //         gender: user.gender,
-      //         email: user.email,
-      //         password: user.password,
-      //         number: user.number,
-      //         img: user.img,
-      //         school: user.school,
-      //         userType: user.userType,
-      //         notifications: user.notifications
-      //       });
-      //       state.userExists = true
-      //       state.userBlocked = false
-      //       localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
-      //       if (user.userType === "admin") {
-      //         router.push({
-      //           name: 'adminHome',
-      //         })
-      //       } else if (user.userType === "cliente") {
-      //         router.push({
-      //           name: 'home',
-      //         })
-      //         if (state.loggedUser.notifications.length != 0) {
-      //           const toast = swal.mixin({
-      //             toast: true,
-      //             position: 'top-end',
-      //             showConfirmButton: false,
-      //             timer: 2000,
-      //             timerProgressBar: true
-      //           });
+      for (const user of state.users) {
+        state.userBlocked = false
+        if (user.email === payload.email &&
+          user.password === payload.password && user.userType === "bloqueado") {
+          state.userBlocked = true;
+          break;
+        } else {
+          if (
+            user.email === payload.email &&
+            user.password === payload.password && user.userType !== "bloqueado"
+          ) {
+            state.loggedUser = ({
+              id: user.id,
+              name: user.name,
+              lastName: user.lastName,
+              birthDate: user.birthDate,
+              gender: user.gender,
+              email: user.email,
+              password: user.password,
+              number: user.number,
+              img: user.img,
+              school: user.school,
+              userType: user.userType,
+              notifications: user.notifications
+            });
+            state.userExists = true
+            state.userBlocked = false
+            localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
+            if (user.userType === "admin") {
+              router.push({
+                name: 'adminHome',
+              })
+            } else if (user.userType === "cliente") {
+              router.push({
+                name: 'home',
+              })
+              if (state.loggedUser.notifications.length != 0) {
+                const toast = swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true
+                });
 
-      //           toast.fire({
-      //             icon: 'success',
-      //             title: 'Bem-vindo ' + state.loggedUser.name,
-      //             text: "Tem " + state.loggedUser.notifications.length + " Notificações!",
-      //           })
-      //         } else {
-      //           const toast = swal.mixin({
-      //             toast: true,
-      //             position: 'top-end',
-      //             showConfirmButton: false,
-      //             timer: 1000,
-      //             timerProgressBar: true
-      //           });
+                toast.fire({
+                  icon: 'success',
+                  title: 'Bem-vindo ' + state.loggedUser.name,
+                  text: "Tem " + state.loggedUser.notifications.length + " Notificações!",
+                })
+              } else {
+                const toast = swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 1000,
+                  timerProgressBar: true
+                });
 
-      //           toast.fire({
-      //             icon: 'success',
-      //             title: 'Bem-vindo ' + state.loggedUser.name,
-      //           })
-      //         }
-      //       }
-      //       break
-      //     } else {
-      //       state.userExists = false;
-      //     }
-      //   }
-      // }
-      // if (state.userBlocked === true) {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     text: 'Conta bloqueada!'
-      //   })
-      // } else if (state.userExists === false) {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     text: 'Credenciais erradas!'
-      //   })
-      // }
+                toast.fire({
+                  icon: 'success',
+                  title: 'Bem-vindo ' + state.loggedUser.name,
+                })
+              }
+            }
+            break
+          } else {
+            state.userExists = false;
+          }
+        }
+      }
+      if (state.userBlocked === true) {
+        Swal.fire({
+          icon: 'error',
+          text: 'Conta bloqueada!'
+        })
+      } else if (state.userExists === false) {
+        Swal.fire({
+          icon: 'error',
+          text: 'Credenciais erradas!'
+        })
+      }
     },
     LOGOUT(state) {
       state.loggedUser = []
@@ -773,12 +772,21 @@ export default new Vuex.Store({
     SET_MENUS(state, menus) {
       state.menus = menus
     }
+    ,
+    SET_MENU_TYPES(state, menuTypes) {
+      state.menuTypes = menuTypes
+    }
   },
   actions: {
     async fetchMenus({
       commit
     }) {
       commit("SET_MENUS", await bookitService.getMenus())
+    },
+    async fetchMenuTypes({
+      commit
+    }) {
+      commit("SET_MENU_TYPES", await bookitService.getMenuTypes())
     },
     async postUser({
       commit
@@ -788,6 +796,7 @@ export default new Vuex.Store({
   },
     getters: {
       getMenus: state => state.menus,
+      getMenuTypes: state => state.menuTypes,
       lastId(state) {
         if (state.users.length) {
           return state.users[state.users.length - 1].id;

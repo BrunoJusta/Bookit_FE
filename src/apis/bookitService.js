@@ -3,9 +3,20 @@ import router from '../router';
 
 const bookitService = {
 
-    //obter raças
     async getMenus() {
         const response = await fetch(`${API_URL}menus`, {
+            method: "GET"
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+
+    },
+    async getMenuTypes() {
+        const response = await fetch(`${API_URL}menuTypes`, {
             method: "GET"
         })
 

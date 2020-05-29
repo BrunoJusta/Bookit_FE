@@ -48,10 +48,10 @@
 
     <div id="CoffeeBreaks" class="container">
       <div v-if="this.userType == 'admin'" class="row">
-        <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredKits" :key="k.id">
+        <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredKits" :key="k.menu_id">
           <div id="card-maker">
             <b-card
-              :title="k.name + ' - ' + k.type"
+              :title="k.name + ' - ' + k.description"
               style="max-width: 20rem; min-width: 14rem;"
               :img-src="k.img"
               img-height="180rem"
@@ -62,7 +62,7 @@
                 {{k.popularity}}
               </p>
               <b-button class="btn-book" squared>
-                <router-link :to="{name: x, params: {kitId: k.id}}" style="color:white">Ver Mais</router-link>
+                <router-link :to="{name: x, params: {kitId: k.menu_id}}" style="color:white">Ver Mais</router-link>
               </b-button>
               <b-button
                 @click="deleteKit(k.name, k.type)"
@@ -75,24 +75,7 @@
           </div>
         </div>
       </div>
-      <div v-else class="row">
-        <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredKits" :key="k.id">
-          <div id="card-maker">
-            <b-card
-              :title="k.name + ' - ' + k.type"
-              style="max-width: 20rem; min-width: 14rem"
-              :img-src="k.img"
-              img-height="180rem"
-              class="mb-2 border-0"
-            >
-              <b-button class="btn-book" squared>
-                <router-link :to="{name: x, params: {kitId: k.id}}" style="color:white">Ver Mais</router-link>
-              </b-button>
-            </b-card>
-          </div>
-        </div>
-      </div>
-     <div class="row">
+     <div v-else class="row">
         <div class="col-sm-4" style="min-width: 16rem" v-for="k in  menus" :key="k.menu_id">
           <div id="card-maker">
             <b-card
@@ -122,7 +105,6 @@ export default {
 
   data: function() {
     return {
-      kits: [],
       menus: [],
       menuTypes: [],
       x: "",
@@ -143,27 +125,15 @@ export default {
   },
   created() {
     this.getMyMenus();
-    if (localStorage.getItem("kits")) {
-      this.kits = JSON.parse(localStorage.getItem("kits"));
-    }
+    // this.getMyMenuTypes();
     if (this.$store.getters.getName == "Entrar") {
       this.x = "login";
     } else {
       this.x = "menuDetail";
     }
 
-    localStorage.setItem("currentKit", JSON.stringify(this.reset));
-    this.$store.state.currentKit = {
-      kitname: "",
-      kitType: ""
-    };
     if (localStorage.getItem("users")) {
       this.$store.state.users = JSON.parse(localStorage.getItem("users"));
-    }
-    if (localStorage.getItem("menuTypes")) {
-      this.$store.state.menuTypes = JSON.parse(
-        localStorage.getItem("menuTypes")
-      );
     }
     if (localStorage.getItem("bookings")) {
       this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"));
@@ -182,52 +152,13 @@ export default {
         alert(err);
       }
     },
-    deleteKit(name, type) {
-      Swal.fire({
-        icon: "warning",
-        text: "Deseja remover este menu?",
-        showCancelButton: true
-      }).then(result => {
-        if (result.value) {
-          let checker = false;
-          for (let i = 0; i <= this.kits.length; i++) {
-            for (let b in this.bookings) {
-              if (
-                name == this.bookings[b].kitName &&
-                type == this.bookings[b].kitType &&
-                this.bookings[b].state == "Aprovado"
-              ) {
-                Swal.fire({
-                  icon: "error",
-                  text: "Não Pode eliminar um Menu com Reservas!"
-                });
-                checker = true;
-              }
-            }
-            if (checker == false) {
-              if (this.kits[i].name === name && this.kits[i].type === type) {
-                for (let j in this.users) {
-                  if (this.users[j].userType === "cliente") {
-                    this.users[j].notifications.push({
-                      txt:
-                        "O Menu " +
-                        this.kits[i].name +
-                        " foi removido da galeria de menus!"
-                    });
-                    localStorage.setItem("users", JSON.stringify(this.users));
-                  }
-                }
-                this.kits.splice(i, 1);
-                localStorage.setItem("kits", JSON.stringify(this.kits));
-                Swal.fire({
-                  icon: "success",
-                  text: "Menu eliminado!"
-                });
-              }
-            }
-          }
-        }
-      });
+    async getMyMenuTypes() {
+      try {
+        await this.$store.dispatch("fetchMenuTypes");
+        this.menuTypes = this.getMenuTypes.data;
+      } catch (err) {
+        alert(err);
+      }
     },
     orderKits() {
       if (this.orderTxt == "Data de Criação") {
@@ -237,10 +168,9 @@ export default {
       }
     },
     clearFilters() {
-      this.kits = JSON.parse(localStorage.getItem("kits"));
+      this.getMyMenus()
       this.selectTxt = "Todos";
       this.searchTxt = "";
-      return this.kits;
     },
     comparePopularity(a, b) {
       if (parseInt(a.popularity) > parseInt(b.popularity)) return -1;
@@ -248,24 +178,25 @@ export default {
       else return 0;
     },
     filterByPopularity() {
-      this.kits.sort(this.comparePopularity);
+      this.menus.sort(this.comparePopularity);
     }
   },
   computed: {
     ...mapGetters(["getMenus"]),
+    // ...mapGetters(["getMenuTypes"]),
     searchKits() {
-      return this.kits;
+      return this.menus;
     },
     filteredKits() {
       if (this.searchTxt != "" || this.selectTxt != "Todos") {
-        return this.kits.filter(kit => {
+        return this.menus.filter(kit => {
           let filterResult = true;
           if (this.searchTxt == "" && this.selectTxt == "Todos") {
             return filterResult;
           }
           if (kit.name.toLowerCase().includes(this.searchTxt.toLowerCase())) {
             if (this.selectTxt != "Todos") {
-              filterResult = kit.type.includes(this.selectTxt);
+              filterResult = kit.description.includes(this.selectTxt);
             } else {
               filterResult = kit.name
                 .toLowerCase()
@@ -275,7 +206,7 @@ export default {
           }
         });
       } else {
-        return this.kits;
+        return this.menus;
       }
     }
   }
