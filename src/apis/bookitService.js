@@ -7,7 +7,16 @@ const bookitService = {
         const response = await fetch(`${API_URL}menus`, {
             method: "GET"
         })
-
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getMenuTypes() {
+        const response = await fetch(`${API_URL}menuTypes`, {
+            method: "GET"
+        })
         if (response.ok) {
             return response.json()
         } else {
@@ -15,17 +24,25 @@ const bookitService = {
         }
 
     },
-    async getMenuTypes() {
-        const response = await fetch(`${API_URL}menuTypes`, {
+    async getAreas() {
+        const response = await fetch(`${API_URL}areas`, {
             method: "GET"
         })
-
         if (response.ok) {
             return response.json()
         } else {
             throw Error(response)
         }
-
+    },
+    async getWorkshops() {
+        const response = await fetch(`${API_URL}workshops`, {
+            method: "GET"
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
     },
     async registerUser(name, lastName, number, email, birthDate, genre, password, password2) {
         alert(name)
@@ -33,7 +50,7 @@ const bookitService = {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8'
-              },
+            },
             body: JSON.stringify({
                 name: name,
                 lastName: lastName,
@@ -52,12 +69,12 @@ const bookitService = {
             throw Error(response)
         }
     },
-    async login(email,password) {
+    async login(email, password) {
         const response = await fetch(`${API_URL}login`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8'
-              },
+            },
             body: JSON.stringify({
                 email: email,
                 password: password,
@@ -65,9 +82,9 @@ const bookitService = {
         })
 
         if (response.ok) {
-                router.push({
+            router.push({
                 name: 'home',
-                       })
+            })
             return response.json()
         } else {
             throw Error(response)
@@ -78,5 +95,4 @@ const bookitService = {
 
 
 }
-
 export default bookitService;

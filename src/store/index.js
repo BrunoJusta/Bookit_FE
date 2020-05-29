@@ -198,6 +198,8 @@ export default new Vuex.Store({
         img: require('../assets/cozinhaFinal.jpg'),
       }
     ],
+    areas2: [],
+    workshops2: [],
     x: 0,
     logged: false,
     loggedUser: [],
@@ -775,6 +777,12 @@ export default new Vuex.Store({
     ,
     SET_MENU_TYPES(state, menuTypes) {
       state.menuTypes = menuTypes
+    },
+    SET_AREAS(state, areas2) {
+      state.areas2 = areas2
+    },
+    SET_WORKSHOPS(state, workshops2) {
+      state.workshops2 = workshops2
     }
   },
   actions: {
@@ -788,6 +796,16 @@ export default new Vuex.Store({
     }) {
       commit("SET_MENU_TYPES", await bookitService.getMenuTypes())
     },
+    async fetchAreas({
+      commit
+    }) {
+      commit("SET_AREAS", await bookitService.getAreas())
+    },
+    async fetchWorkshops({
+      commit
+    }) {
+      commit("SET_WORKSHOPS", await bookitService.getWorkshops())
+    },
     async postUser({
       commit
     }) {
@@ -797,6 +815,8 @@ export default new Vuex.Store({
     getters: {
       getMenus: state => state.menus,
       getMenuTypes: state => state.menuTypes,
+      getAreas: state => state.areas2,
+      getWorkshops: state => state.workshops2,
       lastId(state) {
         if (state.users.length) {
           return state.users[state.users.length - 1].id;

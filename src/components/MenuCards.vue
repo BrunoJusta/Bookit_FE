@@ -4,7 +4,7 @@
       <div class="row filters" style="margin:auto;max-width: 680px;">
         <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
           <option selected>Todos</option>
-          <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
+          <option v-for="k in  menuTypes" :key="k" :value="k.description">{{k.description}}</option>
         </select>
         <b-form-input
           size="sm"
@@ -76,7 +76,7 @@
         </div>
       </div>
      <div v-else class="row">
-        <div class="col-sm-4" style="min-width: 16rem" v-for="k in  menus" :key="k.menu_id">
+        <div class="col-sm-4" style="min-width: 16rem" v-for="k in filteredKits" :key="k.menu_id">
           <div id="card-maker">
             <b-card
               :title="k.name + ' - ' + k.description"
@@ -183,7 +183,7 @@ export default {
   },
   computed: {
     ...mapGetters(["getMenus"]),
-    // ...mapGetters(["getMenuTypes"]),
+    /* ...mapGetters(["getMenuTypes"]), */
     searchKits() {
       return this.menus;
     },

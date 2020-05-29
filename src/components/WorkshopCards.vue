@@ -6,16 +6,16 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-sm-4" v-for="w in filteredRunnings" :key="w.id">
+                <div class="col-sm-4" v-for="w in filteredWorkshops" :key="w.workshop_id">
                     <div id="card-maker" style="padding-bottom: 60px">
                         <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem"
                             class="border-0">
                             <b-button v-if="w.vacancies !== 0" class="btn-book" squared>
-                                <router-link :to="{name: x, params: {workshopId: w.id}}" style="color:white">
+                                <router-link :to="{name: x, params: {workshopId: w.workshop_id}}" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
                             <p v-else>CHEIO</p>
-                            <b-button @click="deleteWorkshop(w.name)" class="btn-remove border-0" :id="w.id"
+                            <b-button @click="deleteWorkshop(w.name)" class="btn-remove border-0" :id="w.workshop_id"
                                 v-bind:style="{visibility: remove}" squared> X </b-button>
                         </b-card>
                     </div>
@@ -27,6 +27,10 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
+
     export default {
         name: 'workshopGallery',
         data: function () {
@@ -38,12 +42,9 @@
                 remove: "",
                 choose: "",
             };
-
         },
         created() {
-            if (localStorage.getItem("workshops")) {
-                this.workshops = JSON.parse(localStorage.getItem("workshops"))
-            }
+            this.getMyWorkshops();
             if (this.$store.getters.getName == "Entrar") {
                 this.x = "login"
             } else {
@@ -56,17 +57,17 @@
                 this.remove = "hidden"
                 this.choose = "visible"
             }
-
-
-            if (localStorage.getItem("users")) {
-                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
-            }
-
-            this.users = this.$store.state.users
-
         },
         methods: {
-            deleteWorkshop(name) {
+            async getMyWorkshops() {
+                try {
+                    await this.$store.dispatch("fetchWorkshops");
+                    this.workshops = this.getWorkshops.data;
+                } catch (err) {
+                    alert(err);
+                }
+            }
+            /* deleteWorkshop(name) {
                 Swal.fire({
                     icon: 'warning',
                     text: 'Deseja remover este workshop?',
@@ -94,13 +95,14 @@
                         }
                     }
                 })
-            }
+            } */
         },
         computed: {
+            ...mapGetters(["getWorkshops"]),
             searchWorkshops() {
                 return this.workshops;
             },
-            filteredRunnings() {
+            filteredWorkshops() {
                 return this.workshops.filter(
                     (workS) => {
                         let filterResult = true
@@ -111,11 +113,8 @@
                             filterResult = workS.name.toLowerCase().includes(this.searchTxt.toLowerCase())
                             return filterResult
                         }
-
                     }
                 )
-
-
             }
         },
     }
@@ -155,7 +154,7 @@
 
     .card {
         border-radius: 0 !important;
-        
+
     }
 
     .btn-remove {

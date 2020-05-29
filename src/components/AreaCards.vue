@@ -6,12 +6,12 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-sm-4" v-for="a in filteredRunnings" :key="a.id">
+                <div class="col-sm-4" v-for="a in filteredAreas" :key="a.area_id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card :title="a.name" :img-src="a.img" img-height="180rem" 
-                            tag="article" style="max-width: 20rem;" class="border-0">
+                        <b-card :title="a.name" :img-src="a.img" img-height="180rem" tag="article"
+                            style="max-width: 20rem;" class="border-0">
                             <b-button class="btn-book" squared>
-                                <router-link :to="{name: x, params: {areaId: a.id}}" class="teste" style="color:white">
+                                <router-link :to="{name: x, params: {areaId: a.area_id}}" class="teste" style="color:white">
                                     Ver Mais </router-link>
                             </b-button>
                             <b-button @click="deleteArea(a.name)" class="btn-remove border-0" :id="a.id"
@@ -26,6 +26,10 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
+
     export default {
         name: 'AreasGallery',
         data: function () {
@@ -42,25 +46,23 @@
             };
         },
         created() {
-            if (localStorage.getItem("areas")) {
-                this.areas = JSON.parse(localStorage.getItem("areas"))
-            }
+            this.getMyAreas();
             if (this.$store.getters.getName == "Entrar") {
                 this.x = "login"
             } else {
                 this.x = "areaDetail"
             }
-            localStorage.setItem("currentArea", JSON.stringify(this.reset));
-            this.$store.state.currentArea = ({
-                areaName: "",
-            })
-            if (localStorage.getItem("areaBookings")) {
-                this.$store.state.areaBookings = JSON.parse(localStorage.getItem("areaBookings"))
-            }
-            this.areaBookings = this.$store.state.areaBookings
         },
         methods: {
-            deleteArea(name) {
+            async getMyAreas() {
+                try {
+                    await this.$store.dispatch("fetchAreas");
+                    this.areas = this.getAreas.data;
+                } catch (err) {
+                    alert(err);
+                }
+            }
+            /* deleteArea(name) {
                 Swal.fire({
                     icon: 'warning',
                     text: 'Deseja remover este espaço?',
@@ -103,13 +105,14 @@
                         }
                     }
                 })
-            }
+            } */
         },
         computed: {
+            ...mapGetters(["getAreas"]),
             searchAreas() {
                 return this.areas;
             },
-            filteredRunnings() {
+            filteredAreas() {
                 return this.areas.filter(
                     (area) => {
                         let filterResult = true
@@ -151,7 +154,7 @@
 
     .card {
         border-radius: 0 !important;
-        
+
     }
 
     #card-maker {
@@ -177,7 +180,7 @@
     }
 
     .filter {
-        max-width:300px;
+        max-width: 300px;
         padding-bottom: 30px;
     }
 </style>
