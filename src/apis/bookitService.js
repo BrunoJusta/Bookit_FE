@@ -3,8 +3,6 @@ import router from '../router';
 import store from '../store';
 
 const bookitService = {
-
-
     async getMenus() {
         const response = await fetch(`${API_URL}menus`, {
             method: "GET"
@@ -24,7 +22,6 @@ const bookitService = {
         } else {
             throw Error(response)
         }
-
     },
     async getAreas() {
         const response = await fetch(`${API_URL}areas`, {
@@ -61,6 +58,29 @@ const bookitService = {
             return response.json()
         } else {
             throw Error(response)
+        }
+    },
+    async editUser() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}users/:id`, {
+            method: "PUT",
+            headers: {
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                newPassword: newPassword,
+                newPassword2: newPassword2,
+                newNumber: newNumber,
+                newType: newType
+            })
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
         }
     },
     async getCurrentMenu(ID) {
@@ -157,9 +177,5 @@ const bookitService = {
             throw Error(response.json())
         }
     }
-
-
-
-
 }
 export default bookitService;
