@@ -24,7 +24,7 @@
       <div class="row filters" style="margin:auto;max-width: 460px;">
         <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
           <option selected>Todos</option>
-          <option v-for="k in  menuTypes" :key="k" :value="k">{{k}}</option>
+          <option v-for="k in  menuTypes" :key="k" :value="k.description">{{k.description}}</option>
         </select>
         <b-form-input
           size="sm"
@@ -61,8 +61,8 @@
                 <img style="width:20px; padding-bottom: 5px;" src="../assets/star.svg" alt srcset />
                 {{k.popularity}}
               </p>
-              <b-button class="btn-book" squared>
-                <router-link :to="{name: x, params: {kitId: k.menu_id}}" style="color:white">Ver Mais</router-link>
+                <b-button class="btn-book" @click="CurrentMenu(k.menu_id)" squared>
+                Ver Mais
               </b-button>
               <b-button
                 @click="deleteKit(k.name, k.type)"
@@ -85,8 +85,8 @@
               img-height="180rem"
               class="mb-2 border-0"
             >
-              <b-button class="btn-book" squared>
-                 Ver Mais
+              <b-button class="btn-book" @click="CurrentMenu(k.menu_id)" squared>
+                Ver Mais
               </b-button>
             </b-card>
           </div>
@@ -125,7 +125,7 @@ export default {
   },
   created() {
     this.getMyMenus();
-    // this.getMyMenuTypes();
+    this.getMyMenuTypes();
     if (this.$store.getters.getName == "Entrar") {
       this.x = "login";
     } else {
@@ -179,11 +179,20 @@ export default {
     },
     filterByPopularity() {
       this.menus.sort(this.comparePopularity);
+    },
+    async CurrentMenu(ID) {
+      try {
+        await this.$store.dispatch("fetchCurrentMenu", {id: ID});
+        this.$router.push({name:"menuDetail"})
+      } catch (err) {
+        alert(err);
+      }
     }
   },
   computed: {
     ...mapGetters(["getMenus"]),
-    /* ...mapGetters(["getMenuTypes"]), */
+    ...mapGetters(["getMenuTypes"]), 
+    // ...mapGetters(["getCurrentMenu"]), 
     searchKits() {
       return this.menus;
     },

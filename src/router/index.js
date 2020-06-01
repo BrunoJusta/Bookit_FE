@@ -10,7 +10,7 @@ const routes = [{
     component: Home,
     beforeEnter(to, from, next) {
       let user = JSON.parse(localStorage.getItem("loggedUser"))
-      if (user && user.userType == "admin") {
+      if (user && user.type == 0) {
         next("/pageNotFound");
       } else {
         next()
@@ -124,7 +124,7 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/pageNotFound");
-      } else if (user.userType == "cliente") {
+      } else if (user.type == 1) {
         next("/pageNotFound");
       } else {
         next()
@@ -228,7 +228,7 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/pageNotFound");
-      } else if (user.userType != "admin") {
+      } else if (user.type != 0) {
         next("/pageNotFound");
       } else {
         next()

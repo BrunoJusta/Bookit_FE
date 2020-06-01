@@ -17,52 +17,53 @@ export default new Vuex.Store({
     currentArea: {
       areaName: ""
     },
-    users: [{
-        id: 0,
-        name: "Admin",
-        lastName: "Master",
-        gender: "Masculino",
-        email: "admin@admin.admin",
-        password: "123",
-        number: "123",
-        userType: "admin",
-        school: "ESHT",
-        img: require('../assets/male.svg'),
-        notifications: [],
-        archivations: [],
-        birthDate: "2000-03-25"
-      },
-      {
-        id: 1,
-        name: "Nuno",
-        lastName: "Gomes",
-        gender: "Masculino",
-        email: "9180580@esmad.ipp.pt",
-        password: "123123",
-        number: "123",
-        userType: "cliente",
-        school: "ESMAD",
-        img: require('../assets/male.svg'),
-        notifications: [],
-        archivations: [],
-        birthDate: "2000-02-05"
-      },
-      {
-        id: 2,
-        name: "Bruno",
-        lastName: "Justa",
-        gender: "Masculino",
-        email: "9180155@esmad.ipp.pt",
-        password: "123123",
-        number: "123",
-        userType: "cliente",
-        school: "ESMAD",
-        img: require('../assets/male.svg'),
-        notifications: [],
-        archivations: [],
-        birthDate: "1998-07-27"
-      }
-    ],
+    users:[],
+    // users: [{
+    //     id: 0,
+    //     name: "Admin",
+    //     lastName: "Master",
+    //     gender: "Masculino",
+    //     email: "admin@admin.admin",
+    //     password: "123",
+    //     number: "123",
+    //     userType: "admin",
+    //     school: "ESHT",
+    //     img: require('../assets/male.svg'),
+    //     notifications: [],
+    //     archivations: [],
+    //     birthDate: "2000-03-25"
+    //   },
+    //   {
+    //     id: 1,
+    //     name: "Nuno",
+    //     lastName: "Gomes",
+    //     gender: "Masculino",
+    //     email: "9180580@esmad.ipp.pt",
+    //     password: "123123",
+    //     number: "123",
+    //     userType: "cliente",
+    //     school: "ESMAD",
+    //     img: require('../assets/male.svg'),
+    //     notifications: [],
+    //     archivations: [],
+    //     birthDate: "2000-02-05"
+    //   },
+    //   {
+    //     id: 2,
+    //     name: "Bruno",
+    //     lastName: "Justa",
+    //     gender: "Masculino",
+    //     email: "9180155@esmad.ipp.pt",
+    //     password: "123123",
+    //     number: "123",
+    //     userType: "cliente",
+    //     school: "ESMAD",
+    //     img: require('../assets/male.svg'),
+    //     notifications: [],
+    //     archivations: [],
+    //     birthDate: "1998-07-27"
+    //   }
+    // ],
     kits: [{
         id: 0,
         name: "Base",
@@ -514,7 +515,9 @@ export default new Vuex.Store({
         name: "ESTG"
       }
     ],
-    menus: []
+    menus: [],
+    token: [],
+    currentMenu:[]
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -545,109 +548,40 @@ export default new Vuex.Store({
       if (!localStorage.getItem("outfits")) {
         localStorage.setItem("outfits", JSON.stringify(state.outfits));
       }
-      // if (!localStorage.getItem("menuTypes")) {
-      //   localStorage.setItem("menuTypes", JSON.stringify(state.menuTypes));
-      // }
       localStorage.setItem("schools", JSON.stringify(state.schools));
     },
-    ADD_USER(state, payload) {
-
-       bookitService.registerUser(payload.name,payload.lastName,payload.number,payload.email, payload.birthDate,payload.gender,payload.password,payload.password2)
-       router.push({
+    ADD_USER(state, data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
+      router.push({
         name: 'login'
       })
 
     },
-    LOGIN(state, payload) {
+    LOGIN(state, data) {
 
-
-      // bookitService.login(payload.email, payload.password)
-    
-
-      for (const user of state.users) {
-        state.userBlocked = false
-        if (user.email === payload.email &&
-          user.password === payload.password && user.userType === "bloqueado") {
-          state.userBlocked = true;
-          break;
-        } else {
-          if (
-            user.email === payload.email &&
-            user.password === payload.password && user.userType !== "bloqueado"
-          ) {
-            state.loggedUser = ({
-              id: user.id,
-              name: user.name,
-              lastName: user.lastName,
-              birthDate: user.birthDate,
-              gender: user.gender,
-              email: user.email,
-              password: user.password,
-              number: user.number,
-              img: user.img,
-              school: user.school,
-              userType: user.userType,
-              notifications: user.notifications
-            });
-            state.userExists = true
-            state.userBlocked = false
-            localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
-            if (user.userType === "admin") {
-              router.push({
-                name: 'adminHome',
-              })
-            } else if (user.userType === "cliente") {
-              router.push({
-                name: 'home',
-              })
-              if (state.loggedUser.notifications.length != 0) {
-                const toast = swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 2000,
-                  timerProgressBar: true
-                });
-
-                toast.fire({
-                  icon: 'success',
-                  title: 'Bem-vindo ' + state.loggedUser.name,
-                  text: "Tem " + state.loggedUser.notifications.length + " Notificações!",
-                })
-              } else {
-                const toast = swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 1000,
-                  timerProgressBar: true
-                });
-
-                toast.fire({
-                  icon: 'success',
-                  title: 'Bem-vindo ' + state.loggedUser.name,
-                })
-              }
-            }
-            break
-          } else {
-            state.userExists = false;
-          }
-        }
-      }
-      if (state.userBlocked === true) {
-        Swal.fire({
-          icon: 'error',
-          text: 'Conta bloqueada!'
+      state.loggedUser = data.user
+      localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
+      if (state.loggedUser.type === 0) {
+                Swal.fire({
+          icon: 'success',
+          text: data.message
         })
-      } else if (state.userExists === false) {
-        Swal.fire({
-          icon: 'error',
-          text: 'Credenciais erradas!'
-        })
+        router.push("/adminHome")
       }
+      else if(state.loggedUser.type === 1){
+        Swal.fire({
+          icon: 'success',
+          text: data.message
+        })
+        router.push("/")
+      }
+      
     },
     LOGOUT(state) {
+      bookitService.logout()
       state.loggedUser = []
       localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
       router.push({
@@ -773,8 +707,7 @@ export default new Vuex.Store({
     },
     SET_MENUS(state, menus) {
       state.menus = menus
-    }
-    ,
+    },
     SET_MENU_TYPES(state, menuTypes) {
       state.menuTypes = menuTypes
     },
@@ -783,179 +716,188 @@ export default new Vuex.Store({
     },
     SET_WORKSHOPS(state, workshops2) {
       state.workshops2 = workshops2
+    },
+    SET_USERS(state, data) {
+      state.users = data
+    }
+    ,
+    SET_CURRENT_MENU(state, data) {
+      state.currentMenu = data.menu
+      localStorage.setItem("currentMenu", JSON.stringify(state.currentMenu));
     }
   },
   actions: {
-    async fetchMenus({
-      commit
-    }) {
+    async fetchMenus({commit}) {
       commit("SET_MENUS", await bookitService.getMenus())
     },
-    async fetchMenuTypes({
-      commit
-    }) {
+    async fetchUsers({commit}) {
+      commit("SET_USERS", await bookitService.getUsers())
+    },
+    async fetchMenuTypes({commit}) {
       commit("SET_MENU_TYPES", await bookitService.getMenuTypes())
     },
-    async fetchAreas({
-      commit
-    }) {
+    async fetchAreas({commit}) {
       commit("SET_AREAS", await bookitService.getAreas())
     },
-    async fetchWorkshops({
-      commit
-    }) {
+    async fetchWorkshops({commit}) {
       commit("SET_WORKSHOPS", await bookitService.getWorkshops())
     },
-    async postUser({
-      commit
-    }) {
-      commit("ADD_USER", await bookitService.registerUser())
+    async postUser({commit}, payload) {
+      commit("ADD_USER", await bookitService.registerUser(payload.name, payload.lastName, payload.number, payload.email, payload.birthDate, payload.gender, payload.password, payload.password2))
+    },
+    async login({ commit}, payload) {
+      commit("LOGIN", await bookitService.login(payload.email, payload.password))
+    },
+    async fetchCurrentMenu({ commit}, payload) {
+      commit("SET_CURRENT_MENU", await bookitService.getCurrentMenu(payload.id))
     }
   },
-    getters: {
-      getMenus: state => state.menus,
-      getMenuTypes: state => state.menuTypes,
-      getAreas: state => state.areas2,
-      getWorkshops: state => state.workshops2,
-      lastId(state) {
-        if (state.users.length) {
-          return state.users[state.users.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      kitLastId(state) {
-        if (state.kits.length) {
-          return state.kits[state.kits.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      workshopLastId(state) {
-        if (state.workshops.length) {
-          return state.workshops[state.workshops.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      ingredientLastId(state) {
-        if (state.ingredients.length) {
-          return state.ingredients[state.ingredients.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      extrasLastId(state) {
-        if (state.extras.length) {
-          return state.extras[state.extras.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      outfitLastId(state) {
-        if (state.outfits.length) {
-          return state.outfits[state.outfits.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      decorLastId(state) {
-        if (state.decor.length) {
-          return state.decor[state.decor.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      bookingLastId(state) {
-        if (state.bookings.length) {
-          return state.bookings[state.bookings.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      areaBookingLastId(state) {
-        if (state.areaBookings.length) {
-          return state.areaBookings[state.areaBookings.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      getUserOn(state) {
-        if (state.loggedUser.length) {
-          state.logged = true
-          return state.logged;
-        } else {
-          state.logged = false
-          return state.logged;
-        }
-      },
-      getName(state) {
-        if (state.loggedUser.length == 0) {
-          return state.notLogged
-        } else {
-          return state.loggedUser.name
+  getters: {
+    getMenus: state => state.menus,
+    getMenuTypes: state => state.menuTypes,
+    getAreas: state => state.areas2,
+    getWorkshops: state => state.workshops2,
+    getAllUsers: state => state.users,
+    getCurrentMenu: state => state.currentMenu,
+    lastId(state) {
+      if (state.users.length) {
+        return state.users[state.users.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    kitLastId(state) {
+      if (state.kits.length) {
+        return state.kits[state.kits.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    workshopLastId(state) {
+      if (state.workshops.length) {
+        return state.workshops[state.workshops.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    ingredientLastId(state) {
+      if (state.ingredients.length) {
+        return state.ingredients[state.ingredients.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    extrasLastId(state) {
+      if (state.extras.length) {
+        return state.extras[state.extras.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    outfitLastId(state) {
+      if (state.outfits.length) {
+        return state.outfits[state.outfits.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    decorLastId(state) {
+      if (state.decor.length) {
+        return state.decor[state.decor.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    bookingLastId(state) {
+      if (state.bookings.length) {
+        return state.bookings[state.bookings.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    areaBookingLastId(state) {
+      if (state.areaBookings.length) {
+        return state.areaBookings[state.areaBookings.length - 1].id;
+      } else {
+        return 0;
+      }
+    },
+    getUserOn(state) {
+      if (state.loggedUser.length) {
+        state.logged = true
+        return state.logged;
+      } else {
+        state.logged = false
+        return state.logged;
+      }
+    },
+    getName(state) {
+      if (state.loggedUser.length == 0) {
+        return state.notLogged
+      } else {
+        return state.loggedUser.name
 
-        }
-      },
-      getUserType(state) {
-        return state.loggedUser.userType
-      },
-      getLastName(state) {
-        return state.loggedUser.lastName
-      },
-      getEmail(state) {
-        return state.loggedUser.email
-      },
-      getContact(state) {
-        return state.loggedUser.number
-      },
-      getSchool(state) {
-        return state.loggedUser.school
-      },
-      getBirthDate(state) {
-        return state.loggedUser.birthDate
-      },
-      getUserImg(state) {
-        return state.loggedUser.img
-      },
-      getCurrentKitName(state) {
-        return state.currentKit.kitname
-      },
-      getCurrentKitType(state) {
-        return state.currentKit.kitType
-      },
-      getCurrentKitIng(state) {
-        return state.currentKit.menuIng
-      },
-      getCurrentArea(state) {
-        return state.currentArea.areaName
-      },
-      getCurrentKitImg(state) {
-        return state.currentKit.kitImg
-      },
-      getCurrentAreaImg(state) {
-        return state.currentArea.areaImg
-      },
-      getCurrentDate() {
-        var today = new Date();
-        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
-        return date
-      },
-      getNumberNotifications(state) {
-        if (state.loggedUser.notifications) {
-          if (state.loggedUser.notifications.length != 0) {
-            return true
-          } else {
-            return false
-          }
-        }
-      },
-      getAreaLastId(state) {
-        if (state.areas.length) {
-          return state.areas[state.areas.length - 1].id;
+      }
+    },
+    getUserType(state) {
+      return state.loggedUser.type
+    },
+    getLastName(state) {
+      return state.loggedUser.lastName
+    },
+    getEmail(state) {
+      return state.loggedUser.email
+    },
+    getContact(state) {
+      return state.loggedUser.number
+    },
+    getSchool(state) {
+      return state.loggedUser.school
+    },
+    getBirthDate(state) {
+      return state.loggedUser.birthDate
+    },
+    getUserImg(state) {
+      return state.loggedUser.img
+    },
+    getCurrentKitName(state) {
+      return state.currentKit.kitname
+    },
+    getCurrentKitType(state) {
+      return state.currentKit.kitType
+    },
+    getCurrentKitIng(state) {
+      return state.currentKit.menuIng
+    },
+    getCurrentArea(state) {
+      return state.currentArea.areaName
+    },
+    getCurrentKitImg(state) {
+      return state.currentKit.kitImg
+    },
+    getCurrentAreaImg(state) {
+      return state.currentArea.areaImg
+    },
+    getCurrentDate() {
+      var today = new Date();
+      var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+      return date
+    },
+    getNumberNotifications(state) {
+      if (state.loggedUser.notifications) {
+        if (state.loggedUser.notifications.length != 0) {
+          return true
         } else {
-          return 0;
+          return false
         }
       }
+    },
+    getAreaLastId(state) {
+      if (state.areas.length) {
+        return state.areas[state.areas.length - 1].id;
+      } else {
+        return 0;
+      }
     }
+  }
 })

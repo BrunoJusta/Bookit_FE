@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3 class="menuNameType">{{this.$store.getters.getCurrentKitType}} - {{this.$store.getters.getCurrentKitName}}
+        <h3 class="menuNameType">{{this.currentKitType}} - {{this.currentKitName}}
         </h3>
         <div class="container span">
             <span v-bind:style="{fontWeight: kitInfoFont}">Informações
@@ -226,7 +226,9 @@
                 schools: [],
                 location: "",
                 kits: [],
-                menuIngs: []
+                menuIngs: [],
+                currentKitType: "",
+                currentKitName: ""
             }
         },
         created() {
@@ -244,6 +246,8 @@
                 this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
                 this.kits = this.$store.state.kits
             }
+            this.currentKitType = this.$store.state.currentMenu.type
+            this.currentKitName = this.$store.state.currentMenu.name
             this.extras = this.$store.state.extras
             this.decor = this.$store.state.decor
             this.outfits = this.$store.state.outfits

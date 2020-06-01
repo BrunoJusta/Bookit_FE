@@ -1,18 +1,18 @@
 <template>
   <div class="menuDetail">
-    <h3 class="display-2" v-bind:style="{display:show3}">{{getKitById($route.params.kitId).type}}</h3>
+    <h3 class="display-2" v-bind:style="{display:show3}">{{menu.type}}</h3>
     <input type="text" v-model="newKitType" name="" :placeholder="kitType" id="editTitle" v-bind:style="{display:show}">
     <div class="container">
       <b-card no-body class="border-1" style="max-width: 1100px;">
         <b-row no-gutters>
           <b-col md="6">
-            <b-card-img v-bind:src="getKitById($route.params.kitId).img" class="rounded-0"></b-card-img>
+            <b-card-img v-bind:src="menu.img" class="rounded-0"></b-card-img>
           </b-col>
           <b-col md="6">
             <b-card-body>
-              <h3 class="display-3" v-bind:style="{display:show3}">{{getKitById($route.params.kitId).name}}</h3>
+              <h3 class="display-3" v-bind:style="{display:show3}">{{menu.name}}</h3>
               <input type="text" v-model="newKitName" name="" :placeholder="kitname" v-bind:style="{display:show}">
-              <div class="row">
+              <!-- <div class="row">
                 <div class="container" id="showIngredients" v-bind:style="{display: show}">
                   <div class="row">
                     <div align="right" class="col-sm-5">
@@ -47,7 +47,7 @@
                   <h6><i class="fas fa-cheese" id="icon"></i>COMIDA</h6>
                   <p>{{ food.length == 0 ? 'Fechar' : '' + food }}</p>
                 </div>
-              </div>
+              </div> -->
             </b-card-body>
           </b-col>
         </b-row>
@@ -98,12 +98,13 @@
         newKitName: "",
         checkedDrinks: [],
         checkedFood: [],
-        menuIng: []
+        menuIng: [],
+        menu: []
       };
     },
     created() {
-      this.kits = JSON.parse(localStorage.getItem("kits"))
-      this.ingredients = this.$store.state.ingredients
+      this.menu = JSON.parse(localStorage.getItem("currentMenu"))
+      // this.ingredients = this.$store.state.ingredients
     },
     methods: {
       getKitById(id) {

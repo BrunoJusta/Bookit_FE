@@ -1,7 +1,7 @@
 <template>
     <div class="fixed-top">
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <router-link v-if="this.$store.getters.getUserType !== 'admin'" to="/"><img src="../assets/navbarLogo.svg"
+            <router-link v-if="this.$store.getters.getUserType !== 0" to="/"><img src="../assets/navbarLogo.svg"
                     id="logoNavbar"></router-link>
             <router-link v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
             <b-navbar-nav class="ml-auto">
@@ -25,21 +25,21 @@
         </b-navbar>
         <b-navbar id="jon" toggleable="lg" type="dark" variant="info">
             <div class="container">
-                <router-link to="/" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Início
+                <router-link to="/" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Início
                 </router-link>
-                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Menus
+                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Menus
                 </router-link>
-                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Espaços
+                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Espaços
                 </router-link>
-                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Workshops
+                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Workshops
                 </router-link>
-                <router-link to="/adminHome" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Início
+                <router-link to="/adminHome" class="navOptions" v-if="this.$store.getters.getUserType == 0">Início
                 </router-link>
-                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Menus
+                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType == 0">Menus
                 </router-link>
-                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Workshops
+                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType == 0">Workshops
                 </router-link>
-                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Espaços
+                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType == 0">Espaços
                 </router-link>
             </div>
         </b-navbar>
@@ -51,7 +51,7 @@
         data: function () {
             return {
                 path: "login",
-                onlineUser: "",
+                onlineUser: this.$store.state.loggedUser.name,
                 kits: [],
                 bookings: [],
                 areaBookings: [],
@@ -59,72 +59,72 @@
             }
         },
         created() {
-            if (localStorage.getItem("kits")) {
-                this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
-                this.kits = this.$store.state.kits
+            // if (localStorage.getItem("kits")) {
+            //     this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
+            //     this.kits = this.$store.state.kits
 
-            }
+            // }
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
-            if (localStorage.getItem("bookings")) {
-                this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
-                this.bookings = this.$store.state.bookings
-            }
-            if (localStorage.getItem("areaBookings")) {
-                this.$store.state.areaBookings = JSON.parse(localStorage.getItem("areaBookings"))
-                this.areaBookings = this.$store.state.areaBookings
-            }
+            // if (localStorage.getItem("bookings")) {
+            //     this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
+            //     this.bookings = this.$store.state.bookings
+            // }
+            // if (localStorage.getItem("areaBookings")) {
+            //     this.$store.state.areaBookings = JSON.parse(localStorage.getItem("areaBookings"))
+            //     this.areaBookings = this.$store.state.areaBookings
+            // }
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
-            } else if (this.$store.getters.getUserType === "admin") {
+            } else if (this.$store.getters.getUserType === 0) {
                 this.path = "profile"
-            } else if (this.$store.getters.getUserType === "cliente") {
+            } else if (this.$store.getters.getUserType === 1) {
                 this.path = "profile"
             }
             this.$store.commit('STORE_ITEMS')
 
 
-            for (let i in this.kits) {
-                let createType = true
-                for (let j in this.menuTypes) {
-                    if (this.menuTypes[j] == this.kits[i].type) {
-                        createType = false;
-                    }
-                }
-                if (createType == true) {
-                    this.menuTypes.push(
-                        this.kits[i].type
-                    )
-                }
-            }
-            localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes))
+            // for (let i in this.kits) {
+            //     let createType = true
+            //     for (let j in this.menuTypes) {
+            //         if (this.menuTypes[j] == this.kits[i].type) {
+            //             createType = false;
+            //         }
+            //     }
+            //     if (createType == true) {
+            //         this.menuTypes.push(
+            //             this.kits[i].type
+            //         )
+            //     }
+            // }
+            // localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes))
 
-            for (let i in this.bookings) {
-                var g1 = new Date();
-                var g2 = new Date(this.bookings[i].date);
-                if (g1.getTime() > g2.getTime() && this.bookings[i].state === "Aprovado") {
-                    this.bookings[i].state = "Concluído"
-                }
-            }
-            localStorage.setItem("bookings", JSON.stringify(this.bookings))
+            // for (let i in this.bookings) {
+            //     var g1 = new Date();
+            //     var g2 = new Date(this.bookings[i].date);
+            //     if (g1.getTime() > g2.getTime() && this.bookings[i].state === "Aprovado") {
+            //         this.bookings[i].state = "Concluído"
+            //     }
+            // }
+            // localStorage.setItem("bookings", JSON.stringify(this.bookings))
 
-            for (let i in this.areaBookings) {
-                var g1 = new Date();
-                var g2 = new Date(this.areaBookings[i].date);
-                if (g1.getTime() > g2.getTime() && this.areaBookings[i].state === "Aprovado") {
-                    this.areaBookings[i].state = "Concluído"
-                }
-            }
-            localStorage.setItem("areaBookings", JSON.stringify(this.areaBookings))
+            // for (let i in this.areaBookings) {
+            //     var g1 = new Date();
+            //     var g2 = new Date(this.areaBookings[i].date);
+            //     if (g1.getTime() > g2.getTime() && this.areaBookings[i].state === "Aprovado") {
+            //         this.areaBookings[i].state = "Concluído"
+            //     }
+            // }
+            // localStorage.setItem("areaBookings", JSON.stringify(this.areaBookings))
 
         },
         updated: function () {
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
-            } else if (this.$store.getters.getUserType === "admin") {
+            } else if (this.$store.getters.getUserType === 0) {
                 this.path = "profile"
-            } else if (this.$store.getters.getUserType === "cliente") {
+            } else if (this.$store.getters.getUserType === 1) {
                 this.path = "profile"
             }
         },

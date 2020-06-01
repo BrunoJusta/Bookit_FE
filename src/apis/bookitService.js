@@ -1,8 +1,10 @@
 import API_URL from './config.js'
 import router from '../router';
+import store from '../store';
 
 const bookitService = {
 
+    
     async getMenus() {
         const response = await fetch(`${API_URL}menus`, {
             method: "GET"
@@ -44,6 +46,57 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async getUsers() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}users`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getCurrentMenu(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menus/${ID}`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async logout() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}logout`, {
+            method: "POST",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async registerUser(name, lastName, number, email, birthDate, genre, password, password2) {
         alert(name)
         const response = await fetch(`${API_URL}users`, {
@@ -70,7 +123,7 @@ const bookitService = {
         }
     },
     async login(email, password) {
-        const response = await fetch(`${API_URL}login`, {
+        const response =  await fetch(`${API_URL}login`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8'
@@ -82,12 +135,9 @@ const bookitService = {
         })
 
         if (response.ok) {
-            router.push({
-                name: 'home',
-            })
             return response.json()
         } else {
-            throw Error(response)
+            throw Error(response.json())
         }
     }
 
