@@ -251,6 +251,18 @@ export default new Vuex.Store({
     SET_INGREDIENTS(state, data){
       state.ingredients = data.data
 
+    },
+    SET_EXTRAS(state, data){
+      state.extras = data.data
+
+    },
+    SET_DECORATIONS(state, data){
+      state.decor = data.data
+
+    },
+    SET_OUTFITS(state, data){
+      state.outfits = data.data
+
     }
   },
   actions: {
@@ -318,6 +330,21 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.newPassword, payload.newPassword2, payload.newNumber, payload.newType))
+    },
+    async fetchExtras({
+      commit
+    }) {
+      commit("SET_EXTRAS", await bookitService.getExtras())
+    },
+    async fetchDecorations({
+      commit
+    }) {
+      commit("SET_DECORATIONS", await bookitService.getDecorations())
+    },
+    async fetchOutfits({
+      commit
+    }) {
+      commit("SET_OUTFITS", await bookitService.getOutfits())
     }
   },
   getters: {
@@ -331,6 +358,11 @@ export default new Vuex.Store({
     getCurrentArea: state => state.currentArea,
     getCurrentMenuIngs: state => state.currentMenuIngs,
     getIngredients: state => state.ingredients,
+    getExtras: state => state.ingredients,
+    getDecorations: state => state.decor,
+    getOutfits: state => state.outfits,
+
+
 
     getUserOn(state) {
       if (state.loggedUser.length) {

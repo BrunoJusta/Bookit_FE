@@ -55,11 +55,61 @@ const bookitService = {
     },
     async getIngredients() {
         let user
-
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
         const response = await fetch(`${API_URL}ingredients`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getExtras() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}extras`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getDecorations() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}decors`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getOutfits() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}outfits`, {
             method: "GET",
             headers: {
                 'x-access-token': user.token
@@ -214,6 +264,40 @@ const bookitService = {
             body: JSON.stringify({
                 email: email,
                 password: password,
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
+    async addBooking(id, reason, date, school, initHour, endHour, numberPeople, outfit, observations, menu, decor, extras, ing) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}login`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                userID: id,
+                reason: reason,
+                date:date,
+                school:school,
+                initHour:initHour,
+                endHour:endHour,
+                numberPeople:numberPeople,
+                outfit:outfit,
+                observations:observations,
+                menu:menu,
+                decor:decor,
+                extras:extras,
+                ing:ing
             })
         })
 
