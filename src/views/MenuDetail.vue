@@ -1,7 +1,7 @@
 <template>
   <div class="menuDetail">
     <h3 class="display-2" v-bind:style="{display:show3}">{{menu.type}}</h3>
-    <input type="text" v-model="newKitType" name="" :placeholder="kitType" id="editTitle" v-bind:style="{display:show}">
+    <input type="text" v-model="newKitType" name="" :placeholder="menu.type" id="editTitle" v-bind:style="{display:show}">
     <div class="container">
       <b-card no-body class="border-1" style="max-width: 1100px;">
         <b-row no-gutters>
@@ -11,7 +11,7 @@
           <b-col md="6">
             <b-card-body>
               <h3 class="display-3" v-bind:style="{display:show3}">{{menu.name}}</h3>
-              <input type="text" v-model="newKitName" name="" :placeholder="kitname" v-bind:style="{display:show}">
+              <input type="text" v-model="newKitName" name="" :placeholder="menu.name" v-bind:style="{display:show}">
               <div class="row">
                 <div class="container" id="showIngredients" v-bind:style="{display: show}">
                   <div class="row">
@@ -67,7 +67,7 @@
         v-bind:style="{display:show2}" class="btn-book border-0" squared>
         <router-link to="/booking" style="color:white"> Reservar </router-link>
       </b-button>
-      <b-button v-bind:style="{display:show2}" v-if="this.userType == 0" @click="activateEdit()" class="btn-book border-0" squared>
+      <b-button v-bind:style="{display:show2}" v-if="this.userOn.type== 0" @click="activateEdit()" class="btn-book border-0" squared>
         Editar
       </b-button>
       <br><br><br>
@@ -98,14 +98,13 @@
         menu: [],
         food:[],
         drinks:[],
-        userType: ""
+        userOn: []
       };
     },
     created() {
       this.menu = JSON.parse(localStorage.getItem("currentMenu"))
-      this.userType = this.$store.loggedUser.type 
+      this.userOn = JSON.parse(localStorage.getItem("loggedUser"))
       this.ingredients = JSON.parse(localStorage.getItem("currentMenuIngs"))
-      this.CurrentMenuIngs(this.menu.id)
       for (const i in this.ingredients) {
         if (this.ingredients[i].type == "Bebida") {
           this.drinks.push(this.ingredients[i].name)      
@@ -173,13 +172,6 @@
           }
         }
       },
-    async CurrentMenuIngs(id) {
-      try {
-        await this.$store.dispatch("fetchCurrentMenuIngs", {id: id});
-      } catch (err) {
-        alert(err);
-      }
-    }
     },
     computed: {
     }

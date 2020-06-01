@@ -182,12 +182,21 @@ export default {
     },
     async CurrentMenu(ID) {
       try {
+        localStorage.removeItem("currentMenuIngs")
         await this.$store.dispatch("fetchCurrentMenu", {id: ID});
-        this.$router.push({name:"menuDetail"})
+        this.CurrentMenuIngs(ID)
       } catch (err) {
         alert(err);
       }
     },
+      async CurrentMenuIngs(id) {
+      try {
+        await this.$store.dispatch("fetchCurrentMenuIngs", {id: id});
+        this.$router.push({name:"menuDetail"})
+      } catch (err) {
+        alert(err);
+      }
+    }
   },
   computed: {
     ...mapGetters(["getMenus"]),
