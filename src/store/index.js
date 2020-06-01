@@ -15,7 +15,7 @@ export default new Vuex.Store({
       menuIng: ""
     },
     currentArea: {
-      areaName: ""
+      areaName: "",
     },
     users: [],
     menus: [],
@@ -36,7 +36,8 @@ export default new Vuex.Store({
     outfits: [],
     schools: [],
     token: [],
-    currentMenu: []
+    currentMenu: [],
+    currentArea:[]
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -241,6 +242,10 @@ export default new Vuex.Store({
     SET_CURRENT_MENU(state, data) {
       state.currentMenu = data.menu
       localStorage.setItem("currentMenu", JSON.stringify(state.currentMenu));
+    },
+    SET_CURRENT_MENU(state, data){
+      state.currentArea = data.area
+      localStorage.setItem("currentArea", JSON.stringify(state.currentArea))
     }
   },
   actions: {
@@ -283,6 +288,11 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("SET_CURRENT_MENU", await bookitService.getCurrentMenu(payload.id))
+    },
+    async fetchCurrentArea({
+      commit
+    }, payload) {
+      commit("SET_CURRENT_Area", await bookitService.getCurrentArea(payload.id))
     }
   },
   getters: {
@@ -292,6 +302,7 @@ export default new Vuex.Store({
     getWorkshops: state => state.workshops,
     getAllUsers: state => state.users,
     getCurrentMenu: state => state.currentMenu,
+    getCurrentArea: state => state.currentArea,
     getUserOn(state) {
       if (state.loggedUser.length) {
         state.logged = true

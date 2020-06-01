@@ -1,6 +1,6 @@
 <template>
   <div class="areasDetail">
-    <h3 class="display-2" v-bind:style="{display:show3}">{{getAreaById($route.params.areaId).name}}</h3>
+    <h3 class="display-2" v-bind:style="{display:show3}">{{area.name}}</h3>
     <input type="text" v-model="areaNameNew" name="" :placeholder="areaName" id="editTitle"
       v-bind:style="{display:show}">
     <br>
@@ -10,13 +10,13 @@
       <b-card no-body class="overflow-hidden border-0" style="max-width: 1100px;">
         <b-row no-gutters>
           <b-col md="6">
-            <b-card-img v-bind:src=" getAreaById($route.params.areaId).img" class="rounded-0"></b-card-img>
+            <b-card-img v-bind:src=" area.img" class="rounded-0"></b-card-img>
           </b-col>
           <b-col md="6">
             <b-card-body align="left" title="Descrição">
-              <p v-bind:style="{display:show2}"> {{getAreaById($route.params.areaId).description}}</p>
+              <p v-bind:style="{display:show2}"> {{menu.description}}</p>
               <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">
-                {{getAreaById($route.params.areaId).description}}</textarea>
+                {{menu.description}}</textarea>
             </b-card-body>
           </b-col>
         </b-row>
@@ -58,10 +58,12 @@
         show: "none",
         show2: "inline",
         show3: "block",
-        show4: "inline"
+        show4: "inline",
+        area: []
       };
     },
     created() {
+      this.area = JSON.parse(localStorage.getItem("currentArea"))
       this.areas = JSON.parse(localStorage.getItem("areas"))
     },
     methods: {
