@@ -299,7 +299,7 @@ export default new Vuex.Store({
     async editUsers({
       commit
     }, payload) {
-      commit("EDIT_USERS", await bookitService.editUser(payload.newPassword, payload.newPassword2, payload.newNumber, payload.newType))
+      commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.newPassword, payload.newPassword2, payload.newNumber, payload.newType))
     }
   },
   getters: {
