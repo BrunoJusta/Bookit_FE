@@ -96,10 +96,10 @@
           alert(err);
         }
       },
-      async editUsers(ID, newType) {
+      async editUsers(id, newType) {
         try {
           await this.$store.dispatch("editUsers", {
-            id: ID,
+            id: id,
             newPassword: "",
             newPassword2: "",
             newNumber: "",
@@ -108,7 +108,6 @@
         } catch (err) {
           alert(err);
         }
-        this.getUsers();
       },
       /*remove(id) {
         alert(id)
