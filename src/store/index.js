@@ -243,6 +243,14 @@ export default new Vuex.Store({
     SET_CURRENT_MENU_INGS(state, data){
       state.currentMenuIngs = data.ingredients
       localStorage.setItem("currentMenuIngs", JSON.stringify(state.currentMenuIngs))
+    },
+    SET_SCHOOLS(state, data){
+      state.schools = data.data
+
+    },
+    SET_INGREDIENTS(state, data){
+      state.ingredients = data.data
+
     }
   },
   actions: {
@@ -250,6 +258,11 @@ export default new Vuex.Store({
       commit
     }) {
       commit("SET_MENUS", await bookitService.getMenus())
+    },
+    async fetchSchools({
+      commit
+    }) {
+      commit("SET_SCHOOLS", await bookitService.getSchools())
     },
     async fetchUsers({
       commit
@@ -270,6 +283,11 @@ export default new Vuex.Store({
       commit
     }) {
       commit("SET_WORKSHOPS", await bookitService.getWorkshops())
+    },
+    async fetchIngredients({
+      commit
+    }) {
+      commit("SET_INGREDIENTS", await bookitService.getIngredients())
     },
     async postUser({
       commit
@@ -306,11 +324,14 @@ export default new Vuex.Store({
     getMenus: state => state.menus,
     getMenuTypes: state => state.menuTypes,
     getAreas: state => state.areas,
+    getSchools: state => state.schools,
     getWorkshops: state => state.workshops,
     getAllUsers: state => state.users,
     getCurrentMenu: state => state.currentMenu,
     getCurrentArea: state => state.currentArea,
     getCurrentMenuIngs: state => state.currentMenuIngs,
+    getIngredients: state => state.ingredients,
+
     getUserOn(state) {
       if (state.loggedUser.length) {
         state.logged = true

@@ -43,6 +43,34 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async getSchools() {
+        const response = await fetch(`${API_URL}schools`, {
+            method: "GET"
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getIngredients() {
+        let user
+
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}ingredients`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async getUsers() {
         let user
         if (localStorage.getItem("loggedUser")) {

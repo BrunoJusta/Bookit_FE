@@ -28,7 +28,7 @@
                         </b-form-group>
                         <label class="lable" for="schools">Local</label>
                         <select id="schools" class="rounded-0" v-model="location">
-                            <option v-for="school in schools" :key="school.id">{{school.name}}</option>
+                            <option v-for="school in schools" :key="school.school_id" :value="school.school_id">{{school.school}}</option>
                         </select>
                     </div>
                     <div class="col-sm-2">
@@ -61,9 +61,9 @@
                 <div class="row">
                     <div align="right" class="col-sm-5">
                         <h4 class="subtitle">Bebidas</h4>
-                        <div v-for="i in searchIngs" :key="i.id">
+                        <div v-for="i in ingredients" :key="i.ingredient_id">
                             <b-form-group
-                                v-if="i.type=='Drink' && i.name !== 'Sem Bebida' && !menuIngs.includes(i.name)">
+                                v-if="i.type=='Bebida' && i.name !== 'Sem Bebida' && !menuIngs.includes(i.name)">
                                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDrinks">
                                     <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
                                 </b-form-checkbox-group>
@@ -74,9 +74,9 @@
                     </div>
                     <div align="left" class="col-sm-5">
                         <h4 class="subtitle">Comida</h4>
-                        <div v-for="i in searchIngs" :key="i.id">
+                        <div v-for="i in ingredients" :key="i.ingredient_id">
                             <b-form-group
-                                v-if="i.type=='Food' && i.name !== 'Sem Comida' && !menuIngs.includes(i.name)">
+                                v-if="i.type=='Comida' && i.name !== 'Sem Comida' && !menuIngs.includes(i.name)">
                                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
                                     <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
                                 </b-form-checkbox-group>
@@ -180,7 +180,7 @@
 
 <script>
     import router from '../router';
-
+    import { mapGetters } from "vuex";
     export default {
         data: function () {
             return {
@@ -226,6 +226,9 @@
             }
         },
         created() {
+            this.getAllSchools();
+            this.getAllIngredients();
+
             if (localStorage.getItem("bookings")) {
                 this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
             }
@@ -250,12 +253,62 @@
             this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
             this.kitName = this.$store.getters.getCurrentKitName
             this.kitType = this.$store.getters.getCurrentKitType
-            this.schools = JSON.parse(localStorage.getItem("schools"))
+            this.menuIngs = JSON.parse(localStorage.getItem("currentMenuIngs"))
+
         },
         updated() {
-            this.menuIngs = this.$store.getters.getCurrentKitIng
+            this.schools =  this.$store.state.schools
+            this.ingredients =  this.$store.state.ingredients
+
+
         },
         methods: {
+        async getAllSchools() {
+        try {
+            await this.$store.dispatch("fetchSchools");
+            this.schools =  this.getSchools.data
+
+        } catch (err) {
+            alert(err);
+        }
+        },
+        async getAllIngredients() {
+        try {
+            await this.$store.dispatch("fetchIngredients");
+            this.ingredients =  this.getIngredients.data
+
+        } catch (err) {
+            alert(err);
+        }
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             saveCurrentKit() {
                 this.currentKit = JSON.parse(localStorage.getItem("currentKit"))
                 this.kitName = this.$store.getters.getCurrentKitName
@@ -457,9 +510,8 @@
             }
         },
         computed: {
-            searchIngs() {
-                return this.ingredients;
-            },
+         ...mapGetters(["getSchools"]),
+         ...mapGetters(["getIngredients"]),
             searchExtras() {
                 return this.extras;
             },
