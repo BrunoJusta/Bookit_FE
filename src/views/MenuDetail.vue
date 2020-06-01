@@ -12,13 +12,13 @@
             <b-card-body>
               <h3 class="display-3" v-bind:style="{display:show3}">{{menu.name}}</h3>
               <input type="text" v-model="newKitName" name="" :placeholder="kitname" v-bind:style="{display:show}">
-              <!-- <div class="row">
+              <div class="row">
                 <div class="container" id="showIngredients" v-bind:style="{display: show}">
                   <div class="row">
                     <div align="right" class="col-sm-5">
                       <h6 class="subtitle">Bebidas</h6>
-                      <div v-for="i in searchKits" :key="i.id">
-                        <b-form-group v-if="i.type=='Drink'">
+                      <div v-for="i in this.ingredients" :key="i.ingredient_id">
+                        <b-form-group v-if="i.type=='Bebida'">
                           <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDrinks">
                             <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
                           </b-form-checkbox-group>
@@ -29,8 +29,8 @@
                     </div>
                     <div align="left" class="col-sm-5">
                       <h6 class="subtitle">Comida</h6>
-                      <div v-for="i in searchKits" :key="i.id">
-                        <b-form-group v-if="i.type=='Food'">
+                      <div v-for="i in this.ingredients" :key="i.ingredient_id">
+                        <b-form-group v-if="i.type=='Comida'">
                           <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
                             <b-form-checkbox :value="i.name" unchecked-value=""> {{i.name}}</b-form-checkbox>
                           </b-form-checkbox-group>
@@ -47,7 +47,7 @@
                   <h6><i class="fas fa-cheese" id="icon"></i>COMIDA</h6>
                   <p>{{ food.length == 0 ? 'Fechar' : '' + food }}</p>
                 </div>
-              </div> -->
+              </div>
             </b-card-body>
           </b-col>
         </b-row>
@@ -63,15 +63,11 @@
       <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
         <router-link to="/menuGallery" style="color:white"> Voltar </router-link>
       </b-button>
-      <!-- <b-button v-if="this.$store.getters.getUserType !== 'admin'" @click="saveCurrentKit()"
-        v-bind:style="{display:show2}" class="btn-book border-0" squared>
-        <router-link to="/booking" style="color:white"> Reservar </router-link>
-      </b-button> -->
         <b-button  @click="saveCurrentKit()"
         v-bind:style="{display:show2}" class="btn-book border-0" squared>
         <router-link to="/booking" style="color:white"> Reservar </router-link>
       </b-button>
-      <b-button v-bind:style="{display:show2}" v-if="this.$store.getters.getUserType == 'admin'" @click="activateEdit()" class="btn-book border-0" squared>
+      <b-button v-bind:style="{display:show2}" v-if="this.userType == 0" @click="activateEdit()" class="btn-book border-0" squared>
         Editar
       </b-button>
       <br><br><br>
@@ -99,46 +95,27 @@
         checkedDrinks: [],
         checkedFood: [],
         menuIng: [],
-        menu: []
+        menu: [],
+        food:[],
+        drinks:[],
+        userType: ""
       };
     },
     created() {
       this.menu = JSON.parse(localStorage.getItem("currentMenu"))
-      this.CurrentMenuIngs()
-      // this.ingredients = this.$store.state.ingredients
+      this.userType = this.$store.loggedUser.type 
+      this.ingredients = JSON.parse(localStorage.getItem("currentMenuIngs"))
+      this.CurrentMenuIngs(this.menu.id)
+      for (const i in this.ingredients) {
+        if (this.ingredients[i].type == "Bebida") {
+          this.drinks.push(this.ingredients[i].name)      
+        }
+        else{
+          this.food.push(this.ingredients[i].name)      
+        }
+      }
     },
-    methods: {
-      getKitById(id) {
-        this.food = this.kits.filter(
-          kit => kit.id === id
-        )[0].food
-
-        this.kitImg = this.kits.filter(
-          kit => kit.id === id
-        )[0].img
-
-        this.drinks = this.kits.filter(
-          kit => kit.id === id
-        )[0].drinks
-
-        this.kitname = this.kits.filter(
-          kit => kit.id === id
-        )[0].name
-
-        this.kitType = this.kits.filter(
-          kit => kit.id === id
-        )[0].type
-
-        this.id = this.kits.filter(
-          kit => kit.id === id
-        )[0].id
-
-        this.menuIng = this.food + "," + this.drinks
-
-        return this.kits.filter(
-          kit => kit.id === id
-        )[0]
-      },
+     methods: {
       saveCurrentKit() {
         this.currentKit = ({
           kitname: this.kitname,
@@ -196,18 +173,15 @@
           }
         }
       },
-    async CurrentMenuIngs() {
+    async CurrentMenuIngs(id) {
       try {
-        await this.$store.dispatch("fetchCurrentMenuIngs", {id: this.menu.menu_id});
+        await this.$store.dispatch("fetchCurrentMenuIngs", {id: id});
       } catch (err) {
         alert(err);
       }
     }
     },
     computed: {
-      searchKits() {
-        return this.ingredients;
-      }
     }
   }
 </script>
