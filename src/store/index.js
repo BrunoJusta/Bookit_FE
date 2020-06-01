@@ -295,6 +295,11 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("SET_CURRENT_MENU_INGS", await bookitService.getCurrentMenuIngs(payload.id))
+    },
+    async editUsers({
+      commit
+    }, payload) {
+      commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.newPassword, payload.newPassword2, payload.newNumber, payload.newType))
     }
   },
   getters: {

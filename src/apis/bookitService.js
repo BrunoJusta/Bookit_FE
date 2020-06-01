@@ -60,7 +60,8 @@ const bookitService = {
             throw Error(response)
         }
     },
-    async editUser(ID, newPassword, newPassword2, newNumber, newType) {
+    async editUsers(ID, newPassword, newPassword2, newNumber, newType) {
+        alert(newType)
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
@@ -74,13 +75,13 @@ const bookitService = {
                 newPassword: newPassword,
                 newPassword2: newPassword2,
                 newNumber: newNumber,
-                newType: newType
+                type: newType
             })
         })
         if (response.ok) {
             return response.json()
         } else {
-            throw Error(response.json())
+            throw Error(response)
         }
     },
     async getCurrentMenu(ID) {

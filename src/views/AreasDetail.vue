@@ -15,7 +15,7 @@
           <b-col md="6">
             <b-card-body align="left" title="Descrição">
               <p v-bind:style="{display:show2}"> {{menu.description}}</p>
-<!--               <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">{{menu.description}}</textarea> -->
+              <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">{{menu.description}}</textarea>
             </b-card-body>
           </b-col>
         </b-row>
