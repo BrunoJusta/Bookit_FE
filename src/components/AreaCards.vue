@@ -120,7 +120,7 @@ export default {
     async CurrentArea(ID) {
       try {
         await this.$store.dispatch("fetchCurrentArea", { id: ID });
-        this.$router.push({ name: "menuDetail" });
+        this.$router.push({ name: "areaDetail" });
       } catch (err) {
         alert(err);
       }
