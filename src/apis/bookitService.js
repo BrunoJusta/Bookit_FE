@@ -60,12 +60,12 @@ const bookitService = {
             throw Error(response)
         }
     },
-    async editUser() {
+    async editUser(ID, newPassword, newPassword2, newNumber, newType) {
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
-        const response = await fetch(`${API_URL}users/:id`, {
+        const response = await fetch(`${API_URL}users/${ID}`, {
             method: "PUT",
             headers: {
                 'x-access-token': user.token
@@ -89,6 +89,23 @@ const bookitService = {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
         const response = await fetch(`${API_URL}menus/${ID}`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getCurrentMenuIngs(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menus/${ID}/ingredients`, {
             method: "GET",
             headers: {
                 'x-access-token': user.token

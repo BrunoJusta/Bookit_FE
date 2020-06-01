@@ -183,19 +183,11 @@ export default {
     async CurrentMenu(ID) {
       try {
         await this.$store.dispatch("fetchCurrentMenu", {id: ID});
-        this.CurrentMenuIngs(ID)
         this.$router.push({name:"menuDetail"})
       } catch (err) {
         alert(err);
       }
     },
-    async CurrentMenuIngs(ID) {
-      try {
-        await this.$store.dispatch("fetchCurrentMenuIngs", {id: ID});
-      } catch (err) {
-        alert(err);
-      }
-    }
   },
   computed: {
     ...mapGetters(["getMenus"]),
