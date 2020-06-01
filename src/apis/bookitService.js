@@ -4,7 +4,7 @@ import store from '../store';
 
 const bookitService = {
 
-    
+
     async getMenus() {
         const response = await fetch(`${API_URL}menus`, {
             method: "GET"
@@ -80,6 +80,23 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async getCurrentArea(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}areas/${ID}`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async logout() {
         let user
         if (localStorage.getItem("loggedUser")) {
@@ -123,7 +140,7 @@ const bookitService = {
         }
     },
     async login(email, password) {
-        const response =  await fetch(`${API_URL}login`, {
+        const response = await fetch(`${API_URL}login`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8'
