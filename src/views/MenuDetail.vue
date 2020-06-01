@@ -104,6 +104,7 @@
     },
     created() {
       this.menu = JSON.parse(localStorage.getItem("currentMenu"))
+      this.CurrentMenuIngs()
       // this.ingredients = this.$store.state.ingredients
     },
     methods: {
@@ -195,6 +196,13 @@
           }
         }
       },
+    async CurrentMenuIngs() {
+      try {
+        await this.$store.dispatch("fetchCurrentMenuIngs", {id: this.menu.menu_id});
+      } catch (err) {
+        alert(err);
+      }
+    }
     },
     computed: {
       searchKits() {
