@@ -9,14 +9,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentKit: {
-      kitname: "",
-      kitType: "",
-      menuIng: ""
-    },
-    currentArea: {
-      areaName: "",
-    },
     users: [],
     menus: [],
     areas: [],
@@ -37,6 +29,7 @@ export default new Vuex.Store({
     schools: [],
     token: [],
     currentMenu: [],
+    currentMenuIngs: [],
     currentArea:[]
   },
   mutations: {
@@ -243,9 +236,13 @@ export default new Vuex.Store({
       state.currentMenu = data.menu
       localStorage.setItem("currentMenu", JSON.stringify(state.currentMenu));
     },
-    SET_CURRENT_MENU(state, data){
+    SET_CURRENT_AREA(state, data){
       state.currentArea = data.area
       localStorage.setItem("currentArea", JSON.stringify(state.currentArea))
+    },
+    SET_CURRENT_MENU_INGS(state, data){
+      state.currentMenuIngs = data.ingredients
+      localStorage.setItem("currentMenuIngs", JSON.stringify(state.currentMenuIngs))
     }
   },
   actions: {
@@ -292,7 +289,12 @@ export default new Vuex.Store({
     async fetchCurrentArea({
       commit
     }, payload) {
-      commit("SET_CURRENT_Area", await bookitService.getCurrentArea(payload.id))
+      commit("SET_CURRENT_AREA", await bookitService.getCurrentArea(payload.id))
+    },
+    async fetchCurrentMenuIngs({
+      commit
+    }, payload) {
+      commit("SET_CURRENT_MENU_INGS", await bookitService.getCurrentMenuIngs(payload.id))
     }
   },
   getters: {
@@ -303,6 +305,7 @@ export default new Vuex.Store({
     getAllUsers: state => state.users,
     getCurrentMenu: state => state.currentMenu,
     getCurrentArea: state => state.currentArea,
+    getCurrentMenuIngs: state => state.currentMenuIngs,
     getUserOn(state) {
       if (state.loggedUser.length) {
         state.logged = true

@@ -3,18 +3,12 @@
         <h3 class="menuNameType">{{this.currentKitType}} - {{this.currentKitName}}
         </h3>
         <div class="container span">
-            <span v-bind:style="{fontWeight: kitInfoFont}">Informações
-            </span>
-            <span v-bind:style="{fontWeight: addOnsFont}">
-                Complementos</span>
-            <span v-bind:style="{fontWeight: extraFont}">Extras
-            </span>
-            <span v-bind:style="{fontWeight: decorsFont}">Decoração
-            </span>
-            <span v-bind:style="{fontWeight: outfitFont}">Fardas
-            </span>
-            <span v-bind:style="{fontWeight: resumeFont}">Resumo
-            </span>
+            <span v-bind:style="{fontWeight: kitInfoFont}">Informações</span>
+            <span v-bind:style="{fontWeight: addOnsFont}">Complementos</span>
+            <span v-bind:style="{fontWeight: extraFont}">Extras</span>
+            <span v-bind:style="{fontWeight: decorsFont}">Decoração</span>
+            <span v-bind:style="{fontWeight: outfitFont}">Fardas</span>
+            <span v-bind:style="{fontWeight: resumeFont}">Resumo</span>
         </div>
         <form @submit.prevent="saveBooking()">
             <div class="container" v-bind:style="{display: kitInfo}">
