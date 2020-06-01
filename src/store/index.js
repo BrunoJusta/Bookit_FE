@@ -17,190 +17,10 @@ export default new Vuex.Store({
     currentArea: {
       areaName: ""
     },
-    users:[],
-    // users: [{
-    //     id: 0,
-    //     name: "Admin",
-    //     lastName: "Master",
-    //     gender: "Masculino",
-    //     email: "admin@admin.admin",
-    //     password: "123",
-    //     number: "123",
-    //     userType: "admin",
-    //     school: "ESHT",
-    //     img: require('../assets/male.svg'),
-    //     notifications: [],
-    //     archivations: [],
-    //     birthDate: "2000-03-25"
-    //   },
-    //   {
-    //     id: 1,
-    //     name: "Nuno",
-    //     lastName: "Gomes",
-    //     gender: "Masculino",
-    //     email: "9180580@esmad.ipp.pt",
-    //     password: "123123",
-    //     number: "123",
-    //     userType: "cliente",
-    //     school: "ESMAD",
-    //     img: require('../assets/male.svg'),
-    //     notifications: [],
-    //     archivations: [],
-    //     birthDate: "2000-02-05"
-    //   },
-    //   {
-    //     id: 2,
-    //     name: "Bruno",
-    //     lastName: "Justa",
-    //     gender: "Masculino",
-    //     email: "9180155@esmad.ipp.pt",
-    //     password: "123123",
-    //     number: "123",
-    //     userType: "cliente",
-    //     school: "ESMAD",
-    //     img: require('../assets/male.svg'),
-    //     notifications: [],
-    //     archivations: [],
-    //     birthDate: "1998-07-27"
-    //   }
-    // ],
-    kits: [{
-        id: 0,
-        name: "Base",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água"],
-        food: ["Triângulos Mistos"],
-        type: "Coffee Break",
-        img: require('../assets/menuBase.jpg'),
-        popularity: 30
-      },
-      {
-        id: 1,
-        name: "Estudante",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água"],
-        food: ["Triângulos Mistos", "Fruta da Época"],
-        type: "Coffee Break",
-        img: require('../assets/menuEstudante.jpg'),
-        popularity: 60
-      },
-      {
-        id: 2,
-        name: "Executivo",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada"],
-        food: ["Triângulos Mistos", "Fruta da Época", "Natinhas com Canela", "Queijadas"],
-        type: "Coffee Break",
-        img: require('../assets/MenuExecutivo.jpg'),
-        popularity: 120
-      },
-      {
-        id: 3,
-        name: "Supremo",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada", "Sumo de Morango e Goiaba"],
-        food: ["Triângulos Mistos", "Fruta da Época", "Natinhas com Canela", "Queijadas", "Pães variados", "Compotas variadas", "Queijo fresco", "Mini Croissants"],
-        type: "Coffee Break",
-        img: require('../assets/menuSupremo.jpg'),
-        popularity: 100
-      },
-      {
-        id: 4,
-        name: "Base",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada"],
-        food: ["Pães variados", "Mini Croissants", "Compotas variadas", "Manteigas variadas"],
-        type: "Pequeno Almoço",
-        img: require('../assets/basePA.png'),
-        popularity: 55
-      },
-      {
-        id: 5,
-        name: "Total",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada", "Nectar de Manga"],
-        food: ["Fiambre", "Pães variados", "Mini Croissants", "Compotas variadas", "Manteigas variadas", "Queijo fresco", "Salada de Fruta", "Corn Flakes", "Iogurtes"],
-        type: "Pequeno Almoço",
-        img: require('../assets/completoPA.jpg'),
-        popularity: 130
-      },
-      {
-        id: 6,
-        name: "Base",
-        drinks: ["Sumo de Laranja", "Água"],
-        food: ["Fruta da Época", "Sanduiche Mista"],
-        type: "Almoços",
-        img: require('../assets/baseAlmoço.jpg'),
-        popularity: 23
-      },
-      {
-        id: 7,
-        name: "Piquenique",
-        drinks: ["Sumo de Laranja", "Água", "Água Gaseificada", "Nectar de Manga"],
-        food: ["Fruta da Época", "Sanduiche Mista", "Misto de Salgados"],
-        type: "Almoços",
-        img: require('../assets/piqueniqueAL.jpg'),
-        popularity: 5
-      },
-      {
-        id: 8,
-        name: "Base",
-        drinks: ["Café", "Sumo de Laranja", "Água", "Água Gaseificada", "Vinho Branco", "Vinho Tinto", "Sangria Branca", "Sangria Tinta", "Sangria Rosé"],
-        food: ["Bacalhau com migas de broa", "Arroz de Marisco", "Strogonoff de Frango", "Carne de Porco Alentejana", "Salada de Polvo", "Creme de cenoura", "Creme de ervilhas"],
-        type: "Buffet",
-        img: require('../assets/baseBuffet.jpg'),
-        popularity: 73
-      }
-    ],
-    workshops: [{
-        id: 0,
-        name: "Criação de inquéritos",
-        date: "21/06/2020",
-        time: "12h - 14h",
-        teacher: "LimeSurvey",
-        description: "Neste workshop será facultada uma formação na construção e implementação de questionários eletrónicos. Esta formação incluirá a necessária abordagem dos requisitos metodológicos de base na aplicação de questionários eletrónicos e a explicitação do funcionamento prático da aplicação LimeSurvey.",
-        img: require('../assets/workshop1.jpg'),
-        inscriptions: [],
-        vacancies: 50
-      },
-      {
-        id: 1,
-        name: "Gastronómico",
-        date: "20/04/2021",
-        time: "13h - 15h",
-        teacher: "Rui Rodrigues",
-        description: "O evento integra uma mostra de gastronomia típica de Vila do Conde e Póvoa de Varzim que todos os visitantes poderão degustar, e ainda duas atividades de Showcooking em que estarão presentes, para além dos docentes de cozinha, dois chefes convidados: Rui Rodrigues, Chef executivo do grupo M e o Chef Eduardo Rodrigues do Republikarestaurante.",
-        img: require('../assets/workshop3.jpg'),
-        inscriptions: [],
-        vacancies: 50
-      },
-      {
-        id: 2,
-        name: "Comida Italiana",
-        date: "15/10/2020",
-        time: "10h - 12h",
-        teacher: "Chef Camilo Jaña",
-        description: "Aprenda a arte de fazer massa fresca com os mais diversas bases e sabores com o nosso chef chileno Camilo Jaña! Responsável pela cozinha dos clássicos da Foz – Cafeína, Portarossa, Casa Vasco e Terra, Camilo Janã vai encher a nossa cozinha de ritmo, energia e um sotaque espanhol, num workshop divertido e eletrizante que lhe vai revelar os segredos das massas frescas italianas. Inscreva-se e venha passar uma tarde incrível, com um dos chefs mais reconhecidos da cidade!",
-        img: require('../assets/workshop2.jpg'),
-        inscriptions: [],
-        vacancies: 50
-      }
-    ],
-    areas: [{
-        id: 0,
-        name: "Restaurante de Aplicação",
-        description: "Restaurante com capacidade para 50 pessoas, onde são aplicados os métodos de serviço leccionados nas UC de Práticas Hoteleiras.",
-        img: require('../assets/restaurante.jpg'),
-      },
-      {
-        id: 1,
-        name: "Bar de Aplicação",
-        description: "No Bar Aplicação, os estudantes poêm em prática os conhecimentos de serviço de bar, obtidos nas aulas da Licenciatura. É um espaço agradável e acolhedor. ",
-        img: require('../assets/bar.png'),
-      },
-      {
-        id: 2,
-        name: "Cozinha de Aplicação",
-        description: "Possuimos uma cozinha totalmente equipada e preparada para os mais diversos serviços.",
-        img: require('../assets/cozinhaFinal.jpg'),
-      }
-    ],
-    areas2: [],
-    workshops2: [],
+    users: [],
+    menus: [],
+    areas: [],
+    workshops: [],
     x: 0,
     logged: false,
     loggedUser: [],
@@ -210,314 +30,13 @@ export default new Vuex.Store({
     bookings: [],
     areaBookings: [],
     menuTypes: [],
-    ingredients: [{
-        id: 0,
-        name: "Sem Bebida",
-        type: "Drink",
-      }, {
-        id: 1,
-        name: "Sem Comida",
-        type: "Food",
-      },
-      {
-        id: 2,
-        name: "Café",
-        type: "Drink",
-      }, {
-        id: 3,
-        name: "Leite",
-        type: "Drink",
-      }, {
-        id: 4,
-        name: "Chá",
-        type: "Drink",
-      }, {
-        id: 5,
-        name: "Sumo de Laranja",
-        type: "Drink",
-      }, {
-        id: 6,
-        name: "Triângulos Mistos",
-        type: "Food",
-      },
-      {
-        id: 7,
-        name: "Água",
-        type: "Drink",
-      }, {
-        id: 8,
-        name: "Pastelaria seca variada",
-        type: "Food",
-      },
-      {
-        id: 9,
-        name: "Fruta da Época",
-        type: "Food",
-      },
-      {
-        id: 10,
-        name: "Água Gaseificada",
-        type: "Drink",
-      },
-      {
-        id: 11,
-        name: "Natinhas com Canela",
-        type: "Food"
-      },
-      {
-        id: 12,
-        name: "Queijadas",
-        type: "Food"
-      },
-      {
-        id: 13,
-        name: "Sumo de Morango e Goiaba",
-        type: "Drink"
-      },
-      {
-        id: 14,
-        name: "Pães variados",
-        type: "Food"
-      },
-      {
-        id: 15,
-        name: "Compotas variadas",
-        type: "Food"
-      },
-      {
-        id: 16,
-        name: "Queijo fresco",
-        type: "Food"
-      },
-      {
-        id: 17,
-        name: "Mini Croissants",
-        type: "Food"
-      },
-      {
-        id: 18,
-        name: "Iogurtes",
-        type: "Food"
-      },
-      {
-        id: 19,
-        name: "Manteigas variadas",
-        type: "Food"
-      },
-      {
-        id: 20,
-        name: "Fiambre",
-        type: "Food"
-      },
-      {
-        id: 21,
-        name: "Corn Flakes",
-        type: "Food"
-      },
-      {
-        id: 22,
-        name: "Folhados doces",
-        type: "Food"
-      },
-      {
-        id: 23,
-        name: "Salada de fruta",
-        type: "Food"
-      },
-      {
-        id: 24,
-        name: "Nectar de Manga",
-        type: "Drink"
-      },
-      {
-        id: 25,
-        name: "Tostas",
-        type: "Food"
-      },
-      {
-        id: 26,
-        name: "Misto de Salgados",
-        type: "Food"
-      },
-      {
-        id: 27,
-        name: "Ovos mexidos",
-        type: "Food"
-      },
-      {
-        id: 28,
-        name: "Salsichas",
-        type: "Food"
-      },
-      {
-        id: 29,
-        name: "Bacalhau com natas",
-        type: "Food"
-      },
-      {
-        id: 30,
-        name: "Bolo de bolacha",
-        type: "Food"
-      },
-      {
-        id: 31,
-        name: "Sanduiche mista",
-        type: "Food"
-      },
-      {
-        id: 32,
-        name: "Cerveja nacional",
-        type: "Drink"
-      },
-      {
-        id: 33,
-        name: "Vinho Branco",
-        type: "Drink"
-      },
-      {
-        id: 34,
-        name: "Vinho Tinto",
-        type: "Drink"
-      },
-      {
-        id: 35,
-        name: "Sangria Branca",
-        type: "Drink"
-      },
-      {
-        id: 36,
-        name: "Sangria Tinta",
-        type: "Drink"
-      },
-      {
-        id: 37,
-        name: "Sangria Rosé",
-        type: "Drink"
-      },
-      {
-        id: 38,
-        name: "Creme de ervilhas",
-        type: "Food"
-      },
-      {
-        id: 39,
-        name: "Creme de cenoura",
-        type: "Food"
-      },
-      {
-        id: 40,
-        name: "Salada de Polvo",
-        type: "Food"
-      },
-      {
-        id: 41,
-        name: "Bacalhau com migas de broa",
-        type: "Food"
-      },
-      {
-        id: 42,
-        name: "Arroz de Marisco",
-        type: "Food"
-      },
-      {
-        id: 43,
-        name: "Strogonoff de Frango",
-        type: "Food"
-      },
-      {
-        id: 44,
-        name: "Carne de Porco Alentejana",
-        type: "Food"
-      }
-    ],
-    extras: [{
-        id: 0,
-        name: "Babysiting"
-      }, {
-        id: 1,
-        name: "Palhaços"
-      }, {
-        id: 2,
-        name: "Atuação Gatunos"
-      },
-      {
-        id: 3,
-        name: "Atuação Afrodituna"
-      }
-    ],
-    decor: [{
-      id: 0,
-      name: "Centros de Mesa"
-    }, {
-      id: 1,
-      name: "Lounge"
-    }, {
-      id: 2,
-      name: "Fitas Coloridas"
-    }],
-    outfits: [{
-        id: 0,
-        source: require('../assets/farda01.png'),
-        name: "Completa"
-      },
-      {
-        id: 1,
-        source: require('../assets/farda03.png'),
-        name: "Sem colete"
-      },
-      {
-        id: 2,
-        source: require('../assets/farda04.png'),
-        name: "Sem casaco"
-      },
-      {
-        id: 3,
-        source: require('../assets/farda02.png'),
-        name: "Sem colete e casaco"
-      },
-      {
-        id: 4,
-        source: require('../assets/farda05.png'),
-        name: "Cozinha"
-      },
-      {
-        id: 5,
-        source: require('../assets/farda06.png'),
-        name: "Cozinha sem avental"
-      }
-    ],
-    schools: [{
-        id: 0,
-        name: "ESMAD"
-      }, {
-        id: 1,
-        name: "ESHT"
-      }, {
-        id: 2,
-        name: "ESS"
-      },
-      {
-        id: 3,
-        name: "ISEP"
-      }, {
-        id: 4,
-        name: "ISCAP"
-      }, {
-        id: 5,
-        name: "ESE"
-      },
-      {
-        id: 6,
-        name: "ESMAE"
-      },
-      {
-        id: 7,
-        name: "ESTG"
-      }
-    ],
-    menus: [],
+    ingredients: [],
+    extras: [],
+    decor: [],
+    outfits: [],
+    schools: [],
     token: [],
-    currentMenu:[]
+    currentMenu: []
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -565,20 +84,19 @@ export default new Vuex.Store({
       state.loggedUser = data.user
       localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
       if (state.loggedUser.type === 0) {
-                Swal.fire({
+        Swal.fire({
           icon: 'success',
           text: data.message
         })
         router.push("/adminHome")
-      }
-      else if(state.loggedUser.type === 1){
+      } else if (state.loggedUser.type === 1) {
         Swal.fire({
           icon: 'success',
           text: data.message
         })
         router.push("/")
       }
-      
+
     },
     LOGOUT(state) {
       bookitService.logout()
@@ -705,123 +223,75 @@ export default new Vuex.Store({
         })
       }
     },
-    SET_MENUS(state, menus) {
-      state.menus = menus
+    SET_MENUS(state, data) {
+      state.menus = data
     },
-    SET_MENU_TYPES(state, menuTypes) {
-      state.menuTypes = menuTypes
+    SET_MENU_TYPES(state, data) {
+      state.menuTypes = data
     },
-    SET_AREAS(state, areas2) {
-      state.areas2 = areas2
+    SET_AREAS(state, data) {
+      state.areas = data
     },
-    SET_WORKSHOPS(state, workshops2) {
-      state.workshops2 = workshops2
+    SET_WORKSHOPS(state, data) {
+      state.workshops = data
     },
     SET_USERS(state, data) {
       state.users = data
-    }
-    ,
+    },
     SET_CURRENT_MENU(state, data) {
       state.currentMenu = data.menu
       localStorage.setItem("currentMenu", JSON.stringify(state.currentMenu));
     }
   },
   actions: {
-    async fetchMenus({commit}) {
+    async fetchMenus({
+      commit
+    }) {
       commit("SET_MENUS", await bookitService.getMenus())
     },
-    async fetchUsers({commit}) {
+    async fetchUsers({
+      commit
+    }) {
       commit("SET_USERS", await bookitService.getUsers())
     },
-    async fetchMenuTypes({commit}) {
+    async fetchMenuTypes({
+      commit
+    }) {
       commit("SET_MENU_TYPES", await bookitService.getMenuTypes())
     },
-    async fetchAreas({commit}) {
+    async fetchAreas({
+      commit
+    }) {
       commit("SET_AREAS", await bookitService.getAreas())
     },
-    async fetchWorkshops({commit}) {
+    async fetchWorkshops({
+      commit
+    }) {
       commit("SET_WORKSHOPS", await bookitService.getWorkshops())
     },
-    async postUser({commit}, payload) {
+    async postUser({
+      commit
+    }, payload) {
       commit("ADD_USER", await bookitService.registerUser(payload.name, payload.lastName, payload.number, payload.email, payload.birthDate, payload.gender, payload.password, payload.password2))
     },
-    async login({ commit}, payload) {
+    async login({
+      commit
+    }, payload) {
       commit("LOGIN", await bookitService.login(payload.email, payload.password))
     },
-    async fetchCurrentMenu({ commit}, payload) {
+    async fetchCurrentMenu({
+      commit
+    }, payload) {
       commit("SET_CURRENT_MENU", await bookitService.getCurrentMenu(payload.id))
     }
   },
   getters: {
     getMenus: state => state.menus,
     getMenuTypes: state => state.menuTypes,
-    getAreas: state => state.areas2,
-    getWorkshops: state => state.workshops2,
+    getAreas: state => state.areas,
+    getWorkshops: state => state.workshops,
     getAllUsers: state => state.users,
     getCurrentMenu: state => state.currentMenu,
-    lastId(state) {
-      if (state.users.length) {
-        return state.users[state.users.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    kitLastId(state) {
-      if (state.kits.length) {
-        return state.kits[state.kits.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    workshopLastId(state) {
-      if (state.workshops.length) {
-        return state.workshops[state.workshops.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    ingredientLastId(state) {
-      if (state.ingredients.length) {
-        return state.ingredients[state.ingredients.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    extrasLastId(state) {
-      if (state.extras.length) {
-        return state.extras[state.extras.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    outfitLastId(state) {
-      if (state.outfits.length) {
-        return state.outfits[state.outfits.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    decorLastId(state) {
-      if (state.decor.length) {
-        return state.decor[state.decor.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    bookingLastId(state) {
-      if (state.bookings.length) {
-        return state.bookings[state.bookings.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
-    areaBookingLastId(state) {
-      if (state.areaBookings.length) {
-        return state.areaBookings[state.areaBookings.length - 1].id;
-      } else {
-        return 0;
-      }
-    },
     getUserOn(state) {
       if (state.loggedUser.length) {
         state.logged = true
@@ -836,7 +306,6 @@ export default new Vuex.Store({
         return state.notLogged
       } else {
         return state.loggedUser.name
-
       }
     },
     getUserType(state) {
@@ -890,13 +359,6 @@ export default new Vuex.Store({
         } else {
           return false
         }
-      }
-    },
-    getAreaLastId(state) {
-      if (state.areas.length) {
-        return state.areas[state.areas.length - 1].id;
-      } else {
-        return 0;
       }
     }
   }
