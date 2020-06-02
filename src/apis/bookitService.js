@@ -138,7 +138,7 @@ const bookitService = {
             throw Error(response)
         }
     },
-    async editUsers(ID, newPassword, newPassword2, newNumber, newType) {
+    async editUsers(ID, newType) {
         alert(newType)
         let user
         if (localStorage.getItem("loggedUser")) {
@@ -149,11 +149,8 @@ const bookitService = {
             headers: {
                 'x-access-token': user.token
             },
-            body: JSON.stringify({
-                newPassword: newPassword,
-                newPassword2: newPassword2,
-                newNumber: newNumber,
-                type: newType
+            body:JSON.stringify({
+                newType: newType
             })
         })
         if (response.ok) {

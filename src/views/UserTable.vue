@@ -98,13 +98,7 @@
       },
       async editUsers(id, newType) {
         try {
-          await this.$store.dispatch("editUsers", {
-            id: id,
-            newPassword: "",
-            newPassword2: "",
-            newNumber: "",
-            newType: newType
-          });
+          await this.$store.dispatch("editUsers", {id: id, newType: newType});
         } catch (err) {
           alert(err);
         }

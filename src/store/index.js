@@ -264,6 +264,14 @@ export default new Vuex.Store({
       state.outfits = data.data
 
     }
+    ,
+    EDIT_USERS(data){
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
+
+    }
   },
   actions: {
     async fetchMenus({
@@ -329,7 +337,7 @@ export default new Vuex.Store({
     async editUsers({
       commit
     }, payload) {
-      commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.newPassword, payload.newPassword2, payload.newNumber, payload.newType))
+      commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.newType))
     },
     async fetchExtras({
       commit
