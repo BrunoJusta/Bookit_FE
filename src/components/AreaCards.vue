@@ -25,10 +25,10 @@
                 @click="deleteArea(a.name)"
                 class="btn-remove border-0"
                 :id="a.id"
-                v-if="show === 'admin'"
                 squared
               >X</b-button>
             </b-card>
+          
           </div>
         </div>
       </div>
@@ -51,11 +51,14 @@ export default {
       bookingAreas: [],
       reset: {
         areaName: ""
-      }
+      },
+      userOn: []
     };
   },
   created() {
+    this.userOn = JSON.parse(localStorage.getItem("loggedUser"))
     this.getMyAreas();
+    
     if (this.$store.getters.getName == "Entrar") {
       this.x = "login";
     } else {

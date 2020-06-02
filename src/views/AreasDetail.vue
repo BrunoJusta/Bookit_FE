@@ -1,10 +1,16 @@
 <template>
   <div class="areasDetail">
     <h3 class="display-2" v-bind:style="{display:show3}">{{area.name}}</h3>
-    <input type="text" v-model="areaNameNew" name="" :placeholder="area.name" id="editTitle"
-      v-bind:style="{display:show}">
-    <br>
-    <br>
+    <input
+      type="text"
+      v-model="areaNameNew"
+      name
+      :placeholder="area.name"
+      id="editTitle"
+      v-bind:style="{display:show}"
+    />
+    <br />
+    <br />
 
     <div class="container">
       <b-card no-body class="overflow-hidden border-0" style="max-width: 1100px;">
@@ -14,186 +20,186 @@
           </b-col>
           <b-col md="6">
             <b-card-body align="left" title="Descrição">
-              <p v-bind:style="{display:show2}"> {{area.description}}</p>
-<!--               <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">{{area.description}}</textarea> -->
+              <p v-bind:style="{display:show2}">{{area.description}}</p>
+              <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">{{area.description}}</textarea>
             </b-card-body>
           </b-col>
         </b-row>
-
       </b-card>
-      <b-button v-bind:style="{display:show}" @click="cancelEdit()" class="btn-book border-0" squared>
-        Cancelar
-      </b-button>
-      <b-button v-bind:style="{display:show}" @click="saveEdit()" class="btn-book border-0" squared>
-        Guardar
-      </b-button>
+      <b-button
+        v-bind:style="{display:show}"
+        @click="cancelEdit()"
+        class="btn-book border-0"
+        squared
+      >Cancelar</b-button>
+      <b-button
+        v-bind:style="{display:show}"
+        @click="saveEdit()"
+        class="btn-book border-0"
+        squared
+      >Guardar</b-button>
 
       <b-button class="btn-book border-0" v-bind:style="{display:show2}" squared>
-        <router-link to="/areasGallery" style="color:white"> Voltar </router-link>
+        <router-link to="/areasGallery" style="color:white">Voltar</router-link>
       </b-button>
-      <b-button  @click="saveCurrentArea()" v-bind:style="{display:show4}" class="btn-book border-0"
-        squared>
-        <router-link to="/areasbooking" style="color:white"> Reservar </router-link>
+      <b-button
+        @click="saveCurrentArea()"
+        v-bind:style="{display:show4}"
+        class="btn-book border-0"
+        squared
+      >
+        <router-link to="/areasbooking" style="color:white">Reservar</router-link>
       </b-button>
-      <b-button v-bind:style="{display:show2}"  v-if="this.$store.getters.getUserType == 'admin'" @click="activateEdit()" class="btn-book border-0" squared>
-        Editar
-      </b-button>
+      <b-button
+        v-bind:style="{display:show2}"
+        v-if="this.userOn.type== 0"
+        @click="activateEdit()"
+        class="btn-book border-0"
+        squared
+      >Editar</b-button>
     </div>
   </div>
-
 </template>
 
 <script>
-  export default {
-    data: function () {
-      return {
-        areas: [],
-        id: "",
-        areaName: "",
-        areaNameNew: "",
-        descripton: "",
-        currentArea: {},
-        areaImg: "",
-        show: "none",
-        show2: "inline",
-        show3: "block",
-        show4: "inline",
-        area: []
-      };
-    },
-    created() {
-      this.area = JSON.parse(localStorage.getItem("currentArea"))
-      
-/*       this.areas = JSON.parse(localStorage.getItem("areas"))
+export default {
+  data: function() {
+    return {
+      areas: [],
+      id: "",
+      areaName: "",
+      areaNameNew: "",
+      descripton: "",
+      currentArea: {},
+      areaImg: "",
+      show: "none",
+      show2: "inline",
+      show3: "block",
+      show4: "inline",
+      area: [],
+      userOn:[],
+    };
+  },
+  created() {
+    this.area = JSON.parse(localStorage.getItem("currentArea"));
+    this.userOn = JSON.parse(localStorage.getItem("loggedUser"))
+
+    /*       this.areas = JSON.parse(localStorage.getItem("areas"))
       alert(area) */
+  },
+  methods: {
+    getAreaById(id) {
+      this.areaName = this.areas.filter(area => area.id === id)[0].name;
+
+      this.id = this.areas.filter(area => area.id === id)[0].id;
+
+      this.descripton = this.areas.filter(area => area.id === id)[0].descripton;
+
+      this.areaImg = this.areas.filter(area => area.id === id)[0].img;
+
+      return this.areas.filter(area => area.id === id)[0];
     },
-    methods: {
-      /* getAreaById(id) {
-        this.areaName = this.areas.filter(
-          area => area.id === id
-        )[0].name
+    saveCurrentArea() {
+      this.currentArea = {
+        areaName: this.areaName,
+        areaImg: this.areaImg
+      };
+      localStorage.setItem("currentArea", JSON.stringify(this.currentArea));
+      this.$store.state.currentArea = this.currentArea;
+    },
+    activateEdit() {
+      this.show = "inline";
+      this.show2 = "none";
+      this.show3 = "none";
+      this.show4 = "none";
+    },
+    saveEdit() {
+      this.show2 = "inline";
+      this.show = "none";
+      this.show3 = "block";
+      this.show4 = "inline";
+      let newDesc = document.getElementById("description").value;
 
-        this.id = this.areas.filter(
-          area => area.id === id
-        )[0].id
-
-        this.descripton = this.areas.filter(
-          area => area.id === id
-        )[0].descripton
-
-        this.areaImg = this.areas.filter(
-          area => area.id === id
-        )[0].img
-
-        return this.areas.filter(
-          area => area.id === id
-        )[0]
-      }, */
-     /*  saveCurrentArea() {
-        this.currentArea = ({
-          areaName: this.areaName,
-          areaImg: this.areaImg
-        });
-        localStorage.setItem("currentArea", JSON.stringify(this.currentArea));
-        this.$store.state.currentArea = this.currentArea
-      },
-      activateEdit() {
-        this.show = "inline"
-        this.show2 = "none"
-        this.show3 = "none"
-        this.show4 = "none"
-
-      }, */
-      /* saveEdit() {
-        this.show2 = "inline"
-        this.show = "none"
-        this.show3 = "block"
-        this.show4 = "inline"
-        let newDesc = document.getElementById('description').value
-
-        for (let a in this.areas) {
-          if (this.areas[a].id === this.id) {
-            if (this.areaNameNew == "") {
-              this.areas[a].description = newDesc
-              localStorage.setItem("areas", JSON.stringify(this.areas));
-            } else {
-              this.areas[a].name = this.areaNameNew
-              this.areas[a].description = newDesc
-              localStorage.setItem("areas", JSON.stringify(this.areas));
-            }
-            Swal.fire({
-              icon: 'success',
-              text: 'Alterado!'
-            })
+      for (let a in this.areas) {
+        if (this.areas[a].id === this.id) {
+          if (this.areaNameNew == "") {
+            this.areas[a].description = newDesc;
+            localStorage.setItem("areas", JSON.stringify(this.areas));
+          } else {
+            this.areas[a].name = this.areaNameNew;
+            this.areas[a].description = newDesc;
+            localStorage.setItem("areas", JSON.stringify(this.areas));
           }
+          Swal.fire({
+            icon: "success",
+            text: "Alterado!"
+          });
         }
-      }, */
-/*       cancelEdit() {
-        this.show2 = "inline"
-        this.show = "none"
-        this.show3 = "block"
-        this.show4 = "inline"
-      }*/
-    } 
+      }
+    },
+    cancelEdit() {
+      this.show2 = "inline";
+      this.show = "none";
+      this.show3 = "block";
+      this.show4 = "inline";
+    }
   }
+};
 </script>
 <style lang="scss" scoped>
-  @font-face {
-    font-family: bookMan;
-    src: url(../assets/bookman.ttf);
-  }
+@font-face {
+  font-family: bookMan;
+  src: url(../assets/bookman.ttf);
+}
 
-  #editTitle {
-    margin: auto;
-    margin-top: 200px;
-  }
+#editTitle {
+  margin: auto;
+  margin-top: 200px;
+}
 
-  .display-2 {
-    padding-top: 160px;
-    padding-bottom: 20px;
-    font-family: bookMan;
-    font-size: 40px;
-    color: #B91C3B;
+.display-2 {
+  padding-top: 160px;
+  padding-bottom: 20px;
+  font-family: bookMan;
+  font-size: 40px;
+  color: #b91c3b;
+}
 
-  }
+.card-title {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #0a2463;
+}
 
-  .card-title {
-    padding-top: 20px;
-    padding-bottom: 10px;
-    font-size: 25px;
-    font-weight: bold;
-    color: #0A2463;
-  }
+img {
+  border-right: solid 10px #0a2463;
+}
 
-  img {
-    border-right: solid 10px #0A2463;
+.btn-book {
+  font-size: 18px;
+  background-color: #0a2463;
+  margin: 20px;
+  margin-top: 50px;
+  transition: all 0.2s ease-in-out;
+}
 
-  }
+.btn-book:hover {
+  transform: scale(1.1);
+}
 
-  .btn-book {
-    font-size: 18px;
-    background-color: #0A2463;
-    margin: 20px;
-    margin-top: 50px;
-    transition: all .2s ease-in-out;
-  }
+.overflow-hidden {
+  -webkit-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
+}
 
-  .btn-book:hover {
-    transform: scale(1.1);
-  }
+.card-img {
+  border-radius: 0 !important;
+}
 
-  .overflow-hidden {
-    -webkit-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
-    -moz-box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
-    box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.12);
-  }
-
-  .card-img {
-    border-radius: 0 !important;
-  }
-
-
-  .card {
-    border-radius: 0 !important;
-  }
+.card {
+  border-radius: 0 !important;
+}
 </style>

@@ -240,8 +240,8 @@ export default new Vuex.Store({
       localStorage.setItem("currentMenu", JSON.stringify(state.currentMenu));
     },
     SET_CURRENT_AREA(state, data) {
-      state.currentArea = data.area
-      localStorage.setItem("currentArea", JSON.stringify(state.currentArea))
+      state.currentArea = data.data[0]
+      localStorage.setItem("currentArea", JSON.stringify(state.currentArea));
     },
     SET_CURRENT_MENU_INGS(state, data) {
       state.currentMenuIngs = data.ingredients
