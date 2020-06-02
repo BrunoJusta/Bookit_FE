@@ -8,11 +8,11 @@
         </div>
 
         <div class="container" style="justify-content: center;">
-            <b-button v-on:click="displayB()" class="teste border-0"
+            <b-button v-on:click="displayBookings()" class="teste border-0"
                 style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: eventsFont}">
                 Eventos & Catering
             </b-button>
-            <b-button v-on:click="displayA()" class="teste border-0"
+            <b-button v-on:click="displayAreaBookings()" class="teste border-0"
                 style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: areasFont}">
                 Espaços
             </b-button>
@@ -26,7 +26,7 @@
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredBookings.slice().reverse()" :fields="fields">
                 <template v-slot:cell(actions)="row">
-                    <b-button size="sm" class="mr-1 showBtn" @click="row.toggleDetails">
+                    <b-button size="sm" class="mr-1 showBtn" @click="row.toggleDetails; getAll(44)">
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
@@ -47,18 +47,25 @@
                                 <p id="listItem" v-if="key === 'duration'"> <b>Duração:</b> {{value}}</p>
                                 <p id="listItem" v-if="key === 'numberPeople'"> <b>Nº Pessoas:</b> {{value}}</p>
                                 <p id="listItem" v-if="key === 'school'"> <b>Local:</b> {{value}}</p>
-                                <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
-                                    {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
-                                    {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
-                                    {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'decor'"> <b>Decoração:</b>
-                                    {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'outfit'"> <b>Farda:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'observations'"> <b>Observações:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
+                            </h9>
+                            <!-- <h9 v-for="(value, key) in row.item" :key="key">
+                                <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
+                                <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
+                            </h9>
+                            <h9 v-for="(value, key) in row.item" :key="key">
+                                <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
+                            </h9> -->
+                            <b id="listItem">Decoração:</b>
+                            <h9 v-for="d in decor" :key="d.booking_id">
+                                <p id="listItem" v-if="d.booking_id == row.item.id">
+                                    {{d.length == ""? 'Nada' : '' + d.name}}</p>
                             </h9>
                         </ul>
                     </b-card>
@@ -89,8 +96,9 @@
                     <b-button size="sm" v-if="row2.item.state == 'Pendente'"
                         @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state !== 'Pendente'" @click="deleteAreaBooking(row2.item.area_booking_id)"
-                        class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
+                    <b-button size="sm" v-if="row2.item.state !== 'Pendente'"
+                        @click="deleteAreaBooking(row2.item.area_booking_id)" class="mr-1 deleteBtn"><i
+                            class="fas fa-trash-alt"></i></b-button>
                 </template>
                 <template v-slot:row-details="row2">
                     <b-card>
@@ -121,6 +129,9 @@
         data: function () {
             return {
                 bookings: [],
+                decor: [],
+                extras: [],
+                addOns: [],
                 areas: [],
                 perPage: 10,
                 currentPage: 1,
@@ -214,16 +225,22 @@
         created() {
             this.getMenuBookings()
             this.getAreaBookings()
+            this.getBookingsDecor()
+            /* this.getBookingsExtra()
+            this.getBookingsAddOns() */
         },
         methods: {
-            displayA() {
+            getAll(id) {
+                alert(id)
+            },
+            displayAreaBookings() {
                 this.bookingTable = "none"
                 this.areasTable = "block"
                 this.eventsFont = "normal"
                 this.areasFont = "bold"
                 this.searchBookings = ""
             },
-            displayB() {
+            displayBookings() {
                 this.areasTable = "none"
                 this.bookingTable = "block"
                 this.eventsFont = "bold"
@@ -234,6 +251,34 @@
                 try {
                     await this.$store.dispatch("fetchMenuBookings");
                     this.bookings = this.getAllMenuBookings.data;
+                } catch (err) {
+                    console.log(err)
+                    alert(err);
+                }
+            },
+            async getBookingsDecor() {
+                try {
+                    await this.$store.dispatch("fetchBookingsDecor");
+                    this.decor = this.getAllBookingsDecor.data;
+                    localStorage.setItem("decor", JSON.stringify(this.decor))
+                } catch (err) {
+                    console.log(err)
+                    alert(err);
+                }
+            },
+            async getBookingsExtra() {
+                try {
+                    await this.$store.dispatch("fetchBookingsExtra");
+                    this.extra = this.getAllBookingsExtra.data;
+                } catch (err) {
+                    console.log(err)
+                    alert(err);
+                }
+            },
+            async getBookingsAddOns() {
+                try {
+                    await this.$store.dispatch("fetchBookingsAddOns");
+                    this.addOns = this.getAllBookingsAddOns.data;
                 } catch (err) {
                     console.log(err)
                     alert(err);
@@ -418,6 +463,9 @@
         computed: {
             ...mapGetters(["getAllMenuBookings"]),
             ...mapGetters(["getAllAreaBookings"]),
+            ...mapGetters(["getAllBookingsDecor"]),
+            ...mapGetters(["getAllBookingsExtra"]),
+            ...mapGetters(["getAllBookingsAddOns"]),
             filteredBookings() {
                 return this.bookings.filter(
                     (booking) => {
@@ -546,7 +594,7 @@
 
     #listItem {
         float: left;
-        padding: 20px;
+        padding: 10px;
     }
 
     .showBtn {

@@ -30,6 +30,57 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async getBookingsDecor() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menuBookings/decor`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getBookingsExtra() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menuBookings/extra`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getBookingsAddOns() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menuBookings/addOns`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async deleteMenuBooking(ID) {
         let user
         if (localStorage.getItem("loggedUser")) {
