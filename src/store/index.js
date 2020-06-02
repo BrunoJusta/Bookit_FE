@@ -20,6 +20,9 @@ export default new Vuex.Store({
     userExists: false,
     userBlocked: false,
     bookings: [],
+    bookingsDecor: [],
+    bookingsExtra: [],
+    bookingsAddOns: [],
     areaBookings: [],
     menuTypes: [],
     ingredients: [],
@@ -163,10 +166,10 @@ export default new Vuex.Store({
     ADD_BOOKING(data) {
       Swal.fire({
         icon: 'success',
-        text: data.message
+        text: "Pedido de reserva enviado"
       })
       router.push({
-        name: 'home'
+        name: 'menuGallery'
       })
     },
     ADD_AREA_BOOKING(state, payload) {
@@ -204,6 +207,15 @@ export default new Vuex.Store({
     },
     SET_MENU_BOOKINGS(state, data) {
       state.bookings = data
+    },
+    SET_BOOKINGS_DECOR(state, data) {
+      state.bookingsDecor = data
+    },
+    SET_BOOKINGS_EXTRA(state, data) {
+      state.bookingsExtra = data
+    },
+    SET_BOOKINGS_ADDONS(state, data) {
+      state.bookingsAddOns = data
     },
     SET_AREA_BOOKINGS(state, data) {
       state.areaBookings = data
@@ -287,6 +299,21 @@ export default new Vuex.Store({
       commit
     }) {
       commit("SET_MENU_BOOKINGS", await bookitService.getMenuBookings())
+    },
+    async fetchBookingsDecor({
+      commit
+    }) {
+      commit("SET_BOOKINGS_DECOR", await bookitService.getBookingsDecor())
+    },
+    async fetchBookingsExtra({
+      commit
+    }) {
+      commit("SET_BOOKINGS_EXTRA", await bookitService.getBookingsExtra())
+    },
+    async fetchBookingsAddOns({
+      commit
+    }) {
+      commit("SET_BOOKINGS_ADDONS", await bookitService.getBookingsAddOns())
     },
     async fetchAreaBookings({
       commit
@@ -392,6 +419,9 @@ export default new Vuex.Store({
   getters: {
     getMenus: state => state.menus,
     getAllMenuBookings: state => state.bookings,
+    getAllBookingsDecor: state => state.bookingsDecor,
+    getAllBookingsExtra: state => state.bookingsExtra,
+    getAllBookingsAddOns: state => state.bookingsAddOns,
     getAllAreaBookings: state => state.areaBookings,
     getMenuTypes: state => state.menuTypes,
     getAreas: state => state.areas,
@@ -451,9 +481,9 @@ export default new Vuex.Store({
     getCurrentKitIng(state) {
       return state.currentKit.menuIng
     },
-/*     getCurrentArea(state) {
-      return state.currentArea.areaName
-    }, */
+    /*     getCurrentArea(state) {
+          return state.currentArea.areaName
+        }, */
     getCurrentKitImg(state) {
       return state.currentKit.kitImg
     },
