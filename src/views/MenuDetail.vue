@@ -1,7 +1,9 @@
 <template>
   <div class="menuDetail">
     <h3 class="display-2" v-bind:style="{display:show3}">{{menu.type}}</h3>
-    <input type="text" v-model="newKitType" name="" :placeholder="menu.type" id="editTitle" v-bind:style="{display:show}">
+     <select id="inputGroupSelect01"  v-model="newKitType" v-bind:style="{display:show}">
+          <option v-for="k in  menuTypes" :key="k" :value="k.menu_type_id">{{k.description}}</option>
+        </select>
     <div class="container">
       <b-card no-body class="border-1" style="max-width: 1100px;">
         <b-row no-gutters>
@@ -11,7 +13,7 @@
           <b-col md="6">
             <b-card-body>
               <h3 class="display-3" v-bind:style="{display:show3}">{{menu.name}}</h3>
-              <input type="text" v-model="newKitName" name="" :placeholder="menu.name" v-bind:style="{display:show}">
+              <input type="text" v-model="newKitName" :placeholder="menu.name" v-bind:style="{display:show}">
               <div class="row">
                 <div class="container" id="showIngredients" v-bind:style="{display: show}">
                   <div class="row">
@@ -19,8 +21,8 @@
                       <h6 class="subtitle">Bebidas</h6>
                       <div v-for="i in this.ingredients" :key="i.ingredient_id">
                         <b-form-group v-if="i.type=='Bebida'">
-                          <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDrinks">
-                            <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                          <b-form-checkbox-group id="checkbox-group-2" v-model="checkedIngs">
+                            <b-form-checkbox :value="i.ingredient_id"> {{i.name}}</b-form-checkbox>
                           </b-form-checkbox-group>
                         </b-form-group>
                       </div>
@@ -31,8 +33,8 @@
                       <h6 class="subtitle">Comida</h6>
                       <div v-for="i in this.ingredients" :key="i.ingredient_id">
                         <b-form-group v-if="i.type=='Comida'">
-                          <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
-                            <b-form-checkbox :value="i.name" unchecked-value=""> {{i.name}}</b-form-checkbox>
+                          <b-form-checkbox-group id="checkbox-group-2" v-model="checkedIngs">
+                            <b-form-checkbox :value="i.ingredient_id" unchecked-value=""> {{i.name}}</b-form-checkbox>
                           </b-form-checkbox-group>
                         </b-form-group>
                       </div>
@@ -77,7 +79,8 @@
 </template>
 
 <script>
-  export default {
+import { mapGetters } from "vuex";
+export default {
     data: function () {
       return {
         kits: [],
@@ -98,10 +101,14 @@
         menu: [],
         food:[],
         drinks:[],
-        userOn: []
+        userOn: [],
+        menuTypes:[]
       };
     },
     created() {
+    this.getAllIngredients();
+    this.getMyMenuTypes();
+
       this.menu = JSON.parse(localStorage.getItem("currentMenu"))
       this.userOn = JSON.parse(localStorage.getItem("loggedUser"))
       this.ingredients = JSON.parse(localStorage.getItem("currentMenuIngs"))
@@ -113,8 +120,30 @@
           this.food.push(this.ingredients[i].name)      
         }
       }
+      
+    },
+    updated(){
+    this.ingredients = this.$store.state.ingredients;
+    this.userType = this.$store.state.loggedUser.userType;
+
     },
      methods: {
+         async getAllIngredients() {
+      try {
+        await this.$store.dispatch("fetchIngredients");
+        this.ingredients = this.getIngredients.data;
+      } catch (err) {
+        alert(err);
+      }
+    },
+     async getMyMenuTypes() {
+      try {
+        await this.$store.dispatch("fetchMenuTypes");
+        this.menuTypes = this.getMenuTypes.data;
+      } catch (err) {
+        alert(err);
+      }
+    },
       saveCurrentKit() {
         this.currentKit = ({
           kitname: this.kitname,
@@ -135,6 +164,18 @@
         this.show = "none"
         this.show3 = "block"
       },
+      async editBooking() {
+      try {
+        await this.$store.dispatch("editBooking", {
+          id: this.menu.id,
+          name: this.newKitName,
+          type: this.newKitType,
+          ings: this.checkedIngs,
+        });
+      } catch (err) {
+        alert(err);
+      }
+    },
       saveEdit() {
         this.show2 = "inline"
         this.show = "none"
@@ -158,22 +199,16 @@
                 this.kits[k].food = this.checkedFood
               }
             }
-            if (this.checkedDrinks.length != 0) {
-              if (this.checkedDrinks.length != 1 && this.checkedDrinks.some(drink => drink === "Sem Bebida")) {
-                Swal.fire({
-                  icon: 'warning',
-                  text: 'Escolha a bebida correta!'
-                })
-              } else {
-                this.kits[k].drinks = this.checkedDrinks
-              }
-            }
             localStorage.setItem("kits", JSON.stringify(this.kits));
           }
         }
       },
     },
     computed: {
+    ...mapGetters(["getIngredients"]),
+    ...mapGetters(["getMenuTypes"]), 
+
+
     }
   }
 </script>
@@ -261,4 +296,13 @@
   #icon {
     padding-right: 6px;
   }
+
+  #inputGroupSelect01 {
+     margin: auto;
+    margin-top: 180px;
+    margin-bottom: 30px;
+  width: 200px;
+  border: 1px solid #c0c0c0;
+  color: #5c5c5c;
+}
 </style>

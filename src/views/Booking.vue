@@ -411,12 +411,6 @@ export default {
         alert(err);
       }
     },
-
-    saveCurrentKit() {
-      this.currentKit = JSON.parse(localStorage.getItem("currentKit"));
-      this.kitName = this.$store.getters.getCurrentKitName;
-      this.kitType = this.$store.getters.getCurrentKitType;
-    },
     displayInfo() {
       this.kitInfo = "block";
       this.addOns = "none";
@@ -562,61 +556,6 @@ export default {
       this.outfitFont = "normal";
       this.resumeFont = "bold";
       window.scrollTo(0, 0);
-    },
-    getLastId() {
-      return this.$store.getters.bookingLastId + 1;
-    },
-    saveBooking() {
-      for (let i in this.kits) {
-        if (
-          this.kits[i].name == this.kitName &&
-          this.kits[i].type == this.kitType
-        ) {
-          this.kits[i].popularity = this.kits[i].popularity + 1;
-        }
-      }
-      localStorage.setItem("kits", JSON.stringify(this.kits));
-      this.$store.commit("ADD_BOOKING", {
-        id: this.getLastId(),
-        userName: this.userName,
-        userEmail: this.userEmail,
-        kitName: this.kitName,
-        kitType: this.kitType,
-        kitImg: this.$store.getters.getCurrentKitImg,
-        reason: this.reason,
-        date: this.date,
-        duration: this.hi + "-" + this.hf,
-        numberPeople: this.people,
-        location: this.location,
-        drinks: this.checkedDrinks,
-        food: this.checkedFood,
-        extras: this.checkedExtras,
-        decor: this.checkedDecor,
-        outfit: this.checkedImage,
-        observation: this.observation,
-        state: "Pendente"
-      });
-      const toast = swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true
-      });
-
-      toast.fire({
-        icon: "success",
-        title: "A sua reserva foi enviada!"
-      });
-      if (this.$store.getters.getUserType !== "admin") {
-        router.push({
-          name: "home"
-        });
-      } else {
-        router.push({
-          name: "adminHome"
-        });
-      }
     },
     chooseOutfit(name) {
       this.checkedImage = name;
