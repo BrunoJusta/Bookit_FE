@@ -20,22 +20,19 @@
               style="max-width: 20rem;"
               class="border-0"
             >
-              <b-button class="btn-book" @click="CurrentArea(a.area_id)" squared>
-               Ver Mais
-              </b-button>
+              <b-button class="btn-book" @click="CurrentArea(a.area_id)" squared>Ver Mais</b-button>
               <b-button
                 @click="deleteArea(a.name)"
                 class="btn-remove border-0"
                 :id="a.id"
-                v-if="show === 'admin'"
                 squared
               >X</b-button>
             </b-card>
+          
           </div>
         </div>
       </div>
     </div>
-    {{areas}}
   </div>
 </template>
 
@@ -54,11 +51,14 @@ export default {
       bookingAreas: [],
       reset: {
         areaName: ""
-      }
+      },
+      userOn: []
     };
   },
   created() {
+    this.userOn = JSON.parse(localStorage.getItem("loggedUser"))
     this.getMyAreas();
+    
     if (this.$store.getters.getName == "Entrar") {
       this.x = "login";
     } else {
@@ -74,57 +74,62 @@ export default {
         alert(err);
       }
     },
-    /* deleteArea(name) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Deseja remover este espaço?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        let checker = false
-                        for (let i = 0; i <= this.areas.length; i++) {
-                            for (let b in this.areaBookings) {
-                                if (name == this.areaBookings[b].areaName && this.areaBookings[b].state ==
-                                    "Aprovado") {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        text: 'Não Pode eliminar um Espaço com Reservas!',
-                                    })
-                                    checker = true
-                                }
-
-                            }
-                            if (checker == false) {
-                                if (this.areas[i].name === name) {
-                                    for (let j in this.users) {
-                                        if (this.users[j].userType === "cliente") {
-                                            this.users[j].notifications.push({
-                                                txt: 'O Espaço' + this.areas[i].name +
-                                                    ' foi removido da galeria de Espaços!'
-                                            })
-                                            localStorage.setItem("users", JSON.stringify(this.users));
-                                        }
-                                    }
-                                    this.areas.splice(i, 1)
-                                    localStorage.setItem("areas", JSON.stringify(this.areas));
-                                    Swal.fire({
-                                        icon: 'success',
-                                        text: 'Espaço eliminado!',
-                                    })
-                                }
-                            }
-
-                        }
-                    }
-                })
-            } */
     async CurrentArea(ID) {
       try {
+        alert(ID);
         await this.$store.dispatch("fetchCurrentArea", { id: ID });
+        console.log(this.$store.dispatch("fetchCurrentArea", { id: ID }))
         this.$router.push({ name: "areaDetail" });
       } catch (err) {
         alert(err);
       }
+    },
+
+    deleteArea(name) {
+      Swal.fire({
+        icon: "warning",
+        text: "Deseja remover este espaço?",
+        showCancelButton: true
+      }).then(result => {
+        if (result.value) {
+          let checker = false;
+          for (let i = 0; i <= this.areas.length; i++) {
+            for (let b in this.areaBookings) {
+              if (
+                name == this.areaBookings[b].areaName &&
+                this.areaBookings[b].state == "Aprovado"
+              ) {
+                Swal.fire({
+                  icon: "error",
+                  text: "Não Pode eliminar um Espaço com Reservas!"
+                });
+                checker = true;
+              }
+            }
+            if (checker == false) {
+              if (this.areas[i].name === name) {
+                for (let j in this.users) {
+                  if (this.users[j].userType === "cliente") {
+                    this.users[j].notifications.push({
+                      txt:
+                        "O Espaço" +
+                        this.areas[i].name +
+                        " foi removido da galeria de Espaços!"
+                    });
+                    localStorage.setItem("users", JSON.stringify(this.users));
+                  }
+                }
+                this.areas.splice(i, 1);
+                localStorage.setItem("areas", JSON.stringify(this.areas));
+                Swal.fire({
+                  icon: "success",
+                  text: "Espaço eliminado!"
+                });
+              }
+            }
+          }
+        }
+      });
     }
   },
   computed: {
