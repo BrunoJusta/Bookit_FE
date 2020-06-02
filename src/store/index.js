@@ -287,6 +287,12 @@ export default new Vuex.Store({
         icon: 'success',
         text: data.message
       })
+    },
+    EDIT_MENU() {
+      Swal.fire({
+        icon: 'success',
+        text: "Menu Atualizado"
+      })
     }
   },
   actions: {
@@ -414,6 +420,11 @@ export default new Vuex.Store({
       commit
     }) {
       commit("SET_OUTFITS", await bookitService.getOutfits())
+    },
+    async editMenu({
+      commit
+    },payload) {
+      commit("EDIT_MENU", await bookitService.editMenu(payload.id, payload.name, payload.type, payload.ings))
     }
   },
   getters: {

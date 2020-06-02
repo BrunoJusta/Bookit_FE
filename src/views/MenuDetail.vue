@@ -58,7 +58,7 @@
       <b-button v-bind:style="{display:show}" @click="cancelEdit()" class="btn-book border-0" squared>
         Cancelar
       </b-button>
-      <b-button v-bind:style="{display:show}" @click="saveEdit()" class="btn-book border-0" squared>
+      <b-button v-bind:style="{display:show}" @click="editMenu()" class="btn-book border-0" squared>
         Guardar
       </b-button>
 
@@ -164,9 +164,10 @@ export default {
         this.show = "none"
         this.show3 = "block"
       },
-      async editBooking() {
+      async editMenu() {
+        alert(this.checkedIngs)
       try {
-        await this.$store.dispatch("editBooking", {
+        await this.$store.dispatch("editMenu", {
           id: this.menu.id,
           name: this.newKitName,
           type: this.newKitType,

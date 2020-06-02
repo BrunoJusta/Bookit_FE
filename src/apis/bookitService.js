@@ -439,6 +439,31 @@ const bookitService = {
         } else {
             throw Error(response.json())
         }
+    },
+    async editMenu(id, name, type, ings){
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menus/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                id: id,
+                name: name,
+                type: type,
+                ings: ings,
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
     }
 }
 export default bookitService;
