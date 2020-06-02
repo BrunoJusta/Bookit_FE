@@ -27,7 +27,7 @@
             Desbloquear
             <i class="fas fa-lock-open"></i>
           </b-button>
-          <b-button size="sm" @click="remove(row.item.user_id)" v-if="row.item.email != $store.getters.getEmail"
+          <b-button size="sm" @click="deleteUser(row.item.user_id)" v-if="row.item.email != $store.getters.getEmail"
             class="mr-1 deleteBtn">
             <i class="fas fa-trash-alt"></i>
           </b-button>
@@ -103,30 +103,14 @@
           alert(err);
         }
       },
-      /*remove(id) {
-        alert(id)
-         Swal.fire({
-          icon: "warning",
-          text: "Deseja remover este utilizador?",
-          showCancelButton: true
-        }).then(result => {
-          if (result.value) {
-            for (let i in this.users) {
-              if (this.users[i].id === id) {
-                this.users = this.users.filter(
-                  user => this.users[i].id != user.id
-                );
-                localStorage.setItem("users", JSON.stringify(this.users));
-                Swal.fire({
-                  icon: "success",
-                  text: "Utilizador removido!"
-                });
-              }
-            }
-          }
-        }); 
+      async deleteUser(ID) {
+        try {
+          await this.$store.dispatch("deleteUser", {id: ID});
+        } catch (err) {
+          alert(err);
+        }
       },
-      block(id) {
+      /*block(id) {
         for (let i in this.users) {
           if (this.users[i].id === id) {
             if (this.users[i].userType !== "bloqueado") {

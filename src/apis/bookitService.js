@@ -159,6 +159,23 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async deleteUser(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}users/${ID}`, {
+            method: "DELETE",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async getCurrentMenu(ID) {
         let user
         if (localStorage.getItem("loggedUser")) {

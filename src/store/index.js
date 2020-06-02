@@ -30,7 +30,7 @@ export default new Vuex.Store({
     token: [],
     currentMenu: [],
     currentMenuIngs: [],
-    currentArea:[]
+    currentArea: []
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -236,41 +236,45 @@ export default new Vuex.Store({
       state.currentMenu = data.menu
       localStorage.setItem("currentMenu", JSON.stringify(state.currentMenu));
     },
-    SET_CURRENT_AREA(state, data){
+    SET_CURRENT_AREA(state, data) {
       state.currentArea = data.area
       localStorage.setItem("currentArea", JSON.stringify(state.currentArea))
     },
-    SET_CURRENT_MENU_INGS(state, data){
+    SET_CURRENT_MENU_INGS(state, data) {
       state.currentMenuIngs = data.ingredients
       localStorage.setItem("currentMenuIngs", JSON.stringify(state.currentMenuIngs))
     },
-    SET_SCHOOLS(state, data){
+    SET_SCHOOLS(state, data) {
       state.schools = data.data
 
     },
-    SET_INGREDIENTS(state, data){
+    SET_INGREDIENTS(state, data) {
       state.ingredients = data.data
 
     },
-    SET_EXTRAS(state, data){
+    SET_EXTRAS(state, data) {
       state.extras = data.data
 
     },
-    SET_DECORATIONS(state, data){
+    SET_DECORATIONS(state, data) {
       state.decor = data.data
 
     },
-    SET_OUTFITS(state, data){
+    SET_OUTFITS(state, data) {
       state.outfits = data.data
 
-    }
-    ,
-    EDIT_USERS(data){
+    },
+    EDIT_USERS(data) {
       Swal.fire({
         icon: 'success',
         text: data.message
       })
-
+    },
+    DELETE_USER(data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
     }
   },
   actions: {
@@ -339,6 +343,11 @@ export default new Vuex.Store({
     }, payload) {
       commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.newType))
     },
+    async deleteUser({
+      commit
+    }, payload) {
+      commit("DELETE_USER", await bookitService.deleteUser(payload.id))
+    },
     async fetchExtras({
       commit
     }) {
@@ -369,9 +378,6 @@ export default new Vuex.Store({
     getExtras: state => state.ingredients,
     getDecorations: state => state.decor,
     getOutfits: state => state.outfits,
-
-
-
     getUserOn(state) {
       if (state.loggedUser.length) {
         state.logged = true
