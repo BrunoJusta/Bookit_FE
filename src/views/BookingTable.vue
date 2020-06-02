@@ -35,9 +35,8 @@
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
                         @click="refuseBooking(row.item.id, row.item.userEmail)" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" @click="removeBooking(row.item.id)" v-if="row.item.state !== 'Pendente'"
+                    <b-button size="sm" @click="deleteMenuBooking(row.item.id)" v-if="row.item.state !== 'Pendente'"
                         class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
-
                 </template>
                 <template v-slot:row-details="row">
                     <b-card>
@@ -47,7 +46,7 @@
                                 <p id="listItem" v-if="key === 'date'"> <b>Data:</b> {{value}}</p>
                                 <p id="listItem" v-if="key === 'duration'"> <b>Duração:</b> {{value}}</p>
                                 <p id="listItem" v-if="key === 'numberPeople'"> <b>Nº Pessoas:</b> {{value}}</p>
-                                <p id="listItem" v-if="key === 'location'"> <b>Local:</b> {{value}}</p>
+                                <p id="listItem" v-if="key === 'school'"> <b>Local:</b> {{value}}</p>
                                 <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
@@ -58,7 +57,7 @@
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'outfit'"> <b>Farda:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'observation'"> <b>Observações:</b>
+                                <p id="listItem" v-if="key === 'observations'"> <b>Observações:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                             </h9>
                         </ul>
@@ -90,7 +89,7 @@
                     <b-button size="sm" v-if="row2.item.state == 'Pendente'"
                         @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state !== 'Pendente'" @click="removeAreaBooking(row2.item.id)"
+                    <b-button size="sm" v-if="row2.item.state !== 'Pendente'" @click="deleteAreaBooking(row2.item.area_booking_id)"
                         class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                 </template>
                 <template v-slot:row-details="row2">
@@ -114,6 +113,9 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
     export default {
         name: "BookingTable",
         data: function () {
@@ -124,11 +126,11 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'kitType',
+                        key: 'menuType',
                         label: "Evento",
                         sortable: true
                     }, {
-                        key: 'kitName',
+                        key: 'menuName',
                         label: "Menu",
                         sortable: true
                     },
@@ -148,7 +150,7 @@
                         sortable: true
                     },
                     {
-                        key: 'userEmail',
+                        key: 'email',
                         label: "Contacto",
                         sortable: false
                     },
@@ -164,7 +166,7 @@
                     },
                 ],
                 fields2: [{
-                        key: 'areaName',
+                        key: 'name',
                         label: "Espaço",
                         sortable: true
                     },
@@ -184,12 +186,12 @@
                         sortable: true
                     },
                     {
-                        key: 'userEmail',
+                        key: 'email',
                         label: "Contacto",
                         sortable: false
                     },
                     {
-                        key: 'state',
+                        key: 'description',
                         label: "Estado",
                         sortable: false
                     },
@@ -210,15 +212,8 @@
             }
         },
         created() {
-            if (localStorage.getItem("bookings")) {
-                this.bookings = JSON.parse(localStorage.getItem("bookings"))
-            }
-            if (localStorage.getItem("areaBookings")) {
-                this.areas = JSON.parse(localStorage.getItem("areaBookings"))
-            }
-            if (localStorage.getItem("users")) {
-                this.users = JSON.parse(localStorage.getItem("users"))
-            }
+            this.getMenuBookings()
+            this.getAreaBookings()
         },
         methods: {
             displayA() {
@@ -235,29 +230,45 @@
                 this.areasFont = "normal"
                 this.searchAreas = ""
             },
-            removeBooking(id) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Quer mesmo remover?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.bookings) {
-                            if (this.bookings[i].id === id) {
-                                this.bookings = this.bookings.filter(booking => this.bookings[i].id != booking
-                                    .id);
-                                localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                                Swal.fire(
-                                    'Removido',
-                                    'Reserva foi removida!',
-                                    'success'
-                                )
-                            }
-                        }
-                    }
-                })
+            async getMenuBookings() {
+                try {
+                    await this.$store.dispatch("fetchMenuBookings");
+                    this.bookings = this.getAllMenuBookings.data;
+                } catch (err) {
+                    console.log(err)
+                    alert(err);
+                }
             },
-            removeAreaBooking(id) {
+            async getAreaBookings() {
+                try {
+                    await this.$store.dispatch("fetchAreaBookings");
+                    this.areas = this.getAllAreaBookings.data;
+                } catch (err) {
+                    console.log(err)
+                    alert(err);
+                }
+            },
+            async deleteMenuBooking(ID) {
+                try {
+                    await this.$store.dispatch("deleteMenuBooking", {
+                        id: ID
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getMenuBookings()
+            },
+            async deleteAreaBooking(ID) {
+                try {
+                    await this.$store.dispatch("deleteAreaBooking", {
+                        id: ID
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAreaBookings()
+            },
+            /*removeAreaBooking(id) {
                 Swal.fire({
                     icon: 'warning',
                     text: 'Quer mesmo remover?',
@@ -422,9 +433,11 @@
                         }
                     }
                 })
-            }
+            } */
         },
         computed: {
+            ...mapGetters(["getAllMenuBookings"]),
+            ...mapGetters(["getAllAreaBookings"]),
             filteredBookings() {
                 return this.bookings.filter(
                     (booking) => {
@@ -432,15 +445,15 @@
                         if (this.searchBookings == "") {
                             return filterRunResult
                         }
-                        //por menu
-                        if (booking.kitName.toLowerCase().includes(this.searchBookings.toLowerCase())) {
-                            filterRunResult = booking.kitName.toLowerCase().includes(this.searchBookings
+                        //por evento
+                        if (booking.menuType.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.menuType.toLowerCase().includes(this.searchBookings
                                 .toLowerCase())
                             return filterRunResult
                         }
-                        //por evento
-                        if (booking.kitType.toLowerCase().includes(this.searchBookings.toLowerCase())) {
-                            filterRunResult = booking.kitType.toLowerCase().includes(this.searchBookings
+                        //por menu
+                        if (booking.menuName.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.menuName.toLowerCase().includes(this.searchBookings
                                 .toLowerCase())
                             return filterRunResult
                         }
@@ -451,8 +464,8 @@
                             return filterRunResult
                         }
                         //por email
-                        if (booking.userEmail.toLowerCase().includes(this.searchBookings.toLowerCase())) {
-                            filterRunResult = booking.userEmail.toLowerCase().includes(this.searchBookings
+                        if (booking.email.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.email.toLowerCase().includes(this.searchBookings
                                 .toLowerCase())
                             return filterRunResult
                         }
@@ -467,8 +480,8 @@
                             return filterRunResult
                         }
                         //por espaço
-                        if (area.areaName.toLowerCase().includes(this.searchAreas.toLowerCase())) {
-                            filterRunResult = area.areaName.toLowerCase().includes(this.searchAreas
+                        if (area.name.toLowerCase().includes(this.searchAreas.toLowerCase())) {
+                            filterRunResult = area.name.toLowerCase().includes(this.searchAreas
                                 .toLowerCase())
                             return filterRunResult
                         }
@@ -479,8 +492,8 @@
                             return filterRunResult
                         }
                         //por email
-                        if (area.userEmail.toLowerCase().includes(this.searchAreas.toLowerCase())) {
-                            filterRunResult = area.userEmail.toLowerCase().includes(this.searchAreas
+                        if (area.email.toLowerCase().includes(this.searchAreas.toLowerCase())) {
+                            filterRunResult = area.email.toLowerCase().includes(this.searchAreas
                                 .toLowerCase())
                             return filterRunResult
                         }

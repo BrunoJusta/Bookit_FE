@@ -98,17 +98,23 @@
       },
       async editUsers(id, newType) {
         try {
-          await this.$store.dispatch("editUsers", {id: id, newType: newType});
+          await this.$store.dispatch("editUsers", {
+            id: id,
+            newType: newType
+          });
         } catch (err) {
           alert(err);
         }
       },
       async deleteUser(ID) {
         try {
-          await this.$store.dispatch("deleteUser", {id: ID});
+          await this.$store.dispatch("deleteUser", {
+            id: ID
+          });
         } catch (err) {
           alert(err);
         }
+        this.getUsers()
       },
       /*block(id) {
         for (let i in this.users) {

@@ -71,10 +71,8 @@ export default new Vuex.Store({
       router.push({
         name: 'login'
       })
-
     },
     LOGIN(state, data) {
-
       state.loggedUser = data.user
       localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
       if (state.loggedUser.type === 0) {
@@ -90,7 +88,6 @@ export default new Vuex.Store({
         })
         router.push("/")
       }
-
     },
     LOGOUT(state) {
       bookitService.logout()
@@ -220,6 +217,12 @@ export default new Vuex.Store({
     SET_MENUS(state, data) {
       state.menus = data
     },
+    SET_MENU_BOOKINGS(state, data) {
+      state.bookings = data
+    },
+    SET_AREA_BOOKINGS(state, data) {
+      state.areaBookings = data
+    },
     SET_MENU_TYPES(state, data) {
       state.menuTypes = data
     },
@@ -275,6 +278,18 @@ export default new Vuex.Store({
         icon: 'success',
         text: data.message
       })
+    },
+    DELETE_MENU_BOOKING(data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
+    },
+    DELETE_AREA_BOOKING(data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
     }
   },
   actions: {
@@ -282,6 +297,16 @@ export default new Vuex.Store({
       commit
     }) {
       commit("SET_MENUS", await bookitService.getMenus())
+    },
+    async fetchMenuBookings({
+      commit
+    }) {
+      commit("SET_MENU_BOOKINGS", await bookitService.getMenuBookings())
+    },
+    async fetchAreaBookings({
+      commit
+    }) {
+      commit("SET_AREA_BOOKINGS", await bookitService.getAreaBookings())
     },
     async fetchSchools({
       commit
@@ -348,6 +373,16 @@ export default new Vuex.Store({
     }, payload) {
       commit("DELETE_USER", await bookitService.deleteUser(payload.id))
     },
+    async deleteMenuBooking({
+      commit
+    }, payload) {
+      commit("DELETE_MENU_BOOKING", await bookitService.deleteMenuBooking(payload.id))
+    },
+    async deleteAreaBooking({
+      commit
+    }, payload) {
+      commit("DELETE_AREA_BOOKING", await bookitService.deleteAreaBooking(payload.id))
+    },
     async fetchExtras({
       commit
     }) {
@@ -366,6 +401,8 @@ export default new Vuex.Store({
   },
   getters: {
     getMenus: state => state.menus,
+    getAllMenuBookings: state => state.bookings,
+    getAllAreaBookings: state => state.areaBookings,
     getMenuTypes: state => state.menuTypes,
     getAreas: state => state.areas,
     getSchools: state => state.schools,

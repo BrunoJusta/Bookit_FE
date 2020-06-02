@@ -13,6 +13,74 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async getMenuBookings() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menuBookings`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async deleteMenuBooking(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menuBookings/${ID}`, {
+            method: "DELETE",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getAreaBookings() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}areasBookings`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async deleteAreaBooking(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}areasBookings/${ID}`, {
+            method: "DELETE",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async getMenuTypes() {
         const response = await fetch(`${API_URL}menuTypes`, {
             method: "GET"
