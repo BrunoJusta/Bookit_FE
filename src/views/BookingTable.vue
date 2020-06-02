@@ -268,27 +268,7 @@
                 }
                 this.getAreaBookings()
             },
-            /*removeAreaBooking(id) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Quer mesmo remover?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.areas) {
-                            if (this.areas[i].id === id) {
-                                this.areas = this.areas.filter(area => this.areas[i].id != area.id);
-                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Removido'
-                                })
-                            }
-                        }
-                    }
-                })
-            },
-            acceptBooking(id, userEmail) {
+            /*acceptBooking(id, userEmail) {
                 Swal.fire({
                     icon: 'warning',
                     text: 'Aceitar esta reserva?',
