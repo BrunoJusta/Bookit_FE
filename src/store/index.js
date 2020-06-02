@@ -296,6 +296,12 @@ export default new Vuex.Store({
       router.push({
         name: 'menuGallery'
       })
+    },
+    DELETE_MENU() {
+      Swal.fire({
+        icon: 'success',
+        text: "Menu Eliminado"
+      })
     }
   },
   actions: {
@@ -398,6 +404,11 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("DELETE_USER", await bookitService.deleteUser(payload.id))
+    },
+    async deleteMenu({
+      commit
+    }, payload) {
+      commit("DELETE_MENU", await bookitService.deleteMenu(payload.id))
     },
     async deleteMenuBooking({
       commit

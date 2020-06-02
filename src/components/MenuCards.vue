@@ -1,18 +1,16 @@
 <template>
   <div>
-    <div v-if="this.userType == 'admin'" class="container">
+    <!---------------- Filtros Admin ---------------->
+    <div v-if="this.userType == 0" class="container">
       <div class="row filters" style="margin:auto;max-width: 680px;">
-        <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
+        <!-- Filtrar Por Tipo-->
+        <select id="inputGroupSelect01" @change="filteredMenus()" v-model="selectTxt">
           <option selected>Todos</option>
-          <option v-for="k in  menuTypes" :key="k" :value="k.description">{{k.description}}</option>
+          <option v-for="type in  menuTypes" :key="type.menu_type_id" :value="type.description">{{type.description}}</option>
         </select>
-        <b-form-input
-          size="sm"
-          class="mr-sm rounded-0"
-          id="searchInput"
-          v-model="searchTxt"
-          placeholder="Nome do Menu..."
-        ></b-form-input>
+        <!----------------Filtrar por Nome  ---------------->
+        <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt" placeholder="Nome do Menu..."></b-form-input>
+        <!-- Filtrar por Popularidade--> 
         <select id="inputGroupSelect02" @change="orderKits()" v-model="orderTxt">
           <option value disabled selected hidden>Ordenar por:</option>
           <option>Data de Criação</option>
@@ -20,79 +18,50 @@
         </select>
       </div>
     </div>
+    <!---------------- Filtros User ---------------->
     <div v-else class="container">
       <div class="row filters" style="margin:auto;max-width: 460px;">
-        <select id="inputGroupSelect01" @change="filteredKits()" v-model="selectTxt">
+        <!---------------- Filtrar Por Tipo ---------------->
+        <select id="inputGroupSelect01" @change="filteredMenus()" v-model="selectTxt">
           <option selected>Todos</option>
-          <option v-for="k in  menuTypes" :key="k" :value="k.description">{{k.description}}</option>
+          <option v-for="type in  menuTypes" :key="type.menu_type_id" :value="type.description">{{type.description}}</option>
         </select>
-        <b-form-input
-          size="sm"
-          class="mr-sm rounded-0"
-          id="searchInput"
-          v-model="searchTxt"
-          placeholder="Nome do Menu..."
-        ></b-form-input>
-        <select
-          v-if="this.userType == 'admin'"
-          id="inputGroupSelect02"
-          @change="orderKits()"
-          v-model="orderTxt"
-        >
+        <!---------------- Filtrar por Nome  ---------------->
+        <b-form-input size="sm" class="mr-sm rounded-0" id="searchInput" v-model="searchTxt" placeholder="Nome do Menu..."></b-form-input>
+        <select v-if="this.userType == 0" id="inputGroupSelect02"@change="orderKits()" v-model="orderTxt">
           <option value disabled selected hidden>Ordenar por:</option>
           <option>Data de Criação</option>
           <option>Popularidade</option>
         </select>
       </div>
     </div>
-
-    <div id="CoffeeBreaks" class="container">
-      <div v-if="this.userType == 'admin'" class="row">
-        <div class="col-sm-4" style="min-width: 16rem" v-for="k in  filteredKits" :key="k.menu_id">
+    <!---------------- Criador de Cartas ---------------->
+    <div class="container">
+      <!---------------- Cartas Admin ---------------->
+      <div v-if="this.userType == 0" class="row">
+        <div class="col-sm-4" style="min-width: 16rem" v-for="menu in  filteredMenus" :key="menu.menu_id">
           <div id="card-maker">
-            <b-card
-              :title="k.name + ' - ' + k.description"
-              style="max-width: 20rem; min-width: 14rem;"
-              :img-src="k.img"
-              img-height="180rem"
-              class="mb-2 border-0"
-            >
-              <p align="right" style="padding-top:20px; margin-bottom: -40px; color: #0A2463">
+            <b-card :title="menu.name + ' - ' + menu.description" style="max-width: 20rem; min-width: 14rem;" :img-src="menu.img" img-height="180rem" class="mb-2 border-0">
+              <p align="right" style="padding-top:20px; margin-bottom: -40px;">
                 <img style="width:20px; padding-bottom: 5px;" src="../assets/star.svg" alt srcset />
-                {{k.popularity}}
+                {{menu.popularity}}
               </p>
-                <b-button class="btn-book" @click="CurrentMenu(k.menu_id)" squared>
-                Ver Mais
-              </b-button>
-              <b-button
-                @click="deleteKit(k.name, k.type)"
-                class="btn-remove border-0"
-                :id="k.id"
-                v-bind:style="{visibility: remove}"
-                squared
-              >X</b-button>
+              <b-button class="btn-book" @click="CurrentMenu(menu.menu_id)" squared>Ver Mais</b-button>
+              <b-button @click="deleteMenu(menu.menu_id)" class="btn-remove border-0" :id="menu.menu_id" v-bind:style="{visibility: remove}" squared>X</b-button>
             </b-card>
           </div>
         </div>
       </div>
-     <div v-else class="row">
-        <div class="col-sm-4" style="min-width: 16rem" v-for="k in filteredKits" :key="k.menu_id">
+      <!---------------- Cartas User ---------------->
+     <div v-if="this.userType == 1" class="row">
+        <div class="col-sm-4" style="min-width: 16rem" v-for="menu in filteredMenus" :key="menu.menu_id">
           <div id="card-maker">
-            <b-card
-              :title="k.name + ' - ' + k.description"
-              style="max-width: 20rem; min-width: 14rem"
-              :img-src="k.img"
-              img-height="180rem"
-              class="mb-2 border-0"
-            >
-              <b-button class="btn-book" @click="CurrentMenu(k.menu_id)" squared>
-                Ver Mais
-              </b-button>
+            <b-card :title="menu.name + ' - ' + menu.description" style="max-width: 20rem; min-width: 14rem" :img-src="menu.img" img-height="180rem" class="mb-2 border-0">
+              <b-button class="btn-book" @click="CurrentMenu(menu.menu_id)" squared>Ver Mais </b-button>
             </b-card>
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -101,49 +70,30 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "KitGallery",
-
   data: function() {
     return {
       menus: [],
       menuTypes: [],
-      x: "",
-      onlineUser: "",
       remove: "",
       userType: "",
-      choose: "",
       users: [],
       searchTxt: "",
       selectTxt: "Todos",
       orderTxt: "",
-      bookings: [],
-      reset: {
-        kitname: "",
-        kitType: ""
-      }
     };
   },
   created() {
     this.getMyMenus();
     this.getMyMenuTypes();
-    if (this.$store.getters.getName == "Entrar") {
-      this.x = "login";
-    } else {
-      this.x = "menuDetail";
-    }
-
     if (localStorage.getItem("users")) {
       this.$store.state.users = JSON.parse(localStorage.getItem("users"));
     }
-    if (localStorage.getItem("bookings")) {
-      this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"));
-    }
-    this.bookings = this.$store.state.bookings;
     this.users = this.$store.state.users;
     this.menuTypes = this.$store.state.menuTypes;
-    this.userType = this.$store.state.loggedUser.userType;
+    this.userType = this.$store.state.loggedUser.type;
   },
   methods: {
+    // GET Menus
     async getMyMenus() {
       try {
         await this.$store.dispatch("fetchMenus");
@@ -152,6 +102,7 @@ export default {
         alert(err);
       }
     },
+    // GET Tipos de Menu
     async getMyMenuTypes() {
       try {
         await this.$store.dispatch("fetchMenuTypes");
@@ -160,6 +111,37 @@ export default {
         alert(err);
       }
     },
+    // GET Menu Especifico para Ver Mais
+    async CurrentMenu(ID) {
+      try {
+        localStorage.removeItem("currentMenuIngs")
+        await this.$store.dispatch("fetchCurrentMenu", {id: ID});
+        this.CurrentMenuIngs(ID)
+      } catch (err) {
+         this.$router.push({
+        name: 'login'
+      })
+      }
+    },
+    // GET Ingredientes do Menu Especifico para Ver Mais
+      async CurrentMenuIngs(id) {
+      try {
+        await this.$store.dispatch("fetchCurrentMenuIngs", {id: id});
+        this.$router.push({name:"menuDetail"})
+      } catch (err) {
+        alert(err);
+      }
+    },
+    // DElETE Menu
+      async deleteMenu(id) {
+      try {
+        await this.$store.dispatch("deleteMenu", {id: id});
+        this.getMyMenus()
+      } catch (err) {
+        alert(err);
+      }
+    },
+    // Filtro de Popularidade
     orderKits() {
       if (this.orderTxt == "Data de Criação") {
         this.clearFilters();
@@ -179,32 +161,13 @@ export default {
     },
     filterByPopularity() {
       this.menus.sort(this.comparePopularity);
-    },
-    async CurrentMenu(ID) {
-      try {
-        localStorage.removeItem("currentMenuIngs")
-        await this.$store.dispatch("fetchCurrentMenu", {id: ID});
-        this.CurrentMenuIngs(ID)
-      } catch (err) {
-        alert(err);
-      }
-    },
-      async CurrentMenuIngs(id) {
-      try {
-        await this.$store.dispatch("fetchCurrentMenuIngs", {id: id});
-        this.$router.push({name:"menuDetail"})
-      } catch (err) {
-        alert(err);
-      }
     }
   },
   computed: {
     ...mapGetters(["getMenus"]),
     ...mapGetters(["getMenuTypes"]), 
-    searchKits() {
-      return this.menus;
-    },
-    filteredKits() {
+    // Pesquisar pelo nome do Menu
+    filteredMenus() {
       if (this.searchTxt != "" || this.selectTxt != "Todos") {
         return this.menus.filter(kit => {
           let filterResult = true;

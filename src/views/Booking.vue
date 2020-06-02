@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="menuNameType">{{this.currentKitType}} - {{this.currentKitName}}</h3>
+    <h3 class="menuNameType">{{this.currentMenuType}} - {{this.currentMenuName}}</h3>
     <div class="container span">
       <span v-bind:style="{fontWeight: kitInfoFont}">Informações</span>
       <span v-bind:style="{fontWeight: addOnsFont}">Complementos</span>
@@ -15,15 +15,7 @@
           <div class="col-sm-5">
             <div class="form-group">
               <label for="reason" class="lable">Motivo</label>
-              <textarea
-                class="form-control rounded-0"
-                style="resize: none;"
-                id="reason"
-                v-model="reason"
-                rows="4"
-                cols="50"
-                required
-              ></textarea>
+              <textarea class="form-control rounded-0" style="resize: none;" id="reason" v-model="reason" rows="4" cols="50" required></textarea>
             </div>
           </div>
           <div class="col-sm-3">
@@ -33,11 +25,7 @@
             </b-form-group>
             <label class="lable" for="schools">Local</label>
             <select id="schools" class="rounded-0" v-model="location">
-              <option
-                v-for="school in schools"
-                :key="school.school_id"
-                :value="school.school_id"
-              >{{school.school}}</option>
+              <option v-for="school in schools" :key="school.school_id" :value="school.school_id">{{school.school}}</option>
             </select>
           </div>
           <div class="col-sm-2">
@@ -53,33 +41,18 @@
           <div class="col-sm-2">
             <b-form-group class="input" id="input-group-6">
               <label class="lable" for="people">Número de Pessoas</label>
-              <b-form-input
-                type="number"
-                id="people"
-                min="20"
-                max="50"
-                class="rounded-0"
-                v-model="people"
-                required
-              ></b-form-input>
+              <b-form-input type="number" id="people" min="20" max="50" class="rounded-0" v-model="people" required></b-form-input>
             </b-form-group>
           </div>
         </div>
-        <button
-          type="button"
-          v-on:click="displayAddOns()"
-          class="btn btn-primary border-0 rounded-0"
-          v-bind:style="{fontWeight: extraFont}"
-        >Seguinte</button>
+        <button type="button" v-on:click="displayAddOns()" class="btn btn-primary border-0 rounded-0" v-bind:style="{fontWeight: extraFont}">Seguinte</button>
       </div>
       <div class="container" v-bind:style="{display: addOns}">
         <div class="row">
           <div align="right" class="col-sm-5">
             <h4 class="subtitle">Bebidas</h4>
             <div v-for="i in ingredients" :key="i.ingredient_id">
-              <b-form-group
-                v-if="i.type=='Bebida' && i.name !== 'Sem Bebida' && !menuIngs.includes(i.name)"
-              >
+              <b-form-group v-if="i.type=='Bebida' && i.name !== 'Sem Bebida' && !menuIngs.includes(i.name)">
                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedIngs">
                   <b-form-checkbox :value="i.ingredient_id">{{i.name}}</b-form-checkbox>
                 </b-form-checkbox-group>
@@ -90,9 +63,7 @@
           <div align="left" class="col-sm-5">
             <h4 class="subtitle">Comida</h4>
             <div v-for="i in ingredients" :key="i.ingredient_id">
-              <b-form-group
-                v-if="i.type=='Comida' && i.name !== 'Sem Comida' && !menuIngs.includes(i.name)"
-              >
+              <b-form-group v-if="i.type=='Comida' && i.name !== 'Sem Comida' && !menuIngs.includes(i.name)">
                 <b-form-checkbox-group id="checkbox-group-2" v-model="checkedIngs">
                   <b-form-checkbox :value="i.ingredient_id">{{i.name}}</b-form-checkbox>
                 </b-form-checkbox-group>
@@ -100,190 +71,78 @@
             </div>
           </div>
         </div>
-        <button
-          type="button"
-          v-on:click="displayInfo()"
-          class="btn btn-primary border-0 rounded-0"
-          v-bind:style="{fontWeight: kitInfoFont}"
-        >Anterior</button>
-        <button
-          type="button"
-          v-on:click="displayExtras()"
-          class="btn btn-primary border-0 rounded-0"
-          v-bind:style="{fontWeight: extraFont}"
-        >Seguinte</button>
+        <button type="button" v-on:click="displayInfo()" class="btn btn-primary border-0 rounded-0" v-bind:style="{fontWeight: kitInfoFont}">Anterior</button>
+        <button type="button" v-on:click="displayExtras()" class="btn btn-primary border-0 rounded-0" v-bind:style="{fontWeight: extraFont}">Seguinte</button>
       </div>
       <div class="container" v-bind:style="{display: extra}">
-        <div
-          class="container"
-          style="max-width:200px;"
-          align="left"
-          v-for="i in searchExtras"
-          :key="i.extra_id"
-        >
+        <div class="container" style="max-width:200px;" align="left" v-for="i in searchExtras" :key="i.extra_id">
           <b-form-group>
             <b-form-checkbox-group id="checkbox-group-2" v-model="checkedExtras">
               <b-form-checkbox :value="i.extra_id">{{i.name}}</b-form-checkbox>
             </b-form-checkbox-group>
           </b-form-group>
         </div>
-        <button
-          type="button"
-          v-on:click="displayAddOns()"
-          class="btn btn-primary border-0 rounded-0"
-          v-bind:style="{fontWeight: kitInfoFont}"
-        >Anterior</button>
-        <button
-          type="button"
-          v-on:click="displayDecor()"
-          class="btn btn-primary border-0 rounded-0"
-          v-bind:style="{fontWeight: extraFont}"
-        >Seguinte</button>
+        <button type="button" v-on:click="displayAddOns()" class="btn btn-primary border-0 rounded-0" v-bind:style="{fontWeight: kitInfoFont}">Anterior</button>
+        <button type="button"  v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0"  v-bind:style="{fontWeight: extraFont}">Seguinte</button>
       </div>
       <div class="container" v-bind:style="{display: decors}">
-        <div
-          class="container"
-          style="max-width:250px;"
-          align="left"
-          v-for="i in searchDecor"
-          :key="i.decoration_id"
-        >
+        <div class="container" style="max-width:250px;" align="left" v-for="i in searchDecor" :key="i.decoration_id">
           <b-form-group>
             <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDecor">
               <b-form-checkbox :value="i.decoration_id">{{i.name}}</b-form-checkbox>
             </b-form-checkbox-group>
           </b-form-group>
         </div>
-        <button
-          type="button"
-          v-on:click="displayExtras()"
-          class="btn btn-primary border-0 rounded-0"
-          v-bind:style="{fontWeight: kitInfoFont}"
-        >Anterior</button>
-        <button
-          type="button"
-          v-on:click="displayOutfit()"
-          class="btn btn-primary border-0 rounded-0"
-          v-bind:style="{fontWeight: extraFont}"
-        >Seguinte</button>
+        <button type="button" v-on:click="displayExtras()" class="btn btn-primary border-0 rounded-0" v-bind:style="{fontWeight: kitInfoFont}">Anterior</button>
+        <button type="button" v-on:click="displayOutfit()" class="btn btn-primary border-0 rounded-0" v-bind:style="{fontWeight: extraFont}">Seguinte</button>
       </div>
       <div class="container" v-bind:style="{display: outfit}">
         <div class="row">
           <div v-for="i in searchOutfits" :key="i.outfit_id" class="col-sm-2">
-            <button
-              type="button"
-              style="background-color:transparent"
-              class="border-0"
-              @click="chooseOutfit(i.outfit_id)"
-            >
+            <button type="button" style="background-color:transparent" class="border-0" @click="chooseOutfit(i.outfit_id)">
               <img style="height:230px; width:auto" id="btnImg" v-bind:src="i.img" />
             </button>
           </div>
         </div>
-        <button
-          type="button"
-          v-on:click="displayDecor()"
-          class="btn btn-primary border-0 rounded-0"
-          v-bind:style="{fontWeight: kitInfoFont}"
-        >Anterior</button>
+        <button type="button" v-on:click="displayDecor()" class="btn btn-primary border-0 rounded-0" v-bind:style="{fontWeight: kitInfoFont}">Anterior</button>
       </div>
       <div class="container" v-bind:style="{display: resume}">
         <div class="row">
           <div align="left" class="col-sm-4">
-            <p v-if="reason != ''">
-              <b>Motivo</b>
-              {{reason}}
-            </p>
-            <p v-if="date != ''">
-              <b>Data</b>
-              {{date}}
-            </p>
-            <p v-if="hf != ''">
-              <b>Duração</b>
-              {{hi}} - {{hf}}
-            </p>
-            <p v-if="people != ''">
-              <b>Nº Pessoas</b>
-              {{people}}
-            </p>
+            <p v-if="reason != ''"><b>Motivo</b>{{reason}}</p>
+            <p v-if="date != ''"><b>Data</b>{{date}}</p>
+            <p v-if="hf != ''"><b>Duração</b>{{hi}} - {{hf}}</p>
+            <p v-if="people != ''"><b>Nº Pessoas</b>{{people}}</p>
           </div>
           <div align="left" class="col-sm-4">
-            <p v-if="location != ''">
-              <b>Local</b>
-              {{location}}
-            </p>
-            <p v-if="checkedIngs.length != 0">
-              <b>Comida</b>
-              {{ checkedIngs.length == 0 ? 'Fechar' : '' + checkedIngs }}
-            </p>
-            <p v-if="checkedIngs.length != 0">
-              <b>Bebida</b>
-              {{ checkedIngs.length == 0 ? 'Fechar' : '' + checkedIngs }}
-            </p>
+            <p v-if="location != ''"><b>Local</b>{{location}}</p>
+            <p v-if="checkedIngs.length != 0"><b>Comida</b>{{ checkedIngs.length == 0 ? 'Fechar' : '' + checkedIngs }}</p>
+            <p v-if="checkedIngs.length != 0"><b>Bebida</b>{{ checkedIngs.length == 0 ? 'Fechar' : '' + checkedIngs }}</p>
           </div>
           <div align="left" class="col-sm-4">
-            <p v-if="checkedExtras.length != 0">
-              <b>Extras</b>
-              {{ checkedExtras.length == 0 ? 'Fechar' : '' + checkedExtras }}
-            </p>
-            <p v-if="checkedDecor.length != 0">
-              <b>Decoração</b>
-              {{ checkedDecor.length == 0 ? 'Fechar' : '' + checkedDecor }}
-            </p>
-            <p v-if="checkedImage.length != 0">
-              <b>Farda</b>
-              {{ checkedImage.length == 0 ? 'Fechar' : '' + checkedImage }}
-            </p>
+            <p v-if="checkedExtras.length != 0"><b>Extras</b>{{ checkedExtras.length == 0 ? 'Fechar' : '' + checkedExtras }}</p>
+            <p v-if="checkedDecor.length != 0"><b>Decoração</b>{{ checkedDecor.length == 0 ? 'Fechar' : '' + checkedDecor }}</p>
+            <p v-if="checkedImage.length != 0"><b>Farda</b>{{ checkedImage.length == 0 ? 'Fechar' : '' + checkedImage }}</p>
           </div>
         </div>
         <div class="row">
           <div class="form-group observation">
             <label for="observation" class="lable">Observações</label>
-            <textarea
-              class="form-control rounded-0"
-              style="resize: none;"
-              id="observation"
-              v-model="observation"
-              rows="4"
-              cols="50"
-            ></textarea>
+            <textarea class="form-control rounded-0" style="resize: none;" id="observation" v-model="observation" rows="4" cols="50"></textarea>
           </div>
         </div>
-        <button
-          type="button"
-          v-on:click="displayOutfit()"
-          class="btn btn-primary border-0 rounded-0"
-          v-bind:style="{fontWeight: kitInfoFont}"
-        >Anterior</button>
-        <b-button
-          type="submit"
-          @click="saveCurrentKit()"
-          value="Adicionar"
-          class="btn btn-primary border-0"
-          squared
-        >Confirmar</b-button>
+        <button type="button" v-on:click="displayOutfit()" class="btn btn-primary border-0 rounded-0" v-bind:style="{fontWeight: kitInfoFont}">Anterior</button>
+        <b-button type="submit" @click="saveCurrentKit()" value="Adicionar" class="btn btn-primary border-0" squared>Confirmar</b-button>
       </div>
     </form>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
   </div>
 </template>
 
 <script>
-import router from "../router";
 import { mapGetters } from "vuex";
 export default {
   data: function() {
     return {
-      userName: "",
-      userEmail: "",
-      currentKit: [],
-      kitName: "",
-      kitType: "",
-      kitImg: "",
       kitInfo: "block",
       addOns: "none",
       extra: "none",
@@ -312,10 +171,9 @@ export default {
       checkedImage: "",
       schools: [],
       location: "",
-      kits: [],
       menuIngs: [],
-      currentKitType: "",
-      currentKitName: "",
+      currentMenuType: "",
+      currentMenuName: "",
       userOn: [],
       menu:[]
     };
@@ -334,8 +192,8 @@ export default {
         localStorage.getItem("currentMenu")
       );
     }
-    this.currentKitType = this.$store.state.currentMenu.type;
-    this.currentKitName = this.$store.state.currentMenu.name;
+    this.currentMenuType = this.$store.state.currentMenu.type;
+    this.currentMenuName = this.$store.state.currentMenu.name;
     this.extras = this.$store.state.extras;
     this.decor = this.$store.state.decor;
     this.outfits = this.$store.state.outfits;
@@ -347,7 +205,6 @@ export default {
     this.extras = this.$store.state.extras;
     this.decor = this.$store.state.decor;
     this.outfits = this.$store.state.outfits;
-
   },
   methods: {
     async getAllSchools() {
@@ -577,9 +434,6 @@ export default {
     searchOutfits() {
       return this.outfits;
     },
-    searchCurrentKit() {
-      return this.currentKit;
-    }
   }
 };
 </script>

@@ -52,7 +52,7 @@
                                 <p id="listItem" v-if="key === 'observations'"> <b>Observações:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                             </h9>
-                            <!-- <h9 v-for="(value, key) in row.item" :key="key">
+                            <h9 v-for="(value, key) in row.item" :key="key">
                                 <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
@@ -61,7 +61,7 @@
                             <h9 v-for="(value, key) in row.item" :key="key">
                                 <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                            </h9> -->
+                            </h9>
                             <b id="listItem">Decoração:</b>
                             <h9 v-for="d in decor" :key="d.booking_id">
                                 <p id="listItem" v-if="d.booking_id == row.item.id">
