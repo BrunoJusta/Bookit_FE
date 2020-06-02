@@ -2,7 +2,7 @@
   <div class="menuDetail">
     <h3 class="display-2" v-bind:style="{display:show3}">{{menu.type}}</h3>
      <select id="inputGroupSelect01"  v-model="newKitType" v-bind:style="{display:show}">
-          <option v-for="k in  menuTypes" :key="k" :value="k.menu_type_id">{{k.description}}</option>
+          <option v-for="k in  menuTypes" :key="k" :value="k.description">{{k.description}}</option>
         </select>
     <div class="container">
       <b-card no-body class="border-1" style="max-width: 1100px;">
@@ -97,6 +97,7 @@ export default {
         newKitName: "",
         checkedDrinks: [],
         checkedFood: [],
+        checkedIngs: [],
         menuIng: [],
         menu: [],
         food:[],
@@ -120,12 +121,13 @@ export default {
           this.food.push(this.ingredients[i].name)      
         }
       }
+      this.newKitName = this.menu.name
+      this.newKitType = this.menu.type
       
     },
     updated(){
     this.ingredients = this.$store.state.ingredients;
     this.userType = this.$store.state.loggedUser.userType;
-
     },
      methods: {
          async getAllIngredients() {
@@ -165,7 +167,8 @@ export default {
         this.show3 = "block"
       },
       async editMenu() {
-        alert(this.checkedIngs)
+            alert(this.checkedIngs)
+
       try {
         await this.$store.dispatch("editMenu", {
           id: this.menu.id,

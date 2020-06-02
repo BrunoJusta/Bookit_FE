@@ -293,6 +293,9 @@ export default new Vuex.Store({
         icon: 'success',
         text: "Menu Atualizado"
       })
+      router.push({
+        name: 'menuGallery'
+      })
     }
   },
   actions: {
