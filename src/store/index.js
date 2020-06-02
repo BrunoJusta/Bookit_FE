@@ -461,9 +461,9 @@ export default new Vuex.Store({
     getCurrentKitIng(state) {
       return state.currentKit.menuIng
     },
-    getCurrentArea(state) {
+/*     getCurrentArea(state) {
       return state.currentArea.areaName
-    },
+    }, */
     getCurrentKitImg(state) {
       return state.currentKit.kitImg
     },

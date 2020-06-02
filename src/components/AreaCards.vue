@@ -20,7 +20,7 @@
               style="max-width: 20rem;"
               class="border-0"
             >
-              <b-button class="btn-book" @click="CurrentArea(a.id)" squared>
+              <b-button class="btn-book" @click="CurrentArea(a.area_id)" squared>
                Ver Mais
               </b-button>
               <b-button
@@ -35,6 +35,7 @@
         </div>
       </div>
     </div>
+    {{areas}}
   </div>
 </template>
 

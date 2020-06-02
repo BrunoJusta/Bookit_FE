@@ -1,7 +1,7 @@
 <template>
   <div class="areasDetail">
     <h3 class="display-2" v-bind:style="{display:show3}">{{area.name}}</h3>
-    <input type="text" v-model="areaNameNew" name="" :placeholder="areaName" id="editTitle"
+    <input type="text" v-model="areaNameNew" name="" :placeholder="area.name" id="editTitle"
       v-bind:style="{display:show}">
     <br>
     <br>
@@ -14,8 +14,8 @@
           </b-col>
           <b-col md="6">
             <b-card-body align="left" title="Descrição">
-              <p v-bind:style="{display:show2}"> {{menu.description}}</p>
-              <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">{{menu.description}}</textarea>
+              <p v-bind:style="{display:show2}"> {{area.description}}</p>
+<!--               <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">{{area.description}}</textarea> -->
             </b-card-body>
           </b-col>
         </b-row>
@@ -63,10 +63,12 @@
     },
     created() {
       this.area = JSON.parse(localStorage.getItem("currentArea"))
-      this.areas = JSON.parse(localStorage.getItem("areas"))
+      
+/*       this.areas = JSON.parse(localStorage.getItem("areas"))
+      alert(area) */
     },
     methods: {
-      getAreaById(id) {
+      /* getAreaById(id) {
         this.areaName = this.areas.filter(
           area => area.id === id
         )[0].name
@@ -86,8 +88,8 @@
         return this.areas.filter(
           area => area.id === id
         )[0]
-      },
-      saveCurrentArea() {
+      }, */
+     /*  saveCurrentArea() {
         this.currentArea = ({
           areaName: this.areaName,
           areaImg: this.areaImg
@@ -101,8 +103,8 @@
         this.show3 = "none"
         this.show4 = "none"
 
-      },
-      saveEdit() {
+      }, */
+      /* saveEdit() {
         this.show2 = "inline"
         this.show = "none"
         this.show3 = "block"
@@ -125,14 +127,14 @@
             })
           }
         }
-      },
-      cancelEdit() {
+      }, */
+/*       cancelEdit() {
         this.show2 = "inline"
         this.show = "none"
         this.show3 = "block"
         this.show4 = "inline"
-      }
-    }
+      }*/
+    } 
   }
 </script>
 <style lang="scss" scoped>
