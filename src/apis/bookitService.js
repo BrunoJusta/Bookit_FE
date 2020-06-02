@@ -360,7 +360,7 @@ const bookitService = {
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
-        const response = await fetch(`${API_URL}login`, {
+        const response = await fetch(`${API_URL}menuBookings`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',

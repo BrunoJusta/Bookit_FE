@@ -160,29 +160,14 @@ export default new Vuex.Store({
         })
       }
     },
-    ADD_BOOKING(state, payload) {
-      state.bookings.push({
-        id: payload.id,
-        userName: payload.userName,
-        userEmail: payload.userEmail,
-        kitName: payload.kitName,
-        kitType: payload.kitType,
-        kitImg: payload.kitImg,
-        reason: payload.reason,
-        date: payload.date,
-        duration: payload.duration,
-        numberPeople: payload.numberPeople,
-        location: payload.location,
-        drinks: payload.drinks,
-        food: payload.food,
-        extras: payload.extras,
-        decor: payload.decor,
-        outfit: payload.outfit,
-        observation: payload.observation,
-        state: payload.state,
-        opinion: payload.opinion
-      });
-      localStorage.setItem("bookings", JSON.stringify(state.bookings));
+    ADD_BOOKING(data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
+      router.push({
+        name: 'home'
+      })
     },
     ADD_AREA_BOOKING(state, payload) {
       state.areaBookings.push({
@@ -342,6 +327,11 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("ADD_USER", await bookitService.registerUser(payload.name, payload.lastName, payload.number, payload.email, payload.birthDate, payload.gender, payload.password, payload.password2))
+    },
+    async postBooking({
+      commit
+    }, payload) {
+      commit("ADD_BOOKING", await bookitService.addBooking(payload.id, payload.reason, payload.date, payload.school, payload.initHour, payload.endHour, payload.numberPeople, payload.outfit, payload.observations, payload.menu, payload.decor, payload.extras, payload.ing))
     },
     async login({
       commit

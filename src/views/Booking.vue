@@ -9,7 +9,7 @@
       <span v-bind:style="{fontWeight: outfitFont}">Fardas</span>
       <span v-bind:style="{fontWeight: resumeFont}">Resumo</span>
     </div>
-    <form @submit.prevent="saveBooking()">
+    <form @submit.prevent="addBooking()">
       <div class="container" v-bind:style="{display: kitInfo}">
         <div class="row">
           <div class="col-sm-5">
@@ -55,7 +55,6 @@
               <label class="lable" for="people">Número de Pessoas</label>
               <b-form-input
                 type="number"
-                name
                 id="people"
                 min="20"
                 max="50"
@@ -81,8 +80,8 @@
               <b-form-group
                 v-if="i.type=='Bebida' && i.name !== 'Sem Bebida' && !menuIngs.includes(i.name)"
               >
-                <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDrinks">
-                  <b-form-checkbox :value="i.name">{{i.name}}</b-form-checkbox>
+                <b-form-checkbox-group id="checkbox-group-2" v-model="checkedIngs">
+                  <b-form-checkbox :value="i.ingredient_id">{{i.name}}</b-form-checkbox>
                 </b-form-checkbox-group>
               </b-form-group>
             </div>
@@ -94,8 +93,8 @@
               <b-form-group
                 v-if="i.type=='Comida' && i.name !== 'Sem Comida' && !menuIngs.includes(i.name)"
               >
-                <b-form-checkbox-group id="checkbox-group-2" v-model="checkedFood">
-                  <b-form-checkbox :value="i.name">{{i.name}}</b-form-checkbox>
+                <b-form-checkbox-group id="checkbox-group-2" v-model="checkedIngs">
+                  <b-form-checkbox :value="i.ingredient_id">{{i.name}}</b-form-checkbox>
                 </b-form-checkbox-group>
               </b-form-group>
             </div>
@@ -120,11 +119,11 @@
           style="max-width:200px;"
           align="left"
           v-for="i in searchExtras"
-          :key="i.id"
+          :key="i.extra_id"
         >
           <b-form-group>
             <b-form-checkbox-group id="checkbox-group-2" v-model="checkedExtras">
-              <b-form-checkbox :value="i.name">{{i.name}}</b-form-checkbox>
+              <b-form-checkbox :value="i.extra_id">{{i.name}}</b-form-checkbox>
             </b-form-checkbox-group>
           </b-form-group>
         </div>
@@ -151,7 +150,7 @@
         >
           <b-form-group>
             <b-form-checkbox-group id="checkbox-group-2" v-model="checkedDecor">
-              <b-form-checkbox :value="i.name">{{i.name}}</b-form-checkbox>
+              <b-form-checkbox :value="i.decoration_id">{{i.name}}</b-form-checkbox>
             </b-form-checkbox-group>
           </b-form-group>
         </div>
@@ -175,7 +174,7 @@
               type="button"
               style="background-color:transparent"
               class="border-0"
-              @click="chooseOutfit(i.name)"
+              @click="chooseOutfit(i.outfit_id)"
             >
               <img style="height:230px; width:auto" id="btnImg" v-bind:src="i.img" />
             </button>
@@ -213,13 +212,13 @@
               <b>Local</b>
               {{location}}
             </p>
-            <p v-if="checkedFood.length != 0">
+            <p v-if="checkedIngs.length != 0">
               <b>Comida</b>
-              {{ checkedFood.length == 0 ? 'Fechar' : '' + checkedFood }}
+              {{ checkedIngs.length == 0 ? 'Fechar' : '' + checkedIngs }}
             </p>
-            <p v-if="checkedDrinks.length != 0">
+            <p v-if="checkedIngs.length != 0">
               <b>Bebida</b>
-              {{ checkedDrinks.length == 0 ? 'Fechar' : '' + checkedDrinks }}
+              {{ checkedIngs.length == 0 ? 'Fechar' : '' + checkedIngs }}
             </p>
           </div>
           <div align="left" class="col-sm-4">
@@ -307,8 +306,7 @@ export default {
       extras: [],
       decor: [],
       outfits: [],
-      checkedDrinks: [],
-      checkedFood: [],
+      checkedIngs: [],
       checkedExtras: [],
       checkedDecor: [],
       checkedImage: "",
@@ -317,7 +315,9 @@ export default {
       kits: [],
       menuIngs: [],
       currentKitType: "",
-      currentKitName: ""
+      currentKitName: "",
+      userOn: [],
+      menu:[]
     };
   },
   created() {
@@ -326,37 +326,19 @@ export default {
     this.getAllExtras();
     this.getAllOutfits();
     this.getAllDecorations();
-
-
-    if (localStorage.getItem("bookings")) {
-      this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"));
+    if (localStorage.getItem("loggedUser")) {
+      this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
     }
-    if (localStorage.getItem("currentKit")) {
-      this.$store.state.currentKit = JSON.parse(
-        localStorage.getItem("currentKit")
+    if (localStorage.getItem("currentMenu")) {
+      this.menu = JSON.parse(
+        localStorage.getItem("currentMenu")
       );
-    }
-    if (localStorage.getItem("ingredients")) {
-      this.$store.state.ingredients = JSON.parse(
-        localStorage.getItem("ingredients")
-      );
-      this.ingredients = this.$store.state.ingredients;
-    }
-    if (localStorage.getItem("kits")) {
-      this.$store.state.kits = JSON.parse(localStorage.getItem("kits"));
-      this.kits = this.$store.state.kits;
     }
     this.currentKitType = this.$store.state.currentMenu.type;
     this.currentKitName = this.$store.state.currentMenu.name;
     this.extras = this.$store.state.extras;
     this.decor = this.$store.state.decor;
     this.outfits = this.$store.state.outfits;
-    this.userName =
-      this.$store.getters.getName + " " + this.$store.getters.getLastName;
-    this.userEmail = this.$store.getters.getEmail;
-    this.currentKit = JSON.parse(localStorage.getItem("currentKit"));
-    this.kitName = this.$store.getters.getCurrentKitName;
-    this.kitType = this.$store.getters.getCurrentKitType;
     this.menuIngs = JSON.parse(localStorage.getItem("currentMenuIngs"));
   },
   updated() {
@@ -404,6 +386,27 @@ export default {
       try {
         await this.$store.dispatch("fetchOutfits");
         this.outfits = this.getOutfits.data;
+      } catch (err) {
+        alert(err);
+      }
+    }, 
+    async addBooking() {
+      try {
+        await this.$store.dispatch("postBooking", {
+          id: this.userOn.id,
+          reason: this.reason,
+          date: this.date,
+          school: this.location,
+          initHour: this.hi,
+          endHour: this.hf,
+          numberPeople: this.people,
+          outfit: this.checkedImage,
+          observations: this.observation,
+          menu: this.menu.id,
+          decor: this.checkedDecor,
+          extras: this.checkedExtras,
+          ing: this.checkedIngs,
+        });
       } catch (err) {
         alert(err);
       }
