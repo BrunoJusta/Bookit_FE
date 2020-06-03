@@ -288,7 +288,6 @@ export default new Vuex.Store({
         text: data.message
       })
     },
-
     EDIT_MENU() {
       Swal.fire({
         icon: 'success',
@@ -319,6 +318,12 @@ export default new Vuex.Store({
         text: "Area Eliminado"
       })
     },
+    EDIT_MENU_BOOKINGS() {
+      Swal.fire({
+        icon: 'success',
+        text: "Reserva do menu Atualizado"
+      })
+    }
   },
   actions: {
     async fetchMenus({
@@ -466,6 +471,11 @@ export default new Vuex.Store({
     }, payload) {
       commit("DELETE_AREA", await bookitService.deleteArea(payload.id))
     },
+    async editMenuBookings ({
+      commit
+    }, payload) {
+      commit("EDIT_MENU_BOOKINGS", await bookitService.editMenuBookings(payload.id,payload.state, payload.decline, payload.opinion))
+    }
 
   },
   getters: {
