@@ -59,9 +59,7 @@
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-
                             </h9>
-
                         </ul>
                     </b-card>
                 </template>
@@ -132,7 +130,7 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'id', //menuType
+                        key: 'menuType',
                         label: "Evento",
                         sortable: true
                     }, {
