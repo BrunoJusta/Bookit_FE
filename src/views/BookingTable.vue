@@ -83,13 +83,13 @@
                     <b-button size="sm" class="mr-1 showBtn" @click="row2.toggleDetails">
                         {{ row2.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state == 'Pendente'"
-                        @click="acceptAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1 acceptBtn">Aceitar
+                    <b-button size="sm" v-if="row2.item.description == 'Pendente'"
+                        @click="acceptAreaBooking(row2.item.id, 1)" class="mr-1 acceptBtn">Aceitar
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state == 'Pendente'"
-                        @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1 refuseBtn">Recusar
+                    <b-button size="sm" v-if="row2.item.description == 'Pendente'"
+                        @click="refuseAreaBooking(row2.item.id, 2)" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state !== 'Pendente'"
+                    <b-button size="sm" v-if="row2.item.description !== 'Pendente'"
                         @click="deleteAreaBooking(row2.item.area_booking_id)" class="mr-1 deleteBtn"><i
                             class="fas fa-trash-alt"></i></b-button>
                 </template>
@@ -130,7 +130,7 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'id',
+                        key: 'menuType',
                         label: "Evento",
                         sortable: true
                     }, {
@@ -340,76 +340,16 @@
             async editMenuBooking(ID, state, decline, opinion) {
                 try {
                     await this.$store.dispatch("editMenuBookings", {
-                        id: ID
+                        id: ID,
+                        state: state,
+                        decline: decline,
+                        opinion: opinion
                     })
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
                 this.getMenuBookings();
             }
-            /* acceptAreaBooking(id, userEmail) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Aceitar esta reserva?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.areas) {
-                            if (this.areas[i].id === id) {
-                                this.areas[i].state = "Aprovado"
-                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                                for (let j in this.users) {
-                                    if (this.users[j].email === userEmail) {
-                                        this.users[j].notifications.push({
-                                            txt: 'A sua reserva do espaço ' + this.areas[i]
-                                                .areaName +
-                                                ' para a data ' + this.areas[i].date +
-                                                ' foi aceite!'
-                                        })
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                    }
-                                }
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Reserva aceite!'
-                                })
-                            }
-                        }
-                    }
-                })
-            },
-            refuseAreaBooking(id, userEmail) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Recusar esta reserva?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.areas) {
-                            if (this.areas[i].id === id) {
-                                this.areas[i].state = "Recusado"
-                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                                for (let j in this.users) {
-                                    if (this.users[j].email === userEmail) {
-                                        this.users[j].notifications.push({
-                                            txt: 'A sua reserva do espaço ' + this.areas[i]
-                                                .areaName +
-                                                ' para a data ' + this.areas[i].date +
-                                                ' foi recusada!'
-                                        })
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                    }
-                                }
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Reserva recusada!'
-                                })
-                            }
-                        }
-                    }
-                })
-            } */
         },
         computed: {
             ...mapGetters(["getAllMenuBookings"]),
