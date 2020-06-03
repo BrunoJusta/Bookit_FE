@@ -13,6 +13,23 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async getUserBookings() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}/users/${user.id}/menuBookings`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async getMenuBookings() {
         let user
         if (localStorage.getItem("loggedUser")) {

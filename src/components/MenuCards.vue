@@ -53,7 +53,7 @@
         </div>
       </div>
       <!---------------- Cartas User ---------------->
-     <div v-if="this.userType == 1" class="row">
+     <div v-esle class="row">
         <div class="col-sm-4" style="min-width: 16rem" v-for="menu in filteredMenus" :key="menu.menu_id">
           <div id="card-maker">
             <b-card :title="menu.name + ' - ' + menu.description" style="max-width: 20rem; min-width: 14rem" :img-src="menu.img" img-height="180rem" class="mb-2 border-0">
