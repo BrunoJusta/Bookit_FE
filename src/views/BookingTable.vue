@@ -26,7 +26,8 @@
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredBookings.slice().reverse()" :fields="fields">
                 <template v-slot:cell(actions)="row">
-                    <b-button size="sm" class="mr-1 showBtn" @click="row.toggleDetails; getAll(44)">
+                    <b-button size="sm" class="mr-1 showBtn" v-on:click="getAllInfo(row.item.id);"
+                        @click="row.toggleDetails">
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
@@ -52,7 +53,7 @@
                                 <p id="listItem" v-if="key === 'observations'"> <b>Observações:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                             </h9>
-                            <h9 v-for="(value, key) in row.item" :key="key">
+                            <!-- <h9 v-for="(value, key) in row.item" :key="key">
                                 <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
@@ -61,11 +62,16 @@
                             <h9 v-for="(value, key) in row.item" :key="key">
                                 <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                            </h9>
+                            </h9>-->
+                            <!-- <h9 v-for="(value, key) in decor" :key="key">
+                                <p id="listItem" v-if="key === row.item.id"> <b>Decoração:</b>
+                                    {{value.length == 0? 'Nada' : '' + value.name}}</p>
+                            </h9> -->
                             <b id="listItem">Decoração:</b>
                             <h9 v-for="d in decor" :key="d.booking_id">
-                                <p id="listItem" v-if="d.booking_id == row.item.id">
-                                    {{d.length == ""? 'Nada' : '' + d.name}}</p>
+                                <p id="listItem" v-if="decor.length > 0">
+                                    {{d.name}}</p>
+                                <p v-else id="listItem">Nada</p>
                             </h9>
                         </ul>
                     </b-card>
@@ -137,7 +143,7 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'menuType',
+                        key: 'id',
                         label: "Evento",
                         sortable: true
                     }, {
@@ -225,13 +231,15 @@
         created() {
             this.getMenuBookings()
             this.getAreaBookings()
-            this.getBookingsDecor()
-            /* this.getBookingsExtra()
-            this.getBookingsAddOns() */
         },
         methods: {
-            getAll(id) {
-                alert(id)
+            getAllInfo(id) {
+                this.decor = []
+                this.extras = []
+                this.addOns = []
+                this.getBookingsDecor(id)
+                this.getBookingsExtra(id)
+                this.getBookingsAddOns(id)
             },
             displayAreaBookings() {
                 this.bookingTable = "none"
@@ -256,28 +264,33 @@
                     alert(err);
                 }
             },
-            async getBookingsDecor() {
+            async getBookingsDecor(ID) {
                 try {
-                    await this.$store.dispatch("fetchBookingsDecor");
+                    await this.$store.dispatch("fetchBookingsDecor", {
+                        id: ID
+                    });
                     this.decor = this.getAllBookingsDecor.data;
-                    localStorage.setItem("decor", JSON.stringify(this.decor))
                 } catch (err) {
                     console.log(err)
                     alert(err);
                 }
             },
-            async getBookingsExtra() {
+            async getBookingsExtra(ID) {
                 try {
-                    await this.$store.dispatch("fetchBookingsExtra");
+                    await this.$store.dispatch("fetchBookingsExtra", {
+                        id: ID
+                    });
                     this.extra = this.getAllBookingsExtra.data;
                 } catch (err) {
                     console.log(err)
                     alert(err);
                 }
             },
-            async getBookingsAddOns() {
+            async getBookingsAddOns(ID) {
                 try {
-                    await this.$store.dispatch("fetchBookingsAddOns");
+                    await this.$store.dispatch("fetchBookingsAddOns", {
+                        id: ID
+                    });
                     this.addOns = this.getAllBookingsAddOns.data;
                 } catch (err) {
                     console.log(err)
