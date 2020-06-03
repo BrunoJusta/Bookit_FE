@@ -51,44 +51,17 @@
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'observations'"> <b>Observações:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                            </h9>
-                            <!-- <h9 v-for="(value, key) in row.item" :key="key">
+                                <p id="listItem" v-if="key === 'decor'"> <b>Decoração:</b>
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
+                                <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                            </h9>
-                            <h9 v-for="(value, key) in row.item" :key="key">
-                                <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
-                                    {{value.length == 0? 'Nada' : '' + value}}</p>
-                            </h9>-->
-                            <h9 v-for="(value, key) in row.item" :key="key">
-                                <p id="listItem" v-if="key === 'decor'"> <b>Decoração:</b>
-                                    {{value.length == 0? 'Nada' : '' + value}}</p>
+
                             </h9>
 
-                            <!--                                --------- A FUNCIONAR -----------
-                                <b id="listItem">Bebidas Complementares:</b>
-                            <h9 v-for="a in addOns" :key="a.booking_id">
-                                <p id="listItem" v-if="a.booking_id === row.item.id && a.type === 'Bebida'">
-                                    {{a.name}}</p>
-                            </h9>
-
-                            <b id="listItem">Comida Complementar:</b>
-                            <h9 v-for="a in addOns" :key="a.booking_id">
-                                <p id="listItem" v-if="a.booking_id === row.item.id && a.type === 'Comida'">
-                                    {{a.name}}</p>
-                            </h9>
-
-                            <b id="listItem">Decoração:</b>
-                            <h9 v-for="d in decor" :key="d.booking_id">
-                                <p id="listItem" v-if="d.booking_id === row.item.id">{{d.name}}</p>
-                            </h9>
-
-                            <b id="listItem">Extras:</b>
-                            <h9 v-for="e in extras" :key="e.booking_id">
-                                <p id="listItem" v-if="e.booking_id === row.item.id">{{e.name}}</p>
-                            </h9> -->
                         </ul>
                     </b-card>
                 </template>
@@ -273,7 +246,8 @@
                     for (const b of this.bookings) {
                         b.decor = []
                         b.extras = []
-                        b.addOns = []
+                        b.drinks = []
+                        b.food = []
                     }
                 } catch (err) {
                     console.log(err)
@@ -284,16 +258,14 @@
                 try {
                     await this.$store.dispatch("fetchBookingsDecor");
                     this.decor = this.getAllBookingsDecor.data;
+                    //CARREGA AS DECORAÇOES PARA O ARRAY CRIADO DOS BOOKINGS
                     for (const b of this.bookings) {
                         for (const d of this.decor) {
                             if (d.booking_id === b.id) {
-                                b.decor.push({
-                                    name: d.name
-                                })
+                                b.decor += d.name + "; "
                             }
                         }
                     }
-                    console.log(this.bookings)
                 } catch (err) {
                     console.log(err)
                     alert(err);
@@ -303,6 +275,14 @@
                 try {
                     await this.$store.dispatch("fetchBookingsExtra");
                     this.extras = this.getAllBookingsExtra.data;
+                    //CARREGA OS EXTRAS PARA O ARRAY CRIADO DOS BOOKINGS
+                    for (const b of this.bookings) {
+                        for (const e of this.extras) {
+                            if (e.booking_id === b.id) {
+                                b.extras += e.name + "; "
+                            }
+                        }
+                    }
                 } catch (err) {
                     console.log(err)
                     alert(err);
@@ -312,6 +292,19 @@
                 try {
                     await this.$store.dispatch("fetchBookingsAddOns");
                     this.addOns = this.getAllBookingsAddOns.data;
+                    //CARREGA AS BEBIDAS E COMIDAS PARA O ARRAY CRIADO DOS BOOKINGS
+                    for (const b of this.bookings) {
+                        for (const a of this.addOns) {
+                            if (a.booking_id === b.id) {
+                                if (a.type === "Bebida") {
+                                    b.drinks += a.name + "; "
+                                }
+                                if (a.type === "Comida") {
+                                    b.food += " " + a.name + "; "
+                                }
+                            }
+                        }
+                    }
                 } catch (err) {
                     console.log(err)
                     alert(err);
