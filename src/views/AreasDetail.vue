@@ -21,7 +21,13 @@
           <b-col md="6">
             <b-card-body align="left" title="Descrição">
               <p v-bind:style="{display:show2}">{{area.description}}</p>
-              <textarea id="description" rows="4" cols="50" v-bind:style="{display:show}">{{area.description}}</textarea>
+              <textarea
+                v-model="newDesc"
+                id="description"
+                rows="4"
+                cols="50"
+                v-bind:style="{display:show}"
+              ></textarea>
             </b-card-body>
           </b-col>
         </b-row>
@@ -77,18 +83,21 @@ export default {
       show3: "block",
       show4: "inline",
       area: [],
-      userOn:[],
+      userOn: [],
+      newDesc: ""
     };
   },
   created() {
     this.area = JSON.parse(localStorage.getItem("currentArea"));
-    this.userOn = JSON.parse(localStorage.getItem("loggedUser"))
+    this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
+    this.areaNameNew = this.area.name;
+    this.newDesc = this.area.description;
 
     /*       this.areas = JSON.parse(localStorage.getItem("areas"))
       alert(area) */
   },
   methods: {
-    getAreaById(id) {
+    /*     getAreaById(id) {
       this.areaName = this.areas.filter(area => area.id === id)[0].name;
 
       this.id = this.areas.filter(area => area.id === id)[0].id;
@@ -98,43 +107,30 @@ export default {
       this.areaImg = this.areas.filter(area => area.id === id)[0].img;
 
       return this.areas.filter(area => area.id === id)[0];
-    },
-    saveCurrentArea() {
+    }, */
+    /*     saveCurrentArea() {
       this.currentArea = {
         areaName: this.areaName,
         areaImg: this.areaImg
       };
       localStorage.setItem("currentArea", JSON.stringify(this.currentArea));
       this.$store.state.currentArea = this.currentArea;
-    },
+    }, */
     activateEdit() {
       this.show = "inline";
       this.show2 = "none";
       this.show3 = "none";
       this.show4 = "none";
     },
-    saveEdit() {
-      this.show2 = "inline";
-      this.show = "none";
-      this.show3 = "block";
-      this.show4 = "inline";
-      let newDesc = document.getElementById("description").value;
-
-      for (let a in this.areas) {
-        if (this.areas[a].id === this.id) {
-          if (this.areaNameNew == "") {
-            this.areas[a].description = newDesc;
-            localStorage.setItem("areas", JSON.stringify(this.areas));
-          } else {
-            this.areas[a].name = this.areaNameNew;
-            this.areas[a].description = newDesc;
-            localStorage.setItem("areas", JSON.stringify(this.areas));
-          }
-          Swal.fire({
-            icon: "success",
-            text: "Alterado!"
-          });
-        }
+    async saveEdit() {
+      try {
+        await this.$store.dispatch("editArea", {
+          id: this.area.area_id,
+          name: this.areaNameNew,
+          description: this.newDesc
+        });
+      } catch (err) {
+        console.log(err);
       }
     },
     cancelEdit() {

@@ -288,6 +288,7 @@ export default new Vuex.Store({
         text: data.message
       })
     },
+
     EDIT_MENU() {
       Swal.fire({
         icon: 'success',
@@ -302,7 +303,22 @@ export default new Vuex.Store({
         icon: 'success',
         text: "Menu Eliminado"
       })
-    }
+    },
+    EDIT_AREA() {
+      Swal.fire({
+        icon: 'success',
+        text: "Area Atualizado"
+      })
+      router.push({
+        name: 'areasGallery'
+      })
+    },
+    DELETE_AREA() {
+      Swal.fire({
+        icon: 'success',
+        text: "Area Eliminado"
+      })
+    },
   },
   actions: {
     async fetchMenus({
@@ -437,9 +453,20 @@ export default new Vuex.Store({
     },
     async editMenu({
       commit
-    },payload) {
+    }, payload) {
       commit("EDIT_MENU", await bookitService.editMenu(payload.id, payload.name, payload.type, payload.ings))
-    }
+    },
+    async editArea({
+      commit
+    }, payload) {
+      commit("EDIT_AREA", await bookitService.editArea(payload.id, payload.name, payload.description))
+    },
+    async deleteArea({
+      commit
+    }, payload) {
+      commit("DELETE_AREA", await bookitService.deleteArea(payload.id))
+    },
+
   },
   getters: {
     getMenus: state => state.menus,

@@ -26,7 +26,7 @@
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredBookings.slice().reverse()" :fields="fields">
                 <template v-slot:cell(actions)="row">
-                    <b-button size="sm" class="mr-1 showBtn" @click="row.toggleDetails; getAll(44)">
+                    <b-button size="sm" class="mr-1 showBtn" @click="row.toggleDetails">
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
@@ -51,21 +51,14 @@
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'observations'"> <b>Observações:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                            </h9>
-                            <h9 v-for="(value, key) in row.item" :key="key">
+                                <p id="listItem" v-if="key === 'decor'"> <b>Decoração:</b>
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
+                                <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                            </h9>
-                            <h9 v-for="(value, key) in row.item" :key="key">
-                                <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
-                                    {{value.length == 0? 'Nada' : '' + value}}</p>
-                            </h9>
-                            <b id="listItem">Decoração:</b>
-                            <h9 v-for="d in decor" :key="d.booking_id">
-                                <p id="listItem" v-if="d.booking_id == row.item.id">
-                                    {{d.length == ""? 'Nada' : '' + d.name}}</p>
                             </h9>
                         </ul>
                     </b-card>
@@ -223,16 +216,13 @@
             }
         },
         created() {
-            this.getMenuBookings()
-            this.getAreaBookings()
-            this.getBookingsDecor()
-            /* this.getBookingsExtra()
-            this.getBookingsAddOns() */
+            this.getMenuBookings();
+            this.getAreaBookings();
+            this.getBookingsDecor();
+            this.getBookingsExtra();
+            this.getBookingsAddOns();
         },
         methods: {
-            getAll(id) {
-                alert(id)
-            },
             displayAreaBookings() {
                 this.bookingTable = "none"
                 this.areasTable = "block"
@@ -251,6 +241,12 @@
                 try {
                     await this.$store.dispatch("fetchMenuBookings");
                     this.bookings = this.getAllMenuBookings.data;
+                    for (const b of this.bookings) {
+                        b.decor = []
+                        b.extras = []
+                        b.drinks = []
+                        b.food = []
+                    }
                 } catch (err) {
                     console.log(err)
                     alert(err);
@@ -260,7 +256,14 @@
                 try {
                     await this.$store.dispatch("fetchBookingsDecor");
                     this.decor = this.getAllBookingsDecor.data;
-                    localStorage.setItem("decor", JSON.stringify(this.decor))
+                    //CARREGA AS DECORAÇOES PARA O ARRAY CRIADO DOS BOOKINGS
+                    for (const b of this.bookings) {
+                        for (const d of this.decor) {
+                            if (d.booking_id === b.id) {
+                                b.decor += d.name + "; "
+                            }
+                        }
+                    }
                 } catch (err) {
                     console.log(err)
                     alert(err);
@@ -269,7 +272,15 @@
             async getBookingsExtra() {
                 try {
                     await this.$store.dispatch("fetchBookingsExtra");
-                    this.extra = this.getAllBookingsExtra.data;
+                    this.extras = this.getAllBookingsExtra.data;
+                    //CARREGA OS EXTRAS PARA O ARRAY CRIADO DOS BOOKINGS
+                    for (const b of this.bookings) {
+                        for (const e of this.extras) {
+                            if (e.booking_id === b.id) {
+                                b.extras += e.name + "; "
+                            }
+                        }
+                    }
                 } catch (err) {
                     console.log(err)
                     alert(err);
@@ -279,6 +290,19 @@
                 try {
                     await this.$store.dispatch("fetchBookingsAddOns");
                     this.addOns = this.getAllBookingsAddOns.data;
+                    //CARREGA AS BEBIDAS E COMIDAS PARA O ARRAY CRIADO DOS BOOKINGS
+                    for (const b of this.bookings) {
+                        for (const a of this.addOns) {
+                            if (a.booking_id === b.id) {
+                                if (a.type === "Bebida") {
+                                    b.drinks += a.name + "; "
+                                }
+                                if (a.type === "Comida") {
+                                    b.food += " " + a.name + "; "
+                                }
+                            }
+                        }
+                    }
                 } catch (err) {
                     console.log(err)
                     alert(err);

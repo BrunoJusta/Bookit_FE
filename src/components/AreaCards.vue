@@ -22,15 +22,16 @@
             >
               <b-button class="btn-book" @click="CurrentArea(a.area_id)" squared>Ver Mais</b-button>
               <b-button
-                @click="deleteArea(a.name)"
+                @click="deleteArea(a.area_id)"
                 class="btn-remove border-0"
-                :id="a.id"
+                v-if="userType == 0"
+                :id="a.area_id"
                 squared
               >X</b-button>
             </b-card>
-          
           </div>
         </div>
+        {{this.userType}}
       </div>
     </div>
   </div>
@@ -52,13 +53,15 @@ export default {
       reset: {
         areaName: ""
       },
-      userOn: []
+      userOn: [],
+      userType: ""
     };
   },
   created() {
-    this.userOn = JSON.parse(localStorage.getItem("loggedUser"))
+    this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
+    this.userType = this.userOn.type;
     this.getMyAreas();
-    
+
     if (this.$store.getters.getName == "Entrar") {
       this.x = "login";
     } else {
@@ -78,14 +81,23 @@ export default {
       try {
         alert(ID);
         await this.$store.dispatch("fetchCurrentArea", { id: ID });
-        console.log(this.$store.dispatch("fetchCurrentArea", { id: ID }))
         this.$router.push({ name: "areaDetail" });
       } catch (err) {
         alert(err);
       }
     },
 
-    deleteArea(name) {
+    async deleteArea(id) {
+      try {
+        console.log(id)
+        await this.$store.dispatch("deleteArea", { id: id });
+        this.getMyAreas();
+      } catch (err) {
+        alert(err);
+      }
+    }
+
+    /*     deleteArea(name) {
       Swal.fire({
         icon: "warning",
         text: "Deseja remover este espaço?",
@@ -130,7 +142,7 @@ export default {
           }
         }
       });
-    }
+    } */
   },
   computed: {
     ...mapGetters(["getAreas"]),

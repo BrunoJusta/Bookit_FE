@@ -302,7 +302,7 @@ const bookitService = {
             headers: {
                 'x-access-token': user.token
             },
-            body:JSON.stringify({
+            body: JSON.stringify({
                 newType: newType
             })
         })
@@ -398,7 +398,6 @@ const bookitService = {
         }
     },
     async registerUser(name, lastName, number, email, birthDate, genre, password, password2) {
-        alert(name)
         const response = await fetch(`${API_URL}users`, {
             method: "POST",
             headers: {
@@ -454,17 +453,17 @@ const bookitService = {
             body: JSON.stringify({
                 userID: id,
                 reason: reason,
-                date:date,
-                school:school,
-                initHour:initHour,
-                endHour:endHour,
-                numberPeople:numberPeople,
-                outfit:outfit,
-                observations:observations,
-                menu:menu,
-                decor:decor,
-                extras:extras,
-                ing:ing
+                date: date,
+                school: school,
+                initHour: initHour,
+                endHour: endHour,
+                numberPeople: numberPeople,
+                outfit: outfit,
+                observations: observations,
+                menu: menu,
+                decor: decor,
+                extras: extras,
+                ing: ing
             })
         })
 
@@ -474,7 +473,7 @@ const bookitService = {
             throw Error(response.json())
         }
     },
-    async editMenu(id, name, type, ings){
+    async editMenu(id, name, type, ings) {
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
@@ -498,6 +497,73 @@ const bookitService = {
         } else {
             throw Error(response.json())
         }
-    }
+    },
+    async editArea(id, name, description) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}areas/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                id: id,
+                name: name,
+                description: description
+            })
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async deleteArea(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}areas/${ID}`, {
+            method: "DELETE",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async areaBooking(id, area, reason, date, initHour, endHour) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}areasBookings`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                userID: id,
+                area: area,
+                reason: reason,
+                date: date,
+                initHour: initHour,
+                endHour: endHour,
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
 }
 export default bookitService;
