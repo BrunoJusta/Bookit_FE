@@ -30,10 +30,10 @@
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
-                        @click="acceptBooking(row.item.id, row.item.userEmail)" class="mr-1 acceptBtn">Aceitar
+                        @click="editMenuBooking(row.item.id, 1,'', '')" class="mr-1 acceptBtn">Aceitar
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
-                        @click="refuseBooking(row.item.id, row.item.userEmail)" class="mr-1 refuseBtn">Recusar
+                        @click="editMenuBooking(row.item.id, 2,'', '')" class="mr-1 refuseBtn">Recusar
                     </b-button>
                     <b-button size="sm" @click="deleteMenuBooking(row.item.id)" v-if="row.item.state !== 'Pendente'"
                         class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
@@ -130,7 +130,7 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'menuType',
+                        key: 'id',
                         label: "Evento",
                         sortable: true
                     }, {
@@ -337,91 +337,18 @@
                 }
                 this.getAreaBookings()
             },
-            /*acceptBooking(id, userEmail) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Aceitar esta reserva?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.bookings) {
-                            if (this.bookings[i].id === id) {
-                                this.bookings[i].state = "Aprovado"
-                                localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                                for (let j in this.users) {
-                                    if (this.users[j].email === userEmail) {
-                                        this.users[j].notifications.push({
-                                            txt: 'A sua reserva do menu ' + this.bookings[i].kitName +
-                                                " - " +
-                                                this.bookings[i].kitType + ' para a data ' + this
-                                                .bookings[i].date +
-                                                ' foi aceite!'
-                                        })
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                    }
-                                }
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Reserva aceite!'
-                                })
-                            }
-                        }
-                    }
-                })
-            },
-            refuseBooking(id, userEmail) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Recusar esta reserva?',
-                    showCancelButton: true,
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonText: 'Recusar',
-                }).then((result) => {
-                    if (result.value) {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Motivo da recusa',
-                            input: 'textarea',
-                            inputAttributes: {
-                                autocapitalize: 'off'
-                            },
-                            showCancelButton: true,
-                            cancelButtonText: 'Cancelar',
-                            confirmButtonText: 'Submeter',
-                        }).then((result) => {
-                            if (result.value && result.value != "") {
-                                for (let i in this.bookings) {
-                                    if (this.bookings[i].id === id) {
-                                        this.bookings[i].state = "Recusado"
-                                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                                        for (let j in this.users) {
-                                            if (this.users[j].email === userEmail) {
-                                                this.users[j].notifications.push({
-                                                    txt: 'A sua reserva do menu ' + this
-                                                        .bookings[i].kitName +
-                                                        " - " +
-                                                        this.bookings[i].kitType +
-                                                        ' para a data ' + this
-                                                        .bookings[i].date +
-                                                        ' foi recusada!',
-                                                    reason: result.value
-                                                })
-                                                localStorage.setItem("users", JSON.stringify(this
-                                                    .users));
-                                            }
-                                        }
-                                        Swal.fire({
-                                            icon: 'success',
-                                            text: 'Reserva recusada!'
-                                        })
-                                    }
-                                }
-                            }
-                        })
-                    }
-                })
-            },
-            acceptAreaBooking(id, userEmail) {
+            async editMenuBooking(ID, state, decline, opinion) {
+                try {
+                    await this.$store.dispatch("editMenuBookings", {
+                        id: ID
+                    })
+                } catch (err) {
+                    console.log(err)
+                    alert(err);
+                }
+                this.getMenuBookings();
+            }
+            /* acceptAreaBooking(id, userEmail) {
                 Swal.fire({
                     icon: 'warning',
                     text: 'Aceitar esta reserva?',
