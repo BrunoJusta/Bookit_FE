@@ -526,7 +526,7 @@ const bookitService = {
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
-        const response = await fetch(`${API_URL}menuBookings`, {
+        const response = await fetch(`${API_URL}areasBookings`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
@@ -534,18 +534,11 @@ const bookitService = {
             },
             body: JSON.stringify({
                 userID: id,
+                area: area,
                 reason: reason,
                 date: date,
-                school: school,
                 initHour: initHour,
                 endHour: endHour,
-                numberPeople: numberPeople,
-                outfit: outfit,
-                observations: observations,
-                menu: menu,
-                decor: decor,
-                extras: extras,
-                ing: ing
             })
         })
 
