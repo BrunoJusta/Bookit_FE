@@ -33,7 +33,7 @@
                         @click="editMenuBooking(row.item.id, 1,'', '')" class="mr-1 acceptBtn">Aceitar
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
-                        @click="editMenuBooking(row.item.id, 2,'', '')" class="mr-1 refuseBtn">Recusar
+                        @click="editMenuBooking(row.item.id,  2,'', '')" class="mr-1 refuseBtn">Recusar
                     </b-button>
                     <b-button size="sm" @click="deleteMenuBooking(row.item.id)" v-if="row.item.state !== 'Pendente'"
                         class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
@@ -130,6 +130,10 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
+                        key: 'id',
+                        label: "id",
+                        sortable: true
+                    }, {
                         key: 'menuType',
                         label: "Evento",
                         sortable: true
@@ -349,7 +353,37 @@
                     alert(err);
                 }
                 this.getMenuBookings();
-            }
+            },
+            /* FUNÇÃO DE RECUSAR UM MENU BOOKING COM SWAL FIRE, 
+            ESTA A DAR ERRO ANTES DE EFETUAR A NOTIFICAÇAO MAS RECUSA E MANDA O MOTIVO DE RECUSA PARA A BD
+            
+            refuseMenuBooking(id) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Recusar esta reserva?',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Recusar',
+                }).then((result) => {
+                    if (result.value) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Motivo da recusa',
+                            input: 'textarea',
+                            inputAttributes: {
+                                autocapitalize: 'off'
+                            },
+                            showCancelButton: true,
+                            cancelButtonText: 'Cancelar',
+                            confirmButtonText: 'Submeter',
+                        }).then((result) => {
+                            if (result.value && result.value != "") {
+                                this.editMenuBooking(id, 2, result.value, '')
+                            }
+                        })
+                    }
+                })
+            } */
         },
         computed: {
             ...mapGetters(["getAllMenuBookings"]),
