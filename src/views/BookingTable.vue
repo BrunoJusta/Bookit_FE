@@ -26,8 +26,7 @@
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredBookings.slice().reverse()" :fields="fields">
                 <template v-slot:cell(actions)="row">
-                    <b-button size="sm" class="mr-1 showBtn" v-on:click="getAllInfo(row.item.id);"
-                        @click="row.toggleDetails">
+                    <b-button size="sm" class="mr-1 showBtn" @click="row.toggleDetails">
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
@@ -63,16 +62,33 @@
                                 <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                             </h9>-->
-                            <!-- <h9 v-for="(value, key) in decor" :key="key">
-                                <p id="listItem" v-if="key === row.item.id"> <b>Decoração:</b>
-                                    {{value.length == 0? 'Nada' : '' + value.name}}</p>
-                            </h9> -->
+                            <h9 v-for="(value, key) in row.item" :key="key">
+                                <p id="listItem" v-if="key === 'decor'"> <b>Decoração:</b>
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
+                            </h9>
+
+                            <!--                                --------- A FUNCIONAR -----------
+                                <b id="listItem">Bebidas Complementares:</b>
+                            <h9 v-for="a in addOns" :key="a.booking_id">
+                                <p id="listItem" v-if="a.booking_id === row.item.id && a.type === 'Bebida'">
+                                    {{a.name}}</p>
+                            </h9>
+
+                            <b id="listItem">Comida Complementar:</b>
+                            <h9 v-for="a in addOns" :key="a.booking_id">
+                                <p id="listItem" v-if="a.booking_id === row.item.id && a.type === 'Comida'">
+                                    {{a.name}}</p>
+                            </h9>
+
                             <b id="listItem">Decoração:</b>
                             <h9 v-for="d in decor" :key="d.booking_id">
-                                <p id="listItem" v-if="decor.length > 0">
-                                    {{d.name}}</p>
-                                <p v-else id="listItem">Nada</p>
+                                <p id="listItem" v-if="d.booking_id === row.item.id">{{d.name}}</p>
                             </h9>
+
+                            <b id="listItem">Extras:</b>
+                            <h9 v-for="e in extras" :key="e.booking_id">
+                                <p id="listItem" v-if="e.booking_id === row.item.id">{{e.name}}</p>
+                            </h9> -->
                         </ul>
                     </b-card>
                 </template>
@@ -143,7 +159,7 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'id',
+                        key: 'id', //menuType
                         label: "Evento",
                         sortable: true
                     }, {
@@ -229,18 +245,13 @@
             }
         },
         created() {
-            this.getMenuBookings()
-            this.getAreaBookings()
+            this.getMenuBookings();
+            this.getAreaBookings();
+            this.getBookingsDecor();
+            this.getBookingsExtra();
+            this.getBookingsAddOns();
         },
         methods: {
-            getAllInfo(id) {
-                this.decor = []
-                this.extras = []
-                this.addOns = []
-                this.getBookingsDecor(id)
-                this.getBookingsExtra(id)
-                this.getBookingsAddOns(id)
-            },
             displayAreaBookings() {
                 this.bookingTable = "none"
                 this.areasTable = "block"
@@ -259,38 +270,47 @@
                 try {
                     await this.$store.dispatch("fetchMenuBookings");
                     this.bookings = this.getAllMenuBookings.data;
+                    for (const b of this.bookings) {
+                        b.decor = []
+                        b.extras = []
+                        b.addOns = []
+                    }
                 } catch (err) {
                     console.log(err)
                     alert(err);
                 }
             },
-            async getBookingsDecor(ID) {
+            async getBookingsDecor() {
                 try {
-                    await this.$store.dispatch("fetchBookingsDecor", {
-                        id: ID
-                    });
+                    await this.$store.dispatch("fetchBookingsDecor");
                     this.decor = this.getAllBookingsDecor.data;
+                    for (const b of this.bookings) {
+                        for (const d of this.decor) {
+                            if (d.booking_id === b.id) {
+                                b.decor.push({
+                                    name: d.name
+                                })
+                            }
+                        }
+                    }
+                    console.log(this.bookings)
                 } catch (err) {
                     console.log(err)
                     alert(err);
                 }
             },
-            async getBookingsExtra(ID) {
+            async getBookingsExtra() {
                 try {
-                    await this.$store.dispatch("fetchBookingsExtra", {
-                        id: ID
-                    });
-                    this.extra = this.getAllBookingsExtra.data;
+                    await this.$store.dispatch("fetchBookingsExtra");
+                    this.extras = this.getAllBookingsExtra.data;
                 } catch (err) {
                     console.log(err)
                     alert(err);
                 }
             },
-            async getBookingsAddOns(ID) {
+            async getBookingsAddOns() {
                 try {
-                    await this.$store.dispatch("fetchBookingsAddOns", {
-                        id: ID
-                    });
+                    await this.$store.dispatch("fetchBookingsAddOns");
                     this.addOns = this.getAllBookingsAddOns.data;
                 } catch (err) {
                     console.log(err)

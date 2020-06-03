@@ -317,18 +317,18 @@ export default new Vuex.Store({
     },
     async fetchBookingsDecor({
       commit
-    }, payload) {
-      commit("SET_BOOKINGS_DECOR", await bookitService.getBookingsDecor(payload.id))
+    }) {
+      commit("SET_BOOKINGS_DECOR", await bookitService.getBookingsDecor())
     },
     async fetchBookingsExtra({
       commit
-    }, payload) {
-      commit("SET_BOOKINGS_EXTRA", await bookitService.getBookingsExtra(payload.id))
+    }) {
+      commit("SET_BOOKINGS_EXTRA", await bookitService.getBookingsExtra())
     },
     async fetchBookingsAddOns({
       commit
-    }, payload) {
-      commit("SET_BOOKINGS_ADDONS", await bookitService.getBookingsAddOns(payload.id))
+    }) {
+      commit("SET_BOOKINGS_ADDONS", await bookitService.getBookingsAddOns())
     },
     async fetchAreaBookings({
       commit

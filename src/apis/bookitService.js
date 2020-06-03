@@ -30,12 +30,12 @@ const bookitService = {
             throw Error(response)
         }
     },
-    async getBookingsDecor(ID) {
+    async getBookingsDecor() {
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
-        const response = await fetch(`${API_URL}menuBookings/${ID}/decor`, {
+        const response = await fetch(`${API_URL}menuBookings/decor`, {
             method: "GET",
             headers: {
                 'x-access-token': user.token
@@ -47,12 +47,12 @@ const bookitService = {
             throw Error(response)
         }
     },
-    async getBookingsExtra(ID) {
+    async getBookingsExtra() {
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
-        const response = await fetch(`${API_URL}menuBookings/${ID}/extra`, {
+        const response = await fetch(`${API_URL}menuBookings/extra`, {
             method: "GET",
             headers: {
                 'x-access-token': user.token
@@ -64,12 +64,12 @@ const bookitService = {
             throw Error(response)
         }
     },
-    async getBookingsAddOns(ID) {
+    async getBookingsAddOns() {
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
-        const response = await fetch(`${API_URL}menuBookings/${ID}/addOns`, {
+        const response = await fetch(`${API_URL}menuBookings/addOns`, {
             method: "GET",
             headers: {
                 'x-access-token': user.token
