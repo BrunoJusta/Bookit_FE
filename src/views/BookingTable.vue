@@ -258,7 +258,6 @@
                         b.drinks = []
                         b.food = []
                     }
-                    alert("get menus")
                     this.getBookingsDecor();
                     this.getBookingsExtra();
                     this.getBookingsAddOns();
@@ -279,7 +278,6 @@
                             }
                         }
                     }
-                    alert("decors")
                 } catch (err) {
                     console.log(err)
                     alert(err);
@@ -297,7 +295,6 @@
                             }
                         }
                     }
-                    alert("extras")
                 } catch (err) {
                     console.log(err)
                     alert(err);
@@ -320,7 +317,6 @@
                             }
                         }
                     }
-                    alert("addons")
                 } catch (err) {
                     console.log(err)
                     alert(err);
