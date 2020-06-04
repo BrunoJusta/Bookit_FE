@@ -604,7 +604,7 @@ const bookitService = {
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
-        const response = await fetch(`${API_URL}"menuBookings/${id}`, {
+        const response = await fetch(`${API_URL}menuBookings/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
