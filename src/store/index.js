@@ -34,9 +34,9 @@ export default new Vuex.Store({
     currentMenu: [],
     currentMenuIngs: [],
     currentArea: [],
-    userBookings:[],
-    userAreaBookings:[],
-    userWorkshops:[]
+    userBookings: [],
+    userAreaBookings: [],
+    userWorkshops: []
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -338,6 +338,12 @@ export default new Vuex.Store({
         icon: 'success',
         text: "Reserva do menu Atualizado"
       })
+    },
+    EDIT_AREA_BOOKINGS() {
+      Swal.fire({
+        icon: "success",
+        text: "Reserva da area Atualizada"
+      })
     }
   },
   actions: {
@@ -501,12 +507,16 @@ export default new Vuex.Store({
     }, payload) {
       commit("DELETE_AREA", await bookitService.deleteArea(payload.id))
     },
-    async editMenuBookings ({
+    async editMenuBookings({
       commit
     }, payload) {
-      commit("EDIT_MENU_BOOKINGS", await bookitService.editMenuBookings(payload.id,payload.state, payload.decline, payload.opinion))
+      commit("EDIT_MENU_BOOKINGS", await bookitService.editMenuBookings(payload.id, payload.state, payload.decline, payload.opinion))
+    },
+    async editAreaBookings({
+      commit
+    }, payload) {
+      commit("EDIT_AREA_BOOKINGS", await bookitService.editAreaBookings(payload.id, payload.state, payload.decline, payload.opinion))
     }
-
   },
   getters: {
     getMenus: state => state.menus,

@@ -35,7 +35,10 @@
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
                         @click="editMenuBooking(row.item.id,  2,'', '')" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" @click="deleteMenuBooking(row.item.id)" v-if="row.item.state !== 'Pendente'"
+                    <b-button size="sm" v-if="row.item.state == 'Aprovado'"
+                        @click="editMenuBooking(row.item.id,  3,'', '')" class="mr-1 acceptBtn">Concluír
+                    </b-button>
+                    <b-button size="sm" v-if="row.item.state !== 'Pendente'" @click="deleteMenuBooking(row.item.id)"
                         class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                 </template>
                 <template v-slot:row-details="row">
@@ -84,10 +87,13 @@
                         {{ row2.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row2.item.description == 'Pendente'"
-                        @click="acceptAreaBooking(row2.item.id, 1)" class="mr-1 acceptBtn">Aceitar
+                        @click="editAreaBooking(row2.item.area_booking_id, 1,'', '')" class="mr-1 acceptBtn">Aceitar
                     </b-button>
                     <b-button size="sm" v-if="row2.item.description == 'Pendente'"
-                        @click="refuseAreaBooking(row2.item.id, 2)" class="mr-1 refuseBtn">Recusar
+                        @click="editAreaBooking(row2.item.area_booking_id, 2,'', '')" class="mr-1 refuseBtn">Recusar
+                    </b-button>
+                    <b-button size="sm" v-if="row2.item.description == 'Aprovado'"
+                        @click="editAreaBooking(row2.item.area_booking_id, 3,'', '')" class="mr-1 acceptBtn">Concluír
                     </b-button>
                     <b-button size="sm" v-if="row2.item.description !== 'Pendente'"
                         @click="deleteAreaBooking(row2.item.area_booking_id)" class="mr-1 deleteBtn"><i
@@ -97,7 +103,7 @@
                     <b-card>
                         <ul>
                             <h9 v-for="(value, key) in row2.item" :key="key">
-                                <p id="listItem" v-if="key === 'reason'"> Motivo: {{value}}</p>
+                                <p id="listItem" v-if="key === 'reason'"> <b>Motivo: </b> {{value}}</p>
                             </h9>
                         </ul>
                     </b-card>
@@ -174,6 +180,10 @@
                     },
                 ],
                 fields2: [{
+                        key: 'area_booking_id',
+                        label: "id",
+                        sortable: true
+                    }, {
                         key: 'name',
                         label: "Espaço",
                         sortable: true
@@ -354,10 +364,8 @@
                 }
                 this.getMenuBookings();
             },
-            /* FUNÇÃO DE RECUSAR UM MENU BOOKING COM SWAL FIRE, 
-            ESTA A DAR ERRO ANTES DE EFETUAR A NOTIFICAÇAO MAS RECUSA E MANDA O MOTIVO DE RECUSA PARA A BD
-            
-            refuseMenuBooking(id) {
+
+            /* refuseMenuBooking(id) { FUNÇÃO DE RECUSAR UM MENU BOOKING COM SWAL FIRE, ESTA A DAR ERRO ANTES DE EFETUAR A NOTIFICAÇAO MAS RECUSA E MANDA O MOTIVO DE RECUSA PARA A BD
                 Swal.fire({
                     icon: 'warning',
                     text: 'Recusar esta reserva?',
@@ -384,6 +392,19 @@
                     }
                 })
             } */
+            async editAreaBooking(ID, state, decline, opinion) {
+                try {
+                    await this.$store.dispatch("editAreaBookings", {
+                        id: ID,
+                        state: state,
+                        decline: decline,
+                        opinion: opinion
+                    })
+                } catch (err) {
+                    alert(err)
+                }
+                this.getAreaBookings();
+            }
         },
         computed: {
             ...mapGetters(["getAllMenuBookings"]),
