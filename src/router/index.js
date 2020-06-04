@@ -16,7 +16,6 @@ const routes = [{
         next()
       }
     }
-
   },
   {
     path: "/register",
@@ -139,7 +138,7 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/pageNotFound");
-      } else if (user.userType != "admin") {
+      } else if (user.type == 1) {
         next("/pageNotFound");
       } else {
         next()
@@ -199,7 +198,6 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/pageNotFound");
-      
       } else {
         next()
       }
@@ -213,7 +211,7 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/pageNotFound");
-      } else if (user.userType == 1) {
+      } else if (user.type == 1) {
         next("/pageNotFound");
       } else {
         next()
@@ -228,7 +226,7 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/pageNotFound");
-      } else if (user.type != 0) {
+      } else if (user.type == 1) {
         next("/pageNotFound");
       } else {
         next()
