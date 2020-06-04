@@ -33,7 +33,10 @@ export default new Vuex.Store({
     token: [],
     currentMenu: [],
     currentMenuIngs: [],
-    currentArea: []
+    currentArea: [],
+    userBookings:[],
+    userAreaBookings:[],
+    userWorkshops:[]
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -205,6 +208,18 @@ export default new Vuex.Store({
     SET_MENUS(state, data) {
       state.menus = data
     },
+    SET_USER_BOOKINGS(state, data) {
+      state.userBookings = []
+      state.userBookings = data
+    },
+    SET_USER_AREABOOKINGS(state, data) {
+      state.userAreaBookings = []
+      state.userAreaBookings = data
+    },
+    SET_USER_WORKSHOPS(state, data) {
+      state.userWorkshops = []
+      state.userWorkshops = data
+    },
     SET_MENU_BOOKINGS(state, data) {
       state.bookings = data
     },
@@ -330,6 +345,21 @@ export default new Vuex.Store({
       commit
     }) {
       commit("SET_MENUS", await bookitService.getMenus())
+    },
+    async fetchUserBookings({
+      commit
+    }) {
+      commit("SET_USER_BOOKINGS", await bookitService.getUserBookings())
+    },
+    async fetchUserAreaBookings({
+      commit
+    }) {
+      commit("SET_USER_AREABOOKINGS", await bookitService.getUserAreaBookings())
+    },
+    async fetchUserWorkshops({
+      commit
+    }) {
+      commit("SET_USER_WORKSHOPS", await bookitService.getUserWorkshops())
     },
     async fetchMenuBookings({
       commit
@@ -480,6 +510,9 @@ export default new Vuex.Store({
   },
   getters: {
     getMenus: state => state.menus,
+    getUserBookings: state => state.userBookings,
+    getUserAreaBookings: state => state.userAreaBookings,
+    getUserWorkshops: state => state.userWorkshops,
     getAllMenuBookings: state => state.bookings,
     getAllBookingsDecor: state => state.bookingsDecor,
     getAllBookingsExtra: state => state.bookingsExtra,

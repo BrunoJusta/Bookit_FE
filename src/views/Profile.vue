@@ -79,21 +79,21 @@
 
         <!-- CARDS DOS EVENTOS -->
         <div class="container" v-bind:style="{display: showEvents}">
-          <div class="row" v-if="this.filteredBookings.length !== 0">
+          <div class="row" v-if="this.bookings.length !== 0">
             <div
               class="col-sm-3"
-              v-for="k in filteredBookings"
-              :key="k.id"
+              v-for="k in bookings"
+              :key="k.booking_id"
               style="padding-top: 20px;"
             >
               <b-card
                 no-body
                 class="overflow-hidden"
                 style="max-width: 16rem; height: 20rem;"
-                :img-src="k.kitImg"
+                :img-src="k.img"
                 img-height="120rem"
               >
-                <b-card-body align="left" :title="k.kitName + ' - ' + k.kitType">
+                <b-card-body align="left" :title="k.name + ' - ' + k.description">
                   <b-card-text style="margin: auto;">
                     <b>Data:</b>
                     {{k.date}}
@@ -104,18 +104,18 @@
                   </b-card-text>
                   <b-card-text style="margin: auto;">
                     <b>Local:</b>
-                    {{k.location}}
+                    {{k.school}}
                   </b-card-text>
                   <b-card-text style="margin: auto;">
                     <b>Estado:</b>
                     {{k.state}}
                   </b-card-text>
-                  <div v-if="k.state == 'Concluído' && !k.opinion">
+                  <!-- <div v-if="k.state == 'Concluído' && !k.opinion">
                     <b-button class="btn-book" @click="giveBookingOpinion(k.id)" squared>Dar Opinião</b-button>
-                  </div>
-                  <b-card-text v-if="k.state == 'Concluído' && k.opinion" style="margin: auto;">
+                  </div> -->
+                  <!-- <b-card-text v-if="k.state == 'Concluído' && k.opinion" style="margin: auto;">
                     <b>Opinião:</b> Enviada
-                  </b-card-text>
+                  </b-card-text> -->
                 </b-card-body>
               </b-card>
             </div>
@@ -128,16 +128,16 @@
 
         <!-- CARDS DOS ESPAÇOS -->
         <div class="container" v-bind:style="{display: showAreas}">
-          <div class="row" v-if="this.filteredAreas.length !== 0">
-            <div class="col-sm-3" v-for="k in filteredAreas" :key="k.id" style="padding-top: 20px;">
+          <div class="row" v-if="this.areaBookings.length !== 0">
+            <div class="col-sm-3" v-for="k in areaBookings" :key="k.area_booking_id" style="padding-top: 20px;">
               <b-card
                 no-body
                 class="overflow-hidden"
                 style="max-width: 16rem;"
-                :img-src="k.areaImg"
+                :img-src="k.img"
                 img-height="120rem"
               >
-                <b-card-body align="left" :title="k.areaName">
+                <b-card-body align="left" :title="k.name">
                   <b-card-text style="margin: auto;">
                     <b>Data:</b>
                     {{k.date}}
@@ -148,14 +148,14 @@
                   </b-card-text>
                   <b-card-text style="margin: auto;">
                     <b>Estado:</b>
-                    {{k.state}}
-                  </b-card-text>
-                  <div v-if="k.state == 'Concluído' && !k.opinion">
+                     {{k.state}}
+                   </b-card-text>
+                  <!-- <div v-if="k.state == 'Concluído' && !k.opinion">
                     <b-button class="btn-book" @click="giveAreasOpinion(k.id)" squared>Dar Opinião</b-button>
-                  </div>
-                  <b-card-text v-if="k.state == 'Concluído' && k.opinion" style="margin: auto;">
+                  </div> -->
+                  <!-- <b-card-text v-if="k.state == 'Concluído' && k.opinion" style="margin: auto;">
                     <b>Opinião:</b> Enviada
-                  </b-card-text>
+                  </b-card-text>  -->
                 </b-card-body>
               </b-card>
             </div>
@@ -172,7 +172,7 @@
             <div
               class="col-sm-3"
               v-for="k in this.userWorkshops"
-              :key="k.id"
+              :key="k.workshop_id"
               style="padding-top: 20px;"
             >
               <b-card
@@ -189,7 +189,7 @@
                   </b-card-text>
                   <b-card-text style="margin: auto;">
                     <b>Hora:</b>
-                    {{k.time}}
+                    {{k.duration}}
                   </b-card-text>
                 </b-card-body>
               </b-card>
@@ -234,6 +234,7 @@ export default {
     return {
       users: [],
       bookings: [],
+      areaBookings: [],
       areas: [],
       workshops: [],
       userWorkshops: [],
@@ -262,6 +263,9 @@ export default {
   },
   created() {
     this.getMyBookings()
+    this.getMyAreaBookings()
+    this.getMyWorkshops()
+
     if (localStorage.getItem("loggedUser")) {
       this.$store.state.loggedUser = JSON.parse(
         localStorage.getItem("loggedUser")
@@ -275,18 +279,18 @@ export default {
     //   this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"));
     //   this.bookings = this.$store.state.bookings;
     // }
-    if (localStorage.getItem("areaBookings")) {
-      this.$store.state.areaBookings = JSON.parse(
-        localStorage.getItem("areaBookings")
-      );
-      this.areas = this.$store.state.areaBookings;
-    }
-    if (localStorage.getItem("workshops")) {
-      this.$store.state.workshops = JSON.parse(
-        localStorage.getItem("workshops")
-      );
-      this.workshops = this.$store.state.workshops;
-    }
+    // if (localStorage.getItem("areaBookings")) {
+    //   this.$store.state.areaBookings = JSON.parse(
+    //     localStorage.getItem("areaBookings")
+    //   );
+    //   this.areas = this.$store.state.areaBookings;
+    // }
+    // if (localStorage.getItem("workshops")) {
+    //   this.$store.state.workshops = JSON.parse(
+    //     localStorage.getItem("workshops")
+    //   );
+    //   this.workshops = this.$store.state.workshops;
+    // }
 
     this.firstNameUser = this.$store.getters.getName;
     this.lastNameUser = this.$store.getters.getLastName;
@@ -294,33 +298,40 @@ export default {
     this.userContact = this.$store.getters.getContact;
     this.userSchool = this.$store.getters.getSchool;
     this.birthDate = this.$store.getters.getBirthDate;
+
+    // eslint-disable-next-line no-console
+    console.log(this.bookings)
+
   },
   updated() {
-    this.userContact = this.$store.getters.getContact;
-    this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"));
-    this.$store.state.areaBookings = JSON.parse(
-      localStorage.getItem("areaBookings")
-    );
+    //  this.getMyBookings()
+    // this.getMyAreaBookings()
+        
   },
   methods: {
     async getMyBookings() {
       try {
-        await this.$store.dispatch("fetchBookings");
-        this.booking = this.getBookings.data;
+        await this.$store.dispatch("fetchUserBookings");
+        this.bookings = this.getUserBookings.data
       } catch (err) {
         alert(err);
       }
     },
-    filteredWorkshops() {
-      this.userWorkshops = [];
-      for (let i = 0; i < this.workshops.length; i++) {
-        for (let j = 0; j < this.workshops[i].inscriptions.length; j++) {
-          if (this.workshops[i].inscriptions[j].length !== 0) {
-            if (this.workshops[i].inscriptions[j].email === this.userEmail) {
-              this.userWorkshops.push(this.workshops[i]);
-            }
-          }
-        }
+    async getMyAreaBookings() {
+      try {
+        await this.$store.dispatch("fetchUserAreaBookings");
+      this.areaBookings = this.getUserAreaBookings.data
+
+      } catch (err) {
+        alert(err);
+      }
+    },
+    async getMyWorkshops() {
+      try {
+        await this.$store.dispatch("fetchUserWorkshops");
+      this.userWorkshops = this.getUserWorkshops.data
+      } catch (err) {
+        alert(err);
       }
     },
     displayEvents() {
@@ -469,7 +480,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getBookings"]),
+    ...mapGetters(["getUserBookings"]),
+    ...mapGetters(["getUserAreaBookings"]),
+    ...mapGetters(["getUserWorkshops"]),
     getFullName() {
       return this.firstNameUser + " " + this.lastNameUser;
     },
@@ -481,14 +494,6 @@ export default {
     },
     getSchool() {
       return this.userSchool;
-    },
-    filteredBookings() {
-      return this.bookings.filter(
-        booking => booking.userEmail === this.userEmail
-      );
-    },
-    filteredAreas() {
-      return this.areas.filter(area => area.userEmail === this.userEmail);
     }
   }
 };
