@@ -854,5 +854,58 @@ const bookitService = {
             throw Error(response.json())
         }
     },
+    async addArea(name, img, description) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}areas`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                name: name,
+                description: description,
+                img: img,
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
+    async addWorkshops(name, teacher, date, description, hi, hf, time, vacancies, img) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menus`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                name: name,
+                teacher: teacher,
+                date: date,
+                description: description,
+                hi: hi,
+                hf: hf,
+                time: time,
+                vacancies:vacancies,
+                img:img
+            })
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
 }
 export default bookitService;
