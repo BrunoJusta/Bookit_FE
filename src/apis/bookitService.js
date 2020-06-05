@@ -648,6 +648,23 @@ const bookitService = {
         } else {
             throw Error(response.json())
         }
+    },
+    async deleteWorkshop(id) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}workshops/${id}`, {
+            method: "DELETE",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
     }
 }
 export default bookitService;

@@ -14,7 +14,9 @@
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.filteredWorkshops" :fields="fields">
                 <template v-slot:cell(actions)="row">
-                    <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
+                    <b-button size="sm" v-if="row.item.filled == 0" @click="deleteWorkshop(row.item.workshop_id)"
+                        class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
+                    <span v-else>Sem Ações</span>
                 </template>
             </b-table>
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
@@ -30,11 +32,13 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
     export default {
-        name: 'InscriptionsTables',
         data: function () {
             return {
-                perPage: 3,
+                perPage: 10,
                 currentPage: 1,
                 fields: [{
                         key: 'name',
@@ -42,12 +46,12 @@
                         sortable: true
                     },
                     {
-                        key: 'inscriptions.length',
+                        key: 'filled',
                         label: "Vagas Preenchidas",
                         sortable: false
                     },
                     {
-                        key: 'vacancies',
+                        key: 'available',
                         label: "Vagas Livres",
                         sortable: false
                     },
@@ -64,42 +68,35 @@
             }
         },
         created() {
-            if (localStorage.getItem("workshops")) {
-                this.workshops = JSON.parse(localStorage.getItem("workshops"))
-            }
-            this.currentDate = this.$store.getters.getCurrentDate
+            this.getAllWorkshops();
         },
         methods: {
-            remove(id) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Quer mesmo remover?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.workshops) {
-                            if (this.workshops[i].id === id) {
-                                if (this.workshops[i].inscriptions.length !== 0) {
-                                    Swal.fire({
-                                        icon: 'warning',
-                                        text: 'Não pode remover este workshop porque já existem incrições feitas!'
-                                    })
-                                } else {
-                                    this.workshops = this.workshops.filter(workshop => this.workshops[i].id !=
-                                        workshop.id);
-                                    localStorage.setItem("workshops", JSON.stringify(this.workshops));
-                                    Swal.fire({
-                                        icon: 'success',
-                                        text: 'Workshop removido!'
-                                    })
-                                }
-                            }
-                        }
+            async getAllWorkshops() {
+                try {
+                    await this.$store.dispatch("fetchWorkshops");
+                    this.workshops = this.getWorkshops.data;
+                    for (const w of this.workshops) {
+                        w.available = w.vacancies - w.filled
                     }
-                })
+                } catch (err) {
+                    console.log(err)
+                    alert(err);
+                }
+            },
+            async deleteWorkshop(ID) {
+                try {
+                    await this.$store.dispatch("deleteWorkshop", {
+                        id: ID
+                    });
+                } catch (err) {
+                    console.log(err)
+                    alert(err);
+                }
+                this.getAllWorkshops();
             }
         },
         computed: {
+            ...mapGetters(["getWorkshops"]),
             filteredWorkshops() {
                 return this.workshops.filter(
                     (workshop) => {
@@ -110,7 +107,7 @@
                         //por workshop
                         if (workshop.name.toLowerCase().includes(this.searchWorkshops.toLowerCase())) {
                             filterRunResult = workshop.name.toLowerCase().includes(this.searchWorkshops
-                            .toLowerCase())
+                                .toLowerCase())
                             return filterRunResult
                         }
                     }

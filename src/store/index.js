@@ -344,6 +344,12 @@ export default new Vuex.Store({
         icon: "success",
         text: "Reserva da area Atualizada"
       })
+    },
+    DELETE_WORKSHOP() {
+      Swal.fire({
+        icon: 'success',
+        text: "Workshop Eliminado"
+      })
     }
   },
   actions: {
@@ -516,7 +522,12 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("EDIT_AREA_BOOKINGS", await bookitService.editAreaBookings(payload.id, payload.state, payload.decline, payload.opinion))
-    }
+    },
+    async deleteWorkshop({
+      commit
+    }, payload) {
+      commit("DELETE_WORKSHOP", await bookitService.deleteWorkshop(payload.id))
+    },
   },
   getters: {
     getMenus: state => state.menus,
