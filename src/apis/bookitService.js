@@ -343,7 +343,7 @@ const bookitService = {
                 userType: userType
             })
         })
-        
+
         if (response.ok) {
             return response.json()
         } else {

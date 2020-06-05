@@ -91,7 +91,9 @@
                         name: this.name,
                         img: this.img
                     });
+                    alert("ola")
                 } catch (err) {
+                    console.log(err)
                     alert(err);
                 }
                 this.getAllOutfits();

@@ -61,7 +61,7 @@
                     },
                     {
                         key: 'type',
-                        label: "Ingrediente",
+                        label: "Categoria",
                         sortable: true
                     },
                     {
