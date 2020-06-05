@@ -125,47 +125,6 @@ export default new Vuex.Store({
         })
       }
     },
-    ADD_WORKSHOP(state, payload) {
-      if (!state.workshops.some(w => w.name === payload.name)) {
-        state.workshops.push({
-          id: payload.id,
-          name: payload.name,
-          teacher: payload.teacher,
-          date: payload.date,
-          time: payload.time,
-          description: payload.description,
-          img: payload.img
-        });
-        localStorage.setItem("workshops", JSON.stringify(state.workshops));
-        router.push({
-          name: 'workshops'
-        })
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Já existe um workshop com esse nome!'
-        })
-      }
-    },
-    ADD_AREA(state, payload) {
-      if (!state.areas.some(a => a.name === payload.name)) {
-        state.areas.push({
-          id: payload.id,
-          name: payload.name,
-          description: payload.description,
-          img: payload.img
-        });
-        localStorage.setItem("areas", JSON.stringify(state.areas));
-        router.push({
-          name: 'areasGallery'
-        })
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Já existe um espaço com esse nome!'
-        })
-      }
-    },
     ADD_BOOKING(data) {
       Swal.fire({
         icon: 'success',
@@ -336,58 +295,70 @@ export default new Vuex.Store({
         text: "Workshop Eliminado"
       })
     },
-    ADD_INGREDIENT(data) {
+    ADD_INGREDIENT() {
       Swal.fire({
         icon: 'success',
         text: "Ingrediente adicionado!"
       })
     },
-    DELETE_INGREDIENT(data) {
+    DELETE_INGREDIENT() {
       Swal.fire({
         icon: 'success',
         text: "Ingrediente Eliminado"
       })
     },
-    ADD_EXTRA(data) {
+    ADD_EXTRA() {
       Swal.fire({
         icon: 'success',
         text: "Extra adicionado!"
       })
     },
-    DELETE_EXTRA(data) {
+    DELETE_EXTRA() {
       Swal.fire({
         icon: 'success',
         text: "Extra Eliminado"
       })
     },
-    ADD_DECOR(data) {
+    ADD_DECOR() {
       Swal.fire({
         icon: 'success',
         text: "Decoração adicionado!"
       })
     },
-    DELETE_DECOR(data) {
+    DELETE_DECOR() {
       Swal.fire({
         icon: 'success',
         text: "Decoração Eliminado"
       })
     },
-    ADD_OUTFIT(data) {
+    ADD_OUTFIT() {
       Swal.fire({
         icon: 'success',
         text: "Farda adicionada!"
       })
     },
-    DELETE_OUTFIT(data) {
+    DELETE_OUTFIT() {
       Swal.fire({
         icon: 'success',
         text: "Farda Eliminada"
       })
     },
-    ADD_MENU(data) {
+    ADD_MENU() {
       Swal.fire({
         icon: 'success',
         text: "Menu Adicionado!"
+      })
+    },
+    ADD_AREA() {
+      Swal.fire({
+        icon: 'success',
+        text: "Espaço Adicionado!"
+      })
+    },
+    ADD_WORKSHOP() {
+      Swal.fire({
+        icon: 'success',
+        text: "Workshop Adicionado!"
       })
     },
   },
@@ -611,6 +582,16 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("ADD_MENU", await bookitService.addMenu(payload.name, payload.type, payload.newType, payload.img, payload.menuIng))
+    },
+    async postArea({
+      commit
+    }, payload) {
+      commit("ADD_AREA", await bookitService.addArea(payload.name, payload.img, payload.description))
+    },
+    async postWorkshop({
+      commit
+    }, payload) {
+      commit("ADD_WORKSHOP", await bookitService.addWorkshops(payload.name, payload.teacher, payload.date, payload.description, payload.hi, payload.hf, payload.time, payload.vacancies, payload.img ))
     },
   },
   getters: {
