@@ -878,12 +878,12 @@ const bookitService = {
             throw Error(response.json())
         }
     },
-    async addWorkshops(name, teacher, date, description, hi, hf, time, vacancies, img) {
+    async addWorkshops(name, teacher, date, description, hi, hf, vacancies, img) {
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
-        const response = await fetch(`${API_URL}menus`, {
+        const response = await fetch(`${API_URL}workshops`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
@@ -896,9 +896,8 @@ const bookitService = {
                 description: description,
                 hi: hi,
                 hf: hf,
-                time: time,
-                vacancies:vacancies,
-                img:img
+                vacancies: vacancies,
+                img: img
             })
         })
         if (response.ok) {

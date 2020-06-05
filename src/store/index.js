@@ -591,7 +591,7 @@ export default new Vuex.Store({
     async postWorkshop({
       commit
     }, payload) {
-      commit("ADD_WORKSHOP", await bookitService.addWorkshops(payload.name, payload.teacher, payload.date, payload.description, payload.hi, payload.hf, payload.time, payload.vacancies, payload.img ))
+      commit("ADD_WORKSHOP", await bookitService.addWorkshops(payload.name, payload.teacher, payload.date, payload.description, payload.hi, payload.hf, payload.vacancies, payload.img ))
     },
   },
   getters: {

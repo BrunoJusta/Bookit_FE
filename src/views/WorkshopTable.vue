@@ -46,6 +46,16 @@
                         sortable: true
                     },
                     {
+                        key: 'date',
+                        label: "Data",
+                        sortable: false
+                    },
+                    {
+                        key: 'teacher',
+                        label: "Locutor",
+                        sortable: false
+                    },
+                    {
                         key: 'filled',
                         label: "Vagas Preenchidas",
                         sortable: false

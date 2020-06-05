@@ -6,7 +6,7 @@
             <div class="container box">
             </div>
         </div>
-        <form @submit.prevent="addAreas()">
+        <form @submit.prevent="addArea()">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-2">
@@ -39,45 +39,26 @@
         data: function () {
             return {
                 name: "",
-                description: "",
                 img: "",
-                users: [],
+                description: "",
                 areas: []
             }
         },
-        created() {
-            if (localStorage.getItem("users")) {
-                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
-            }
-            this.users = this.$store.state.users
-        },
         methods: {
-            addAreas() {
-                for (let j in this.users) {
-                    if (this.users[j].userType === "cliente") {
-                        this.users[j].notifications.push({
-                            txt: 'Nova Area ' + this.name +
-                                ' foi adicionado a galeria de Espaços!'
-                        })
-                        localStorage.setItem("users", JSON.stringify(this.users));
-                    }
+            async addArea(name, img, description) {
+                try {
+                    await this.$store.dispatch("postArea", {
+                        name: this.name,
+                        img: this.img,
+                        description: this.description,
+                    });
+                } catch (err) {
+                    alert(err);
                 }
-                this.$store.commit('ADD_AREA', {
-                    id: this.$store.getters.getAreaLastId + 1,
-                    name: this.name,
-                    description: this.description,
-                    img: this.img
-                })
-                //limpar os campos
                 this.name = ""
                 this.img = ""
                 this.description = ""
-
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Adicionado!'
-                })
-            },
+            }
         }
     }
 </script>
@@ -162,10 +143,10 @@
         }
 
         #imgArea {
-        width: 60%;
-        height: auto;
-        border: 3px solid #0A2463;
-        margin: auto;
-    }
+            width: 60%;
+            height: auto;
+            border: 3px solid #0A2463;
+            margin: auto;
+        }
     }
 </style>

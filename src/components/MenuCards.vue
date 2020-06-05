@@ -59,7 +59,7 @@
         </div>
       </div>
       <!---------------- Cartas User ---------------->
-      <div v-esle class="row">
+      <div v-else class="row">
         <div class="col-sm-4" style="min-width: 16rem" v-for="menu in filteredMenus" :key="menu.menu_id">
           <div id="card-maker">
             <b-card :title="menu.name + ' - ' + menu.description" style="max-width: 20rem; min-width: 14rem"

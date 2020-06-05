@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="addMenu(name, type, newType, img, checkedFood, checkedDrink)">
+        <form @submit.prevent="addMenu()">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-1">
@@ -21,6 +21,9 @@
                     </div>
                     <div class="col-sm-1">
                     </div>
+                </div>
+                <div class="row" v-if="this.img != ''">
+                    <img :src="img" id="imgMenu">
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
@@ -96,7 +99,7 @@
                     alert(err);
                 }
             },
-            async addMenu(name, type, newType, img, checkedFood, checkedDrink) {
+            async addMenu() {
                 this.menuIng = this.checkedFood.concat(this.checkedDrink)
                 if (this.type !== "Outro...") {
                     try {
@@ -217,6 +220,14 @@
 
     #foodColumn {
         margin-left: -22px;
+    }
+
+    #imgMenu {
+        width: 40%;
+        height: auto;
+        border: 3px solid #0A2463;
+        margin: auto;
+        margin-bottom: 20px;
     }
 
     @media screen and (max-width: 1096px) {
