@@ -110,12 +110,12 @@
                     <b>Estado:</b>
                     {{k.state}}
                   </b-card-text>
-                  <!-- <div v-if="k.state == 'Concluído' && !k.opinion">
+                   <div v-if="k.state == 'Concluído' && k.opinion == ''">
                     <b-button class="btn-book" @click="giveBookingOpinion(k.id)" squared>Dar Opinião</b-button>
-                  </div> -->
-                  <!-- <b-card-text v-if="k.state == 'Concluído' && k.opinion" style="margin: auto;">
+                  </div> 
+                  <b-card-text v-if="k.state == 'Concluído' && k.opinion != ''" style="margin: auto;">
                     <b>Opinião:</b> Enviada
-                  </b-card-text> -->
+                  </b-card-text> 
                 </b-card-body>
               </b-card>
             </div>
@@ -150,12 +150,12 @@
                     <b>Estado:</b>
                      {{k.state}}
                    </b-card-text>
-                  <!-- <div v-if="k.state == 'Concluído' && !k.opinion">
+                  <div v-if="k.state == 'Concluído' && k.opinion ==''">
                     <b-button class="btn-book" @click="giveAreasOpinion(k.id)" squared>Dar Opinião</b-button>
-                  </div> -->
-                  <!-- <b-card-text v-if="k.state == 'Concluído' && k.opinion" style="margin: auto;">
+                  </div> 
+                   <b-card-text v-if="k.state == 'Concluído' && k.opinion != ''" style="margin: auto;">
                     <b>Opinião:</b> Enviada
-                  </b-card-text>  -->
+                  </b-card-text> 
                 </b-card-body>
               </b-card>
             </div>
