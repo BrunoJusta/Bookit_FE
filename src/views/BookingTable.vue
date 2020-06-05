@@ -136,10 +136,6 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'id',
-                        label: "id",
-                        sortable: true
-                    }, {
                         key: 'menuType',
                         label: "Evento",
                         sortable: true
@@ -180,10 +176,6 @@
                     },
                 ],
                 fields2: [{
-                        key: 'area_booking_id',
-                        label: "id",
-                        sortable: true
-                    }, {
                         key: 'name',
                         label: "Espaço",
                         sortable: true

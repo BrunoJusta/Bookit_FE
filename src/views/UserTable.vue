@@ -14,17 +14,15 @@
         head-variant="dark" responsive="sm" :items="this.filteredUsers" :fields="fields">
         <template v-slot:cell(actions)="row">
           <b-button size="sm" v-if="row.item.type == 'User' && row.item.email != $store.getters.getEmail"
-            @click="editUsers(row.item.user_id, 0)" class="mr-1 adminBtn">Tornar administrador</b-button>
+            @click="editUsers(row.item.user_id,'','',0)" class="mr-1 adminBtn">Tornar administrador</b-button>
           <b-button size="sm" v-if="row.item.type == 'Admin' && row.item.email != $store.getters.getEmail"
-            @click="editUsers(row.item.user_id, 1) " class="mr-1 userBtn">Tornar cliente</b-button>
-          <b-button size="sm" v-if="row.item.email != $store.getters.getEmail && row.item.type !== 'User'"
-            @click="editUsers(row.item.user_id, 2)" class="mr-1 blockBtn">
-            Bloquear
+            @click="editUsers(row.item.user_id,'','', 1) " class="mr-1 userBtn">Tornar cliente</b-button>
+          <b-button size="sm" v-if="row.item.email != $store.getters.getEmail && row.item.type !== 'Blocked'"
+            @click="editUsers(row.item.user_id,'','', 2)" class="mr-1 blockBtn">
             <i class="fas fa-lock"></i>
           </b-button>
-          <b-button size="sm" v-if="row.item.email != $store.getters.getEmail && row.item.type === 'User'"
-            @click="block(row.item.user_id)" class="mr-1 unlockBtn">
-            Desbloquear
+          <b-button size="sm" v-if="row.item.email != $store.getters.getEmail && row.item.type === 'Blocked'"
+            @click="editUsers(row.item.user_id,'','', 1)" class="mr-1 unlockBtn">
             <i class="fas fa-lock-open"></i>
           </b-button>
           <b-button size="sm" @click="deleteUser(row.item.user_id)" v-if="row.item.email != $store.getters.getEmail"
@@ -96,15 +94,18 @@
           alert(err);
         }
       },
-      async editUsers(id, newType) {
+      async editUsers(id, newPassword, number, userType) {
         try {
           await this.$store.dispatch("editUsers", {
             id: id,
-            newType: newType
+            newPassword: newPassword,
+            number: number,
+            userType: userType
           });
         } catch (err) {
           alert(err);
         }
+        this.getUsers()
       },
       async deleteUser(ID) {
         try {
@@ -116,85 +117,7 @@
         }
         this.getUsers()
       },
-      /*block(id) {
-        for (let i in this.users) {
-          if (this.users[i].id === id) {
-            if (this.users[i].userType !== "bloqueado") {
-              //bloquear
-              Swal.fire({
-                icon: "warning",
-                text: "Deseja bloquear este utilizador?",
-                showCancelButton: true
-              }).then(result => {
-                if (result.value) {
-                  this.users[i].userType = "bloqueado";
-                  localStorage.setItem("users", JSON.stringify(this.users));
-                  Swal.fire({
-                    icon: "success",
-                    text: "Utilizador bloqueado!"
-                  });
-                }
-              });
-            } else if (this.users[i].userType === "bloqueado") {
-              //desbloquear
-              Swal.fire({
-                icon: "warning",
-                text: "Deseja desbloquear este utilizador?",
-                showCancelButton: true
-              }).then(result => {
-                if (result.value) {
-                  this.users[i].userType = "cliente";
-                  localStorage.setItem("users", JSON.stringify(this.users));
-                  Swal.fire({
-                    icon: "success",
-                    text: "Utilizador desbloqueado!"
-                  });
-                }
-              });
-            }
-          }
-        }
-      },
-      changeToAdmin(id) {
-        Swal.fire({
-          icon: "warning",
-          text: 'Tornar este utilizador em "Admin"?',
-          showCancelButton: true
-        }).then(result => {
-          if (result.value) {
-            for (let i in this.users) {
-              if (this.users[i].id === id) {
-                this.users[i].userType = "admin";
-                localStorage.setItem("users", JSON.stringify(this.users));
-                Swal.fire({
-                  icon: "success",
-                  text: "Tipo de utilizador alterado!"
-                });
-              }
-            }
-          }
-        });
-      },
-      changeToClient(id) {
-        Swal.fire({
-          icon: "warning",
-          text: 'Tornar este utilizador em "cliente"?',
-          showCancelButton: true
-        }).then(result => {
-          if (result.value) {
-            for (let i in this.users) {
-              if (this.users[i].id === id) {
-                this.users[i].userType = "cliente";
-                localStorage.setItem("users", JSON.stringify(this.users));
-                Swal.fire({
-                  icon: "success",
-                  text: "Tipo de utilizador alterado!"
-                });
-              }
-            }
-          }
-        });
-      } */
+
     },
     computed: {
       ...mapGetters(["getAllUsers"]),

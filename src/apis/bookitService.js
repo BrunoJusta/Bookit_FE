@@ -325,21 +325,25 @@ const bookitService = {
             throw Error(response)
         }
     },
-    async editUsers(ID, newType) {
-        alert(newType)
+    async editUsers(id, newPassword, number, userType) {
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
         }
-        const response = await fetch(`${API_URL}users/${ID}`, {
+        const response = await fetch(`${API_URL}users/${id}`, {
             method: "PUT",
             headers: {
+                'Content-type': 'application/json; charset=utf-8',
                 'x-access-token': user.token
             },
             body: JSON.stringify({
-                newType: newType
+                id: id,
+                newPassword: newPassword,
+                number: number,
+                userType: userType
             })
         })
+        
         if (response.ok) {
             return response.json()
         } else {

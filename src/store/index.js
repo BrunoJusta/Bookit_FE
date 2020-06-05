@@ -461,7 +461,7 @@ export default new Vuex.Store({
     async editUsers({
       commit
     }, payload) {
-      commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.newType))
+      commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.newPassword, payload.number, payload.userType))
     },
     async deleteUser({
       commit
