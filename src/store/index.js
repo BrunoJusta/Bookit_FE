@@ -548,7 +548,7 @@ export default new Vuex.Store({
     getCurrentArea: state => state.currentArea,
     getCurrentMenuIngs: state => state.currentMenuIngs,
     getIngredients: state => state.ingredients,
-    getExtras: state => state.ingredients,
+    getExtras: state => state.extras,
     getDecorations: state => state.decor,
     getOutfits: state => state.outfits,
     getUserOn(state) {

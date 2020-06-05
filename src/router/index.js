@@ -256,7 +256,7 @@ const routes = [{
       let user = JSON.parse(localStorage.getItem("loggedUser"))
       if (!user || user.length == 0) {
         next("/pageNotFound");
-      } else if (user.userType != "admin") {
+      } else if (user.type == 1) {
         next("/pageNotFound");
       } else {
         next()
