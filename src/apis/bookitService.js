@@ -669,6 +669,164 @@ const bookitService = {
         } else {
             throw Error(response)
         }
-    }
+    },
+    async addIngredient(name, type) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}ingredients`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                name: name,
+                type: type
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
+    async deleteIngredient(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}ingredients/${ID}`, {
+            method: "DELETE",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async addExtra(name) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}extras`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                name: name
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
+    async deleteExtra(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}extras/${ID}`, {
+            method: "DELETE",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async addDecor(name) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}decors`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                name: name
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
+    async deleteDecor(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}decors/${ID}`, {
+            method: "DELETE",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async addOutfit(name, img) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}outfits`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                name: name,
+                img: img
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
+    async deleteOutfit(ID) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}outfits/${ID}`, {
+            method: "DELETE",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
 }
 export default bookitService;

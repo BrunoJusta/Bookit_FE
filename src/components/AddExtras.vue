@@ -9,8 +9,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <form @submit.prevent="addExtra()">
-                        <b-input type="text" v-model="name" id="txtExtra" placeholder="Extra"></b-input>
+                    <form @submit.prevent="addExtra(name)">
+                        <b-input type="text" v-model="name" id="txtExtra" placeholder="Extra" required></b-input>
                         <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
                     </form>
                 </div>
@@ -20,7 +20,7 @@
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
                             hover head-variant="dark" responsive="sm" :items="this.extras" :fields="fields">
                             <template v-slot:cell(actions)="row">
-                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn"><i
+                                <b-button size="sm" @click="deleteExtra(row.item.extra_id)" class="mr-1 deleteBtn"><i
                                         class="fas fa-trash-alt"></i></b-button>
                             </template>
                         </b-table>
@@ -64,16 +64,40 @@
         },
         created() {
             this.getAllExtras();
+            this.extras = this.$store.state.extras;
+        },
+        updated() {
+            this.extras = this.$store.state.extras;
         },
         methods: {
             async getAllExtras() {
                 try {
                     await this.$store.dispatch("fetchExtras");
                     this.extras = this.getExtras.data;
-                    alert(this.getExtras.data)
                 } catch (err) {
                     alert(err);
                 }
+            },
+            async addExtra(name) {
+                try {
+                    await this.$store.dispatch("postExtra", {
+                        name: this.name
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAllExtras();
+                this.name = ""
+            },
+            async deleteExtra(ID) {
+                try {
+                    await this.$store.dispatch("deleteExtra", {
+                        id: ID
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAllExtras();
             }
         },
         computed: {

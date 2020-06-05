@@ -356,34 +356,6 @@
                 }
                 this.getMenuBookings();
             },
-
-            /* refuseMenuBooking(id) { FUNÇÃO DE RECUSAR UM MENU BOOKING COM SWAL FIRE, ESTA A DAR ERRO ANTES DE EFETUAR A NOTIFICAÇAO MAS RECUSA E MANDA O MOTIVO DE RECUSA PARA A BD
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Recusar esta reserva?',
-                    showCancelButton: true,
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonText: 'Recusar',
-                }).then((result) => {
-                    if (result.value) {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Motivo da recusa',
-                            input: 'textarea',
-                            inputAttributes: {
-                                autocapitalize: 'off'
-                            },
-                            showCancelButton: true,
-                            cancelButtonText: 'Cancelar',
-                            confirmButtonText: 'Submeter',
-                        }).then((result) => {
-                            if (result.value && result.value != "") {
-                                this.editMenuBooking(id, 2, result.value, '')
-                            }
-                        })
-                    }
-                })
-            } */
             async editAreaBooking(ID, state, decline, opinion) {
                 try {
                     await this.$store.dispatch("editAreaBookings", {

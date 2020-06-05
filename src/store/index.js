@@ -190,21 +190,6 @@ export default new Vuex.Store({
       });
       localStorage.setItem("areaBookings", JSON.stringify(state.areaBookings));
     },
-    ADD_INGREDIENT(state, payload) {
-      if (!state.ingredients.some(ing => ing.name === payload.name)) {
-        state.ingredients.push({
-          id: payload.id,
-          name: payload.name,
-          type: payload.type,
-        });
-        localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Já existe este ingrediente!'
-        })
-      }
-    },
     SET_MENUS(state, data) {
       state.menus = data
     },
@@ -350,7 +335,55 @@ export default new Vuex.Store({
         icon: 'success',
         text: "Workshop Eliminado"
       })
-    }
+    },
+    ADD_INGREDIENT(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Ingrediente adicionado!"
+      })
+    },
+    DELETE_INGREDIENT(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Ingrediente Eliminado"
+      })
+    },
+    ADD_EXTRA(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Extra adicionado!"
+      })
+    },
+    DELETE_EXTRA(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Extra Eliminado"
+      })
+    },
+    ADD_DECOR(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Decoração adicionado!"
+      })
+    },
+    DELETE_DECOR(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Decoração Eliminado"
+      })
+    },
+    ADD_OUTFIT(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Farda adicionada!"
+      })
+    },
+    DELETE_OUTFIT(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Farda Eliminada"
+      })
+    },
   },
   actions: {
     async fetchMenus({
@@ -527,6 +560,46 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("DELETE_WORKSHOP", await bookitService.deleteWorkshop(payload.id))
+    },
+    async postIngredient({
+      commit
+    }, payload) {
+      commit("ADD_INGREDIENT", await bookitService.addIngredient(payload.name, payload.type))
+    },
+    async deleteIngredient({
+      commit
+    }, payload) {
+      commit("DELETE_INGREDIENT", await bookitService.deleteIngredient(payload.id))
+    },
+    async postExtra({
+      commit
+    }, payload) {
+      commit("ADD_EXTRA", await bookitService.addExtra(payload.name))
+    },
+    async deleteExtra({
+      commit
+    }, payload) {
+      commit("DELETE_EXTRA", await bookitService.deleteExtra(payload.id))
+    },
+    async postDecor({
+      commit
+    }, payload) {
+      commit("ADD_DECOR", await bookitService.addDecor(payload.name))
+    },
+    async deleteDecor({
+      commit
+    }, payload) {
+      commit("DELETE_DECOR", await bookitService.deleteDecor(payload.id))
+    },
+    async postOutfit({
+      commit
+    }, payload) {
+      commit("ADD_OUTFIT", await bookitService.addOutfit(payload.name, payload.img))
+    },
+    async deleteOutfit({
+      commit
+    }, payload) {
+      commit("DELETE_OUTFIT", await bookitService.deleteOutfit(payload.id))
     },
   },
   getters: {

@@ -9,8 +9,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <form @submit.prevent="addDecor()">
-                        <b-input type="text" v-model="name" id="txtDecor" placeholder="Decoração"></b-input>
+                    <form @submit.prevent="addDecor(name)">
+                        <b-input type="text" v-model="name" id="txtDecor" placeholder="Decoração" required></b-input>
                         <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
                     </form>
                 </div>
@@ -20,7 +20,8 @@
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
                             hover head-variant="dark" responsive="sm" :items="this.decor" :fields="fields">
                             <template v-slot:cell(actions)="row">
-                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
+                                <b-button size="sm" @click="deleteDecor(row.item.decoration_id)" class="mr-1 deleteBtn">
+                                    <i class="fas fa-trash-alt"></i></b-button>
                             </template>
                         </b-table>
                         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"
@@ -37,13 +38,15 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
     export default {
         name: "AddOns",
         data: function () {
             return {
                 decor: [],
                 name: "",
-                type: "",
                 perPage: 3,
                 currentPage: 1,
                 fields: [{
@@ -60,65 +63,45 @@
             }
         },
         created() {
-            if (JSON.parse(localStorage.getItem("decor"))) {
-                this.$store.state.decor = JSON.parse(localStorage.getItem("decor"))
-            }
-            this.decor = this.$store.state.decor
+            this.getAllDecors();
+            this.decor = this.$store.state.decor;
+        },
+        updated() {
+            this.decor = this.$store.state.decor;
         },
         methods: {
-            addDecor() {
-                let createType = true
-                //verificar se existe
-                for (let i in this.decor) {
-                    if (this.name.toLowerCase() == this.decor[i].name.toLowerCase()) {
-                        createType = false;
-                    }
-                }
-                if (createType == true) {
-                    this.decor.push({
-                        id: this.$store.getters.decorLastId + 1,
-                        name: this.name
-                    })
-                    localStorage.setItem("decor", JSON.stringify(this.decor));
-                    this.name = ""
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'Adicionado!'
-                    })
-                } else {
-                    this.name = ""
-                    Swal.fire({
-                        icon: 'error',
-                        text: 'Esta Decoração já existe!',
-                    })
+            async getAllDecors() {
+                try {
+                    await this.$store.dispatch("fetchDecorations");
+                    this.decor = this.getDecorations.data;
+                } catch (err) {
+                    alert(err);
                 }
             },
-            remove(id) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Deseja remover esta decoração?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.decor) {
-                            if (this.decor[i].id === id) {
-                                this.decor = this.decor.filter(d => this.decor[i].id != d
-                                    .id);
-                                localStorage.setItem("decor", JSON.stringify(this.decor));
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Removido!',
-                                })
-                            }
-                        }
-                    }
-                })
+            async addDecor(name) {
+                try {
+                    await this.$store.dispatch("postDecor", {
+                        name: this.name
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAllDecors();
+                this.name = ""
+            },
+            async deleteDecor(ID) {
+                try {
+                    await this.$store.dispatch("deleteDecor", {
+                        id: ID
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAllDecors();
             }
         },
         computed: {
-            searchKits() {
-                return this.decor;
-            },
+            ...mapGetters(["getDecorations"]),
             rows() {
                 return this.decor.length
             }
@@ -127,7 +110,6 @@
 </script>
 
 <style lang="scss" scoped>
-
     .title {
         padding-top: 80px;
         padding-bottom: 30px;

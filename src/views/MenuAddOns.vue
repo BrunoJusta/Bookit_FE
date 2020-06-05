@@ -2,8 +2,8 @@
     <div>
         <ingredient/>
         <extras/>
-        <!-- <decor/>
-        <outfits/> -->
+        <decor/>
+        <outfits/>
     </div>
 </template>
 

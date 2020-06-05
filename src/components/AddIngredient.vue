@@ -10,8 +10,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <form @submit.prevent="addIngredient()">
-                        <b-input type="text" v-model="name" id="txtIngredient" placeholder="Ingrediente"></b-input>
+                    <form @submit.prevent="addIngredient(name, type)">
+                        <b-input type="text" v-model="name" id="txtIngredient" placeholder="Ingrediente" required>
+                        </b-input>
                         <b-select id="chooseType" v-model="type" required>
                             <option value="" disabled selected>Escolher tipo</option>
                             <option>Comida</option>
@@ -26,8 +27,8 @@
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
                             hover head-variant="dark" responsive="sm" :items="this.ingredients" :fields="fields">
                             <template v-slot:cell(actions)="row">
-                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn"><i
-                                        class="fas fa-trash-alt"></i></b-button>
+                                <b-button size="sm" @click="deleteIngredient(row.item.ingredient_id)"
+                                    class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                             </template>
                         </b-table>
                         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"
@@ -75,19 +76,22 @@
             }
         },
         created() {
-            /* this.getAllIngredients(); */
+            this.getAllIngredients();
+            this.ingredients = this.$store.state.ingredients;
+        },
+        updated() {
+            this.ingredients = this.$store.state.ingredients;
         },
         methods: {
-            /* async getAllIngredients() {
+            async getAllIngredients() {
                 try {
                     await this.$store.dispatch("fetchIngredients");
                     this.ingredients = this.getIngredients.data;
-                    alert(this.ingredients)
                 } catch (err) {
                     alert(err);
                 }
             },
-             async addIngredient() {
+            async addIngredient(name, type) {
                 try {
                     await this.$store.dispatch("postIngredient", {
                         name: this.name,
@@ -96,7 +100,20 @@
                 } catch (err) {
                     alert(err);
                 }
-            } */
+                this.getAllIngredients();
+                this.name = ""
+                this.type = ""
+            },
+            async deleteIngredient(ID) {
+                try {
+                    await this.$store.dispatch("deleteIngredient", {
+                        id: ID
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAllIngredients();
+            }
         },
         computed: {
             ...mapGetters(["getIngredients"]),
