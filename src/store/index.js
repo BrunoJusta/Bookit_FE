@@ -384,7 +384,7 @@ export default new Vuex.Store({
         text: "Farda Eliminada"
       })
     },
-    ADD_OUTFIT(data) {
+    ADD_MENU(data) {
       Swal.fire({
         icon: 'success',
         text: "Menu Adicionado!"

@@ -2,16 +2,6 @@
     <div>
         <form @submit.prevent="addMenu(name, type, newType, img, checkedFood, checkedDrink)">
             <div class="container">
-                <!-- <div class="text-center my-3" v-if="name != ''">
-                    <b-button id="popover-target-1" class="showBtn border-0 rounded-0">
-                        Pre-visualizar o Menu
-                    </b-button>
-                    <b-popover target="popover-target-1" triggers="hover" placement="leftbottom"
-                        style="margin-left: -500px">
-                        <preview v-if="name != ''" :name="name" :type="type" :newType="newType" :img="img"
-                            :food="checkedFood" :drinks="checkedDrink" />
-                    </b-popover>
-                </div> -->
                 <div class="row">
                     <div class="col-sm-1">
                     </div>
@@ -20,7 +10,7 @@
                         <b-input type="link" v-model="img" id="txtName" placeholder="Link da Imagem" required></b-input>
                     </div>
                     <div class="col-sm-5">
-                        <b-select id="selectTxt" v-model="type">
+                        <b-select id="selectTxt" v-model="type" required>
                             <option value="" disabled selected>Tipo de Menu</option>
                             <option v-for="t in this.menuTypes" :key="t.menu_type_id" :value="t.menu_type_id">
                                 {{t.description}}</option>
@@ -65,7 +55,6 @@
 </template>
 
 <script>
-    /* import preview from "../components/MenuCardPreview.vue"; */
     import {
         mapGetters
     } from "vuex";
@@ -85,9 +74,6 @@
                 img: "",
             }
         },
-        /* components: {
-            preview
-        }, */
         created() {
             this.getAllIngredients();
             this.getMyMenuTypes();
@@ -113,7 +99,6 @@
             async addMenu(name, type, newType, img, checkedFood, checkedDrink) {
                 this.menuIng = this.checkedFood.concat(this.checkedDrink)
                 if (this.type !== "Outro...") {
-                    alert("existe")
                     try {
                         await this.$store.dispatch("postMenu", {
                             name: this.name,
@@ -126,17 +111,13 @@
                         console.log(err)
                         alert(err);
                     }
-                    this.getAllIngredients();
-                    this.getMyMenuTypes();
                     this.name = ""
                     this.img = ""
                     this.type = ""
                     this.checkedFood = []
                     this.checkedDrink = []
                     this.menuIng = []
-
                 } else {
-                    alert("outro")
                     try {
                         await this.$store.dispatch("postMenu", {
                             name: this.name,
@@ -148,7 +129,7 @@
                     } catch (err) {
                         alert(err);
                     }
-                    this.getAllIngredients();
+                    this.getMyMenuTypes();
                     this.name = ""
                     this.img = ""
                     this.type = ""

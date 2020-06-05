@@ -844,7 +844,7 @@ const bookitService = {
                 type: type,
                 newType: newType,
                 img: img,
-                menuIng: menuIng
+                ing: menuIng
             })
         })
 
