@@ -1,8 +1,8 @@
 <template>
     <div>
-        <form @submit.prevent="addMenu()">
+        <form @submit.prevent="addMenu(name, type, newType, img, checkedFood, checkedDrink)">
             <div class="container">
-                <div class="text-center my-3" v-if="name != ''">
+                <!-- <div class="text-center my-3" v-if="name != ''">
                     <b-button id="popover-target-1" class="showBtn border-0 rounded-0">
                         Pre-visualizar o Menu
                     </b-button>
@@ -11,7 +11,7 @@
                         <preview v-if="name != ''" :name="name" :type="type" :newType="newType" :img="img"
                             :food="checkedFood" :drinks="checkedDrink" />
                     </b-popover>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-sm-1">
                     </div>
@@ -22,9 +22,12 @@
                     <div class="col-sm-5">
                         <b-select id="selectTxt" v-model="type">
                             <option value="" disabled selected>Tipo de Menu</option>
-                            <option v-for="type in this.menuTypes" :key="type">{{type}}</option>
+                            <option v-for="t in this.menuTypes" :key="t.menu_type_id" :value="t.menu_type_id">
+                                {{t.description}}</option>
+                            <option value="Outro...">Outro...</option>
                         </b-select>
-                        <b-input type="text" id="txtName" v-model="newType" placeholder="outro..."></b-input>
+                        <b-input v-if="this.type === 'Outro...'" type="text" id="txtName" v-model="newType"
+                            placeholder="Novo tipo de Menu"></b-input>
                     </div>
                     <div class="col-sm-1">
                     </div>
@@ -34,10 +37,10 @@
                     </div>
                     <div class="col-sm-4" align="left" id="foodColumn">
                         <label id="title">Comida:</label>
-                        <div v-for="i in filteredFood" :key="i.id">
+                        <div v-for="i in filteredFood" :key="i.ingredient_id">
                             <b-form-group>
                                 <b-form-checkbox-group v-model="checkedFood">
-                                    <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                                    <b-form-checkbox :value="i.ingredient_id"> {{i.name}}</b-form-checkbox>
                                 </b-form-checkbox-group>
                             </b-form-group>
                         </div>
@@ -46,10 +49,10 @@
                     </div>
                     <div class="col-sm-4" align="left" id="drinkColumn">
                         <label id="title">Bebida:</label>
-                        <div v-for="i in filteredDrinks" :key="i.id">
+                        <div v-for="i in filteredDrinks" :key="i.ingredient_id">
                             <b-form-group>
                                 <b-form-checkbox-group v-model="checkedDrink">
-                                    <b-form-checkbox :value="i.name"> {{i.name}}</b-form-checkbox>
+                                    <b-form-checkbox :value="i.ingredient_id"> {{i.name}}</b-form-checkbox>
                                 </b-form-checkbox-group>
                             </b-form-group>
                         </div>
@@ -62,145 +65,110 @@
 </template>
 
 <script>
-    import preview from "../components/MenuCardPreview.vue";
+    /* import preview from "../components/MenuCardPreview.vue"; */
+    import {
+        mapGetters
+    } from "vuex";
 
     export default {
         name: "addMenu",
         data: function () {
             return {
-                name: "",
+                ingredients: [],
+                menuTypes: [],
                 checkedFood: [],
                 checkedDrink: [],
-                ingredients: [],
+                menuIng: [],
+                name: "",
                 type: "",
                 newType: "",
                 img: "",
-                users: [],
-                menuTypes: []
             }
         },
-        components: {
+        /* components: {
             preview
-        },
+        }, */
         created() {
-            window.addEventListener('unload', this.saveStorage)
-            if (localStorage.getItem("kits")) {
-                this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
-            }
-
-            if (localStorage.getItem("users")) {
-                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
-            }
-
-            if (localStorage.getItem("menuTypes")) {
-                this.$store.state.menuTypes = JSON.parse(localStorage.getItem("menuTypes"))
-            }
-            this.menuTypes = this.$store.state.menuTypes
-            this.users = this.$store.state.users
-            this.ingredients = this.$store.state.ingredients
+            this.getAllIngredients();
+            this.getMyMenuTypes();
         },
         methods: {
-            getLastId() {
-                return this.$store.getters.kitLastId + 1
+            async getAllIngredients() {
+                try {
+                    await this.$store.dispatch("fetchIngredients");
+                    this.ingredients = this.getIngredients.data;
+                    this.ingredients = this.$store.state.ingredients;
+                } catch (err) {
+                    alert(err);
+                }
             },
-            addMenu() {
-                let correctOptions = true
-                if (this.checkedFood.length != 0) {
-                    if (this.checkedFood.length != 1 && this.checkedFood.some(food => food === "Sem Comida")) {
-                        correctOptions = false
-                        Swal.fire({
-                            icon: 'warning',
-                            text: 'Escolha a comida correta!'
-                        })
-                    }
+            async getMyMenuTypes() {
+                try {
+                    await this.$store.dispatch("fetchMenuTypes");
+                    this.menuTypes = this.getMenuTypes.data;
+                } catch (err) {
+                    alert(err);
                 }
-                if (this.checkedDrink.length != 0) {
-                    if (this.checkedDrink.length != 1 && this.checkedDrink.some(drink => drink === "Sem Bebida")) {
-                        correctOptions = false
-                        Swal.fire({
-                            icon: 'warning',
-                            text: 'Escolha a bebida correta!'
-                        })
-                    }
-                }
-                if(this.type == "" && this.newType == "") {
-                    correctOptions = false
-                        Swal.fire({
-                            icon: 'warning',
-                            text: 'Escolha um tipo de menu!'
-                        })
-                }
-                if (correctOptions == true) {
-                    if (this.newType !== "") {
-                        for (let j in this.users) {
-                            if (this.users[j].userType === "cliente") {
-                                this.users[j].notifications.push({
-                                    txt: 'O Menu' + this.name + " - " +
-                                        this.newType + ' foi adicionado a galeria de menus!'
-                                })
-                                localStorage.setItem("users", JSON.stringify(this.users));
-                            }
-                        }
-                        this.$store.commit('ADD_KIT', {
-                            id: this.getLastId(),
-                            name: this.name,
-                            type: this.newType,
-                            drinks: this.checkedDrink,
-                            food: this.checkedFood,
-                            img: this.img
-                        })
-                        this.menuTypes.push(this.newType)
-                        localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes));
-                    } else {
-                        for (let j in this.users) {
-                            if (this.users[j].userType === "cliente") {
-                                this.users[j].notifications.push({
-                                    txt: 'O Menu' + this.name + " - " +
-                                        this.type + ' foi adicionado a galeria de menus!'
-                                })
-                                localStorage.setItem("users", JSON.stringify(this.users));
-                            }
-                        }
-                        this.$store.commit('ADD_KIT', {
-                            id: this.getLastId(),
+            },
+            async addMenu(name, type, newType, img, checkedFood, checkedDrink) {
+                this.menuIng = this.checkedFood.concat(this.checkedDrink)
+                if (this.type !== "Outro...") {
+                    alert("existe")
+                    try {
+                        await this.$store.dispatch("postMenu", {
                             name: this.name,
                             type: this.type,
-                            drinks: this.checkedDrink,
-                            food: this.checkedFood,
-                            img: this.img
-                        })
+                            newType: this.newType,
+                            img: this.img,
+                            menuIng: this.menuIng
+                        });
+                    } catch (err) {
+                        console.log(err)
+                        alert(err);
                     }
-                    /* const toast = swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true
-                    });
+                    this.getAllIngredients();
+                    this.getMyMenuTypes();
+                    this.name = ""
+                    this.img = ""
+                    this.type = ""
+                    this.checkedFood = []
+                    this.checkedDrink = []
+                    this.menuIng = []
 
-                    toast.fire({
-                        icon: 'success',
-                        title: 'A sua reserva foi enviada!'
-                    })*/
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'Adicionado!',
-                    })
+                } else {
+                    alert("outro")
+                    try {
+                        await this.$store.dispatch("postMenu", {
+                            name: this.name,
+                            type: this.type,
+                            newType: this.newType,
+                            img: this.img,
+                            menuIng: this.menuIng
+                        });
+                    } catch (err) {
+                        alert(err);
+                    }
+                    this.getAllIngredients();
+                    this.name = ""
+                    this.img = ""
+                    this.type = ""
+                    this.checkedFood = []
+                    this.checkedDrink = []
+                    this.menuIng = []
                 }
             }
         },
         computed: {
-            searchKits() {
-                return this.ingredients;
-            },
+            ...mapGetters(["getIngredients"]),
+            ...mapGetters(["getMenuTypes"]),
             filteredFood() {
                 return this.ingredients.filter(
-                    (x) => x.type == "Food"
+                    (x) => x.type == "Comida"
                 )
             },
             filteredDrinks() {
                 return this.ingredients.filter(
-                    (x) => x.type == "Drink"
+                    (x) => x.type == "Bebida"
                 )
             }
         }

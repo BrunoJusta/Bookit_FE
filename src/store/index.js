@@ -384,6 +384,12 @@ export default new Vuex.Store({
         text: "Farda Eliminada"
       })
     },
+    ADD_OUTFIT(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Menu Adicionado!"
+      })
+    },
   },
   actions: {
     async fetchMenus({
@@ -600,6 +606,11 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("DELETE_OUTFIT", await bookitService.deleteOutfit(payload.id))
+    },
+    async postMenu({
+      commit
+    }, payload) {
+      commit("ADD_MENU", await bookitService.addMenu(payload.name, payload.type, payload.newType, payload.img, payload.menuIng))
     },
   },
   getters: {

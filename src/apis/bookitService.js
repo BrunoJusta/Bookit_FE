@@ -828,5 +828,31 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async addMenu(name, type, newType, img, menuIng) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}menus`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                name: name,
+                type: type,
+                newType: newType,
+                img: img,
+                menuIng: menuIng
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
 }
 export default bookitService;
