@@ -13,6 +13,7 @@ export default new Vuex.Store({
     menus: [],
     areas: [],
     workshops: [],
+    currentWorkshop: [],
     x: 0,
     logged: false,
     loggedUser: [],
@@ -187,6 +188,9 @@ export default new Vuex.Store({
     },
     SET_WORKSHOPS(state, data) {
       state.workshops = data
+    },
+    SET_WORKSHOP_BY_ID(state, data) {
+      state.currentWorkshop = data.data
     },
     SET_USERS(state, data) {
       state.users = data
@@ -432,6 +436,11 @@ export default new Vuex.Store({
       commit
     }) {
       commit("SET_WORKSHOPS", await bookitService.getWorkshops())
+    },
+    async fetchWorkshopById({
+      commit
+    }, payload) {
+      commit("SET_WORKSHOP_BY_ID", await bookitService.getWorkshopsById(payload.id))
     },
     async fetchIngredients({
       commit

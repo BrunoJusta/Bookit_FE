@@ -5,21 +5,30 @@
             </b-form-input>
         </div>
         <div class="container">
-            <div class="row">
+            <div class="row" v-if="this.userType == 0">
                 <div class="col-sm-4" v-for="w in filteredWorkshops" :key="w.workshop_id">
                     <div id="card-maker" style="padding-bottom: 60px">
                         <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem"
                             class="border-0">
-                            <b-button v-if="w.vacancies !== 0" class="btn-book" squared>
-                                <router-link :to="{name: x, params: {workshopId: w.workshop_id}}" style="color:white">
-                                    Ver Mais </router-link>
-                            </b-button>
+                            <b-button v-if="w.vacancies !== w.filled" class="btn-book"
+                                @click="currentWorkshop(w.workshop_id)" squared>Ver Mais </b-button>
                             <p v-else>CHEIO</p>
-                            <b-button @click="deleteWorkshop(w.name)" class="btn-remove border-0" :id="w.workshop_id"
-                                v-bind:style="{visibility: remove}" squared> X </b-button>
+                            <b-button @click="deleteWorkshop(w.workshop_id)" class="btn-remove border-0" squared> X
+                            </b-button>
                         </b-card>
                     </div>
-
+                </div>
+            </div>
+            <div class="row" v-else>
+                <div class="col-sm-4" v-for="w in filteredWorkshops" :key="w.workshop_id">
+                    <div id="card-maker" style="padding-bottom: 60px">
+                        <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem"
+                            class="border-0">
+                            <b-button v-if="w.vacancies !== w.filled" class="btn-book"
+                                @click="currentWorkshop(w.workshop_id)" squared>Ver Mais </b-button>
+                            <p v-else>CHEIO</p>
+                        </b-card>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,81 +45,60 @@
         data: function () {
             return {
                 workshops: [],
-                users: [],
                 searchTxt: "",
-                x: "",
-                remove: "",
-                choose: "",
+                userType: ""
             };
         },
         created() {
-            this.getMyWorkshops();
-            if (this.$store.getters.getName == "Entrar") {
-                this.x = "login"
-            } else {
-                this.x = "workshopDetail"
-            }
-            if (this.$store.getters.getUserType === "admin") {
-                this.remove = "visible"
-                this.choose = "hidden"
-            } else {
-                this.remove = "hidden"
-                this.choose = "visible"
-            }
+            this.getAllWorkshops();
+            this.userType = this.$store.state.loggedUser.type;
         },
         methods: {
-            async getMyWorkshops() {
+            async getAllWorkshops() {
                 try {
                     await this.$store.dispatch("fetchWorkshops");
                     this.workshops = this.getWorkshops.data;
                 } catch (err) {
                     alert(err);
                 }
-            }
-            /* deleteWorkshop(name) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Deseja remover este workshop?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i = 0; i <= this.workshops.length; i++) {
-                            if (this.workshops[i].name === name) {
-                                for (let j in this.users) {
-                                    if (this.users[j].userType === "cliente") {
-                                        this.users[j].notifications.push({
-                                            txt: 'O Workshop' + this.workshops[i].name +
-                                                ' foi removido da galeria de workshops!'
-                                        })
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                    }
-                                }
-                                this.workshops.splice(i, 1)
-                                localStorage.setItem("workshops", JSON.stringify(this.workshops));
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Workshop eliminado!'
-                                })
-                            }
-                        }
-                    }
-                })
-            } */
+            },
+            async deleteWorkshop(ID) {
+                try {
+                    await this.$store.dispatch("deleteWorkshop", {
+                        id: ID
+                    });
+                } catch (err) {
+                    console.log(err)
+                    alert(err);
+                }
+                this.getAllWorkshops();
+            },
+            async currentWorkshop(ID) {
+                try {
+                    await this.$store.dispatch("fetchWorkshopById", {
+                        id: ID
+                    });
+                    this.$router.push({
+                        name: "workshopDetail"
+                    })
+                } catch (err) {
+                    this.$router.push({
+                        name: 'login'
+                    })
+                }
+            },
         },
         computed: {
             ...mapGetters(["getWorkshops"]),
-            searchWorkshops() {
-                return this.workshops;
-            },
             filteredWorkshops() {
                 return this.workshops.filter(
-                    (workS) => {
+                    (workshop) => {
                         let filterResult = true
                         if (this.searchTxt == "") {
                             return filterResult
                         }
-                        if (workS.name.toLowerCase().includes(this.searchTxt.toLowerCase())) {
-                            filterResult = workS.name.toLowerCase().includes(this.searchTxt.toLowerCase())
+                        if (workshop.name.toLowerCase().includes(this.searchTxt.toLowerCase())) {
+                            filterResult = workshop.name.toLowerCase().includes(this.searchTxt.toLowerCase())
                             return filterResult
                         }
                     }

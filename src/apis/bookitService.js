@@ -230,6 +230,24 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async getWorkshopsById(id) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+
+        const response = await fetch(`${API_URL}workshops/${id}`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async getSchools() {
         const response = await fetch(`${API_URL}schools`, {
             method: "GET"

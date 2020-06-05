@@ -37,9 +37,9 @@
                 </router-link>
                 <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType == 0">Menus
                 </router-link>
-                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType == 0">Workshops
-                </router-link>
                 <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType == 0">Espaços
+                </router-link>
+                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType == 0">Workshops
                 </router-link>
             </div>
         </b-navbar>
@@ -59,22 +59,9 @@
             }
         },
         created() {
-            // if (localStorage.getItem("kits")) {
-            //     this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
-            //     this.kits = this.$store.state.kits
-
-            // }
             if (localStorage.getItem("loggedUser")) {
                 this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
             }
-            // if (localStorage.getItem("bookings")) {
-            //     this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
-            //     this.bookings = this.$store.state.bookings
-            // }
-            // if (localStorage.getItem("areaBookings")) {
-            //     this.$store.state.areaBookings = JSON.parse(localStorage.getItem("areaBookings"))
-            //     this.areaBookings = this.$store.state.areaBookings
-            // }
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
             } else if (this.$store.getters.getUserType === 0) {
@@ -83,41 +70,6 @@
                 this.path = "profile"
             }
             this.$store.commit('STORE_ITEMS')
-
-
-            // for (let i in this.kits) {
-            //     let createType = true
-            //     for (let j in this.menuTypes) {
-            //         if (this.menuTypes[j] == this.kits[i].type) {
-            //             createType = false;
-            //         }
-            //     }
-            //     if (createType == true) {
-            //         this.menuTypes.push(
-            //             this.kits[i].type
-            //         )
-            //     }
-            // }
-            // localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes))
-
-            // for (let i in this.bookings) {
-            //     var g1 = new Date();
-            //     var g2 = new Date(this.bookings[i].date);
-            //     if (g1.getTime() > g2.getTime() && this.bookings[i].state === "Aprovado") {
-            //         this.bookings[i].state = "Concluído"
-            //     }
-            // }
-            // localStorage.setItem("bookings", JSON.stringify(this.bookings))
-
-            // for (let i in this.areaBookings) {
-            //     var g1 = new Date();
-            //     var g2 = new Date(this.areaBookings[i].date);
-            //     if (g1.getTime() > g2.getTime() && this.areaBookings[i].state === "Aprovado") {
-            //         this.areaBookings[i].state = "Concluído"
-            //     }
-            // }
-            // localStorage.setItem("areaBookings", JSON.stringify(this.areaBookings))
-
         },
         updated: function () {
             if (this.$store.getters.getName === "Entrar") {
