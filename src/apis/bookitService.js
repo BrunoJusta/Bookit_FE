@@ -671,6 +671,33 @@ const bookitService = {
             throw Error(response.json())
         }
     },
+    async editWorkshop(id, name, teacher, date, description, time, vacancies) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}workshops/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                id: id,
+                name: name,
+                description: description,
+                teacher: teacher,
+                date: date,
+                time: time,
+                vacancies: vacancies,
+            })
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async deleteWorkshop(id) {
         let user
         if (localStorage.getItem("loggedUser")) {

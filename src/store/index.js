@@ -182,9 +182,11 @@ export default new Vuex.Store({
     },
     SET_WORKSHOPS(state, data) {
       state.workshops = data
+
     },
     SET_WORKSHOP_BY_ID(state, data) {
       state.currentWorkshop = data.data
+      localStorage.setItem("currentWorkshop", JSON.stringify(state.currentWorkshop));
     },
     SET_USERS(state, data) {
       state.users = data
@@ -359,6 +361,12 @@ export default new Vuex.Store({
         text: "Workshop Adicionado!"
       })
     },
+    EDIT_WORKSHOP() {
+      Swal.fire({
+        icon: 'success',
+        text: "Workshop Atualizado"
+      })
+    }
   },
   actions: {
     async fetchMenus({
@@ -601,6 +609,12 @@ export default new Vuex.Store({
     }, payload) {
       commit("ADD_WORKSHOP", await bookitService.addWorkshops(payload.name, payload.teacher, payload.date, payload.description, payload.hi, payload.hf, payload.vacancies, payload.img))
     },
+    async editWorkshop({
+      commit
+    }, payload) {
+      commit("EDIT_WORKSHOP", await bookitService.editWorkshop(payload.id, payload.name, payload.teacher, payload.date, payload.description, payload.time, payload.vacancies))
+    },
+
   },
   getters: {
     getMenus: state => state.menus,

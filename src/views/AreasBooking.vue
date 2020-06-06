@@ -61,19 +61,17 @@ export default {
     };
   },
   created() {
-    if (localStorage.getItem("areaBookings")) {
+/*     if (localStorage.getItem("areaBookings")) {
       this.$store.state.areaBookings = JSON.parse(
         localStorage.getItem("areaBookings")
       );
-    }
-    if (localStorage.getItem("areas")) {
-      this.$store.state.areas = JSON.parse(localStorage.getItem("areas"));
-    }
+    } */
+
     if (localStorage.getItem("loggedUser")) {
       this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
     }
     if (localStorage.getItem("currentArea")) {
-      this.$store.state.currentArea = JSON.parse(
+      this.currentArea = JSON.parse(
         localStorage.getItem("currentArea")
       );
     }

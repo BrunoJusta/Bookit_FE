@@ -184,9 +184,7 @@ export default {
     this.getAllExtras();
     this.getAllOutfits();
     this.getAllDecorations();
-    if (localStorage.getItem("loggedUser")) {
-      this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
-    }
+
     if (localStorage.getItem("currentMenu")) {
       this.menu = JSON.parse(
         localStorage.getItem("currentMenu")
