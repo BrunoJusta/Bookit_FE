@@ -672,6 +672,7 @@ const bookitService = {
         }
     },
     async editWorkshop(id, name, teacher, date, description, time, vacancies) {
+        console.log(id)
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))

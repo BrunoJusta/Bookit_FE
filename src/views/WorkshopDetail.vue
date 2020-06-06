@@ -82,7 +82,7 @@
       >Cancelar</b-button>
       <b-button
         v-bind:style="{display:show}"
-        @click="saveEdit()"
+        @click="editWorkshop()"
         class="btn-book border-0"
         squared
       >Guardar</b-button>
@@ -145,7 +145,8 @@ export default {
     this.newDescription = this.currentWorkshop[0].description;
   },
   methods: {
-    async saveEdit() {
+    async editWorkshop() {
+      alert("aqui")
       try {
         await this.$store.dispatch("editWorkshop", {
           id: this.currentWorkshop[0].workshop_id,

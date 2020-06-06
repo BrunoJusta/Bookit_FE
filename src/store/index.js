@@ -362,9 +362,13 @@ export default new Vuex.Store({
       })
     },
     EDIT_WORKSHOP() {
+      console.log("aqui")
       Swal.fire({
         icon: 'success',
         text: "Workshop Atualizado"
+      })
+      router.push({
+        name: 'workshops'
       })
     }
   },
