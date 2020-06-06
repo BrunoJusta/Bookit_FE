@@ -672,7 +672,6 @@ const bookitService = {
         }
     },
     async editWorkshop(id, name, teacher, date, description, time, vacancies) {
-        console.log(id)
         let user
         if (localStorage.getItem("loggedUser")) {
             user = JSON.parse(localStorage.getItem("loggedUser"))
@@ -944,6 +943,28 @@ const bookitService = {
                 hf: hf,
                 vacancies: vacancies,
                 img: img
+            })
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
+    async workshopInscription(idUser, idWorkshop) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}workshops/inscription`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                idUser: idUser,
+                idWorkshop: idWorkshop,
             })
         })
         if (response.ok) {

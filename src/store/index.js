@@ -370,6 +370,16 @@ export default new Vuex.Store({
       router.push({
         name: 'workshops'
       })
+    },
+    ADD_INSCRIPTION() {
+      console.log("aqui")
+      Swal.fire({
+        icon: 'success',
+        text: "Inscreveu-se no Workshop"
+      })
+      router.push({
+        name: 'workshops'
+      })
     }
   },
   actions: {
@@ -617,6 +627,11 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("EDIT_WORKSHOP", await bookitService.editWorkshop(payload.id, payload.name, payload.teacher, payload.date, payload.description, payload.time, payload.vacancies))
+    },
+    async workshopInscription({
+      commit
+    }, payload) {
+      commit("ADD_INSCRIPTION", await bookitService.workshopInscription(payload.idUser, payload.idWorkshop))
     },
 
   },

@@ -91,7 +91,7 @@
       </b-button>
       <b-button
         v-bind:style="{display:show4}"
-        @click="sendInfo()"
+        @click="inscription()"
         class="btn-book border-0"
         squared
       >Inscrever</b-button>
@@ -146,7 +146,6 @@ export default {
   },
   methods: {
     async editWorkshop() {
-      alert("aqui")
       try {
         await this.$store.dispatch("editWorkshop", {
           id: this.currentWorkshop[0].workshop_id,
@@ -161,7 +160,16 @@ export default {
         console.log(err);
       }
     },
-    sendInfo() {},
+    async inscription() {
+      try{
+        await this.$store.dispatch("workshopInscription",{
+          idUser: this.userOn.id,
+          idWorkshop: this.currentWorkshop[0].workshop_id
+        })
+      }catch (err){
+        console.log(err)
+      }
+    },
     activateEdit() {
       this.show = "inline";
       this.show2 = "none";
