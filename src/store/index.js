@@ -132,23 +132,17 @@ export default new Vuex.Store({
         text: "Pedido de reserva enviado"
       })
       router.push({
-        name: 'menuGallery'
+        name: 'areasGallery'
       })
     },
-    ADD_AREA_BOOKING(state, payload) {
-      state.areaBookings.push({
-        id: payload.id,
-        userName: payload.userName,
-        userEmail: payload.userEmail,
-        areaName: payload.areaName,
-        areaImg: payload.areaImg,
-        reason: payload.reason,
-        date: payload.date,
-        duration: payload.duration,
-        state: payload.state,
-        opinion: payload.opinion
-      });
-      localStorage.setItem("areaBookings", JSON.stringify(state.areaBookings));
+    ADD_AREA_BOOKING(data) {
+      Swal.fire({
+        icon: 'success',
+        text: "Pedido de reserva enviado"
+      })
+      router.push({
+        name: 'areasGallery'
+      })
     },
     SET_MENUS(state, data) {
       state.menus = data
@@ -527,6 +521,11 @@ export default new Vuex.Store({
     }, payload) {
       commit("EDIT_AREA", await bookitService.editArea(payload.id, payload.name, payload.description))
     },
+    async postAreaBooking({
+      commit
+    }, payload) {
+      commit("ADD_AREA_BOOKING", await bookitService.areaBooking(payload.id, payload.area, payload.reason, payload.date, payload.initHour, payload.endHour))
+    },
     async deleteArea({
       commit
     }, payload) {
@@ -600,7 +599,7 @@ export default new Vuex.Store({
     async postWorkshop({
       commit
     }, payload) {
-      commit("ADD_WORKSHOP", await bookitService.addWorkshops(payload.name, payload.teacher, payload.date, payload.description, payload.hi, payload.hf, payload.vacancies, payload.img ))
+      commit("ADD_WORKSHOP", await bookitService.addWorkshops(payload.name, payload.teacher, payload.date, payload.description, payload.hi, payload.hf, payload.vacancies, payload.img))
     },
   },
   getters: {
