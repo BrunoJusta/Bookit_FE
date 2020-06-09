@@ -64,6 +64,40 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async getUserNotifications() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}users/${user.id}/notifications`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getUserArchivations() {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}users/${user.id}/archivations`, {
+            method: "GET",
+            headers: {
+                'x-access-token': user.token
+            },
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async getMenuBookings() {
         let user
         if (localStorage.getItem("loggedUser")) {
@@ -967,6 +1001,52 @@ const bookitService = {
                 idWorkshop: idWorkshop,
             })
         })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
+    async archiveNotification(userID, id) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}users/${userID}/notifications/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                userID: userID,
+                id: id,
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response.json())
+        }
+    },
+    async deleteNotification(userID, id) {
+        let user
+        if (localStorage.getItem("loggedUser")) {
+            user = JSON.parse(localStorage.getItem("loggedUser"))
+        }
+        const response = await fetch(`${API_URL}users/${userID}/notifications/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': user.token
+            },
+            body: JSON.stringify({
+                userID: userID,
+                id: id,
+            })
+        })
+
         if (response.ok) {
             return response.json()
         } else {

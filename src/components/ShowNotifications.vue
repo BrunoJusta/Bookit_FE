@@ -16,20 +16,17 @@
 
 
         <div class="container" v-bind:style="{display:  notifyTable}">
-            <div v-if="this.notifications.length != 0">
+            <div v-if="this.userNotifications.length != 0">
                 <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
                 <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                    head-variant="dark" responsive="sm" :items="this.notifications.slice().reverse()" :fields="fields">
+                    head-variant="dark" responsive="sm" :items="this.userNotifications.slice().reverse()"
+                    :fields="fields">
                     <template v-slot:cell(actions)="row">
-                        <b-button size="sm" @click="archived(row.item.txt)" class="mr-1 blackBtn">Arquivar</b-button>
-                        <b-button v-if="row.item.reason" size="sm" @click="showMotive(row.item.reason)"
-                            class="mr-1 blueBtn">Ver
-                            Motivo</b-button>
-                        <b-button v-if="row.item.opinion" size="sm" @click="showOpinion(row.item.opinion)"
-                            class="mr-1 blueBtn">
-                            Ver
-                            Opinião</b-button>
-                        <b-button size="sm" @click="removeNotification(row.item.txt)" class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i>
+                        <b-button size="sm" @click="archive(row.item.user_id, row.item.notification_id)"
+                            class="mr-1 blackBtn">Arquivar
+                        </b-button>
+                        <b-button size="sm" @click="deleteNotification(row.item.user_id, row.item.notification_id)"
+                            class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i>
                         </b-button>
                     </template>
                 </b-table>
@@ -43,19 +40,13 @@
         </div>
 
 
-        <div class="container" v-if="this.archivations.length !=0" v-bind:style="{display: archiveTable}">
+        <div class="container" v-if="this.userArchivations.length !=0" v-bind:style="{display: archiveTable}">
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage2 }}</p>
             <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.archivations.slice().reverse()" :fields="fields2">
+                head-variant="dark" responsive="sm" :items="this.userArchivations.slice().reverse()" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
-                    <b-button v-if="row2.item.reason" size="sm" @click="showMotive(row2.item.reason)"
-                        class="mr-1 blueBtn">Ver
-                        Motivo</b-button>
-                    <b-button v-if="row2.item.opinion" size="sm" @click="showOpinion(row2.item.opinion)"
-                        class="mr-1 blueBtn">
-                        Ver
-                        Opinião</b-button>
-                    <b-button size="sm" @click="removeArchive(row2.item.txt)" class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
+                    <b-button size="sm" @click="deleteNotification(row2.item.user_id, row2.item.notification_id)"
+                        class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                 </template>
             </b-table>
             <b-pagination v-model="currentPage2" :total-rows="rows2" :per-page="perPage" aria-controls="my-table"
@@ -74,6 +65,9 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
     export default {
         name: "notifyTable",
         data: function () {
@@ -82,8 +76,8 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'txt',
-                        label: "Notificações",
+                        key: 'description',
+                        label: "Notificações Novas",
                         sortable: true
                     },
                     {
@@ -93,7 +87,7 @@
                     },
                 ],
                 fields2: [{
-                        key: 'txt',
+                        key: 'description',
                         label: "Notificações Arquivadas",
                         sortable: true
                     },
@@ -110,25 +104,58 @@
                 x: "",
                 users: [],
                 loggedUser: [],
-                notifications: [],
-                archivations: [],
+                userNotifications: [],
+                userArchivations: [],
             }
         },
         created() {
-            if (localStorage.getItem("users")) {
-                this.users = JSON.parse(localStorage.getItem("users"))
-                for (let i in this.users) {
-                    if (this.users[i].email === this.$store.getters.getEmail) {
-                        this.notifications = this.users[i].notifications
-                        this.archivations = this.users[i].archivations
-                    }
-                }
-            }
             if (localStorage.getItem("loggedUser")) {
-                this.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
+                this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
             }
+            this.getMyNotifications();
+            this.getMyArchivations();
         },
         methods: {
+            async getMyNotifications() {
+                try {
+                    await this.$store.dispatch("fetchUserNotifications");
+                    this.userNotifications = this.getUserNotifications.data
+                } catch (err) {
+                    alert(err);
+                }
+            },
+            async getMyArchivations() {
+                try {
+                    await this.$store.dispatch("fetchUserArchivations");
+                    this.userArchivations = this.getUserArchivations.data
+                } catch (err) {
+                    alert(err);
+                }
+            },
+            async archive(userID, id) {
+                try {
+                    await this.$store.dispatch("archiveNotification", {
+                        userID: userID,
+                        id: id
+                    })
+                } catch (err) {
+                    alert(err)
+                }
+                this.getMyNotifications();
+                this.getMyArchivations();
+            },
+            async deleteNotification(userID, id) {
+                try {
+                    await this.$store.dispatch("deleteNotification", {
+                        userID: userID,
+                        id: id
+                    })
+                } catch (err) {
+                    alert(err)
+                }
+                this.getMyNotifications();
+                this.getMyArchivations();
+            },
             displayA() {
                 this.notifyTable = "none"
                 this.archiveTable = "block"
@@ -140,118 +167,16 @@
                 this.notifyTable = "block"
                 this.notifyFont = "bold"
                 this.archiveFont = "normal"
-            },
-            removeNotification(txt) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Deseja remover esta notificação?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.notifications) {
-                            if (this.notifications[i].txt === txt) {
-                                this.notifications = this.notifications.filter(notification => this
-                                    .notifications[i]
-                                    .txt !=
-                                    notification.txt);
-                                for (let i in this.users) {
-                                    if (this.users[i].email === this.$store.getters.getEmail) {
-                                        this.users[i].notifications = this.notifications
-                                        this.loggedUser.notifications = this.notifications
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                        localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                })
-            },
-            removeArchive(txt) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Deseja remover este arquivo?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.archivations) {
-                            if (this.archivations[i].txt === txt) {
-                                this.archivations = this.archivations.filter(notification => this.archivations[
-                                        i].txt !=
-                                    notification.txt);
-                                for (let i in this.users) {
-                                    if (this.users[i].email === this.$store.getters.getEmail) {
-                                        this.users[i].archivations = this.archivations
-                                        this.loggedUser.archivations = this.archivations
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                        localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                })
-
-            },
-            archived(txt) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Deseja arquivar esta notificação?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.notifications) {
-                            if (this.notifications[i].txt === txt) {
-                                for (let j in this.users) {
-                                    if (this.users[j].email === this.$store.getters.getEmail) {
-                                        this.users[j].archivations.push({
-                                            txt: this.notifications[i].txt,
-                                            reason: this.notifications[i].reason,
-                                            opinion: this.notifications[i].opinion
-                                        })
-                                        this.notifications = this.notifications.filter(notification => this
-                                            .notifications[i]
-                                            .txt != notification.txt);
-                                        this.users[j].notifications = this.notifications
-                                        this.loggedUser.notifications = this.notifications
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                        localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
-                                    }
-                                }
-                                const toast = swal.mixin({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 1000,
-                                    timerProgressBar: true
-                                });
-                                toast.fire({
-                                    title: 'Notificação Arquivada'
-                                })
-                            }
-                        }
-                    }
-                })
-            },
-            showMotive(reason) {
-                Swal.fire({
-                    title: "Motivo: " + reason,
-                    confirmButtonText: 'Fechar'
-                })
-            },
-            showOpinion(opinion) {
-                Swal.fire({
-                    title: "Opinião: " + opinion,
-                    confirmButtonText: 'Fechar'
-                })
             }
         },
         computed: {
+            ...mapGetters(["getUserNotifications"]),
+            ...mapGetters(["getUserArchivations"]),
             rows() {
-                return this.notifications.length
+                return this.userNotifications.length
             },
             rows2() {
-                return this.archivations.length
+                return this.userArchivations.length
             },
             updateNotifications() {
                 return this.$store.getters.getNumberNotifications

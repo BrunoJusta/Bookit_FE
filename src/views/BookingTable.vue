@@ -38,6 +38,10 @@
                     <b-button size="sm" v-if="row.item.state == 'Aprovado'"
                         @click="editMenuBooking(row.item.id,  3,'', '')" class="mr-1 acceptBtn">Concluír
                     </b-button>
+                    <b-button size="sm"
+                        v-if="row.item.state == 'Concluído' && (!(row.item.opinion =='' || row.item.opinion ==null || row.item.opinion ==undefined))"
+                        @click="showOpinion(row.item.opinion)" class="mr-1 acceptBtn">Ver Opinião
+                    </b-button>
                     <b-button size="sm" v-if="row.item.state !== 'Pendente'" @click="deleteMenuBooking(row.item.id)"
                         class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                 </template>
@@ -94,6 +98,10 @@
                     </b-button>
                     <b-button size="sm" v-if="row2.item.description == 'Aprovado'"
                         @click="editAreaBooking(row2.item.area_booking_id, 3,'', '')" class="mr-1 acceptBtn">Concluír
+                    </b-button>
+                    <b-button size="sm"
+                        v-if="row2.item.description == 'Concluído' && (!(row2.item.opinion =='' || row2.item.opinion ==null || row2.item.opinion ==undefined))"
+                        @click="showOpinion(row2.item.opinion)" class="mr-1 acceptBtn">Ver Opinião
                     </b-button>
                     <b-button size="sm" v-if="row2.item.description !== 'Pendente'"
                         @click="deleteAreaBooking(row2.item.area_booking_id)" class="mr-1 deleteBtn"><i
@@ -250,6 +258,7 @@
                         b.drinks = []
                         b.food = []
                     }
+                    console.log(this.bookings)
                     this.getBookingsDecor();
                     this.getBookingsExtra();
                     this.getBookingsAddOns();
@@ -368,7 +377,13 @@
                     alert(err)
                 }
                 this.getAreaBookings();
-            }
+            },
+            showOpinion(txt) {
+                Swal.fire({
+                    title: "Opinion: " + txt,
+                    confirmButtonText: 'Fechar'
+                })
+            },
         },
         computed: {
             ...mapGetters(["getAllMenuBookings"]),

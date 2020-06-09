@@ -37,7 +37,9 @@ export default new Vuex.Store({
     currentArea: [],
     userBookings: [],
     userAreaBookings: [],
-    userWorkshops: []
+    userWorkshops: [],
+    userNotifications: [],
+    userArchivations: []
   },
   mutations: {
     STORE_ITEMS(state) {
@@ -158,6 +160,14 @@ export default new Vuex.Store({
     SET_USER_WORKSHOPS(state, data) {
       state.userWorkshops = []
       state.userWorkshops = data
+    },
+    SET_USER_NOTIFICATIONS(state, data) {
+      state.userNotifications = []
+      state.userNotifications = data
+    },
+    SET_USER_ARCHIVATIONS(state, data) {
+      state.userArchivations = []
+      state.userArchivations = data
     },
     SET_MENU_BOOKINGS(state, data) {
       state.bookings = data
@@ -380,7 +390,19 @@ export default new Vuex.Store({
       router.push({
         name: 'workshops'
       })
-    }
+    },
+    ARCHIVE_NOTIFICATION() {
+      Swal.fire({
+        icon: "success",
+        text: "Notificação arquivada"
+      })
+    },
+    DELETE_NOTIFICATION() {
+      Swal.fire({
+        icon: "success",
+        text: "Notificação eliminada"
+      })
+    },
   },
   actions: {
     async fetchMenus({
@@ -402,6 +424,16 @@ export default new Vuex.Store({
       commit
     }) {
       commit("SET_USER_WORKSHOPS", await bookitService.getUserWorkshops())
+    },
+    async fetchUserNotifications({
+      commit
+    }) {
+      commit("SET_USER_NOTIFICATIONS", await bookitService.getUserNotifications())
+    },
+    async fetchUserArchivations({
+      commit
+    }) {
+      commit("SET_USER_ARCHIVATIONS", await bookitService.getUserArchivations())
     },
     async fetchMenuBookings({
       commit
@@ -633,13 +665,24 @@ export default new Vuex.Store({
     }, payload) {
       commit("ADD_INSCRIPTION", await bookitService.workshopInscription(payload.idUser, payload.idWorkshop))
     },
-
+    async archiveNotification({
+      commit
+    }, payload) {
+      commit("ARCHIVE_NOTIFICATION", await bookitService.archiveNotification(payload.userID, payload.id))
+    },
+    async deleteNotification({
+      commit
+    }, payload) {
+      commit("DELETE_NOTIFICATION", await bookitService.deleteNotification(payload.userID, payload.id))
+    },
   },
   getters: {
     getMenus: state => state.menus,
     getUserBookings: state => state.userBookings,
     getUserAreaBookings: state => state.userAreaBookings,
     getUserWorkshops: state => state.userWorkshops,
+    getUserNotifications: state => state.userNotifications,
+    getUserArchivations: state => state.userArchivations,
     getAllMenuBookings: state => state.bookings,
     getAllBookingsDecor: state => state.bookingsDecor,
     getAllBookingsExtra: state => state.bookingsExtra,
