@@ -286,16 +286,16 @@ export default new Vuex.Store({
         text: "Area Eliminado"
       })
     },
-    EDIT_MENU_BOOKINGS() {
+    EDIT_MENU_BOOKINGS(state, data) {
       Swal.fire({
         icon: 'success',
-        text: "Reserva do menu Atualizado"
+        text: data.message
       })
     },
-    EDIT_AREA_BOOKINGS() {
+    EDIT_AREA_BOOKINGS(state, data) {
       Swal.fire({
         icon: "success",
-        text: "Reserva da area Atualizada"
+        text: data.message
       })
     },
     DELETE_WORKSHOP() {

@@ -33,7 +33,7 @@
                         @click="editMenuBooking(row.item.id, 1,'', '')" class="mr-1 acceptBtn">Aceitar
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
-                        @click="editMenuBooking(row.item.id,  2,'', '')" class="mr-1 refuseBtn">Recusar
+                        @click="refuseMenuBooking(row.item.id)" class="mr-1 refuseBtn">Recusar
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Aprovado'"
                         @click="editMenuBooking(row.item.id,  3,'', '')" class="mr-1 acceptBtn">Concluír
@@ -94,7 +94,7 @@
                         @click="editAreaBooking(row2.item.area_booking_id, 1,'', '')" class="mr-1 acceptBtn">Aceitar
                     </b-button>
                     <b-button size="sm" v-if="row2.item.description == 'Pendente'"
-                        @click="editAreaBooking(row2.item.area_booking_id, 2,'', '')" class="mr-1 refuseBtn">Recusar
+                        @click="refuseAreaBooking(row2.item.area_booking_id)" class="mr-1 refuseBtn">Recusar
                     </b-button>
                     <b-button size="sm" v-if="row2.item.description == 'Aprovado'"
                         @click="editAreaBooking(row2.item.area_booking_id, 3,'', '')" class="mr-1 acceptBtn">Concluír
@@ -144,7 +144,7 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'menuType',
+                        key: 'id',
                         label: "Evento",
                         sortable: true
                     }, {
@@ -258,7 +258,6 @@
                         b.drinks = []
                         b.food = []
                     }
-                    console.log(this.bookings)
                     this.getBookingsDecor();
                     this.getBookingsExtra();
                     this.getBookingsAddOns();
@@ -365,6 +364,22 @@
                 }
                 this.getMenuBookings();
             },
+            refuseMenuBooking(id) {
+                Swal.fire({
+                    title: "Motivo da recusa",
+                    input: "textarea",
+                    inputAttributes: {
+                        autocapitalize: "off"
+                    },
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    confirmButtonText: "Submeter"
+                }).then(result => {
+                    if (result.value && result.value != "") {
+                        this.editMenuBooking(id, 2, result.value, '')
+                    }
+                });
+            },
             async editAreaBooking(ID, state, decline, opinion) {
                 try {
                     await this.$store.dispatch("editAreaBookings", {
@@ -378,12 +393,28 @@
                 }
                 this.getAreaBookings();
             },
+            refuseAreaBooking(id) {
+                Swal.fire({
+                    title: "Motivo da recusa",
+                    input: "textarea",
+                    inputAttributes: {
+                        autocapitalize: "off"
+                    },
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    confirmButtonText: "Submeter"
+                }).then(result => {
+                    if (result.value && result.value != "") {
+                        this.editAreaBooking(id, 2, result.value, '')
+                    }
+                });
+            },
             showOpinion(txt) {
                 Swal.fire({
                     title: "Opinião: " + txt,
                     confirmButtonText: 'Fechar'
                 })
-            },
+            }
         },
         computed: {
             ...mapGetters(["getAllMenuBookings"]),
