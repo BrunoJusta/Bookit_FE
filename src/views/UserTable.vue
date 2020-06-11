@@ -14,15 +14,15 @@
         head-variant="dark" responsive="sm" :items="this.filteredUsers" :fields="fields">
         <template v-slot:cell(actions)="row">
           <b-button size="sm" v-if="row.item.type == 'User' && row.item.email != $store.getters.getEmail"
-            @click="editUsers(row.item.user_id,'','',0)" class="mr-1 adminBtn">Tornar administrador</b-button>
+            @click="editUsers(row.item.user_id,'','','','',0)" class="mr-1 adminBtn">Tornar administrador</b-button>
           <b-button size="sm" v-if="row.item.type == 'Admin' && row.item.email != $store.getters.getEmail"
-            @click="editUsers(row.item.user_id,'','', 1) " class="mr-1 userBtn">Tornar cliente</b-button>
+            @click="editUsers(row.item.user_id,'','','','', 1) " class="mr-1 userBtn">Tornar cliente</b-button>
           <b-button size="sm" v-if="row.item.email != $store.getters.getEmail && row.item.type !== 'Blocked'"
-            @click="editUsers(row.item.user_id,'','', 2)" class="mr-1 blockBtn">
+            @click="editUsers(row.item.user_id,'','','','', 2)" class="mr-1 blockBtn">
             <i class="fas fa-lock"></i>
           </b-button>
           <b-button size="sm" v-if="row.item.email != $store.getters.getEmail && row.item.type === 'Blocked'"
-            @click="editUsers(row.item.user_id,'','', 1)" class="mr-1 unlockBtn">
+            @click="editUsers(row.item.user_id,'','','','', 1)" class="mr-1 unlockBtn">
             <i class="fas fa-lock-open"></i>
           </b-button>
           <b-button size="sm" @click="deleteUser(row.item.user_id)" v-if="row.item.email != $store.getters.getEmail"
@@ -94,11 +94,13 @@
           alert(err);
         }
       },
-      async editUsers(id, newPassword, number, userType) {
+      async editUsers(id, oldPassword, newPassword, newPassword2, number, userType) {
         try {
           await this.$store.dispatch("editUsers", {
             id: id,
+            oldPassword: oldPassword,
             newPassword: newPassword,
+            newPassword2: newPassword2,
             number: number,
             userType: userType
           });

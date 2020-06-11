@@ -231,27 +231,26 @@ export default new Vuex.Store({
     },
     SET_OUTFITS(state, data) {
       state.outfits = data.data
-
     },
-    EDIT_USERS(data) {
+    EDIT_USERS(state, data) {
       Swal.fire({
         icon: 'success',
         text: data.message
       })
     },
-    DELETE_USER(data) {
+    DELETE_USER(state, data) {
       Swal.fire({
         icon: 'success',
         text: data.message
       })
     },
-    DELETE_MENU_BOOKING(data) {
+    DELETE_MENU_BOOKING(state,data) {
       Swal.fire({
         icon: 'success',
         text: data.message
       })
     },
-    DELETE_AREA_BOOKING(data) {
+    DELETE_AREA_BOOKING(state,data) {
       Swal.fire({
         icon: 'success',
         text: data.message
@@ -528,7 +527,7 @@ export default new Vuex.Store({
     async editUsers({
       commit
     }, payload) {
-      commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.newPassword, payload.number, payload.userType))
+      commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.oldPassword, payload.newPassword, payload.newPassword2, payload.number, payload.userType))
     },
     async deleteUser({
       commit

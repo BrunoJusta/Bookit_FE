@@ -380,7 +380,7 @@
             },
             showOpinion(txt) {
                 Swal.fire({
-                    title: "Opinion: " + txt,
+                    title: "Opinião: " + txt,
                     confirmButtonText: 'Fechar'
                 })
             },
