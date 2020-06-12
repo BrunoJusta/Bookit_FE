@@ -31,7 +31,6 @@
             </b-card>
           </div>
         </div>
-        {{this.userType}}
       </div>
     </div>
   </div>
@@ -58,7 +57,7 @@ export default {
     };
   },
   created() {
-    this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
+    this.userOn = this.$store.state.loggedUser;
     this.userType = this.userOn.type;
     this.getMyAreas();
 
@@ -89,60 +88,12 @@ export default {
 
     async deleteArea(id) {
       try {
-        console.log(id)
         await this.$store.dispatch("deleteArea", { id: id });
         this.getMyAreas();
       } catch (err) {
         alert(err);
       }
     }
-
-    /*     deleteArea(name) {
-      Swal.fire({
-        icon: "warning",
-        text: "Deseja remover este espaço?",
-        showCancelButton: true
-      }).then(result => {
-        if (result.value) {
-          let checker = false;
-          for (let i = 0; i <= this.areas.length; i++) {
-            for (let b in this.areaBookings) {
-              if (
-                name == this.areaBookings[b].areaName &&
-                this.areaBookings[b].state == "Aprovado"
-              ) {
-                Swal.fire({
-                  icon: "error",
-                  text: "Não Pode eliminar um Espaço com Reservas!"
-                });
-                checker = true;
-              }
-            }
-            if (checker == false) {
-              if (this.areas[i].name === name) {
-                for (let j in this.users) {
-                  if (this.users[j].userType === "cliente") {
-                    this.users[j].notifications.push({
-                      txt:
-                        "O Espaço" +
-                        this.areas[i].name +
-                        " foi removido da galeria de Espaços!"
-                    });
-                    localStorage.setItem("users", JSON.stringify(this.users));
-                  }
-                }
-                this.areas.splice(i, 1);
-                localStorage.setItem("areas", JSON.stringify(this.areas));
-                Swal.fire({
-                  icon: "success",
-                  text: "Espaço eliminado!"
-                });
-              }
-            }
-          }
-        }
-      });
-    } */
   },
   computed: {
     ...mapGetters(["getAreas"]),

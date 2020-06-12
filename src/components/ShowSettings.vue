@@ -100,11 +100,6 @@
                 newImg: ""
             }
         },
-        created() {
-            if (localStorage.getItem("loggedUser")) {
-                this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
-            }
-        },
         methods: {
             async editUsers(oldPassword, newPassword, newPassword2, number, userType) {
                 try {

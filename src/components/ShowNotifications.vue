@@ -103,15 +103,11 @@
                 archiveFont: "normal",
                 x: "",
                 users: [],
-                loggedUser: [],
                 userNotifications: [],
                 userArchivations: [],
             }
         },
         created() {
-            if (localStorage.getItem("loggedUser")) {
-                this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
-            }
             this.getMyNotifications();
             this.getMyArchivations();
         },

@@ -9,7 +9,12 @@ const routes = [{
     name: 'home',
     component: Home,
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (user && user.type == 0) {
         next("/pageNotFound");
       } else {
@@ -22,7 +27,12 @@ const routes = [{
     name: "register",
     component: () => import("../views/Register.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (user && user.length != 0) {
         next("/pageNotFound");
       } else {
@@ -35,7 +45,12 @@ const routes = [{
     name: "login",
     component: () => import("../views/Login.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (user && user.length != 0) {
         next("/pageNotFound");
       } else {
@@ -48,7 +63,12 @@ const routes = [{
     name: "profile",
     component: () => import("../views/Profile.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound")
       } else {
@@ -81,7 +101,12 @@ const routes = [{
     name: "menuDetail",
     component: () => import("../views/MenuDetail.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else {
@@ -94,7 +119,12 @@ const routes = [{
     name: "workshopDetail",
     component: () => import("../views/WorkshopDetail.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else {
@@ -107,7 +137,12 @@ const routes = [{
     name: "areaDetail",
     component: () => import("../views/AreasDetail.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else {
@@ -120,7 +155,12 @@ const routes = [{
     name: "adminHome",
     component: () => import("../views/AdminHome.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else if (user.type == 1) {
@@ -135,7 +175,12 @@ const routes = [{
     name: "workshopTable",
     component: () => import("../views/WorkshopTable.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else if (user.type == 1) {
@@ -150,7 +195,12 @@ const routes = [{
     name: "booking",
     component: () => import("../views/Booking.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/login")
       } else {
@@ -163,7 +213,12 @@ const routes = [{
     name: "menuManager",
     component: () => import("../views/MenuManager.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else if (user.userType == 1) {
@@ -178,7 +233,12 @@ const routes = [{
     name: "WorkshopManager",
     component: () => import("../views/WorkshopManager.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else if (user.userType == 1) {
@@ -193,7 +253,12 @@ const routes = [{
     name: "areasbooking",
     component: () => import("../views/AreasBooking.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else {
@@ -206,7 +271,12 @@ const routes = [{
     name: "bookingTables",
     component: () => import("../views/BookingTable.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else if (user.type == 1) {
@@ -221,7 +291,12 @@ const routes = [{
     name: "userTables",
     component: () => import("../views/UserTable.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else if (user.type == 1) {
@@ -236,7 +311,12 @@ const routes = [{
     name: "areasManager",
     component: () => import("../views/AreasManager.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else if (user.userType == 1) {
@@ -251,7 +331,12 @@ const routes = [{
     name: "menuAddOns",
     component: () => import("../views/MenuAddOns.vue"),
     beforeEnter(to, from, next) {
-      let user = JSON.parse(localStorage.getItem("loggedUser"))
+      let user
+      if(localStorage.getItem("token")){
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        user = JSON.parse(window.atob(jwtToken))
+      }
       if (!user || user.length == 0) {
         next("/pageNotFound");
       } else if (user.type == 1) {

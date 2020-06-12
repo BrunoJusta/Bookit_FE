@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <form @submit.prevent="addDecor(name)">
+                    <form @submit.prevent="addDecor()">
                         <b-input type="text" v-model="name" id="txtDecor" placeholder="Decoração" required></b-input>
                         <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
                     </form>
@@ -78,7 +78,7 @@
                     alert(err);
                 }
             },
-            async addDecor(name) {
+            async addDecor() {
                 try {
                     await this.$store.dispatch("postDecor", {
                         name: this.name

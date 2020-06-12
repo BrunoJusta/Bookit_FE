@@ -111,7 +111,6 @@
                             menuIng: this.menuIng
                         });
                     } catch (err) {
-                        console.log(err)
                         alert(err);
                     }
                     this.name = ""

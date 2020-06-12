@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <form @submit.prevent="addIngredient(name, type)">
+                    <form @submit.prevent="addIngredient()">
                         <b-input type="text" v-model="name" id="txtIngredient" placeholder="Ingrediente" required>
                         </b-input>
                         <b-select id="chooseType" v-model="type" required>
@@ -91,7 +91,7 @@
                     alert(err);
                 }
             },
-            async addIngredient(name, type) {
+            async addIngredient() {
                 try {
                     await this.$store.dispatch("postIngredient", {
                         name: this.name,

@@ -89,7 +89,7 @@ export default {
   },
   created() {
     this.area = JSON.parse(localStorage.getItem("currentArea"));
-    this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
+    this.userOn = this.$store.state.loggedUser
     this.areaNameNew = this.area.name;
     this.newDesc = this.area.description;
 

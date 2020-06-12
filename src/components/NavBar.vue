@@ -59,9 +59,6 @@
             }
         },
         created() {
-            if (localStorage.getItem("loggedUser")) {
-                this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
-            }
             if (this.$store.getters.getName === "Entrar") {
                 this.path = "login"
             } else if (this.$store.getters.getUserType === 0) {
@@ -103,7 +100,7 @@
         },
         computed: {
             getName() {
-                if (localStorage.getItem("loggedUser")) {
+                if (this.$store.state.loggedUser) {
                     return this.onlineUser
                 } else {
                     return "Entrar"

@@ -100,7 +100,7 @@ export default {
     this.getAllIngredients();
     this.getMyMenuTypes();
     this.menu = JSON.parse(localStorage.getItem("currentMenu"));
-    this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
+    this.userOn = this.$store.state.loggedUser
     this.ingredients = JSON.parse(localStorage.getItem("currentMenuIngs"));
     for (const i in this.ingredients) {
       if (this.ingredients[i].type == "Bebida") {

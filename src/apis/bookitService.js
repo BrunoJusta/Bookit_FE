@@ -14,14 +14,13 @@ const bookitService = {
         }
     },
     async getUserBookings() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        let user = JSON.parse(window.atob(jwtToken))
         const response = await fetch(`${API_URL}users/${user.id}/menuBookings`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -31,14 +30,13 @@ const bookitService = {
         }
     },
     async getUserAreaBookings() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        let user = JSON.parse(window.atob(jwtToken))
         const response = await fetch(`${API_URL}users/${user.id}/areaBookings`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -48,14 +46,13 @@ const bookitService = {
         }
     },
     async getUserWorkshops() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        let user = JSON.parse(window.atob(jwtToken))
         const response = await fetch(`${API_URL}users/${user.id}/workshopBookings`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -65,14 +62,13 @@ const bookitService = {
         }
     },
     async getUserNotifications() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        let user = JSON.parse(window.atob(jwtToken))
         const response = await fetch(`${API_URL}users/${user.id}/notifications`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -82,14 +78,13 @@ const bookitService = {
         }
     },
     async getUserArchivations() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        let user = JSON.parse(window.atob(jwtToken))
         const response = await fetch(`${API_URL}users/${user.id}/archivations`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -99,14 +94,11 @@ const bookitService = {
         }
     },
     async getMenuBookings() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menuBookings`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -116,14 +108,11 @@ const bookitService = {
         }
     },
     async getBookingsDecor() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menuBookings/decor`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -133,14 +122,11 @@ const bookitService = {
         }
     },
     async getBookingsExtra() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menuBookings/extra`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -150,14 +136,11 @@ const bookitService = {
         }
     },
     async getBookingsAddOns() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menuBookings/addOns`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -167,14 +150,11 @@ const bookitService = {
         }
     },
     async deleteMenuBooking(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menuBookings/${ID}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -184,14 +164,11 @@ const bookitService = {
         }
     },
     async deleteMenu(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menus/${ID}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -201,14 +178,11 @@ const bookitService = {
         }
     },
     async getAreaBookings() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}areasBookings`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -218,14 +192,11 @@ const bookitService = {
         }
     },
     async deleteAreaBooking(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}areasBookings/${ID}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -265,15 +236,11 @@ const bookitService = {
         }
     },
     async getWorkshopsById(id) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
-
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}workshops/${id}`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -293,14 +260,11 @@ const bookitService = {
         }
     },
     async getIngredients() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}ingredients`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -310,14 +274,11 @@ const bookitService = {
         }
     },
     async getExtras() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}extras`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -327,14 +288,11 @@ const bookitService = {
         }
     },
     async getDecorations() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}decors`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -344,14 +302,11 @@ const bookitService = {
         }
     },
     async getOutfits() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}outfits`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -361,14 +316,11 @@ const bookitService = {
         }
     },
     async getUsers() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}users`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -378,15 +330,12 @@ const bookitService = {
         }
     },
     async editUsers(id, oldPassword, newPassword, newPassword2, number, userType) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}users/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 oldPassword: oldPassword,
@@ -404,14 +353,11 @@ const bookitService = {
         }
     },
     async deleteUser(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}users/${ID}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -421,14 +367,11 @@ const bookitService = {
         }
     },
     async getCurrentMenu(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menus/${ID}`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -438,14 +381,11 @@ const bookitService = {
         }
     },
     async getCurrentMenuIngs(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menus/${ID}/ingredients`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -455,14 +395,11 @@ const bookitService = {
         }
     },
     async getCurrentArea(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}areas/${ID}`, {
             method: "GET",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -471,15 +408,11 @@ const bookitService = {
             throw Error(response)
         }
     },
-    async logout() {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+    async logout(token) {
         const response = await fetch(`${API_URL}logout`, {
             method: "POST",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -531,15 +464,12 @@ const bookitService = {
         }
     },
     async addBooking(id, reason, date, school, initHour, endHour, numberPeople, outfit, observations, menu, decor, extras, ing) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menuBookings`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 userID: id,
@@ -565,15 +495,12 @@ const bookitService = {
         }
     },
     async editMenu(id, name, type, ings) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menus/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 id: id,
@@ -590,15 +517,12 @@ const bookitService = {
         }
     },
     async editArea(id, name, description) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}areas/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 id: id,
@@ -613,14 +537,11 @@ const bookitService = {
         }
     },
     async deleteArea(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}areas/${ID}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -630,15 +551,12 @@ const bookitService = {
         }
     },
     async areaBooking(id, area, reason, date, initHour, endHour) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}areasBookings`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 userID: id,
@@ -657,15 +575,12 @@ const bookitService = {
         }
     },
     async editMenuBookings(id, state, decline, opinion) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menuBookings/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 id: id,
@@ -682,15 +597,12 @@ const bookitService = {
         }
     },
     async editAreaBookings(id, state, decline, opinion) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}areasBookings/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 id: id,
@@ -707,15 +619,12 @@ const bookitService = {
         }
     },
     async editWorkshop(id, name, teacher, date, description, time, vacancies) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}workshops/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 id: id,
@@ -734,14 +643,11 @@ const bookitService = {
         }
     },
     async deleteWorkshop(id) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}workshops/${id}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -751,15 +657,12 @@ const bookitService = {
         }
     },
     async addIngredient(name, type) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}ingredients`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 name: name,
@@ -774,14 +677,11 @@ const bookitService = {
         }
     },
     async deleteIngredient(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}ingredients/${ID}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -791,15 +691,12 @@ const bookitService = {
         }
     },
     async addExtra(name) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}extras`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 name: name
@@ -813,14 +710,11 @@ const bookitService = {
         }
     },
     async deleteExtra(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}extras/${ID}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -830,15 +724,12 @@ const bookitService = {
         }
     },
     async addDecor(name) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}decors`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 name: name
@@ -852,14 +743,11 @@ const bookitService = {
         }
     },
     async deleteDecor(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}decors/${ID}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -869,15 +757,12 @@ const bookitService = {
         }
     },
     async addOutfit(name, img) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}outfits`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 name: name,
@@ -892,14 +777,11 @@ const bookitService = {
         }
     },
     async deleteOutfit(ID) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}outfits/${ID}`, {
             method: "DELETE",
             headers: {
-                'x-access-token': user.token
+                'x-access-token': token
             },
         })
         if (response.ok) {
@@ -909,15 +791,12 @@ const bookitService = {
         }
     },
     async addMenu(name, type, newType, img, menuIng) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menus`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 name: name,
@@ -935,15 +814,12 @@ const bookitService = {
         }
     },
     async addArea(name, img, description) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}areas`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 name: name,
@@ -959,15 +835,12 @@ const bookitService = {
         }
     },
     async addWorkshops(name, teacher, date, description, hi, hf, vacancies, img) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}workshops`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 name: name,
@@ -987,15 +860,12 @@ const bookitService = {
         }
     },
     async workshopInscription(idUser, idWorkshop) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}workshops/inscription`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 idUser: idUser,
@@ -1009,15 +879,12 @@ const bookitService = {
         }
     },
     async archiveNotification(userID, id) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}users/${userID}/notifications/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 userID: userID,
@@ -1032,15 +899,12 @@ const bookitService = {
         }
     },
     async deleteNotification(userID, id) {
-        let user
-        if (localStorage.getItem("loggedUser")) {
-            user = JSON.parse(localStorage.getItem("loggedUser"))
-        }
+        let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}users/${userID}/notifications/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'x-access-token': user.token
+                'x-access-token': token
             },
             body: JSON.stringify({
                 userID: userID,

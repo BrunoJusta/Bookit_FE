@@ -19,8 +19,8 @@
             }
         },
         created() {
-            this.user = JSON.parse(localStorage.getItem("loggedUser"))
-            if (this.user.userType === "admin") {
+            this.user =  this.$store.state.loggedUser
+            if (this.user.type === 0) {
                 this.path = "adminHome"
             } else {
                 this.path = "home"

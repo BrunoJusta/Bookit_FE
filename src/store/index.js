@@ -82,8 +82,14 @@ export default new Vuex.Store({
       })
     },
     LOGIN(state, data) {
-      state.loggedUser = data.user
-      localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
+      state.token = data.token
+      localStorage.setItem("token", state.token);
+
+      let jwtToken = state.token.split(".")[1]
+      state.loggedUser = JSON.parse(window.atob(jwtToken))
+      // eslint-disable-next-line no-console
+      console.log(state.loggedUser)
+      // localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
       if (state.loggedUser.type === 0) {
         Swal.fire({
           icon: 'success',
@@ -99,34 +105,13 @@ export default new Vuex.Store({
       }
     },
     LOGOUT(state) {
-      bookitService.logout()
+      bookitService.logout(state.token )
+      state.token = []
       state.loggedUser = []
-      localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
+      localStorage.removeItem("token", JSON.stringify(state.token));
       router.push({
         name: 'home'
       })
-    },
-    ADD_KIT(state, payload) {
-      if (!state.kits.some(kit => kit.name === payload.name)) {
-        state.kits.push({
-          id: payload.id,
-          name: payload.name,
-          type: payload.type,
-          drinks: payload.drinks,
-          food: payload.food,
-          img: payload.img,
-          popularity: 0
-        });
-        localStorage.setItem("kits", JSON.stringify(state.kits));
-        router.push({
-          name: 'menuGallery'
-        })
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Já existe um menu com esse nome!'
-        })
-      }
     },
     ADD_BOOKING(data) {
       Swal.fire({
@@ -371,7 +356,6 @@ export default new Vuex.Store({
       })
     },
     EDIT_WORKSHOP() {
-      console.log("aqui")
       Swal.fire({
         icon: 'success',
         text: "Workshop Atualizado"
@@ -381,7 +365,6 @@ export default new Vuex.Store({
       })
     },
     ADD_INSCRIPTION() {
-      console.log("aqui")
       Swal.fire({
         icon: 'success',
         text: "Inscreveu-se no Workshop"

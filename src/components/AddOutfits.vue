@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <form @submit.prevent="addOutfit(name, img)">
+                    <form @submit.prevent="addOutfit()">
                         <b-input type="text" v-model="name" id="txtOutfit" placeholder="Farda" required></b-input>
                         <b-input type="link" v-model="img" id="txtLink" placeholder="link" required></b-input>
                         <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
@@ -85,15 +85,13 @@
                     alert(err);
                 }
             },
-            async addOutfit(name, img) {
+            async addOutfit() {
                 try {
                     await this.$store.dispatch("postOutfit", {
                         name: this.name,
                         img: this.img
                     });
-                    alert("ola")
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
                 this.getAllOutfits();
@@ -106,7 +104,6 @@
                         id: ID
                     });
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
                 this.getAllOutfits();

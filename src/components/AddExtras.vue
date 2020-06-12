@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <form @submit.prevent="addExtra(name)">
+                    <form @submit.prevent="addExtra()">
                         <b-input type="text" v-model="name" id="txtExtra" placeholder="Extra" required></b-input>
                         <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
                     </form>
@@ -78,7 +78,7 @@
                     alert(err);
                 }
             },
-            async addExtra(name) {
+            async addExtra() {
                 try {
                     await this.$store.dispatch("postExtra", {
                         name: this.name

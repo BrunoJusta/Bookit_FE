@@ -227,13 +227,6 @@
       this.getMyBookings()
       this.getMyAreaBookings()
       this.getMyWorkshops()
-
-
-      if (localStorage.getItem("loggedUser")) {
-        this.$store.state.loggedUser = JSON.parse(
-          localStorage.getItem("loggedUser")
-        );
-      }
     },
     methods: {
       async getMyBookings() {

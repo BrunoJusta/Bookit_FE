@@ -67,9 +67,9 @@ export default {
       );
     } */
 
-    if (localStorage.getItem("loggedUser")) {
-      this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
-    }
+
+     this.userOn = this.$store.state.loggedUser
+     
     if (localStorage.getItem("currentArea")) {
       this.currentArea = JSON.parse(
         localStorage.getItem("currentArea")

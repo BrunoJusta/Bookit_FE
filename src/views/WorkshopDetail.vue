@@ -134,9 +134,8 @@ export default {
         localStorage.getItem("currentWorkshop")
       );
     }
-    if (localStorage.getItem("loggedUser")) {
-      this.userOn = JSON.parse(localStorage.getItem("loggedUser"));
-    }
+  
+    this.userOn = this.$store.state.loggedUser
     this.newName = this.currentWorkshop[0].name;
     this.newDate = this.currentWorkshop[0].date;
     this.newTime = this.currentWorkshop[0].duration;
@@ -157,7 +156,7 @@ export default {
           vacancies: this.newVac
         });
       } catch (err) {
-        console.log(err);
+        alert(err)
       }
     },
     async inscription() {
@@ -167,7 +166,7 @@ export default {
           idWorkshop: this.currentWorkshop[0].workshop_id
         })
       }catch (err){
-        console.log(err)
+        alert(err)
       }
     },
     activateEdit() {
@@ -181,7 +180,6 @@ export default {
       this.show = "none";
       this.show3 = "block";
       this.show4 = "inline";
-      let newDesc = document.getElementById("description").value;
     },
     cancelEdit() {
       this.show2 = "inline";

@@ -50,24 +50,7 @@ export default {
     passwordLogin: "",
     show: true
   }),
-  created: function() {
-    //qd abres esta pagina vai acontecer isto
-    if (localStorage.getItem("users")) {
-      this.$store.state.users = JSON.parse(localStorage.getItem("users"));
-    }
-    if (localStorage.getItem("loggedUser")) {
-      this.$store.state.loggedUser = JSON.parse(
-        localStorage.getItem("loggedUser")
-      );
-    }
-  },
   methods: {
-    // login() {
-    //   this.$store.commit("LOGIN", {
-    //     email: this.emailLogin,
-    //     password: this.passwordLogin
-    //   });
-    // },
     async login() {
       try {
         await this.$store.dispatch("login", {email: this.emailLogin,password: this.passwordLogin});

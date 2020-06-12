@@ -190,6 +190,8 @@ export default {
         localStorage.getItem("currentMenu")
       );
     }
+
+    this.userOn = this.$store.state.loggedUser
     this.currentMenuType = this.$store.state.currentMenu.type;
     this.currentMenuName = this.$store.state.currentMenu.name;
     this.extras = this.$store.state.extras;
