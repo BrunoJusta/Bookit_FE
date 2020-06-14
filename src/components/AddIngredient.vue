@@ -36,7 +36,7 @@
                     </div>
                     <div class="container" v-else>
                         <img class="image" src="../assets/bookit_BLUE.svg" alt="" srcset="">
-                        <h4> Não existem Ingredientes</h4>
+                        <h4> Não existem Indsdasgredientes</h4>
                     </div>
                 </div>
             </div>
