@@ -15,6 +15,7 @@ export default new Vuex.Store({
     workshops: [],
     currentWorkshop: [],
     x: 0,
+    numNotifications: 0,
     logged: false,
     loggedUser: [],
     notLogged: "Entrar",
@@ -42,36 +43,6 @@ export default new Vuex.Store({
     userArchivations: []
   },
   mutations: {
-    STORE_ITEMS(state) {
-      if (!localStorage.getItem("users")) {
-        localStorage.setItem("users", JSON.stringify(state.users));
-      }
-      if (!localStorage.getItem("kits")) {
-        localStorage.setItem("kits", JSON.stringify(state.kits));
-      }
-      if (!localStorage.getItem("workshops")) {
-        localStorage.setItem("workshops", JSON.stringify(state.workshops));
-      }
-      if (!localStorage.getItem("areas")) {
-        localStorage.setItem("areas", JSON.stringify(state.areas));
-      }
-      if (!localStorage.getItem("bookings")) {
-        localStorage.setItem("bookings", JSON.stringify(state.bookings));
-      }
-      if (!localStorage.getItem("ingredients")) {
-        localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
-      }
-      if (!localStorage.getItem("extras")) {
-        localStorage.setItem("extras", JSON.stringify(state.extras));
-      }
-      if (!localStorage.getItem("decor")) {
-        localStorage.setItem("decor", JSON.stringify(state.decor));
-      }
-      if (!localStorage.getItem("outfits")) {
-        localStorage.setItem("outfits", JSON.stringify(state.outfits));
-      }
-      localStorage.setItem("schools", JSON.stringify(state.schools));
-    },
     ADD_USER(state, data) {
       Swal.fire({
         icon: 'success',
@@ -87,25 +58,45 @@ export default new Vuex.Store({
 
       let jwtToken = state.token.split(".")[1]
       state.loggedUser = JSON.parse(window.atob(jwtToken))
-      // eslint-disable-next-line no-console
-      console.log(state.loggedUser)
-      // localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
-      if (state.loggedUser.type === 0) {
-        Swal.fire({
+
+      state.numNotifications = state.loggedUser.notifications
+      localStorage.setItem("x", state.numNotifications);
+      if (state.loggedUser.notifications != 0) {
+        const toast = swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true
+        });
+
+        toast.fire({
           icon: 'success',
-          text: data.message
+          title: 'Bem-vindo ' + state.loggedUser.name,
+          text: "Tem " + state.loggedUser.notifications + " Notificações!",
         })
+      } else {
+        const toast = swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true
+        });
+
+        toast.fire({
+          icon: 'success',
+          title: 'Bem-vindo ' + state.loggedUser.name,
+        })
+      }
+      if (state.loggedUser.type === 0) {
         router.push("/adminHome")
       } else if (state.loggedUser.type === 1) {
-        Swal.fire({
-          icon: 'success',
-          text: data.message
-        })
         router.push("/")
       }
     },
     LOGOUT(state) {
-      bookitService.logout(state.token )
+      bookitService.logout(state.token)
       state.token = []
       state.loggedUser = []
       localStorage.removeItem("token", JSON.stringify(state.token));
@@ -229,13 +220,13 @@ export default new Vuex.Store({
         text: data.message
       })
     },
-    DELETE_MENU_BOOKING(state,data) {
+    DELETE_MENU_BOOKING(state, data) {
       Swal.fire({
         icon: 'success',
         text: data.message
       })
     },
-    DELETE_AREA_BOOKING(state,data) {
+    DELETE_AREA_BOOKING(state, data) {
       Swal.fire({
         icon: 'success',
         text: data.message
@@ -682,6 +673,7 @@ export default new Vuex.Store({
     getExtras: state => state.extras,
     getDecorations: state => state.decor,
     getOutfits: state => state.outfits,
+    getNumberNotifications: state => state.numNotifications,
     getUserOn(state) {
       if (state.loggedUser.length) {
         state.logged = true
@@ -719,21 +711,6 @@ export default new Vuex.Store({
     getUserImg(state) {
       return state.loggedUser.img
     },
-    getCurrentKitName(state) {
-      return state.currentKit.kitname
-    },
-    getCurrentKitType(state) {
-      return state.currentKit.kitType
-    },
-    getCurrentKitIng(state) {
-      return state.currentKit.menuIng
-    },
-    /*     getCurrentArea(state) {
-          return state.currentArea.areaName
-        }, */
-    getCurrentKitImg(state) {
-      return state.currentKit.kitImg
-    },
     getCurrentAreaImg(state) {
       return state.currentArea.areaImg
     },
@@ -741,15 +718,6 @@ export default new Vuex.Store({
       var today = new Date();
       var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
       return date
-    },
-    getNumberNotifications(state) {
-      if (state.loggedUser.notifications) {
-        if (state.loggedUser.notifications.length != 0) {
-          return true
-        } else {
-          return false
-        }
-      }
     }
   }
 })

@@ -25,7 +25,8 @@
                         <b-button size="sm" @click="archive(row.item.user_id, row.item.notification_id)"
                             class="mr-1 blackBtn">Arquivar
                         </b-button>
-                        <b-button size="sm" @click="deleteNotification(row.item.user_id, row.item.notification_id)"
+                        <b-button size="sm"
+                            @click="deleteNotification(row.item.user_id, row.item.notification_id, row.item.type)"
                             class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i>
                         </b-button>
                     </template>
@@ -45,7 +46,8 @@
             <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
                 head-variant="dark" responsive="sm" :items="this.userArchivations.slice().reverse()" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
-                    <b-button size="sm" @click="deleteNotification(row2.item.user_id, row2.item.notification_id)"
+                    <b-button size="sm"
+                        @click="deleteNotification(row2.item.user_id, row2.item.notification_id, row2.item.type)"
                         class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
                 </template>
             </b-table>
@@ -134,18 +136,28 @@
                         userID: userID,
                         id: id
                     })
+                    let num = localStorage.getItem("x")
+                    num = num - 1
+                    localStorage.setItem("x", num)
+                    this.$store.state.numNotifications = num
                 } catch (err) {
                     alert(err)
                 }
                 this.getMyNotifications();
                 this.getMyArchivations();
             },
-            async deleteNotification(userID, id) {
+            async deleteNotification(userID, id, type) {
                 try {
                     await this.$store.dispatch("deleteNotification", {
                         userID: userID,
                         id: id
                     })
+                    if (type == 0) {
+                        let num = localStorage.getItem("x")
+                        num = num - 1
+                        localStorage.setItem("x", num)
+                        this.$store.state.numNotifications = num
+                    }
                 } catch (err) {
                     alert(err)
                 }

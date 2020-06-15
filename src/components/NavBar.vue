@@ -8,12 +8,15 @@
                 <b-nav-form>
                     <div>
                         <div class="container">
-                            <b-button id="logged-btn" squared>
+                            <b-button id="logged-btn" class="logged" squared>
                                 <router-link :to="{name:this.path}"><i class="fas fa-user"
                                         v-if="this.$store.getters.getName != 'Entrar'"
                                         id="icon"></i>{{this.$store.getters.getName}}
                                 </router-link>
                             </b-button>
+                            <span id="countTxt"
+                                v-if="this.$store.getters.getName != 'Entrar' &&
+                            this.$store.getters.getNumberNotifications != 0">{{this.$store.getters.getNumberNotifications}}</span>
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
                                 <router-link style="color:black;" to="/">Sair</router-link>
@@ -50,32 +53,26 @@
     export default {
         data: function () {
             return {
-                path: "login",
-                onlineUser: this.$store.state.loggedUser.name,
-                kits: [],
-                bookings: [],
-                areaBookings: [],
-                menuTypes: []
+                path: "login"
             }
         },
         created() {
-            if (this.$store.getters.getName === "Entrar") {
+            if (localStorage.getItem("token")) {
+                let jwtToken = localStorage.getItem("token").split(".")[1]
+                this.$store.state.loggedUser = JSON.parse(window.atob(jwtToken))
+                this.path = "profile"
+            } else {
                 this.path = "login"
-            } else if (this.$store.getters.getUserType === 0) {
-                this.path = "profile"
-            } else if (this.$store.getters.getUserType === 1) {
-                this.path = "profile"
             }
-            this.$store.commit('STORE_ITEMS')
+            this.$store.state.numNotifications = localStorage.getItem("x")
         },
-        updated: function () {
-            if (this.$store.getters.getName === "Entrar") {
+        updated() {
+            if (localStorage.getItem("token")) {
+                this.path = "profile"
+            } else {
                 this.path = "login"
-            } else if (this.$store.getters.getUserType === 0) {
-                this.path = "profile"
-            } else if (this.$store.getters.getUserType === 1) {
-                this.path = "profile"
             }
+            this.$store.state.numNotifications = localStorage.getItem("x")
         },
         methods: {
             logout() {
@@ -101,7 +98,7 @@
         computed: {
             getName() {
                 if (this.$store.state.loggedUser) {
-                    return this.onlineUser
+                    return this.$store.state.loggedUser.name
                 } else {
                     return "Entrar"
                 }
@@ -137,9 +134,10 @@
         color: black;
     }
 
-    #show-btn,
-    #logged-btn {
+    .logged {
         background-color: #0a2463;
+        position: relative;
+        display: inline-block;
     }
 
     #logout-btn {
@@ -151,6 +149,18 @@
     a {
         font-weight: bold;
         color: white;
+    }
+
+    #countTxt {
+        position: absolute;
+        top: 10%;
+        right: 6%;
+        padding: 4px 8px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        font-size: 10px;
     }
 
     .navbar-expand-lg>.container,
