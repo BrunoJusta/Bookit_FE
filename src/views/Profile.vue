@@ -3,7 +3,7 @@
     <div class="container" id="perfilContainer" v-bind:style="{display: showProfile}">
       <div class="row">
         <div class="col-sm-7">
-          <b-img :src="this.$store.state.loggedUser.img" id="imgPerfil"></b-img>
+          <b-img :src="this.userImage" id="imgPerfil"></b-img>
           <div id="infoDiv">
             <span
               id="nameTxt">{{this.$store.state.loggedUser.name + " " + this.$store.state.loggedUser.lastName}}</span>
@@ -89,7 +89,8 @@
                   <div v-if="k.state == 'Concluído' && (k.opinion =='' || k.opinion ==null || k.opinion ==undefined)">
                     <b-button class="btn-book" @click="giveBookingOpinion(k.booking_id)" squared>Dar Opinião</b-button>
                   </div>
-                  <div v-if="k.state == 'Recusado' && (!(k.decline_txt =='' || k.decline_txt ==null || k.decline_txt ==undefined))">
+                  <div
+                    v-if="k.state == 'Recusado' && (!(k.decline_txt =='' || k.decline_txt ==null || k.decline_txt ==undefined))">
                     <b-button class="btn-book" @click="showDeclineTxt(k.decline_txt)" squared>Ver Motivo</b-button>
                   </div>
                   <b-card-text
@@ -129,7 +130,8 @@
                     <b-button class="btn-book" @click="giveAreasOpinion(k.area_booking_id)" squared>Dar Opinião
                     </b-button>
                   </div>
-                  <div v-if="k.state == 'Recusado' && (!(k.decline_txt =='' || k.decline_txt ==null || k.decline_txt ==undefined))">
+                  <div
+                    v-if="k.state == 'Recusado' && (!(k.decline_txt =='' || k.decline_txt ==null || k.decline_txt ==undefined))">
                     <b-button class="btn-book" @click="showDeclineTxt(k.decline_txt)" squared>Ver Motivo</b-button>
                   </div>
                   <b-card-text
@@ -201,6 +203,7 @@
     data: function () {
       return {
         users: [],
+        userImage: "",
         bookings: [],
         areaBookings: [],
         areas: [],
@@ -227,6 +230,7 @@
       this.getMyBookings()
       this.getMyAreaBookings()
       this.getMyWorkshops()
+      this.getUserImg()
     },
     methods: {
       async getMyBookings() {
@@ -249,6 +253,16 @@
         try {
           await this.$store.dispatch("fetchUserWorkshops");
           this.userWorkshops = this.getUserWorkshops.data
+        } catch (err) {
+          alert(err);
+        }
+      },
+      async getUserImg() {
+        try {
+          await this.$store.dispatch("fetchUserImage", {
+            id: this.$store.state.loggedUser.id
+          });
+          this.userImage = this.getUserImage.data
         } catch (err) {
           alert(err);
         }
@@ -386,6 +400,7 @@
       ...mapGetters(["getUserBookings"]),
       ...mapGetters(["getUserAreaBookings"]),
       ...mapGetters(["getUserWorkshops"]),
+      ...mapGetters(["getUserImage"]),
     }
   };
 </script>

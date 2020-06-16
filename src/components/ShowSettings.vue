@@ -42,11 +42,11 @@
             </div>
         </div>
 
-        <!-- atualizar foto de perfil 
+        <!-- atualizar foto de perfil  -->
         <div class="container" id="showContainer" v-bind:style="{display: showImgProfile}">
             <div>
                 <img :src="this.newImg" id="imgPreview" v-if="this.newImg !== ''">
-                <b-form @submit="changeImg">
+                <b-form v-on:submit.prevent="changeImage()">
                     <b-form-group id="input-group-4">
                         <label for="input-4">Link da Nova Imagem:</label>
                         <b-form-input id="input-4" class="rounded-0" v-model="newImg" type="link" required
@@ -56,7 +56,7 @@
                     </b-button>
                 </b-form>
             </div>
-        </div> -->
+        </div>
 
         <!-- atualizar contacto -->
         <div class="container" id="showContainer" v-bind:style="{display: showContact}">
@@ -71,7 +71,7 @@
                         Atualizar</b-button>
                 </b-form>
             </div>
-        </div> 
+        </div>
     </div>
 </template>
 
@@ -101,6 +101,16 @@
             }
         },
         methods: {
+            async changeImage() {
+                try {
+                    await this.$store.dispatch("changeAvatar", {
+                        newImg: this.newImg
+                    });
+                    this.newImg = ""
+                } catch (err) {
+                    alert(err);
+                }
+            },
             async editUsers(oldPassword, newPassword, newPassword2, number, userType) {
                 try {
                     await this.$store.dispatch("editUsers", {
@@ -115,7 +125,6 @@
                     this.newPassword = ""
                     this.newPassword2 = ""
                     this.number = ""
-                    this.newImg = ""
                 } catch (err) {
                     alert(err);
                 }
@@ -144,7 +153,7 @@
                 this.showImgProfile = "none"
                 this.showContact = "block"
             }
-        }
+        },
     }
 </script>
 

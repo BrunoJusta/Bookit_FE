@@ -40,7 +40,8 @@ export default new Vuex.Store({
     userAreaBookings: [],
     userWorkshops: [],
     userNotifications: [],
-    userArchivations: []
+    userArchivations: [],
+    userImage: ""
   },
   mutations: {
     ADD_USER(state, data) {
@@ -145,6 +146,9 @@ export default new Vuex.Store({
       state.userArchivations = []
       state.userArchivations = data
     },
+    SET_USER_IMAGE(state, data) {
+      state.userImage = data
+    },
     SET_MENU_BOOKINGS(state, data) {
       state.bookings = data
     },
@@ -212,6 +216,15 @@ export default new Vuex.Store({
       Swal.fire({
         icon: 'success',
         text: data.message
+      })
+    },
+    CHANGE_AVATAR(state, data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
+      router.push({
+        name: 'profile'
       })
     },
     DELETE_USER(state, data) {
@@ -408,6 +421,11 @@ export default new Vuex.Store({
     }) {
       commit("SET_USER_ARCHIVATIONS", await bookitService.getUserArchivations())
     },
+    async fetchUserImage({
+      commit
+    }, payload) {
+      commit("SET_USER_IMAGE", await bookitService.getUserImage(payload.id))
+    },
     async fetchMenuBookings({
       commit
     }) {
@@ -507,6 +525,11 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("DELETE_USER", await bookitService.deleteUser(payload.id))
+    },
+    async changeAvatar({
+      commit
+    }, payload) {
+      commit("CHANGE_AVATAR", await bookitService.changeAvatar(payload.newImg))
     },
     async deleteMenu({
       commit
@@ -656,6 +679,7 @@ export default new Vuex.Store({
     getUserWorkshops: state => state.userWorkshops,
     getUserNotifications: state => state.userNotifications,
     getUserArchivations: state => state.userArchivations,
+    getUserImage: state => state.userImage,
     getAllMenuBookings: state => state.bookings,
     getAllBookingsDecor: state => state.bookingsDecor,
     getAllBookingsExtra: state => state.bookingsExtra,

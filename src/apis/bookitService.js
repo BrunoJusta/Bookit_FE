@@ -366,6 +366,42 @@ const bookitService = {
             throw Error(response)
         }
     },
+    async changeAvatar(newImg) {
+        let token = localStorage.getItem("token")
+        let jwtToken = token.split(".")[1]
+        let user = JSON.parse(window.atob(jwtToken))
+
+        const response = await fetch(`${API_URL}users/${user.id}/image`, {
+            method: "PUT",
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'x-access-token': token
+            },
+            body: JSON.stringify({
+                newImg: newImg
+            })
+        })
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
+    async getUserImage(id) {
+        let token = localStorage.getItem("token")
+        const response = await fetch(`${API_URL}users/${id}/avatar`, {
+            method: "GET",
+            headers: {
+                'x-access-token': token
+            }
+        })
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw Error(response)
+        }
+    },
     async getCurrentMenu(ID) {
         let token = localStorage.getItem("token")
         const response = await fetch(`${API_URL}menus/${ID}`, {
