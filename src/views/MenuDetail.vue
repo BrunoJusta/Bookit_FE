@@ -44,13 +44,13 @@
                   <h6>
                     <i class="fas fa-wine-glass-alt" id="icon"></i>BEBIDA
                   </h6>
-                  <p>{{ drinks.length == 0 ? 'Fechar' : '' + drinks }}</p>
+                  <p>{{ drinks.length == 0 ? 'Sem bebida' : '' + drinks }}</p>
                 </div>
                 <div class="col-sm-6 food" v-bind:style="{display: show2}">
                   <h6>
                     <i class="fas fa-cheese" id="icon"></i>COMIDA
                   </h6>
-                  <p>{{ food.length == 0 ? 'Fechar' : '' + food }}</p>
+                  <p>{{ food.length == 0 ? 'Sem comida' : '' + food }}</p>
                 </div>
               </div>
             </b-card-body>
