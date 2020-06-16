@@ -155,9 +155,9 @@
         position: absolute;
         top: 10%;
         right: 6%;
-        padding: 4px 8px;
-        border-radius: 50%;
-        background-color: red;
+        padding: 3px 5px;
+        border-radius: 90%;
+        background-color: #B91C3B;
         color: white;
         font-weight: bold;
         font-size: 10px;
@@ -198,17 +198,5 @@
 
     #icon {
         padding-right: 6px;
-    }
-
-    .dot {
-        margin-left: -10px;
-        margin-top: -29px;
-        height: 20px;
-        width: 20px;
-        font-size: 13px;
-        background-color: #B91C3B;
-        color: white;
-        border-radius: 50%;
-        display: inline-block;
     }
 </style>
