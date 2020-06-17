@@ -111,7 +111,7 @@
                     <b-card>
                         <ul>
                             <h9 v-for="(value, key) in row2.item" :key="key">
-                                <p id="listItem" v-if="key === 'reason'"> <b>Motivo: </b> {{value}}</p>
+                                <p id="listItem" v-if="key === 'reason'"> <b>Motivo da Reserva: </b> {{value}}</p>
                             </h9>
                         </ul>
                     </b-card>
