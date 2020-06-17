@@ -108,7 +108,7 @@ const routes = [{
         user = JSON.parse(window.atob(jwtToken))
       }
       if (!user || user.length == 0) {
-        next("/pageNotFound");
+        next("/login");
       } else {
         next()
       }
@@ -126,7 +126,7 @@ const routes = [{
         user = JSON.parse(window.atob(jwtToken))
       }
       if (!user || user.length == 0) {
-        next("/pageNotFound");
+        next("/login");
       } else {
         next()
       }
@@ -144,7 +144,7 @@ const routes = [{
         user = JSON.parse(window.atob(jwtToken))
       }
       if (!user || user.length == 0) {
-        next("/pageNotFound");
+        next("/login");
       } else {
         next()
       }

@@ -78,7 +78,6 @@ export default {
     },
     async CurrentArea(ID) {
       try {
-        alert(ID);
         await this.$store.dispatch("fetchCurrentArea", { id: ID });
         this.$router.push({ name: "areaDetail" });
       } catch (err) {
