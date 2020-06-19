@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router';
 
-import bookitService from "@/apis/bookitService.js"
+import bookitService from "@/API/bookitService.js"
 
 
 Vue.use(Vuex)
