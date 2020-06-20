@@ -106,7 +106,7 @@ export default new Vuex.Store({
         name: 'home'
       })
     },
-    ADD_BOOKING(data) {
+    ADD_BOOKING() {
       Swal.fire({
         icon: 'success',
         text: "Pedido de reserva enviado"
@@ -115,7 +115,7 @@ export default new Vuex.Store({
         name: 'areasGallery'
       })
     },
-    ADD_AREA_BOOKING(data) {
+    ADD_AREA_BOOKING() {
       Swal.fire({
         icon: 'success',
         text: "Pedido de reserva enviado"
