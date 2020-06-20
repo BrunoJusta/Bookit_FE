@@ -89,7 +89,6 @@
                         w.available = w.vacancies - w.filled
                     }
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
             },
@@ -99,7 +98,6 @@
                         id: ID
                     });
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
                 this.getAllWorkshops();
