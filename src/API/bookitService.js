@@ -1,6 +1,5 @@
 import API_URL from './config.js'
-import router from '../router';
-import store from '../store';
+
 
 const bookitService = {
     async getMenus() {

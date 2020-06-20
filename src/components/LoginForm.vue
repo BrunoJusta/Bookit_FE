@@ -31,9 +31,6 @@
 </template>
 
 <script>
-  import {
-    mapGetters
-  } from "vuex";
   export default {
     name: "LoginForm",
     data: () => ({
@@ -49,7 +46,7 @@
             password: this.passwordLogin
           });
         } catch (err) {
-          alert(err);
+          alert(err.message);
         }
       }
     }
