@@ -8,7 +8,8 @@ const store = new Vuex.Store({
 })
 
 describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
+  it('renders props.msg when passed', () => { 
+    
     const wrapper = shallowMount(error, {store})
     expect(wrapper.data).not.toBeNull()
   })
