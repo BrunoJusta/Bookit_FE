@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container-full" id="full">
-      <img src="../assets/banner2.jpg" style="max-width: 100%; height: auto;">
+      <!-- <img src="../assets/banner2.jpg" style="max-width: 100%; height: auto;"> -->
       <div class="container-full title">
         <h1 id="redTitle">OPÇÕES DE ADMINISTRADOR</h1>
         <hr class="back-line">
@@ -111,7 +111,7 @@
 
   .title {
     padding-top: 80px;
-    padding-bottom: 80px;
+    padding-bottom: 45px;
   }
 
 

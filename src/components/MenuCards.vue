@@ -79,6 +79,7 @@
   } from "vuex";
 
   export default {
+    name: "menuCards",
     data: function () {
       return {
         menus: [],
