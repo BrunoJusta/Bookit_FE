@@ -231,7 +231,6 @@
         },
         created() {
             this.getMenuBookings();
-            this.getAreaBookings();
         },
         methods: {
             displayAreaBookings() {
@@ -240,6 +239,8 @@
                 this.eventsFont = "normal"
                 this.areasFont = "bold"
                 this.searchBookings = ""
+                this.getAreaBookings();
+
             },
             displayBookings() {
                 this.areasTable = "none"
@@ -262,7 +263,6 @@
                     this.getBookingsExtra();
                     this.getBookingsAddOns();
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
             },
@@ -279,7 +279,6 @@
                         }
                     }
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
             },
@@ -296,7 +295,6 @@
                         }
                     }
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
             },
@@ -318,7 +316,6 @@
                         }
                     }
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
             },
@@ -327,7 +324,6 @@
                     await this.$store.dispatch("fetchAreaBookings");
                     this.areas = this.getAllAreaBookings.data;
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
             },
@@ -365,6 +361,7 @@
                 this.getMenuBookings();
             },
             refuseMenuBooking(id) {
+                // eslint-disable-next-line no-undef
                 Swal.fire({
                     title: "Motivo da recusa",
                     input: "textarea",
@@ -394,6 +391,7 @@
                 this.getAreaBookings();
             },
             refuseAreaBooking(id) {
+                // eslint-disable-next-line no-undef
                 Swal.fire({
                     title: "Motivo da recusa",
                     input: "textarea",
@@ -410,6 +408,7 @@
                 });
             },
             showOpinion(txt) {
+                // eslint-disable-next-line no-undef
                 Swal.fire({
                     title: "Opinião: " + txt,
                     confirmButtonText: 'Fechar'

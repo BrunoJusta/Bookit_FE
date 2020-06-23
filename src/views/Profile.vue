@@ -87,13 +87,13 @@
                     {{k.state}}
                   </b-card-text>
                   <div v-if="k.state == 'Concluído' && (k.opinion =='' || k.opinion ==null || k.opinion ==undefined)">
-                    <b-button class="btn-book" @click="giveBookingOpinion(k.booking_id)" squared>Dar Opinião</b-button>
+                    <b-button id="opinion" class="btn-book" @click="giveBookingOpinion(k.booking_id)" squared>Dar Opinião</b-button>
                   </div>
                   <div
-                    v-if="k.state == 'Recusado' && (!(k.decline_txt =='' || k.decline_txt ==null || k.decline_txt ==undefined))">
-                    <b-button class="btn-book" @click="showDeclineTxt(k.decline_txt)" squared>Ver Motivo</b-button>
+                    v-if="k.state == 'Recusado' && (k.decline_txt !='' || k.decline_txt !=null || k.decline_txt !=undefined)">
+                    <b-button id="motive" class="btn-book" @click="showDeclineTxt(k.decline_txt)" squared>Ver Motivo</b-button>
                   </div>
-                  <b-card-text
+                  <b-card-text id="opinionTXT"
                     v-if="k.state == 'Concluído' && (!(k.opinion =='' || k.opinion ==null || k.opinion ==undefined))"
                     style="margin: auto;">
                     <b>Opinião:</b> Enviada
@@ -332,6 +332,7 @@
         this.notificFont = "normal";
       },
       giveBookingOpinion(id) {
+        // eslint-disable-next-line no-undef
         Swal.fire({
           title: "Opinião",
           input: "textarea",
@@ -348,6 +349,7 @@
         });
       },
       giveAreasOpinion(id) {
+        // eslint-disable-next-line no-undef
         Swal.fire({
           title: "Opinião",
           input: "textarea",
@@ -390,6 +392,7 @@
         this.getMyAreaBookings();
       },
       showDeclineTxt(txt) {
+        // eslint-disable-next-line no-undef
         Swal.fire({
           title: "Motivo: " + txt,
           confirmButtonText: 'Fechar'

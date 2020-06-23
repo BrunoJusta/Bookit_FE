@@ -716,6 +716,7 @@ export default new Vuex.Store({
       }
     },
     getUserType(state) {
+      
       return state.loggedUser.type
     },
     getLastName(state) {

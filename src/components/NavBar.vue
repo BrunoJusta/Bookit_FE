@@ -3,7 +3,7 @@
         <b-navbar toggleable="lg" type="dark" variant="info">
             <router-link v-if="this.$store.getters.getUserType !== 0" to="/"><img src="../assets/navbarLogo.svg"
                     id="logoNavbar"></router-link>
-            <router-link v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
+            <router-link id="routeAd" v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <div>
@@ -76,6 +76,7 @@
         },
         methods: {
             logout() {
+                // eslint-disable-next-line no-undef
                 const toast = swal.mixin({
                     toast: true,
                     position: 'top-end',

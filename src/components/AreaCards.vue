@@ -15,7 +15,7 @@
             <b-card
               :title="a.name"
               :img-src="a.img"
-              img-height="180rem"
+              img-height="210rem"
               tag="article"
               style="max-width: 20rem;"
               class="border-0"
@@ -154,7 +154,7 @@ export default {
 .btn-remove {
   font-size: 10px;
   background-color: #b91c3b;
-  margin-top: -208px;
+  margin-top: -248px;
   margin-right: -15px;
   float: right;
 }
