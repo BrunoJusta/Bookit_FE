@@ -92,30 +92,8 @@ export default {
     this.userOn = this.$store.state.loggedUser
     this.areaNameNew = this.area.name;
     this.newDesc = this.area.description;
-
-    /*       this.areas = JSON.parse(localStorage.getItem("areas"))
-      alert(area) */
   },
   methods: {
-    /*     getAreaById(id) {
-      this.areaName = this.areas.filter(area => area.id === id)[0].name;
-
-      this.id = this.areas.filter(area => area.id === id)[0].id;
-
-      this.descripton = this.areas.filter(area => area.id === id)[0].descripton;
-
-      this.areaImg = this.areas.filter(area => area.id === id)[0].img;
-
-      return this.areas.filter(area => area.id === id)[0];
-    }, */
-    /*     saveCurrentArea() {
-      this.currentArea = {
-        areaName: this.areaName,
-        areaImg: this.areaImg
-      };
-      localStorage.setItem("currentArea", JSON.stringify(this.currentArea));
-      this.$store.state.currentArea = this.currentArea;
-    }, */
     activateEdit() {
       this.show = "inline";
       this.show2 = "none";
@@ -130,7 +108,7 @@ export default {
           description: this.newDesc
         });
       } catch (err) {
-        console.log(err);
+        alert(err);
       }
     },
     cancelEdit() {

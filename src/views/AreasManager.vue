@@ -45,7 +45,7 @@
             }
         },
         methods: {
-            async addArea(name, img, description) {
+            async addArea() {
                 try {
                     await this.$store.dispatch("postArea", {
                         name: this.name,

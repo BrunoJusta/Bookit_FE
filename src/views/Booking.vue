@@ -332,6 +332,7 @@
             parseInt(year) < new Date().getFullYear() ||
             parseInt(year) > new Date().getFullYear() + 2
           ) {
+            // eslint-disable-next-line no-undef
             Swal.fire({
               icon: "warning",
               text: "Introduza um ano válido!"
@@ -372,6 +373,7 @@
               this.resumeFont = "normal";
               window.scrollTo(0, 0);
             } else {
+              // eslint-disable-next-line no-undef
               Swal.fire({
                 icon: "warning",
                 text: "Introduza uma data válida!"
@@ -379,6 +381,7 @@
             }
           }
         } else {
+          // eslint-disable-next-line no-undef
           Swal.fire({
             icon: "warning",
             text: "Toda a informação desta página deve ser preenchida!"

@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import router from "../router";
-
 export default {
   data: function() {
     return {
@@ -95,6 +93,7 @@ export default {
         parseInt(year) < new Date().getFullYear() ||
         parseInt(year) > new Date().getFullYear() + 2
       ) {
+        // eslint-disable-next-line no-undef
         Swal.fire({
           icon: "warning",
           text: "Introduza um ano válido!"
@@ -104,6 +103,7 @@ export default {
           parseInt(day) <= new Date().getDate() &&
           parseInt(month) == new Date().getMonth() + 1
         ) {
+          // eslint-disable-next-line no-undef
           Swal.fire({
             icon: "warning",
             text: "Introduza um dia válido!"

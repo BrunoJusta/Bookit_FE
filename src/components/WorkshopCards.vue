@@ -8,7 +8,7 @@
             <div class="row" v-if="this.userType == 0">
                 <div class="col-sm-4" v-for="w in filteredWorkshops" :key="w.workshop_id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem"
+                        <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="220rem"
                             class="border-0">
                             <b-button v-if="w.vacancies !== w.filled" class="btn-book"
                                 @click="currentWorkshop(w.workshop_id)" squared>Ver Mais </b-button>
@@ -68,7 +68,6 @@
                         id: ID
                     });
                 } catch (err) {
-                    console.log(err)
                     alert(err);
                 }
                 this.getAllWorkshops();
@@ -148,7 +147,7 @@
     .btn-remove {
         font-size: 10px;
         background-color: #B91C3B;
-        margin-top: -218px;
+        margin-top: -258px;
         margin-right: -15px;
         float: right;
     }

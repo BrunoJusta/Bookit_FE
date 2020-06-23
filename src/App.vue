@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-if="this.$route.name !== 'login' && this.$route.name !== 'register'">
+  <div id="app" v-if="this.$route.name !== 'login' && this.$route.name !== 'register' && this.$route.name !== 'booking' && this.$route.name !== 'areaBookings'"> 
     <navbar />
     <router-view />
     <bottom-footer id="desktop-footer" />
