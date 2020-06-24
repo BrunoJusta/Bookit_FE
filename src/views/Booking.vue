@@ -121,24 +121,24 @@
       <div class="container" v-bind:style="{display: resume}">
         <div class="row">
           <div align="left" class="col-sm-4">
-            <p v-if="reason != ''"><b>Motivo</b>{{reason}}</p>
-            <p v-if="date != ''"><b>Data</b>{{date}}</p>
-            <p v-if="hf != ''"><b>Duração</b>{{hi}} - {{hf}}</p>
-            <p v-if="people != ''"><b>Nº Pessoas</b>{{people}}</p>
+            <p v-if="reason != ''"><b>Motivo </b>{{reason}}</p>
+            <p v-if="date != ''"><b>Data </b>{{date}}</p>
+            <p v-if="hf != ''"><b>Duração </b>{{hi}} - {{hf}}</p>
+            <p v-if="people != ''"><b>Nº Pessoas </b>{{people}}</p>
           </div>
           <div align="left" class="col-sm-4">
-            <p v-if="location != ''"><b>Local</b>{{locationName}}</p>
+            <p v-if="location != ''"><b>Local </b>{{locationName}}</p>
             <p v-if="checkedIngsNames.length != 0">
-              <b>Complementos</b>{{ checkedIngsNames.length == 0 ? 'Fechar' : '' + checkedIngsNames }}
+              <b>Complementos </b>{{ checkedIngsNames.length == 0 ? 'Fechar' : '' + checkedIngsNames }}
             </p>
           </div>
           <div align="left" class="col-sm-4">
             <p v-if="checkedExtrasNames.length != 0">
-              <b>Extras</b>{{ checkedExtrasNames.length == 0 ? 'Fechar' : '' + checkedExtrasNames }}</p>
+              <b>Extras </b>{{ checkedExtrasNames.length == 0 ? 'Fechar' : '' + checkedExtrasNames }}</p>
             <p v-if="checkedDecorNames.length != 0">
-              <b>Decoração</b>{{ checkedDecorNames.length == 0 ? 'Fechar' : '' + checkedDecorNames }}</p>
+              <b>Decoração </b>{{ checkedDecorNames.length == 0 ? 'Fechar' : '' + checkedDecorNames }}</p>
             <p v-if="checkedImageTxt.length != 0">
-              <b>Farda</b>{{ checkedImageTxt.length == 0 ? 'Fechar' : '' + checkedImageTxt }}
+              <b>Farda </b>{{ checkedImageTxt.length == 0 ? 'Fechar' : '' + checkedImageTxt }}
             </p>
           </div>
         </div>
