@@ -86,8 +86,8 @@
   }
 
   .options {
-    padding-top: 60px;
-    padding-bottom: 150px;
+    padding-top: 50px;
+    padding-bottom: 40px;
   }
 
   .col-sm-4 {

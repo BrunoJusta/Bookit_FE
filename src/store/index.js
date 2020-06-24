@@ -374,10 +374,6 @@ export default new Vuex.Store({
       })
     },
     ADD_INSCRIPTION() {
-      Swal.fire({
-        icon: 'success',
-        text: "Inscreveu-se no Workshop"
-      })
       router.push({
         name: 'workshops'
       })

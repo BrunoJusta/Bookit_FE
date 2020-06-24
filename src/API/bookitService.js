@@ -493,15 +493,16 @@ const bookitService = {
         })
 
         if (response.ok) {
+
             return response.json()
         } else {
-            let msg =  await response.json()
+            let msg = await response.json()
             // eslint-disable-next-line no-undef
             Swal.fire({
                 icon: 'error',
                 title: response.status,
                 text: msg.message,
-              })
+            })
         }
     },
     async addBooking(id, reason, date, school, initHour, endHour, numberPeople, outfit, observations, menu, decor, extras, ing) {
@@ -914,9 +915,20 @@ const bookitService = {
             })
         })
         if (response.ok) {
-            return response.json()
+            let msg = await response.json()
+            // eslint-disable-next-line no-undef
+            Swal.fire({
+                icon: 'success',
+                text: msg.message,
+            })
         } else {
-            throw Error(response.json())
+            let msg = await response.json()
+            // eslint-disable-next-line no-undef
+            Swal.fire({
+                icon: 'error',
+                title: response.status,
+                text: msg.message,
+            })
         }
     },
     async archiveNotification(userID, id) {

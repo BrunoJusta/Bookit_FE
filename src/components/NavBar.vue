@@ -3,7 +3,8 @@
         <b-navbar toggleable="lg" type="dark" variant="info">
             <router-link v-if="this.$store.getters.getUserType !== 0" to="/_bookit"><img src="../assets/navbarLogo.svg"
                     id="logoNavbar"></router-link>
-            <router-link id="routeAd" v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
+            <router-link id="routeAd" v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar">
+            </router-link>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <div>
@@ -16,7 +17,7 @@
                             </b-button>
                             <span id="countTxt"
                                 v-if="this.$store.getters.getName != 'Entrar' &&
-                            this.$store.getters.getNumberNotifications != 0">{{this.$store.getters.getNumberNotifications}}</span>
+                            this.userNotifications != 0">{{this.userNotifications}}</span>
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
                                 <router-link style="color:black;" to="/_bookit">Sair</router-link>
@@ -50,13 +51,18 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
     export default {
         data: function () {
             return {
-                path: "login"
+                path: "login",
+                userNotifications: ""
             }
         },
         created() {
+            this.getMyNotifications();
             if (localStorage.getItem("token")) {
                 let jwtToken = localStorage.getItem("token").split(".")[1]
                 this.$store.state.loggedUser = JSON.parse(window.atob(jwtToken))
@@ -66,6 +72,7 @@
             }
         },
         updated() {
+            this.getMyNotifications();
             if (localStorage.getItem("token")) {
                 this.path = "profile"
             } else {
@@ -88,7 +95,15 @@
                     title: 'Terminou sessão com sucesso!'
                 })
                 this.$store.commit('LOGOUT')
-            }
+            },
+            async getMyNotifications() {
+                try {
+                    await this.$store.dispatch("fetchUserNotifications");
+                    this.userNotifications = this.getUserNotifications.data.length
+                } catch (err) {
+                    alert(err);
+                }
+            },
         },
         computed: {
             getName() {
@@ -97,7 +112,8 @@
                 } else {
                     return "Entrar"
                 }
-            }
+            },
+            ...mapGetters(["getUserNotifications"]),
         }
     }
 </script>

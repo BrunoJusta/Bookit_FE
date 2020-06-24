@@ -153,15 +153,19 @@
           v-bind:style="{fontWeight: kitInfoFont}">Anterior</button>
         <b-button type="submit" @click="saveCurrentKit()" value="Adicionar" class="btn btn-primary border-0" squared>
           Confirmar</b-button>
+        <b-button type="button" @click="cancelMenuBooking()" value="Adicionar" class="btn btn-primary border-0" squared>
+          Cancelar</b-button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+  import router from '../router';
   import {
     mapGetters
   } from "vuex";
+
   export default {
     data: function () {
       return {
@@ -451,6 +455,11 @@
         this.outfitFont = "normal";
         this.resumeFont = "bold";
         window.scrollTo(0, 0);
+      },
+      cancelMenuBooking() {
+        router.push({
+          name: 'menuGallery'
+        })
       },
       chooseOutfit(id, name) {
         this.checkedImage = id;
