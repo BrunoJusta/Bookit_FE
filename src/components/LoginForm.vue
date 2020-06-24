@@ -46,7 +46,8 @@
             password: this.passwordLogin
           });
         } catch (err) {
-          alert(err.message);
+          // eslint-disable-next-line no-console
+          console.log(3)
         }
       }
     }
