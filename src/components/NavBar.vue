@@ -15,8 +15,7 @@
                                         id="icon"></i>{{this.$store.getters.getName}}
                                 </router-link>
                             </b-button>
-                            <span id="countTxt"
-                                v-if="this.$store.getters.getName != 'Entrar' &&
+                            <span id="countTxt" v-if="this.$store.getters.getName != 'Entrar' &&
                             this.userNotifications != 0">{{this.userNotifications}}</span>
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
@@ -62,8 +61,8 @@
             }
         },
         created() {
-            this.getMyNotifications();
             if (localStorage.getItem("token")) {
+                this.getMyNotifications();
                 let jwtToken = localStorage.getItem("token").split(".")[1]
                 this.$store.state.loggedUser = JSON.parse(window.atob(jwtToken))
                 this.path = "profile"
@@ -72,8 +71,8 @@
             }
         },
         updated() {
-            this.getMyNotifications();
             if (localStorage.getItem("token")) {
+                this.getMyNotifications();
                 this.path = "profile"
             } else {
                 this.path = "login"
