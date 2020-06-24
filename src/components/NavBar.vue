@@ -64,7 +64,6 @@
             } else {
                 this.path = "login"
             }
-            this.$store.state.numNotifications = localStorage.getItem("x")
         },
         updated() {
             if (localStorage.getItem("token")) {
@@ -72,7 +71,6 @@
             } else {
                 this.path = "login"
             }
-            this.$store.state.numNotifications = localStorage.getItem("x")
         },
         methods: {
             logout() {
@@ -89,10 +87,6 @@
                     icon: 'success',
                     title: 'Terminou sessão com sucesso!'
                 })
-
-                /* Swal.fire({
-                    text: 'Sessão terminada!'
-                }) */
                 this.$store.commit('LOGOUT')
             }
         },

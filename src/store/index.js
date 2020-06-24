@@ -62,7 +62,6 @@ export default new Vuex.Store({
       state.loggedUser = JSON.parse(window.atob(jwtToken))
 
       state.numNotifications = state.loggedUser.notifications
-      localStorage.setItem("x", state.numNotifications);
       if (state.loggedUser.notifications != 0) {
         const toast = swal.mixin({
           toast: true,
@@ -94,7 +93,7 @@ export default new Vuex.Store({
       if (state.loggedUser.type === 0) {
         router.push("/adminHome")
       } else if (state.loggedUser.type === 1) {
-        router.push("/")
+        router.push("/_bookit")
       }
     },
     LOGOUT(state) {
@@ -214,6 +213,11 @@ export default new Vuex.Store({
       state.outfits = data.data
     },
     EDIT_USERS(state, data) {
+      state.token = data.token
+      localStorage.setItem("token", state.token);
+
+      let jwtToken = state.token.split(".")[1]
+      state.loggedUser = JSON.parse(window.atob(jwtToken))
       Swal.fire({
         icon: 'success',
         text: data.message
@@ -378,13 +382,27 @@ export default new Vuex.Store({
         name: 'workshops'
       })
     },
-    ARCHIVE_NOTIFICATION() {
+    ARCHIVE_NOTIFICATION(state, data) {
+      state.token = data.token
+      localStorage.setItem("token", state.token);
+
+      let jwtToken = state.token.split(".")[1]
+      state.loggedUser = JSON.parse(window.atob(jwtToken))
+
+      state.numNotifications = state.loggedUser.notifications
       Swal.fire({
         icon: "success",
         text: "Notificação arquivada"
       })
     },
-    DELETE_NOTIFICATION() {
+    DELETE_NOTIFICATION(state, data) {
+      state.token = data.token
+      localStorage.setItem("token", state.token);
+
+      let jwtToken = state.token.split(".")[1]
+      state.loggedUser = JSON.parse(window.atob(jwtToken))
+
+      state.numNotifications = state.loggedUser.notifications
       Swal.fire({
         icon: "success",
         text: "Notificação eliminada"
@@ -716,7 +734,7 @@ export default new Vuex.Store({
       }
     },
     getUserType(state) {
-      
+
       return state.loggedUser.type
     },
     getLastName(state) {

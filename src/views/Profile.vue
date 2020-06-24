@@ -87,11 +87,13 @@
                     {{k.state}}
                   </b-card-text>
                   <div v-if="k.state == 'Concluído' && (k.opinion =='' || k.opinion ==null || k.opinion ==undefined)">
-                    <b-button id="opinion" class="btn-book" @click="giveBookingOpinion(k.booking_id)" squared>Dar Opinião</b-button>
+                    <b-button id="opinion" class="btn-book" @click="giveBookingOpinion(k.booking_id)" squared>Dar
+                      Opinião</b-button>
                   </div>
                   <div
                     v-if="k.state == 'Recusado' && (k.decline_txt !='' || k.decline_txt !=null || k.decline_txt !=undefined)">
-                    <b-button id="motive" class="btn-book" @click="showDeclineTxt(k.decline_txt)" squared>Ver Motivo</b-button>
+                    <b-button id="motive" class="btn-book" @click="showDeclineTxt(k.decline_txt)" squared>Ver Motivo
+                    </b-button>
                   </div>
                   <b-card-text id="opinionTXT"
                     v-if="k.state == 'Concluído' && (!(k.opinion =='' || k.opinion ==null || k.opinion ==undefined))"
@@ -230,6 +232,9 @@
       this.getMyBookings()
       this.getMyAreaBookings()
       this.getMyWorkshops()
+      this.getUserImg()
+    },
+    updated() {
       this.getUserImg()
     },
     methods: {

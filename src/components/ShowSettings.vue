@@ -111,6 +111,15 @@
                     alert(err);
                 }
             },
+            async getUserImg() {
+                try {
+                    await this.$store.dispatch("fetchUserImage", {
+                        id: this.$store.state.loggedUser.id
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+            },
             async editUsers(oldPassword, newPassword, newPassword2, number, userType) {
                 try {
                     await this.$store.dispatch("editUsers", {
