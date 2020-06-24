@@ -1,7 +1,7 @@
 <template>
     <div class="fixed-top">
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <router-link v-if="this.$store.getters.getUserType !== 0" to="/"><img src="../assets/navbarLogo.svg"
+            <router-link v-if="this.$store.getters.getUserType !== 0" to="/_bookit"><img src="../assets/navbarLogo.svg"
                     id="logoNavbar"></router-link>
             <router-link id="routeAd" v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
             <b-navbar-nav class="ml-auto">
@@ -19,7 +19,7 @@
                             this.$store.getters.getNumberNotifications != 0">{{this.$store.getters.getNumberNotifications}}</span>
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
-                                <router-link style="color:black;" to="/">Sair</router-link>
+                                <router-link style="color:black;" to="/_bookit">Sair</router-link>
                             </b-button>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
         </b-navbar>
         <b-navbar id="jon" toggleable="lg" type="dark" variant="info">
             <div class="container">
-                <router-link to="/" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Início
+                <router-link to="/_bookit" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Início
                 </router-link>
                 <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Menus
                 </router-link>

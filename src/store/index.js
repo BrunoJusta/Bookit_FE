@@ -112,7 +112,7 @@ export default new Vuex.Store({
         text: "Pedido de reserva enviado"
       })
       router.push({
-        name: 'areasGallery'
+        name: 'home'
       })
     },
     ADD_AREA_BOOKING() {
@@ -121,7 +121,7 @@ export default new Vuex.Store({
         text: "Pedido de reserva enviado"
       })
       router.push({
-        name: 'areasGallery'
+        name: 'home'
       })
     },
     SET_MENUS(state, data) {

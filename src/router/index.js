@@ -5,7 +5,7 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
+    path: '/_bookit' ,
     name: 'home',
     component: Home,
     beforeEnter(to, from, next) {
@@ -358,7 +358,6 @@ const routes = [{
 ]
 
 const router = new VueRouter({
-  mode: "history",
   routes,
   scrollBehavior() {
     return {
