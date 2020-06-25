@@ -2,13 +2,24 @@
     <div>
         <div class="container" style="justify-content: center;">
             <b-button v-on:click="displayB()" class="border-0"
-                style="background-color:transparent; color:black; padding:10px; fontSize: 20px;"
+                style="  padding: 6px;
+     background-color: white;
+    color: black;
+    font-size: 20px;
+    border-color: transparent;
+    border-radius: 5px;
+    margin: 10px;"
                 v-bind:style="{fontWeight: notifyFont}">
                 Notificações
             </b-button>
-            <label class="options" style="padding: 10px">|</label>
             <b-button v-on:click="displayA()" class="border-0"
-                style="background-color:transparent; color:black; padding:10px; fontSize: 20px;"
+                style="  padding: 6px;
+     background-color: white;
+    color: black;
+    font-size: 20px;
+    border-color: transparent;
+    border-radius: 5px;
+    margin: 10px;"
                 v-bind:style="{fontWeight: archiveFont}">
                 Arquivo
             </b-button>

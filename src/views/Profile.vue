@@ -1,6 +1,44 @@
 <template>
   <div>
     <div class="container" id="perfilContainer" v-bind:style="{display: showProfile}">
+
+
+  <div class="container-full" id="profileCard">
+  <div class="row">
+      <div class="card  border-0" >
+        <img class="card-img-top" style="min-height:80px" src="../assets/bannerProfile.jpg" alt="Bologna">
+        <div class="card-body text-center">
+          <img class="avatar rounded-circle" :src="this.userImage" alt="Bologna">
+          <h2 style="font-weight:bold">{{this.$store.state.loggedUser.name + " " + this.$store.state.loggedUser.lastName}}</h2>
+  <h6 class="card-subtitle mb-2">  <i class="fas fa-envelope" id="iconProfile" ></i>{{this.$store.state.loggedUser.email}}
+
+              <i class="fas fa-phone" id="iconProfile" ></i>
+              {{this.$store.state.loggedUser.number}}
+      
+           
+          </h6>
+          
+            <button v-on:click="displayBookings()" class="options "
+              v-bind:style="{fontWeight: bookingsFont, boxShadow: bookingsColor, color: bookingsColor2}">
+              <i class="fas fa-cocktail" id="icon"></i>Reservas
+            </button>
+            <button v-on:click="displayNotifications()" class="options"
+              v-bind:style="{fontWeight: notificFont,  boxShadow: notifiColor, color: notifiColor2}">
+              <i class="fas fa-thumbtack" id="icon"></i>
+              Notificações
+            </button>
+            <button v-on:click="displaySettings()" class="optionsSet ">
+              <i class="fas fa-user-cog" id="icon"></i>Opções
+            </button>
+        
+            </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 
+
       <div class="row">
         <div class="col-sm-7">
           <b-img :src="this.userImage" id="imgPerfil"></b-img>
@@ -47,18 +85,17 @@
           </div>
         </div>
       </div>
-    </div>
+    --></div> 
     <br />
     <!-- MOSTRA AS RESERVAS -->
     <div class="container">
       <div v-bind:style="{display: showBookings}">
         <div class="container">
-          <button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}"
-            class="bookingOptions border-0">Eventos & Catering</button>
-          <span class="bookingOptions">|</span>
+         
           <button v-on:click="displayAreas()" v-bind:style="{fontWeight: AreasFont}"
             class="bookingOptions border-0">Espaços</button>
-          <span class="bookingOptions">|</span>
+             <button v-on:click="displayEvents()" v-bind:style="{fontWeight: eventsFont}"
+            class="bookingOptions border-0">Eventos & Catering</button>
           <button v-on:click="displayWorkshops()" v-bind:style="{fontWeight: WorkshopsFont}"
             class="bookingOptions border-0">Workshops</button>
         </div>
@@ -192,7 +229,7 @@
       <!-- DEFINIÇOES -->
       <div class="container teste" v-bind:style="{display: showSettings}">
         <show-settings />
-        <button v-on:click="hideSettings()" class="border-0 options btn-p2" id="goBackBtn">Voltar ao Perfil</button>
+        <button v-on:click="hideSettings()" class="border-0  btn-p2" id="goBackBtn">Voltar ao Perfil</button>
       </div>
     </div>
   </div>
@@ -225,8 +262,10 @@
         showEvents: "block", //mostrar eventos dentro das reservas
         showAreas: "none", //mostrar areas dentro das reservas
         showWorkshops: "none", //mostrar workshops dentro das reservas
-        bookingsColor: "#B91C3B", //muda a cor da fonte escolhida
-        notifiColor: "black", //muda a cor da fonte escolhida
+        bookingsColor: " -2px 0px 10px -4px rgba(0,0,0,0.5)", //muda a cor da fonte escolhida
+        notifiColor: " 0px 0px 0px 0px rgba(0,0,0,0)", //muda a cor da fonte escolhida
+        bookingsColor2: "#b91c3b", //muda a cor da fonte escolhida
+        notifiColor2: " #0a2463", //muda a cor da fonte escolhida
         settingsOn: require("../assets/settingsIcon.png"), //imagem das definições
         bookingsFont: "bold", //muda a cor da fonte escolhida
         notificFont: "normal", //muda a cor da fonte escolhida
@@ -309,8 +348,10 @@
         this.showBookings = "block";
         this.showNotifications = "none";
         this.showSettings = "none";
-        this.bookingsColor = "#B91C3B";
-        this.notifiColor = "black";
+        this.bookingsColor = "-2px 0px 10px -4px rgba(0,0,0,0.5)";
+        this.notifiColor = "0px 0px 0px 0px rgba(0,0,0,0)";
+        this.bookingsColor2 = "#b91c3b", 
+        this.notifiColor2 = " #0a2463", 
         this.bookingsFont = "bold";
         this.notificFont = "normal";
       },
@@ -318,8 +359,10 @@
         this.showBookings = "none";
         this.showNotifications = "block";
         this.showSettings = "none";
-        this.bookingsColor = "black";
-        this.notifiColor = "#B91C3B";
+        this.bookingsColor = "0px 0px 0px 0px rgba(0,0,0,0)";
+        this.notifiColor = "-2px 0px 10px -4px rgba(0,0,0,0.5)";
+        this.bookingsColor2 = "#0a2463", 
+        this.notifiColor2 = " #b91c3b", 
         this.bookingsFont = "normal";
         this.notificFont = "bold";
       },
@@ -328,8 +371,8 @@
         this.showBookings = "none";
         this.showNotifications = "none";
         this.showSettings = "block";
-        this.bookingsColor = "black";
-        this.notifiColor = "black";
+        this.bookingsColor = "0px 0px 0px 0px rgba(0,0,0,0)";
+        this.notifiColor = "0px 0px 0px 0px rgba(0,0,0,0)";
         this.bookingsFont = "normal";
         this.notificFont = "normal";
       },
@@ -339,8 +382,10 @@
         this.showBookings = "block";
         this.showNotifications = "none";
         this.showSettings = "none";
-        this.bookingsColor = "#B91C3B";
-        this.notifiColor = "black";
+        this.bookingsColor = "-2px 0px 10px -4px rgba(0,0,0,0.5)";
+        this.notifiColor = "0px 0px 0px 0px rgba(0,0,0,0)";
+        this.bookingsColor2 = "#b91c3b", 
+        this.notifiColor2 = " #0a2463", 
         this.bookingsFont = "bold";
         this.notificFont = "normal";
       },
@@ -422,6 +467,22 @@
 </script>
 
 <style lang="scss" scoped>
+  @font-face {
+    font-family: bookMan;
+    src: url(../assets/bookman.ttf);
+  }
+
+
+#profileCard{
+  font-family: gotham;
+}
+
+.avatar {
+  border: 0.3rem solid rgba(#fff, 0.3);
+  margin-top: -6rem;
+  margin-bottom: 1rem;
+  max-width: 9rem;
+}
   #cardSpace{
     margin-bottom: 180px;
 
@@ -458,8 +519,22 @@
   }
 
   .options {
-    background-color: transparent;
-    color: black;
+    background-color: white;
+    color: #0a2463;
+    font-size: 16px;
+    border-color: transparent;
+    border-radius: 5px;
+    margin: 10px;
+    box-shadow: -2px 0px 10px -4px rgba(0,0,0,0.35);
+  }
+
+  .optionsSet {
+    background-color: #0a2463;
+    color: white;
+    font-size: 16px;
+    border-color: transparent;
+    border-radius: 5px;
+    margin: 10px;
   }
 
   .btn-book {
@@ -467,6 +542,20 @@
     background-color: #0a2463;
     margin-top: 10px;
     margin-left: 20%;
+  }
+
+  .btn-profile {
+    font-size: 16px;
+    background-color: #0a2463;
+    margin: 10px;
+  }
+
+  .btn-profile {
+    font-size: 16px;
+    background-color: white;
+    border:0px solid  #0a2463;
+    color:  #0a2463;
+    margin: 10px;
   }
 
   .card-title {
@@ -477,6 +566,12 @@
   .card-img {
     border-radius: 0 !important;
   }
+
+#iconProfile{
+  padding-left: 10px;
+  padding-right: 3px;
+
+}
 
   #imgPerfil {
     height: 150px;
@@ -501,10 +596,6 @@
     color: black;
   }
 
-  @font-face {
-    font-family: bookMan;
-    src: url(../assets/bookman.ttf);
-  }
 
   #link {
     color: black;
@@ -514,10 +605,23 @@
   }
 
   .bookingOptions {
-    background-color: transparent;
+    padding: 6px;
+    background-color: #0a2463;
+    color: white;
+    border-color: transparent;
+    border-radius: 5px;
+    margin: 10px;
+  }
+
+  .bookingOptions {
+    padding: 6px;
+     background-color: white;
     color: black;
-    padding: 10px;
     font-size: 20px;
+    border-color: transparent;
+    border-radius: 5px;
+    margin: 10px;
+    // box-shadow: -2px 0px 8px -4px rgba(0,0,0,0.35);
   }
 
   .options[data-v-ced23842]:focus {
