@@ -10,18 +10,19 @@
             <div class="row">
                 <div class="col-sm-6">
                     <form @submit.prevent="addOutfit()">
-                        <b-input type="text" v-model="name" id="txtOutfit" placeholder="Farda"></b-input>
-                        <b-input type="link" v-model="source" id="txtLink" placeholder="link"></b-input>
+                        <b-input type="text" v-model="name" id="txtOutfit" placeholder="Farda" required></b-input>
+                        <b-input type="link" v-model="img" id="txtLink" placeholder="link" required></b-input>
                         <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
                     </form>
                 </div>
-                <div class="col-sm-6" v-if="this.source == ''">
+                <div class="col-sm-6" v-if="this.img == ''">
                     <div class="container table" v-if="this.outfits.length != 0">
                         <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
                             hover head-variant="dark" responsive="sm" :items="this.outfits" :fields="fields">
                             <template v-slot:cell(actions)="row">
-                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
+                                <b-button size="sm" @click="deleteOutfit(row.item.outfit_id)" class="mr-1 deleteBtn"><i
+                                        class="fas fa-trash-alt"></i></b-button>
                             </template>
                         </b-table>
                         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"
@@ -34,7 +35,7 @@
                 </div>
                 <div class="col-sm-6" v-else>
                     <label for="imgWorkshop">Imagem da Farda:</label>
-                    <img :src="source" id="imgWorkshop">
+                    <img :src="img" id="imgWorkshop">
                 </div>
             </div>
         </div>
@@ -42,6 +43,9 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
     export default {
         name: "AddOns",
         data: function () {
@@ -60,78 +64,53 @@
                         sortable: false
                     },
                 ],
-                workshops: [],
                 x: "",
-                currentDate: "",
-                searchWorkshops: "",
                 name: "",
-                source: "",
+                img: "",
             }
         },
         created() {
-            if (JSON.parse(localStorage.getItem("outfits"))) {
-                this.$store.state.outfits = JSON.parse(localStorage.getItem("outfits"))
-            }
-            this.outfits = this.$store.state.outfits
-
+            this.getAllOutfits();
+            this.outfits = this.$store.state.outfits;
+        },
+        updated() {
+            this.outfits = this.$store.state.outfits;
         },
         methods: {
-            addOutfit() {
-                let createType = true
-                //verificar se existe
-                for (let i in this.outfits) {
-                    if (this.name.toLowerCase() == this.outfits[i].name.toLowerCase()) {
-                        createType = false;
-                    }
-                }
-                if (createType == true) {
-                    this.outfits.push({
-                        id: this.$store.getters.outfitLastId + 1,
-                        name: this.name,
-                        source: this.source
-                    })
-                    localStorage.setItem("outfits", JSON.stringify(this.outfits));
-                    this.name = ""
-                    this.source = ""
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'Adicionado!',
-                    })
-                } else {
-                    this.name = ""
-                    this.source = ""
-                    Swal.fire({
-                        icon: 'error',
-                        text: 'Esta farda já existe!',
-                    })
+            async getAllOutfits() {
+                try {
+                    await this.$store.dispatch("fetchOutfits");
+                    this.outfits = this.getOutfits.data;
+                } catch (err) {
+                    alert(err);
                 }
             },
-            remove(id) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Deseja remover este outfit?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.outfits) {
-                            if (this.outfits[i].id === id) {
-                                this.outfits = this.outfits.filter(d => this.outfits[i].id != d
-                                    .id);
-                                localStorage.setItem("outfits", JSON.stringify(this.outfits));
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Removido!',
-                                })
-                            }
-                        }
-                    }
-                })
+            async addOutfit() {
+                try {
+                    await this.$store.dispatch("postOutfit", {
+                        name: this.name,
+                        img: this.img
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAllOutfits();
+                this.name = ""
+                this.img = ""
+            },
+            async deleteOutfit(ID) {
+                try {
+                    await this.$store.dispatch("deleteOutfit", {
+                        id: ID
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAllOutfits();
             }
         },
         computed: {
-            searchKits() {
-                return this.outfits;
-            },
+            ...mapGetters(["getOutfits"]),
             rows() {
                 return this.outfits.length
             }
@@ -140,7 +119,6 @@
 </script>
 
 <style lang="scss" scoped>
-
     .box {
         background-color: white;
         margin-top: -35px;
@@ -172,8 +150,10 @@
     }
 
     #imgWorkshop {
-        width: 350px;
-        height: auto;
+        width: 250px;
+        height: 400px;
+        object-fit: cover;
+        
     }
 
     .addBtn {

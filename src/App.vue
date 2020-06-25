@@ -1,9 +1,13 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="this.$route.name !== 'login' && this.$route.name !== 'register' && this.$route.name !== 'booking' && this.$route.name !== 'areasbooking' && this.$route.name !== 'profile'"> 
     <navbar />
     <router-view />
     <bottom-footer id="desktop-footer" />
     <bottom-footer-mobile id="mobile-footer" />
+  </div>
+  <div v-else id="app">
+    <navbar />
+    <router-view />
   </div>
 </template>
 

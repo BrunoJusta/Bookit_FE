@@ -8,11 +8,11 @@
         </div>
 
         <div class="container" style="justify-content: center;">
-            <b-button v-on:click="displayB()" class="teste border-0"
+            <b-button v-on:click="displayBookings()" class="teste border-0"
                 style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: eventsFont}">
                 Eventos & Catering
             </b-button>
-            <b-button v-on:click="displayA()" class="teste border-0"
+            <b-button v-on:click="displayAreaBookings()" class="teste border-0"
                 style="background-color:transparent; color:black; padding:10px" v-bind:style="{fontWeight: areasFont}">
                 Espaços
             </b-button>
@@ -24,20 +24,26 @@
                 placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.filteredBookings.slice().reverse()" :fields="fields">
+                head-variant="dark" responsive="sm" :items="this.filteredBookings" :fields="fields">
                 <template v-slot:cell(actions)="row">
                     <b-button size="sm" class="mr-1 showBtn" @click="row.toggleDetails">
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
-                        @click="acceptBooking(row.item.id, row.item.userEmail)" class="mr-1 acceptBtn">Aceitar
+                        @click="editMenuBooking(row.item.id, 1,'', '')" class="mr-1 acceptBtn">Aceitar
                     </b-button>
                     <b-button size="sm" v-if="row.item.state == 'Pendente'"
-                        @click="refuseBooking(row.item.id, row.item.userEmail)" class="mr-1 refuseBtn">Recusar
+                        @click="refuseMenuBooking(row.item.id)" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" @click="removeBooking(row.item.id)" v-if="row.item.state !== 'Pendente'"
+                    <b-button size="sm" v-if="row.item.state == 'Aprovado'"
+                        @click="editMenuBooking(row.item.id,  3,'', '')" class="mr-1 acceptBtn">Concluír
+                    </b-button>
+                    <b-button size="sm"
+                        v-if="row.item.state == 'Concluído' && (!(row.item.opinion =='' || row.item.opinion ==null || row.item.opinion ==undefined))"
+                        @click="showOpinion(row.item.opinion)" class="mr-1 acceptBtn">Ver Opinião
+                    </b-button>
+                    <b-button size="sm" v-if="row.item.state !== 'Pendente'" @click="deleteMenuBooking(row.item.id)"
                         class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
-
                 </template>
                 <template v-slot:row-details="row">
                     <b-card>
@@ -47,18 +53,18 @@
                                 <p id="listItem" v-if="key === 'date'"> <b>Data:</b> {{value}}</p>
                                 <p id="listItem" v-if="key === 'duration'"> <b>Duração:</b> {{value}}</p>
                                 <p id="listItem" v-if="key === 'numberPeople'"> <b>Nº Pessoas:</b> {{value}}</p>
-                                <p id="listItem" v-if="key === 'location'"> <b>Local:</b> {{value}}</p>
-                                <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
+                                <p id="listItem" v-if="key === 'school'"> <b>Local:</b> {{value}}</p>
+                                <p id="listItem" v-if="key === 'outfit'"> <b>Farda:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
-                                    {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
+                                <p id="listItem" v-if="key === 'observations'"> <b>Observações:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                                 <p id="listItem" v-if="key === 'decor'"> <b>Decoração:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'outfit'"> <b>Farda:</b>
+                                <p id="listItem" v-if="key === 'extras'"> <b>Extras:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
-                                <p id="listItem" v-if="key === 'observation'"> <b>Observações:</b>
+                                <p id="listItem" v-if="key === 'drinks'"> <b>Bebidas Complementares:</b>
+                                    {{value.length == 0? 'Nada' : '' + value}}</p>
+                                <p id="listItem" v-if="key === 'food'"> <b>Comida Complementar:</b>
                                     {{value.length == 0? 'Nada' : '' + value}}</p>
                             </h9>
                         </ul>
@@ -79,25 +85,33 @@
                 placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.filteredAreas.slice().reverse()" :fields="fields2">
+                head-variant="dark" responsive="sm" :items="this.filteredAreas" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
                     <b-button size="sm" class="mr-1 showBtn" @click="row2.toggleDetails">
                         {{ row2.detailsShowing ? 'Fechar' : ' Ver Mais' }}
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state == 'Pendente'"
-                        @click="acceptAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1 acceptBtn">Aceitar
+                    <b-button size="sm" v-if="row2.item.description == 'Pendente'"
+                        @click="editAreaBooking(row2.item.area_booking_id, 1,'', '')" class="mr-1 acceptBtn">Aceitar
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state == 'Pendente'"
-                        @click="refuseAreaBooking(row2.item.id, row2.item.userEmail)" class="mr-1 refuseBtn">Recusar
+                    <b-button size="sm" v-if="row2.item.description == 'Pendente'"
+                        @click="refuseAreaBooking(row2.item.area_booking_id)" class="mr-1 refuseBtn">Recusar
                     </b-button>
-                    <b-button size="sm" v-if="row2.item.state !== 'Pendente'" @click="removeAreaBooking(row2.item.id)"
-                        class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
+                    <b-button size="sm" v-if="row2.item.description == 'Aprovado'"
+                        @click="editAreaBooking(row2.item.area_booking_id, 3,'', '')" class="mr-1 acceptBtn">Concluír
+                    </b-button>
+                    <b-button size="sm"
+                        v-if="row2.item.description == 'Concluído' && (!(row2.item.opinion =='' || row2.item.opinion ==null || row2.item.opinion ==undefined))"
+                        @click="showOpinion(row2.item.opinion)" class="mr-1 acceptBtn">Ver Opinião
+                    </b-button>
+                    <b-button size="sm" v-if="row2.item.description !== 'Pendente'"
+                        @click="deleteAreaBooking(row2.item.area_booking_id)" class="mr-1 deleteBtn"><i
+                            class="fas fa-trash-alt"></i></b-button>
                 </template>
                 <template v-slot:row-details="row2">
                     <b-card>
                         <ul>
                             <h9 v-for="(value, key) in row2.item" :key="key">
-                                <p id="listItem" v-if="key === 'reason'"> Motivo: {{value}}</p>
+                                <p id="listItem" v-if="key === 'reason'"> <b>Motivo da Reserva: </b> {{value}}</p>
                             </h9>
                         </ul>
                     </b-card>
@@ -114,21 +128,27 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
     export default {
         name: "BookingTable",
         data: function () {
             return {
                 bookings: [],
+                decor: [],
+                extras: [],
+                addOns: [],
                 areas: [],
                 perPage: 10,
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'kitType',
+                        key: 'menuType',
                         label: "Evento",
                         sortable: true
                     }, {
-                        key: 'kitName',
+                        key: 'menuName',
                         label: "Menu",
                         sortable: true
                     },
@@ -148,7 +168,7 @@
                         sortable: true
                     },
                     {
-                        key: 'userEmail',
+                        key: 'email',
                         label: "Contacto",
                         sortable: false
                     },
@@ -164,7 +184,7 @@
                     },
                 ],
                 fields2: [{
-                        key: 'areaName',
+                        key: 'name',
                         label: "Espaço",
                         sortable: true
                     },
@@ -184,12 +204,12 @@
                         sortable: true
                     },
                     {
-                        key: 'userEmail',
+                        key: 'email',
                         label: "Contacto",
                         sortable: false
                     },
                     {
-                        key: 'state',
+                        key: 'description',
                         label: "Estado",
                         sortable: false
                     },
@@ -210,221 +230,197 @@
             }
         },
         created() {
-            if (localStorage.getItem("bookings")) {
-                this.bookings = JSON.parse(localStorage.getItem("bookings"))
-            }
-            if (localStorage.getItem("areaBookings")) {
-                this.areas = JSON.parse(localStorage.getItem("areaBookings"))
-            }
-            if (localStorage.getItem("users")) {
-                this.users = JSON.parse(localStorage.getItem("users"))
-            }
+            this.getMenuBookings();
         },
         methods: {
-            displayA() {
+            displayAreaBookings() {
                 this.bookingTable = "none"
                 this.areasTable = "block"
                 this.eventsFont = "normal"
                 this.areasFont = "bold"
                 this.searchBookings = ""
+                this.getAreaBookings();
+
             },
-            displayB() {
+            displayBookings() {
                 this.areasTable = "none"
                 this.bookingTable = "block"
                 this.eventsFont = "bold"
                 this.areasFont = "normal"
                 this.searchAreas = ""
             },
-            removeBooking(id) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Quer mesmo remover?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.bookings) {
-                            if (this.bookings[i].id === id) {
-                                this.bookings = this.bookings.filter(booking => this.bookings[i].id != booking
-                                    .id);
-                                localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                                Swal.fire(
-                                    'Removido',
-                                    'Reserva foi removida!',
-                                    'success'
-                                )
+            async getMenuBookings() {
+                try {
+                    await this.$store.dispatch("fetchMenuBookings");
+                    this.bookings = this.getAllMenuBookings.data;
+                    for (const b of this.bookings) {
+                        b.decor = []
+                        b.extras = []
+                        b.drinks = []
+                        b.food = []
+                    }
+                    this.getBookingsDecor();
+                    this.getBookingsExtra();
+                    this.getBookingsAddOns();
+                } catch (err) {
+                    alert(err);
+                }
+            },
+            async getBookingsDecor() {
+                try {
+                    await this.$store.dispatch("fetchBookingsDecor");
+                    this.decor = this.getAllBookingsDecor.data;
+                    //CARREGA AS DECORAÇOES PARA O ARRAY CRIADO DOS BOOKINGS
+                    for (const b of this.bookings) {
+                        for (const d of this.decor) {
+                            if (d.booking_id === b.id) {
+                                b.decor += d.name + "; "
                             }
                         }
                     }
-                })
+                } catch (err) {
+                    alert(err);
+                }
             },
-            removeAreaBooking(id) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Quer mesmo remover?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.areas) {
-                            if (this.areas[i].id === id) {
-                                this.areas = this.areas.filter(area => this.areas[i].id != area.id);
-                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Removido'
-                                })
+            async getBookingsExtra() {
+                try {
+                    await this.$store.dispatch("fetchBookingsExtra");
+                    this.extras = this.getAllBookingsExtra.data;
+                    //CARREGA OS EXTRAS PARA O ARRAY CRIADO DOS BOOKINGS
+                    for (const b of this.bookings) {
+                        for (const e of this.extras) {
+                            if (e.booking_id === b.id) {
+                                b.extras += e.name + "; "
                             }
                         }
                     }
-                })
+                } catch (err) {
+                    alert(err);
+                }
             },
-            acceptBooking(id, userEmail) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Aceitar esta reserva?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.bookings) {
-                            if (this.bookings[i].id === id) {
-                                this.bookings[i].state = "Aprovado"
-                                localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                                for (let j in this.users) {
-                                    if (this.users[j].email === userEmail) {
-                                        this.users[j].notifications.push({
-                                            txt: 'A sua reserva do menu ' + this.bookings[i].kitName +
-                                                " - " +
-                                                this.bookings[i].kitType + ' para a data ' + this
-                                                .bookings[i].date +
-                                                ' foi aceite!'
-                                        })
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                    }
+            async getBookingsAddOns() {
+                try {
+                    await this.$store.dispatch("fetchBookingsAddOns");
+                    this.addOns = this.getAllBookingsAddOns.data;
+                    //CARREGA AS BEBIDAS E COMIDAS PARA O ARRAY CRIADO DOS BOOKINGS
+                    for (const b of this.bookings) {
+                        for (const a of this.addOns) {
+                            if (a.booking_id === b.id) {
+                                if (a.type === "Bebida") {
+                                    b.drinks += a.name + "; "
                                 }
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Reserva aceite!'
-                                })
-                            }
-                        }
-                    }
-                })
-            },
-            refuseBooking(id, userEmail) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Recusar esta reserva?',
-                    showCancelButton: true,
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonText: 'Recusar',
-                }).then((result) => {
-                    if (result.value) {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Motivo da recusa',
-                            input: 'textarea',
-                            inputAttributes: {
-                                autocapitalize: 'off'
-                            },
-                            showCancelButton: true,
-                            cancelButtonText: 'Cancelar',
-                            confirmButtonText: 'Submeter',
-                        }).then((result) => {
-                            if (result.value && result.value != "") {
-                                for (let i in this.bookings) {
-                                    if (this.bookings[i].id === id) {
-                                        this.bookings[i].state = "Recusado"
-                                        localStorage.setItem("bookings", JSON.stringify(this.bookings));
-                                        for (let j in this.users) {
-                                            if (this.users[j].email === userEmail) {
-                                                this.users[j].notifications.push({
-                                                    txt: 'A sua reserva do menu ' + this
-                                                        .bookings[i].kitName +
-                                                        " - " +
-                                                        this.bookings[i].kitType +
-                                                        ' para a data ' + this
-                                                        .bookings[i].date +
-                                                        ' foi recusada!',
-                                                    reason: result.value
-                                                })
-                                                localStorage.setItem("users", JSON.stringify(this
-                                                    .users));
-                                            }
-                                        }
-                                        Swal.fire({
-                                            icon: 'success',
-                                            text: 'Reserva recusada!'
-                                        })
-                                    }
+                                if (a.type === "Comida") {
+                                    b.food += " " + a.name + "; "
                                 }
                             }
-                        })
-                    }
-                })
-            },
-            acceptAreaBooking(id, userEmail) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Aceitar esta reserva?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.areas) {
-                            if (this.areas[i].id === id) {
-                                this.areas[i].state = "Aprovado"
-                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                                for (let j in this.users) {
-                                    if (this.users[j].email === userEmail) {
-                                        this.users[j].notifications.push({
-                                            txt: 'A sua reserva do espaço ' + this.areas[i]
-                                                .areaName +
-                                                ' para a data ' + this.areas[i].date +
-                                                ' foi aceite!'
-                                        })
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                    }
-                                }
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Reserva aceite!'
-                                })
-                            }
                         }
                     }
-                })
+                } catch (err) {
+                    alert(err);
+                }
             },
-            refuseAreaBooking(id, userEmail) {
+            async getAreaBookings() {
+                try {
+                    await this.$store.dispatch("fetchAreaBookings");
+                    this.areas = this.getAllAreaBookings.data;
+                } catch (err) {
+                    alert(err);
+                }
+            },
+            async deleteMenuBooking(ID) {
+                try {
+                    await this.$store.dispatch("deleteMenuBooking", {
+                        id: ID
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getMenuBookings()
+            },
+            async deleteAreaBooking(ID) {
+                try {
+                    await this.$store.dispatch("deleteAreaBooking", {
+                        id: ID
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAreaBookings()
+            },
+            async editMenuBooking(ID, state, decline, opinion) {
+                try {
+                    await this.$store.dispatch("editMenuBookings", {
+                        id: ID,
+                        state: state,
+                        decline: decline,
+                        opinion: opinion
+                    })
+                } catch (err) {
+                    alert(err);
+                }
+                this.getMenuBookings();
+            },
+            refuseMenuBooking(id) {
+                // eslint-disable-next-line no-undef
                 Swal.fire({
-                    icon: 'warning',
-                    text: 'Recusar esta reserva?',
+                    title: "Motivo da recusa",
+                    input: "textarea",
+                    inputAttributes: {
+                        autocapitalize: "off"
+                    },
                     showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.areas) {
-                            if (this.areas[i].id === id) {
-                                this.areas[i].state = "Recusado"
-                                localStorage.setItem("areaBookings", JSON.stringify(this.areas));
-                                for (let j in this.users) {
-                                    if (this.users[j].email === userEmail) {
-                                        this.users[j].notifications.push({
-                                            txt: 'A sua reserva do espaço ' + this.areas[i]
-                                                .areaName +
-                                                ' para a data ' + this.areas[i].date +
-                                                ' foi recusada!'
-                                        })
-                                        localStorage.setItem("users", JSON.stringify(this.users));
-                                    }
-                                }
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Reserva recusada!'
-                                })
-                            }
-                        }
+                    cancelButtonText: "Cancelar",
+                    confirmButtonText: "Submeter"
+                }).then(result => {
+                    if (result.value && result.value != "") {
+                        this.editMenuBooking(id, 2, result.value, '')
                     }
+                });
+            },
+            async editAreaBooking(ID, state, decline, opinion) {
+                try {
+                    await this.$store.dispatch("editAreaBookings", {
+                        id: ID,
+                        state: state,
+                        decline: decline,
+                        opinion: opinion
+                    })
+                } catch (err) {
+                    alert(err)
+                }
+                this.getAreaBookings();
+            },
+            refuseAreaBooking(id) {
+                // eslint-disable-next-line no-undef
+                Swal.fire({
+                    title: "Motivo da recusa",
+                    input: "textarea",
+                    inputAttributes: {
+                        autocapitalize: "off"
+                    },
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    confirmButtonText: "Submeter"
+                }).then(result => {
+                    if (result.value && result.value != "") {
+                        this.editAreaBooking(id, 2, result.value, '')
+                    }
+                });
+            },
+            showOpinion(txt) {
+                // eslint-disable-next-line no-undef
+                Swal.fire({
+                    title: "Opinião: " + txt,
+                    confirmButtonText: 'Fechar'
                 })
             }
         },
         computed: {
+            ...mapGetters(["getAllMenuBookings"]),
+            ...mapGetters(["getAllAreaBookings"]),
+            ...mapGetters(["getAllBookingsDecor"]),
+            ...mapGetters(["getAllBookingsExtra"]),
+            ...mapGetters(["getAllBookingsAddOns"]),
             filteredBookings() {
                 return this.bookings.filter(
                     (booking) => {
@@ -432,15 +428,15 @@
                         if (this.searchBookings == "") {
                             return filterRunResult
                         }
-                        //por menu
-                        if (booking.kitName.toLowerCase().includes(this.searchBookings.toLowerCase())) {
-                            filterRunResult = booking.kitName.toLowerCase().includes(this.searchBookings
+                        //por evento
+                        if (booking.menuType.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.menuType.toLowerCase().includes(this.searchBookings
                                 .toLowerCase())
                             return filterRunResult
                         }
-                        //por evento
-                        if (booking.kitType.toLowerCase().includes(this.searchBookings.toLowerCase())) {
-                            filterRunResult = booking.kitType.toLowerCase().includes(this.searchBookings
+                        //por menu
+                        if (booking.menuName.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.menuName.toLowerCase().includes(this.searchBookings
                                 .toLowerCase())
                             return filterRunResult
                         }
@@ -451,8 +447,8 @@
                             return filterRunResult
                         }
                         //por email
-                        if (booking.userEmail.toLowerCase().includes(this.searchBookings.toLowerCase())) {
-                            filterRunResult = booking.userEmail.toLowerCase().includes(this.searchBookings
+                        if (booking.email.toLowerCase().includes(this.searchBookings.toLowerCase())) {
+                            filterRunResult = booking.email.toLowerCase().includes(this.searchBookings
                                 .toLowerCase())
                             return filterRunResult
                         }
@@ -467,8 +463,8 @@
                             return filterRunResult
                         }
                         //por espaço
-                        if (area.areaName.toLowerCase().includes(this.searchAreas.toLowerCase())) {
-                            filterRunResult = area.areaName.toLowerCase().includes(this.searchAreas
+                        if (area.name.toLowerCase().includes(this.searchAreas.toLowerCase())) {
+                            filterRunResult = area.name.toLowerCase().includes(this.searchAreas
                                 .toLowerCase())
                             return filterRunResult
                         }
@@ -479,8 +475,8 @@
                             return filterRunResult
                         }
                         //por email
-                        if (area.userEmail.toLowerCase().includes(this.searchAreas.toLowerCase())) {
-                            filterRunResult = area.userEmail.toLowerCase().includes(this.searchAreas
+                        if (area.email.toLowerCase().includes(this.searchAreas.toLowerCase())) {
+                            filterRunResult = area.email.toLowerCase().includes(this.searchAreas
                                 .toLowerCase())
                             return filterRunResult
                         }
@@ -553,7 +549,7 @@
 
     #listItem {
         float: left;
-        padding: 20px;
+        padding: 10px;
     }
 
     .showBtn {

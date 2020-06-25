@@ -22,6 +22,9 @@
         do Porto, com capacidade para 50 pessoas sentadas.
         Durante estes últimos anos, o Restaurante tem acolhido diversos eventos, conseguindo sempre estar à altura das
         expectativas dos clientes.</p>
+      <p>
+      </p>
+
     </div>
 
     <div class="container-full title">
@@ -53,44 +56,9 @@
           </router-link>
         </div>
       </div>
-
-      
     </div>
-
   </div>
-
 </template>
-
-<script>
-  import {
-    mapGetters
-  } from "vuex"
-
-  export default {
-    name: 'home',
-    data: function () {
-      return {
-        menus: []
-      }
-    },
-    computed: {
-      ...mapGetters(["getMenus"])
-    },
-    methods: {
-      async getMyMenus() {
-        try {
-          await this.$store.dispatch("fetchMenus")
-          this.menus = this.getMenus.rows
-        } catch (err) {
-          alert(err)
-        }
-      }
-    },
-    // created() {
-    //   this.getMyMenus()
-    // }
-  }
-</script>
 
 <style lang="scss" scoped>
   @font-face {
@@ -118,8 +86,8 @@
   }
 
   .options {
-    padding-top: 60px;
-    padding-bottom: 150px;
+    padding-top: 50px;
+    padding-bottom: 40px;
   }
 
   .col-sm-4 {

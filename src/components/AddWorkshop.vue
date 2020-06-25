@@ -6,7 +6,8 @@
                     <div class="col-sm-2"></div>
                     <div class="col-sm-4">
                         <b-input id="inputs" placeholder="Nome do workshop" v-model="name" required></b-input>
-                        <b-input id="inputs" placeholder="Link da imagem" v-model="img" required></b-input>
+                        <b-input id="inputs" type="number" placeholder="Vagas" min="20" max="150" v-model="vacancies"
+                            required></b-input>
                         <label for="hi"><b>Hora Início</b></label>
                         <b-input type="time" id="hi" v-model="hi" required></b-input>
                     </div>
@@ -17,6 +18,9 @@
                         <b-input type="time" id="hf" v-model="hf" required></b-input>
                     </div>
                     <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                    <b-input id="description" placeholder="Link da imagem" v-model="img" required></b-input>
                 </div>
                 <div class="row">
                     <textarea id="description" placeholder="Descrição..." style="resize:none;" v-model="description"
@@ -44,39 +48,25 @@
                 description: "",
                 time: this.hi + "-" + this.hf,
                 img: "",
-                users: []
+                vacancies: ""
             }
-        },
-        created() {
-            if (localStorage.getItem("users")) {
-                this.$store.state.users = JSON.parse(localStorage.getItem("users"))
-            }
-            this.users = this.$store.state.users
         },
         methods: {
-            getLastId() {
-                return this.$store.getters.workshopLastId + 1
-            },
-            addWorkshop() {
-                for (let j in this.users) {
-                    if (this.users[j].userType === "cliente") {
-                        this.users[j].notifications.push({
-                            txt: 'O Workshop ' + this.name +
-                                ' foi adicionado a galeria de workshops!'
-                        })
-                        localStorage.setItem("users", JSON.stringify(this.users));
-                    }
+            async addWorkshop() {
+                try {
+                    await this.$store.dispatch("postWorkshop", {
+                        name: this.name,
+                        teacher: this.teacher,
+                        date: this.date,
+                        img: this.img,
+                        hi: this.hi,
+                        hf: this.hf,
+                        description: this.description,
+                        vacancies: this.vacancies
+                    });
+                } catch (err) {
+                    alert(err);
                 }
-                this.$store.commit('ADD_WORKSHOP', {
-                    id: this.getLastId(),
-                    name: this.name,
-                    teacher: this.teacher,
-                    date: this.date,
-                    time: this.hi + "-" + this.hf,
-                    description: this.description,
-                    img: this.img
-                })
-                //limpar os campos
                 this.name = ""
                 this.teacher = ""
                 this.date = ""
@@ -84,11 +74,8 @@
                 this.hi = ""
                 this.hf = ""
                 this.description = ""
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Adicionado!',
-                })
-            },
+                this.vacancies = ""
+            }
         }
     }
 </script>
@@ -115,10 +102,13 @@
     }
 
     #imgWorkshop {
-        width: 40%;
-        height: auto;
-        border: 3px solid #0A2463;
+              width: 400px;
+        height: 200px;
+           box-shadow: -2px 0px 10px -4px rgba(0,0,0,0.5);
+        object-fit: cover;
+
         margin: auto;
+        margin-bottom: 20px;
     }
 
     #inputs,

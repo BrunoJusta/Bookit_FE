@@ -1,22 +1,25 @@
 <template>
     <div class="fixed-top">
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <router-link v-if="this.$store.getters.getUserType !== 'admin'" to="/"><img src="../assets/navbarLogo.svg"
+            <router-link v-if="this.$store.getters.getUserType !== 0" to="/_bookit"><img src="../assets/navbarLogo.svg"
                     id="logoNavbar"></router-link>
-            <router-link v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar"></router-link>
+            <router-link id="routeAd" v-else to="/adminHome"><img src="../assets/navbarLogo.svg" id="logoNavbar">
+            </router-link>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>
                     <div>
                         <div class="container">
-                            <b-button id="logged-btn" squared>
+                            <b-button id="logged-btn" class="logged" squared>
                                 <router-link :to="{name:this.path}"><i class="fas fa-user"
                                         v-if="this.$store.getters.getName != 'Entrar'"
                                         id="icon"></i>{{this.$store.getters.getName}}
                                 </router-link>
                             </b-button>
+                            <span id="countTxt" v-if="this.$store.getters.getName != 'Entrar' &&
+                            this.userNotifications != 0">{{this.userNotifications}}</span>
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
-                                <router-link style="color:black;" to="/">Sair</router-link>
+                                <router-link style="color:black;" to="/_bookit">Sair</router-link>
                             </b-button>
                         </div>
                     </div>
@@ -25,21 +28,21 @@
         </b-navbar>
         <b-navbar id="jon" toggleable="lg" type="dark" variant="info">
             <div class="container">
-                <router-link to="/" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Início
+                <router-link to="/_bookit" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Início
                 </router-link>
-                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Menus
+                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Menus
                 </router-link>
-                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Espaços
+                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Espaços
                 </router-link>
-                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType !== 'admin'">Workshops
+                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType !== 0">Workshops
                 </router-link>
-                <router-link to="/adminHome" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Início
+                <router-link to="/adminHome" class="navOptions" v-if="this.$store.getters.getUserType == 0">Início
                 </router-link>
-                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Menus
+                <router-link to="/menuGallery" class="navOptions" v-if="this.$store.getters.getUserType == 0">Menus
                 </router-link>
-                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Workshops
+                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType == 0">Espaços
                 </router-link>
-                <router-link to="/areasGallery" class="navOptions" v-if="this.$store.getters.getUserType == 'admin'">Espaços
+                <router-link to="/workshops" class="navOptions" v-if="this.$store.getters.getUserType == 0">Workshops
                 </router-link>
             </div>
         </b-navbar>
@@ -47,89 +50,37 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
     export default {
         data: function () {
             return {
                 path: "login",
-                onlineUser: "",
-                kits: [],
-                bookings: [],
-                areaBookings: [],
-                menuTypes: []
+                userNotifications: ""
             }
         },
         created() {
-            if (localStorage.getItem("kits")) {
-                this.$store.state.kits = JSON.parse(localStorage.getItem("kits"))
-                this.kits = this.$store.state.kits
-
-            }
-            if (localStorage.getItem("loggedUser")) {
-                this.$store.state.loggedUser = JSON.parse(localStorage.getItem("loggedUser"))
-            }
-            if (localStorage.getItem("bookings")) {
-                this.$store.state.bookings = JSON.parse(localStorage.getItem("bookings"))
-                this.bookings = this.$store.state.bookings
-            }
-            if (localStorage.getItem("areaBookings")) {
-                this.$store.state.areaBookings = JSON.parse(localStorage.getItem("areaBookings"))
-                this.areaBookings = this.$store.state.areaBookings
-            }
-            if (this.$store.getters.getName === "Entrar") {
+            if (localStorage.getItem("token")) {
+                this.getMyNotifications();
+                let jwtToken = localStorage.getItem("token").split(".")[1]
+                this.$store.state.loggedUser = JSON.parse(window.atob(jwtToken))
+                this.path = "profile"
+            } else {
                 this.path = "login"
-            } else if (this.$store.getters.getUserType === "admin") {
-                this.path = "profile"
-            } else if (this.$store.getters.getUserType === "cliente") {
-                this.path = "profile"
             }
-            this.$store.commit('STORE_ITEMS')
-
-
-            for (let i in this.kits) {
-                let createType = true
-                for (let j in this.menuTypes) {
-                    if (this.menuTypes[j] == this.kits[i].type) {
-                        createType = false;
-                    }
-                }
-                if (createType == true) {
-                    this.menuTypes.push(
-                        this.kits[i].type
-                    )
-                }
-            }
-            localStorage.setItem("menuTypes", JSON.stringify(this.menuTypes))
-
-            for (let i in this.bookings) {
-                var g1 = new Date();
-                var g2 = new Date(this.bookings[i].date);
-                if (g1.getTime() > g2.getTime() && this.bookings[i].state === "Aprovado") {
-                    this.bookings[i].state = "Concluído"
-                }
-            }
-            localStorage.setItem("bookings", JSON.stringify(this.bookings))
-
-            for (let i in this.areaBookings) {
-                var g1 = new Date();
-                var g2 = new Date(this.areaBookings[i].date);
-                if (g1.getTime() > g2.getTime() && this.areaBookings[i].state === "Aprovado") {
-                    this.areaBookings[i].state = "Concluído"
-                }
-            }
-            localStorage.setItem("areaBookings", JSON.stringify(this.areaBookings))
-
         },
-        updated: function () {
-            if (this.$store.getters.getName === "Entrar") {
+        updated() {
+            if (localStorage.getItem("token")) {
+                this.getMyNotifications();
+                this.path = "profile"
+            } else {
                 this.path = "login"
-            } else if (this.$store.getters.getUserType === "admin") {
-                this.path = "profile"
-            } else if (this.$store.getters.getUserType === "cliente") {
-                this.path = "profile"
             }
         },
         methods: {
             logout() {
+                // eslint-disable-next-line no-undef
                 const toast = swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -142,21 +93,26 @@
                     icon: 'success',
                     title: 'Terminou sessão com sucesso!'
                 })
-
-                /* Swal.fire({
-                    text: 'Sessão terminada!'
-                }) */
                 this.$store.commit('LOGOUT')
-            }
+            },
+            async getMyNotifications() {
+                try {
+                    await this.$store.dispatch("fetchUserNotifications");
+                    this.userNotifications = this.getUserNotifications.data.length
+                } catch (err) {
+                    alert(err);
+                }
+            },
         },
         computed: {
             getName() {
-                if (localStorage.getItem("loggedUser")) {
-                    return this.onlineUser
+                if (this.$store.state.loggedUser) {
+                    return this.$store.state.loggedUser.name
                 } else {
                     return "Entrar"
                 }
-            }
+            },
+            ...mapGetters(["getUserNotifications"]),
         }
     }
 </script>
@@ -188,9 +144,10 @@
         color: black;
     }
 
-    #show-btn,
-    #logged-btn {
+    .logged {
         background-color: #0a2463;
+        position: relative;
+        display: inline-block;
     }
 
     #logout-btn {
@@ -202,6 +159,18 @@
     a {
         font-weight: bold;
         color: white;
+    }
+
+    #countTxt {
+        position: absolute;
+        top: 10%;
+        right: 6%;
+        padding: 3px 5px;
+        border-radius: 90%;
+        background-color: #B91C3B;
+        color: white;
+        font-weight: bold;
+        font-size: 10px;
     }
 
     .navbar-expand-lg>.container,
@@ -239,17 +208,5 @@
 
     #icon {
         padding-right: 6px;
-    }
-
-    .dot {
-        margin-left: -10px;
-        margin-top: -29px;
-        height: 20px;
-        width: 20px;
-        font-size: 13px;
-        background-color: #B91C3B;
-        color: white;
-        border-radius: 50%;
-        display: inline-block;
     }
 </style>

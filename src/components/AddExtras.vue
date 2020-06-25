@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <form @submit.prevent="addExtra()">
-                        <b-input type="text" v-model="name" id="txtExtra" placeholder="Extra"></b-input>
+                        <b-input type="text" v-model="name" id="txtExtra" placeholder="Extra" required></b-input>
                         <b-button type="submit" value="Adicionar" class="addBtn rounded-0">Adicionar</b-button>
                     </form>
                 </div>
@@ -20,7 +20,8 @@
                         <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small
                             hover head-variant="dark" responsive="sm" :items="this.extras" :fields="fields">
                             <template v-slot:cell(actions)="row">
-                                <b-button size="sm" @click="remove(row.item.id)" class="mr-1 deleteBtn"><i class="fas fa-trash-alt"></i></b-button>
+                                <b-button size="sm" @click="deleteExtra(row.item.extra_id)" class="mr-1 deleteBtn"><i
+                                        class="fas fa-trash-alt"></i></b-button>
                             </template>
                         </b-table>
                         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"
@@ -37,13 +38,15 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from "vuex";
     export default {
         name: "AddOns",
         data: function () {
             return {
                 extras: [],
                 name: "",
-                type: "",
                 perPage: 3,
                 currentPage: 1,
                 fields: [{
@@ -57,70 +60,48 @@
                         sortable: false
                     },
                 ],
-
             }
         },
         created() {
-            if (JSON.parse(localStorage.getItem("extras"))) {
-                this.$store.state.extras = JSON.parse(localStorage.getItem("extras"))
-            }
-            this.extras = this.$store.state.extras
-
+            this.getAllExtras();
+            this.extras = this.$store.state.extras;
+        },
+        updated() {
+            this.extras = this.$store.state.extras;
         },
         methods: {
-            addExtra() {
-                let createType = true
-                //verificar se existe
-                for (let i in this.extras) {
-                    if (this.name.toLowerCase() == this.extras[i].name.toLowerCase()) {
-                        createType = false;
-                    }
-                }
-                if (createType == true) {
-                    this.extras.push({
-                        id: this.$store.getters.extrasLastId + 1,
-                        name: this.name
-                    })
-                    localStorage.setItem("extras", JSON.stringify(this.extras));
-                    this.name = ""
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'Adicionado!',
-                    })
-                } else {
-                    this.name = ""
-                    Swal.fire({
-                        icon: 'error',
-                        text: 'Este extra já existe!',
-                    })
+            async getAllExtras() {
+                try {
+                    await this.$store.dispatch("fetchExtras");
+                    this.extras = this.getExtras.data;
+                } catch (err) {
+                    alert(err);
                 }
             },
-            remove(id) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Deseja remover este extra?',
-                    showCancelButton: true,
-                }).then((result) => {
-                    if (result.value) {
-                        for (let i in this.extras) {
-                            if (this.extras[i].id === id) {
-                                this.extras = this.extras.filter(extra => this.extras[i].id != extra
-                                    .id);
-                                localStorage.setItem("extras", JSON.stringify(this.extras));
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Removido!',
-                                })
-                            }
-                        }
-                    }
-                })
+            async addExtra() {
+                try {
+                    await this.$store.dispatch("postExtra", {
+                        name: this.name
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAllExtras();
+                this.name = ""
+            },
+            async deleteExtra(ID) {
+                try {
+                    await this.$store.dispatch("deleteExtra", {
+                        id: ID
+                    });
+                } catch (err) {
+                    alert(err);
+                }
+                this.getAllExtras();
             }
         },
         computed: {
-            searchExtras() {
-                return this.extras;
-            },
+            ...mapGetters(["getExtras"]),
             rows() {
                 return this.extras.length
             }

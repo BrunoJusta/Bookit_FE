@@ -1,958 +1,764 @@
+/* eslint-disable no-undef */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router';
 
-import bookitService from "@/apis/bookitService.js"
+import bookitService from "@/API/bookitService.js"
 
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentKit: {
-      kitname: "",
-      kitType: "",
-      menuIng: ""
-    },
-    currentArea: {
-      areaName: ""
-    },
-    users: [{
-        id: 0,
-        name: "Admin",
-        lastName: "Master",
-        gender: "Masculino",
-        email: "admin@admin.admin",
-        password: "123",
-        number: "123",
-        userType: "admin",
-        school: "ESHT",
-        img: require('../assets/male.svg'),
-        notifications: [],
-        archivations: [],
-        birthDate: "2000-03-25"
-      },
-      {
-        id: 1,
-        name: "Nuno",
-        lastName: "Gomes",
-        gender: "Masculino",
-        email: "9180580@esmad.ipp.pt",
-        password: "123123",
-        number: "123",
-        userType: "cliente",
-        school: "ESMAD",
-        img: require('../assets/male.svg'),
-        notifications: [],
-        archivations: [],
-        birthDate: "2000-02-05"
-      },
-      {
-        id: 2,
-        name: "Bruno",
-        lastName: "Justa",
-        gender: "Masculino",
-        email: "9180155@esmad.ipp.pt",
-        password: "123123",
-        number: "123",
-        userType: "cliente",
-        school: "ESMAD",
-        img: require('../assets/male.svg'),
-        notifications: [],
-        archivations: [],
-        birthDate: "1998-07-27"
-      }
-    ],
-    kits: [{
-        id: 0,
-        name: "Base",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água"],
-        food: ["Triângulos Mistos"],
-        type: "Coffee Break",
-        img: require('../assets/menuBase.jpg'),
-        popularity: 30
-      },
-      {
-        id: 1,
-        name: "Estudante",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água"],
-        food: ["Triângulos Mistos", "Fruta da Época"],
-        type: "Coffee Break",
-        img: require('../assets/menuEstudante.jpg'),
-        popularity: 60
-      },
-      {
-        id: 2,
-        name: "Executivo",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada"],
-        food: ["Triângulos Mistos", "Fruta da Época", "Natinhas com Canela", "Queijadas"],
-        type: "Coffee Break",
-        img: require('../assets/MenuExecutivo.jpg'),
-        popularity: 120
-      },
-      {
-        id: 3,
-        name: "Supremo",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada", "Sumo de Morango e Goiaba"],
-        food: ["Triângulos Mistos", "Fruta da Época", "Natinhas com Canela", "Queijadas", "Pães variados", "Compotas variadas", "Queijo fresco", "Mini Croissants"],
-        type: "Coffee Break",
-        img: require('../assets/menuSupremo.jpg'),
-        popularity: 100
-      },
-      {
-        id: 4,
-        name: "Base",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada"],
-        food: ["Pães variados", "Mini Croissants", "Compotas variadas", "Manteigas variadas"],
-        type: "Pequeno Almoço",
-        img: require('../assets/basePA.png'),
-        popularity: 55
-      },
-      {
-        id: 5,
-        name: "Total",
-        drinks: ["Café", "Leite", "Chá", "Sumo de Laranja", "Água", "Água Gaseificada", "Nectar de Manga"],
-        food: ["Fiambre", "Pães variados", "Mini Croissants", "Compotas variadas", "Manteigas variadas", "Queijo fresco", "Salada de Fruta", "Corn Flakes", "Iogurtes"],
-        type: "Pequeno Almoço",
-        img: require('../assets/completoPA.jpg'),
-        popularity: 130
-      },
-      {
-        id: 6,
-        name: "Base",
-        drinks: ["Sumo de Laranja", "Água"],
-        food: ["Fruta da Época", "Sanduiche Mista"],
-        type: "Almoços",
-        img: require('../assets/baseAlmoço.jpg'),
-        popularity: 23
-      },
-      {
-        id: 7,
-        name: "Piquenique",
-        drinks: ["Sumo de Laranja", "Água", "Água Gaseificada", "Nectar de Manga"],
-        food: ["Fruta da Época", "Sanduiche Mista", "Misto de Salgados"],
-        type: "Almoços",
-        img: require('../assets/piqueniqueAL.jpg'),
-        popularity: 5
-      },
-      {
-        id: 8,
-        name: "Base",
-        drinks: ["Café", "Sumo de Laranja", "Água", "Água Gaseificada", "Vinho Branco", "Vinho Tinto", "Sangria Branca", "Sangria Tinta", "Sangria Rosé"],
-        food: ["Bacalhau com migas de broa", "Arroz de Marisco", "Strogonoff de Frango", "Carne de Porco Alentejana", "Salada de Polvo", "Creme de cenoura", "Creme de ervilhas"],
-        type: "Buffet",
-        img: require('../assets/baseBuffet.jpg'),
-        popularity: 73
-      }
-    ],
-    workshops: [{
-        id: 0,
-        name: "Criação de inquéritos",
-        date: "21/06/2020",
-        time: "12h - 14h",
-        teacher: "LimeSurvey",
-        description: "Neste workshop será facultada uma formação na construção e implementação de questionários eletrónicos. Esta formação incluirá a necessária abordagem dos requisitos metodológicos de base na aplicação de questionários eletrónicos e a explicitação do funcionamento prático da aplicação LimeSurvey.",
-        img: require('../assets/workshop1.jpg'),
-        inscriptions: [],
-        vacancies: 50
-      },
-      {
-        id: 1,
-        name: "Gastronómico",
-        date: "20/04/2021",
-        time: "13h - 15h",
-        teacher: "Rui Rodrigues",
-        description: "O evento integra uma mostra de gastronomia típica de Vila do Conde e Póvoa de Varzim que todos os visitantes poderão degustar, e ainda duas atividades de Showcooking em que estarão presentes, para além dos docentes de cozinha, dois chefes convidados: Rui Rodrigues, Chef executivo do grupo M e o Chef Eduardo Rodrigues do Republikarestaurante.",
-        img: require('../assets/workshop3.jpg'),
-        inscriptions: [],
-        vacancies: 50
-      },
-      {
-        id: 2,
-        name: "Comida Italiana",
-        date: "15/10/2020",
-        time: "10h - 12h",
-        teacher: "Chef Camilo Jaña",
-        description: "Aprenda a arte de fazer massa fresca com os mais diversas bases e sabores com o nosso chef chileno Camilo Jaña! Responsável pela cozinha dos clássicos da Foz – Cafeína, Portarossa, Casa Vasco e Terra, Camilo Janã vai encher a nossa cozinha de ritmo, energia e um sotaque espanhol, num workshop divertido e eletrizante que lhe vai revelar os segredos das massas frescas italianas. Inscreva-se e venha passar uma tarde incrível, com um dos chefs mais reconhecidos da cidade!",
-        img: require('../assets/workshop2.jpg'),
-        inscriptions: [],
-        vacancies: 50
-      }
-    ],
-    areas: [{
-        id: 0,
-        name: "Restaurante de Aplicação",
-        description: "Restaurante com capacidade para 50 pessoas, onde são aplicados os métodos de serviço leccionados nas UC de Práticas Hoteleiras.",
-        img: require('../assets/restaurante.jpg'),
-      },
-      {
-        id: 1,
-        name: "Bar de Aplicação",
-        description: "No Bar Aplicação, os estudantes poêm em prática os conhecimentos de serviço de bar, obtidos nas aulas da Licenciatura. É um espaço agradável e acolhedor. ",
-        img: require('../assets/bar.png'),
-      },
-      {
-        id: 2,
-        name: "Cozinha de Aplicação",
-        description: "Possuimos uma cozinha totalmente equipada e preparada para os mais diversos serviços.",
-        img: require('../assets/cozinhaFinal.jpg'),
-      }
-    ],
+    users: [],
+    menus: [],
+    areas: [],
+    workshops: [],
+    currentWorkshop: [],
     x: 0,
+    numNotifications: 0,
     logged: false,
     loggedUser: [],
     notLogged: "Entrar",
     userExists: false,
     userBlocked: false,
     bookings: [],
+    bookingsDecor: [],
+    bookingsExtra: [],
+    bookingsAddOns: [],
     areaBookings: [],
     menuTypes: [],
-    ingredients: [{
-        id: 0,
-        name: "Sem Bebida",
-        type: "Drink",
-      }, {
-        id: 1,
-        name: "Sem Comida",
-        type: "Food",
-      },
-      {
-        id: 2,
-        name: "Café",
-        type: "Drink",
-      }, {
-        id: 3,
-        name: "Leite",
-        type: "Drink",
-      }, {
-        id: 4,
-        name: "Chá",
-        type: "Drink",
-      }, {
-        id: 5,
-        name: "Sumo de Laranja",
-        type: "Drink",
-      }, {
-        id: 6,
-        name: "Triângulos Mistos",
-        type: "Food",
-      },
-      {
-        id: 7,
-        name: "Água",
-        type: "Drink",
-      }, {
-        id: 8,
-        name: "Pastelaria seca variada",
-        type: "Food",
-      },
-      {
-        id: 9,
-        name: "Fruta da Época",
-        type: "Food",
-      },
-      {
-        id: 10,
-        name: "Água Gaseificada",
-        type: "Drink",
-      },
-      {
-        id: 11,
-        name: "Natinhas com Canela",
-        type: "Food"
-      },
-      {
-        id: 12,
-        name: "Queijadas",
-        type: "Food"
-      },
-      {
-        id: 13,
-        name: "Sumo de Morango e Goiaba",
-        type: "Drink"
-      },
-      {
-        id: 14,
-        name: "Pães variados",
-        type: "Food"
-      },
-      {
-        id: 15,
-        name: "Compotas variadas",
-        type: "Food"
-      },
-      {
-        id: 16,
-        name: "Queijo fresco",
-        type: "Food"
-      },
-      {
-        id: 17,
-        name: "Mini Croissants",
-        type: "Food"
-      },
-      {
-        id: 18,
-        name: "Iogurtes",
-        type: "Food"
-      },
-      {
-        id: 19,
-        name: "Manteigas variadas",
-        type: "Food"
-      },
-      {
-        id: 20,
-        name: "Fiambre",
-        type: "Food"
-      },
-      {
-        id: 21,
-        name: "Corn Flakes",
-        type: "Food"
-      },
-      {
-        id: 22,
-        name: "Folhados doces",
-        type: "Food"
-      },
-      {
-        id: 23,
-        name: "Salada de fruta",
-        type: "Food"
-      },
-      {
-        id: 24,
-        name: "Nectar de Manga",
-        type: "Drink"
-      },
-      {
-        id: 25,
-        name: "Tostas",
-        type: "Food"
-      },
-      {
-        id: 26,
-        name: "Misto de Salgados",
-        type: "Food"
-      },
-      {
-        id: 27,
-        name: "Ovos mexidos",
-        type: "Food"
-      },
-      {
-        id: 28,
-        name: "Salsichas",
-        type: "Food"
-      },
-      {
-        id: 29,
-        name: "Bacalhau com natas",
-        type: "Food"
-      },
-      {
-        id: 30,
-        name: "Bolo de bolacha",
-        type: "Food"
-      },
-      {
-        id: 31,
-        name: "Sanduiche mista",
-        type: "Food"
-      },
-      {
-        id: 32,
-        name: "Cerveja nacional",
-        type: "Drink"
-      },
-      {
-        id: 33,
-        name: "Vinho Branco",
-        type: "Drink"
-      },
-      {
-        id: 34,
-        name: "Vinho Tinto",
-        type: "Drink"
-      },
-      {
-        id: 35,
-        name: "Sangria Branca",
-        type: "Drink"
-      },
-      {
-        id: 36,
-        name: "Sangria Tinta",
-        type: "Drink"
-      },
-      {
-        id: 37,
-        name: "Sangria Rosé",
-        type: "Drink"
-      },
-      {
-        id: 38,
-        name: "Creme de ervilhas",
-        type: "Food"
-      },
-      {
-        id: 39,
-        name: "Creme de cenoura",
-        type: "Food"
-      },
-      {
-        id: 40,
-        name: "Salada de Polvo",
-        type: "Food"
-      },
-      {
-        id: 41,
-        name: "Bacalhau com migas de broa",
-        type: "Food"
-      },
-      {
-        id: 42,
-        name: "Arroz de Marisco",
-        type: "Food"
-      },
-      {
-        id: 43,
-        name: "Strogonoff de Frango",
-        type: "Food"
-      },
-      {
-        id: 44,
-        name: "Carne de Porco Alentejana",
-        type: "Food"
-      }
-    ],
-    extras: [{
-        id: 0,
-        name: "Babysiting"
-      }, {
-        id: 1,
-        name: "Palhaços"
-      }, {
-        id: 2,
-        name: "Atuação Gatunos"
-      },
-      {
-        id: 3,
-        name: "Atuação Afrodituna"
-      }
-    ],
-    decor: [{
-      id: 0,
-      name: "Centros de Mesa"
-    }, {
-      id: 1,
-      name: "Lounge"
-    }, {
-      id: 2,
-      name: "Fitas Coloridas"
-    }],
-    outfits: [{
-        id: 0,
-        source: require('../assets/farda01.png'),
-        name: "Completa"
-      },
-      {
-        id: 1,
-        source: require('../assets/farda03.png'),
-        name: "Sem colete"
-      },
-      {
-        id: 2,
-        source: require('../assets/farda04.png'),
-        name: "Sem casaco"
-      },
-      {
-        id: 3,
-        source: require('../assets/farda02.png'),
-        name: "Sem colete e casaco"
-      },
-      {
-        id: 4,
-        source: require('../assets/farda05.png'),
-        name: "Cozinha"
-      },
-      {
-        id: 5,
-        source: require('../assets/farda06.png'),
-        name: "Cozinha sem avental"
-      }
-    ],
-    schools: [{
-        id: 0,
-        name: "ESMAD"
-      }, {
-        id: 1,
-        name: "ESHT"
-      }, {
-        id: 2,
-        name: "ESS"
-      },
-      {
-        id: 3,
-        name: "ISEP"
-      }, {
-        id: 4,
-        name: "ISCAP"
-      }, {
-        id: 5,
-        name: "ESE"
-      },
-      {
-        id: 6,
-        name: "ESMAE"
-      },
-      {
-        id: 7,
-        name: "ESTG"
-      }
-    ],
-    menus: []
+    ingredients: [],
+    extras: [],
+    decor: [],
+    outfits: [],
+    schools: [],
+    token: [],
+    currentMenu: [],
+    currentMenuIngs: [],
+    currentArea: [],
+    userBookings: [],
+    userAreaBookings: [],
+    userWorkshops: [],
+    userNotifications: [],
+    userArchivations: [],
+    userImage: ""
   },
   mutations: {
-    STORE_ITEMS(state) {
-      if (!localStorage.getItem("users")) {
-        localStorage.setItem("users", JSON.stringify(state.users));
-      }
-      if (!localStorage.getItem("kits")) {
-        localStorage.setItem("kits", JSON.stringify(state.kits));
-      }
-      if (!localStorage.getItem("workshops")) {
-        localStorage.setItem("workshops", JSON.stringify(state.workshops));
-      }
-      if (!localStorage.getItem("areas")) {
-        localStorage.setItem("areas", JSON.stringify(state.areas));
-      }
-      if (!localStorage.getItem("bookings")) {
-        localStorage.setItem("bookings", JSON.stringify(state.bookings));
-      }
-      if (!localStorage.getItem("ingredients")) {
-        localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
-      }
-      if (!localStorage.getItem("extras")) {
-        localStorage.setItem("extras", JSON.stringify(state.extras));
-      }
-      if (!localStorage.getItem("decor")) {
-        localStorage.setItem("decor", JSON.stringify(state.decor));
-      }
-      if (!localStorage.getItem("outfits")) {
-        localStorage.setItem("outfits", JSON.stringify(state.outfits));
-      }
-      if (!localStorage.getItem("menuTypes")) {
-        localStorage.setItem("menuTypes", JSON.stringify(state.menuTypes));
-      }
-      localStorage.setItem("schools", JSON.stringify(state.schools));
+    ADD_USER(state, data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
+      router.push({
+        name: 'login'
+      })
     },
-    ADD_USER(state, payload) {
-      if (!state.users.some(user => user.email === payload.email)) {
-        if (payload.password != payload.confPassword) {
-          Swal.fire({
-            icon: 'error',
-            text: 'As palavras-passe não coincidem!'
-          })
-        } else {
-          let imgProfile
-          if (payload.gender == "Masculino") {
-            imgProfile = require('../assets/male.svg')
-          } else if (payload.gender == "Feminino") {
-            imgProfile = require('../assets/female.svg')
-          }
-          state.users.push({
-            id: payload.id,
-            name: payload.name,
-            lastName: payload.lastName,
-            birthDate: payload.birthDate,
-            gender: payload.gender,
-            email: payload.email,
-            password: payload.password,
-            number: payload.number,
-            school: payload.school,
-            img: imgProfile,
-            userType: "cliente",
-            notifications: [],
-            archivations: [],
-          });
-          localStorage.setItem("users", JSON.stringify(state.users));
-          Swal.fire({
-            icon: 'success',
-            text: 'Registado com sucesso!'
-          })
-          router.push({
-            name: 'login'
-          })
-        }
+    LOGIN(state, data) {
+      state.token = data.token
+      localStorage.setItem("token", state.token);
+
+      let jwtToken = state.token.split(".")[1]
+      state.loggedUser = JSON.parse(window.atob(jwtToken))
+
+      state.numNotifications = state.loggedUser.notifications
+      if (state.loggedUser.notifications != 0) {
+        const toast = swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true
+        });
+
+        toast.fire({
+          icon: 'success',
+          title: 'Bem-vindo ' + state.loggedUser.name,
+          text: "Tem " + state.loggedUser.notifications + " Notificações!",
+        })
       } else {
-        Swal.fire({
-          icon: 'error',
-          text: 'Este email já está a ser usado!'
+        const toast = swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true
+        });
+
+        toast.fire({
+          icon: 'success',
+          title: 'Bem-vindo ' + state.loggedUser.name,
         })
       }
-    },
-    LOGIN(state, payload) {
-      for (const user of state.users) {
-        state.userBlocked = false
-        if (user.email === payload.email &&
-          user.password === payload.password && user.userType === "bloqueado") {
-          state.userBlocked = true;
-          break;
-        } else {
-          if (
-            user.email === payload.email &&
-            user.password === payload.password && user.userType !== "bloqueado"
-          ) {
-            state.loggedUser = ({
-              id: user.id,
-              name: user.name,
-              lastName: user.lastName,
-              birthDate: user.birthDate,
-              gender: user.gender,
-              email: user.email,
-              password: user.password,
-              number: user.number,
-              img: user.img,
-              school: user.school,
-              userType: user.userType,
-              notifications: user.notifications
-            });
-            state.userExists = true
-            state.userBlocked = false
-            localStorage.setItem("loggedUser", JSON.stringify(state.loggedUser));
-            if (user.userType === "admin") {
-              router.push({
-                name: 'adminHome',
-              })
-            } else if (user.userType === "cliente") {
-              router.push({
-                name: 'home',
-              })
-              if (state.loggedUser.notifications.length != 0) {
-                const toast = swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 2000,
-                  timerProgressBar: true
-                });
-
-                toast.fire({
-                  icon: 'success',
-                  title: 'Bem-vindo ' + state.loggedUser.name,
-                  text: "Tem " + state.loggedUser.notifications.length + " Notificações!",
-                })
-              } else {
-                const toast = swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 1000,
-                  timerProgressBar: true
-                });
-
-                toast.fire({
-                  icon: 'success',
-                  title: 'Bem-vindo ' + state.loggedUser.name,
-                })
-              }
-            }
-            break
-          } else {
-            state.userExists = false;
-          }
-        }
-      }
-      if (state.userBlocked === true) {
-        Swal.fire({
-          icon: 'error',
-          text: 'Conta bloqueada!'
-        })
-      } else if (state.userExists === false) {
-        Swal.fire({
-          icon: 'error',
-          text: 'Credenciais erradas!'
-        })
+      if (state.loggedUser.type === 0) {
+        router.push("/adminHome")
+      } else if (state.loggedUser.type === 1) {
+        router.push("/_bookit")
       }
     },
     LOGOUT(state) {
+      bookitService.logout(state.token)
+      state.token = []
       state.loggedUser = []
-      localStorage.removeItem("loggedUser", JSON.stringify(state.loggedUser));
+      localStorage.removeItem("token", JSON.stringify(state.token));
       router.push({
         name: 'home'
       })
     },
-    ADD_KIT(state, payload) {
-      if (!state.kits.some(kit => kit.name === payload.name)) {
-        state.kits.push({
-          id: payload.id,
-          name: payload.name,
-          type: payload.type,
-          drinks: payload.drinks,
-          food: payload.food,
-          img: payload.img,
-          popularity: 0
-        });
-        localStorage.setItem("kits", JSON.stringify(state.kits));
-        router.push({
-          name: 'menuGallery'
-        })
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Já existe um menu com esse nome!'
-        })
+    ADD_BOOKING() {
+      Swal.fire({
+        icon: 'success',
+        text: "Pedido de reserva enviado"
+      })
+      router.push({
+        name: 'home'
+      })
+    },
+    ADD_AREA_BOOKING() {
+      Swal.fire({
+        icon: 'success',
+        text: "Pedido de reserva enviado"
+      })
+      router.push({
+        name: 'home'
+      })
+    },
+    SET_MENUS(state, data) {
+      state.menus = data
+    },
+    SET_USER_BOOKINGS(state, data) {
+      state.userBookings = []
+      state.userBookings = data
+    },
+    SET_USER_AREABOOKINGS(state, data) {
+      state.userAreaBookings = []
+      state.userAreaBookings = data
+    },
+    SET_USER_WORKSHOPS(state, data) {
+      state.userWorkshops = []
+      state.userWorkshops = data
+    },
+    SET_USER_NOTIFICATIONS(state, data) {
+      state.userNotifications = []
+      state.userNotifications = data
+    },
+    SET_USER_ARCHIVATIONS(state, data) {
+      state.userArchivations = []
+      state.userArchivations = data
+    },
+    SET_USER_IMAGE(state, data) {
+      state.userImage = data
+    },
+    SET_MENU_BOOKINGS(state, data) {
+      state.bookings = data
+    },
+    SET_BOOKINGS_DECOR(state, data) {
+      state.bookingsDecor = data
+    },
+    SET_BOOKINGS_EXTRA(state, data) {
+      state.bookingsExtra = data
+    },
+    SET_BOOKINGS_ADDONS(state, data) {
+      state.bookingsAddOns = data
+    },
+    SET_AREA_BOOKINGS(state, data) {
+      state.areaBookings = data
+    },
+    SET_MENU_TYPES(state, data) {
+      state.menuTypes = data
+    },
+    SET_AREAS(state, data) {
+      state.areas = data
+    },
+    SET_WORKSHOPS(state, data) {
+      state.workshops = data
+
+    },
+    SET_WORKSHOP_BY_ID(state, data) {
+      state.currentWorkshop = data.data
+      localStorage.setItem("currentWorkshop", JSON.stringify(state.currentWorkshop));
+    },
+    SET_USERS(state, data) {
+      state.users = data
+    },
+    SET_CURRENT_MENU(state, data) {
+      state.currentMenu = data.menu
+      localStorage.setItem("currentMenu", JSON.stringify(state.currentMenu));
+    },
+    SET_CURRENT_AREA(state, data) {
+      state.currentArea = data.data[0]
+      localStorage.setItem("currentArea", JSON.stringify(state.currentArea));
+    },
+    SET_CURRENT_MENU_INGS(state, data) {
+      state.currentMenuIngs = data.ingredients
+      localStorage.setItem("currentMenuIngs", JSON.stringify(state.currentMenuIngs))
+    },
+    SET_SCHOOLS(state, data) {
+      state.schools = data.data
+
+    },
+    SET_INGREDIENTS(state, data) {
+      state.ingredients = data.data
+
+    },
+    SET_EXTRAS(state, data) {
+      state.extras = data.data
+
+    },
+    SET_DECORATIONS(state, data) {
+      state.decor = data.data
+
+    },
+    SET_OUTFITS(state, data) {
+      state.outfits = data.data
+    },
+    EDIT_USERS(state, data) {
+      if(!(data.token === null || data.token === "" || data.token === undefined)){
+        state.token = data.token
+        localStorage.setItem("token", state.token);
+        let jwtToken = state.token.split(".")[1]
+        state.loggedUser = JSON.parse(window.atob(jwtToken))
       }
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
     },
-    ADD_WORKSHOP(state, payload) {
-      if (!state.workshops.some(w => w.name === payload.name)) {
-        state.workshops.push({
-          id: payload.id,
-          name: payload.name,
-          teacher: payload.teacher,
-          date: payload.date,
-          time: payload.time,
-          description: payload.description,
-          img: payload.img
-        });
-        localStorage.setItem("workshops", JSON.stringify(state.workshops));
-        router.push({
-          name: 'workshops'
-        })
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Já existe um workshop com esse nome!'
-        })
-      }
+    CHANGE_AVATAR(state, data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
+      router.push({
+        name: 'profile'
+      })
     },
-    ADD_AREA(state, payload) {
-      if (!state.areas.some(a => a.name === payload.name)) {
-        state.areas.push({
-          id: payload.id,
-          name: payload.name,
-          description: payload.description,
-          img: payload.img
-        });
-        localStorage.setItem("areas", JSON.stringify(state.areas));
-        router.push({
-          name: 'areasGallery'
-        })
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Já existe um espaço com esse nome!'
-        })
-      }
+    DELETE_USER(state, data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
     },
-    ADD_BOOKING(state, payload) {
-      state.bookings.push({
-        id: payload.id,
-        userName: payload.userName,
-        userEmail: payload.userEmail,
-        kitName: payload.kitName,
-        kitType: payload.kitType,
-        kitImg: payload.kitImg,
-        reason: payload.reason,
-        date: payload.date,
-        duration: payload.duration,
-        numberPeople: payload.numberPeople,
-        location: payload.location,
-        drinks: payload.drinks,
-        food: payload.food,
-        extras: payload.extras,
-        decor: payload.decor,
-        outfit: payload.outfit,
-        observation: payload.observation,
-        state: payload.state,
-        opinion: payload.opinion
-      });
-      localStorage.setItem("bookings", JSON.stringify(state.bookings));
+    DELETE_MENU_BOOKING(state, data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
     },
-    ADD_AREA_BOOKING(state, payload) {
-      state.areaBookings.push({
-        id: payload.id,
-        userName: payload.userName,
-        userEmail: payload.userEmail,
-        areaName: payload.areaName,
-        areaImg: payload.areaImg,
-        reason: payload.reason,
-        date: payload.date,
-        duration: payload.duration,
-        state: payload.state,
-        opinion: payload.opinion
-      });
-      localStorage.setItem("areaBookings", JSON.stringify(state.areaBookings));
+    DELETE_AREA_BOOKING(state, data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
     },
-    ADD_INGREDIENT(state, payload) {
-      if (!state.ingredients.some(ing => ing.name === payload.name)) {
-        state.ingredients.push({
-          id: payload.id,
-          name: payload.name,
-          type: payload.type,
-        });
-        localStorage.setItem("ingredients", JSON.stringify(state.ingredients));
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          text: 'Já existe este ingrediente!'
-        })
-      }
+    EDIT_MENU() {
+      Swal.fire({
+        icon: 'success',
+        text: "Menu Atualizado"
+      })
+      router.push({
+        name: 'menuGallery'
+      })
     },
-    SET_MENUS(state, menus) {
-      state.menus = menus
-    }
+    DELETE_MENU() {
+      Swal.fire({
+        icon: 'success',
+        text: "Menu Eliminado"
+      })
+    },
+    EDIT_AREA() {
+      Swal.fire({
+        icon: 'success',
+        text: "Area Atualizado"
+      })
+      router.push({
+        name: 'areasGallery'
+      })
+    },
+    DELETE_AREA() {
+      Swal.fire({
+        icon: 'success',
+        text: "Area Eliminado"
+      })
+    },
+    EDIT_MENU_BOOKINGS(state, data) {
+      Swal.fire({
+        icon: 'success',
+        text: data.message
+      })
+    },
+    EDIT_AREA_BOOKINGS(state, data) {
+      Swal.fire({
+        icon: "success",
+        text: data.message
+      })
+    },
+    DELETE_WORKSHOP() {
+      Swal.fire({
+        icon: 'success',
+        text: "Workshop Eliminado"
+      })
+    },
+    ADD_INGREDIENT() {
+      Swal.fire({
+        icon: 'success',
+        text: "Ingrediente adicionado!"
+      })
+    },
+    DELETE_INGREDIENT() {
+      Swal.fire({
+        icon: 'success',
+        text: "Ingrediente Eliminado"
+      })
+    },
+    ADD_EXTRA() {
+      Swal.fire({
+        icon: 'success',
+        text: "Extra adicionado!"
+      })
+    },
+    DELETE_EXTRA() {
+      Swal.fire({
+        icon: 'success',
+        text: "Extra Eliminado"
+      })
+    },
+    ADD_DECOR() {
+      Swal.fire({
+        icon: 'success',
+        text: "Decoração adicionado!"
+      })
+    },
+    DELETE_DECOR() {
+      Swal.fire({
+        icon: 'success',
+        text: "Decoração Eliminado"
+      })
+    },
+    ADD_OUTFIT() {
+      Swal.fire({
+        icon: 'success',
+        text: "Farda adicionada!"
+      })
+    },
+    DELETE_OUTFIT() {
+      Swal.fire({
+        icon: 'success',
+        text: "Farda Eliminada"
+      })
+    },
+    ADD_MENU() {
+      Swal.fire({
+        icon: 'success',
+        text: "Menu Adicionado!"
+      })
+    },
+    ADD_AREA() {
+      Swal.fire({
+        icon: 'success',
+        text: "Espaço Adicionado!"
+      })
+    },
+    ADD_WORKSHOP() {
+      Swal.fire({
+        icon: 'success',
+        text: "Workshop Adicionado!"
+      })
+    },
+    EDIT_WORKSHOP() {
+      Swal.fire({
+        icon: 'success',
+        text: "Workshop Atualizado"
+      })
+      router.push({
+        name: 'workshops'
+      })
+    },
+    ADD_INSCRIPTION() {
+      router.push({
+        name: 'workshops'
+      })
+    },
+    ARCHIVE_NOTIFICATION(state, data) {
+      state.token = data.token
+      localStorage.setItem("token", state.token);
+
+      let jwtToken = state.token.split(".")[1]
+      state.loggedUser = JSON.parse(window.atob(jwtToken))
+
+      state.numNotifications = state.loggedUser.notifications
+      Swal.fire({
+        icon: "success",
+        text: "Notificação arquivada"
+      })
+    },
+    DELETE_NOTIFICATION(state, data) {
+      state.token = data.token
+      localStorage.setItem("token", state.token);
+
+      let jwtToken = state.token.split(".")[1]
+      state.loggedUser = JSON.parse(window.atob(jwtToken))
+
+      state.numNotifications = state.loggedUser.notifications
+      Swal.fire({
+        icon: "success",
+        text: "Notificação eliminada"
+      })
+    },
   },
   actions: {
     async fetchMenus({
       commit
     }) {
       commit("SET_MENUS", await bookitService.getMenus())
-    }
+    },
+    async fetchUserBookings({
+      commit
+    }) {
+      commit("SET_USER_BOOKINGS", await bookitService.getUserBookings())
+    },
+    async fetchUserAreaBookings({
+      commit
+    }) {
+      commit("SET_USER_AREABOOKINGS", await bookitService.getUserAreaBookings())
+    },
+    async fetchUserWorkshops({
+      commit
+    }) {
+      commit("SET_USER_WORKSHOPS", await bookitService.getUserWorkshops())
+    },
+    async fetchUserNotifications({
+      commit
+    }) {
+      commit("SET_USER_NOTIFICATIONS", await bookitService.getUserNotifications())
+    },
+    async fetchUserArchivations({
+      commit
+    }) {
+      commit("SET_USER_ARCHIVATIONS", await bookitService.getUserArchivations())
+    },
+    async fetchUserImage({
+      commit
+    }, payload) {
+      commit("SET_USER_IMAGE", await bookitService.getUserImage(payload.id))
+    },
+    async fetchMenuBookings({
+      commit
+    }) {
+      commit("SET_MENU_BOOKINGS", await bookitService.getMenuBookings())
+    },
+    async fetchBookingsDecor({
+      commit
+    }) {
+      commit("SET_BOOKINGS_DECOR", await bookitService.getBookingsDecor())
+    },
+    async fetchBookingsExtra({
+      commit
+    }) {
+      commit("SET_BOOKINGS_EXTRA", await bookitService.getBookingsExtra())
+    },
+    async fetchBookingsAddOns({
+      commit
+    }) {
+      commit("SET_BOOKINGS_ADDONS", await bookitService.getBookingsAddOns())
+    },
+    async fetchAreaBookings({
+      commit
+    }) {
+      commit("SET_AREA_BOOKINGS", await bookitService.getAreaBookings())
+    },
+    async fetchSchools({
+      commit
+    }) {
+      commit("SET_SCHOOLS", await bookitService.getSchools())
+    },
+    async fetchUsers({
+      commit
+    }) {
+      commit("SET_USERS", await bookitService.getUsers())
+    },
+    async fetchMenuTypes({
+      commit
+    }) {
+      commit("SET_MENU_TYPES", await bookitService.getMenuTypes())
+    },
+    async fetchAreas({
+      commit
+    }) {
+      commit("SET_AREAS", await bookitService.getAreas())
+    },
+    async fetchWorkshops({
+      commit
+    }) {
+      commit("SET_WORKSHOPS", await bookitService.getWorkshops())
+    },
+    async fetchWorkshopById({
+      commit
+    }, payload) {
+      commit("SET_WORKSHOP_BY_ID", await bookitService.getWorkshopsById(payload.id))
+    },
+    async fetchIngredients({
+      commit
+    }) {
+      commit("SET_INGREDIENTS", await bookitService.getIngredients())
+    },
+    async postUser({
+      commit
+    }, payload) {
+      commit("ADD_USER", await bookitService.registerUser(payload.name, payload.lastName, payload.number, payload.email, payload.birthDate, payload.gender, payload.password, payload.password2))
+    },
+    async postBooking({
+      commit
+    }, payload) {
+      commit("ADD_BOOKING", await bookitService.addBooking(payload.id, payload.reason, payload.date, payload.school, payload.initHour, payload.endHour, payload.numberPeople, payload.outfit, payload.observations, payload.menu, payload.decor, payload.extras, payload.ing))
+    },
+    async login({
+      commit
+    }, payload) {
+      commit("LOGIN", await bookitService.login(payload.email, payload.password))
+    },
+    async fetchCurrentMenu({
+      commit
+    }, payload) {
+      commit("SET_CURRENT_MENU", await bookitService.getCurrentMenu(payload.id))
+    },
+    async fetchCurrentArea({
+      commit
+    }, payload) {
+      commit("SET_CURRENT_AREA", await bookitService.getCurrentArea(payload.id))
+    },
+    async fetchCurrentMenuIngs({
+      commit
+    }, payload) {
+      commit("SET_CURRENT_MENU_INGS", await bookitService.getCurrentMenuIngs(payload.id))
+    },
+    async editUsers({
+      commit
+    }, payload) {
+      commit("EDIT_USERS", await bookitService.editUsers(payload.id, payload.oldPassword, payload.newPassword, payload.newPassword2, payload.number, payload.userType))
+    },
+    async deleteUser({
+      commit
+    }, payload) {
+      commit("DELETE_USER", await bookitService.deleteUser(payload.id))
+    },
+    async changeAvatar({
+      commit
+    }, payload) {
+      commit("CHANGE_AVATAR", await bookitService.changeAvatar(payload.newImg))
+    },
+    async deleteMenu({
+      commit
+    }, payload) {
+      commit("DELETE_MENU", await bookitService.deleteMenu(payload.id))
+    },
+    async deleteMenuBooking({
+      commit
+    }, payload) {
+      commit("DELETE_MENU_BOOKING", await bookitService.deleteMenuBooking(payload.id))
+    },
+    async deleteAreaBooking({
+      commit
+    }, payload) {
+      commit("DELETE_AREA_BOOKING", await bookitService.deleteAreaBooking(payload.id))
+    },
+    async fetchExtras({
+      commit
+    }) {
+      commit("SET_EXTRAS", await bookitService.getExtras())
+    },
+    async fetchDecorations({
+      commit
+    }) {
+      commit("SET_DECORATIONS", await bookitService.getDecorations())
+    },
+    async fetchOutfits({
+      commit
+    }) {
+      commit("SET_OUTFITS", await bookitService.getOutfits())
+    },
+    async editMenu({
+      commit
+    }, payload) {
+      commit("EDIT_MENU", await bookitService.editMenu(payload.id, payload.name, payload.type, payload.ings))
+    },
+    async editArea({
+      commit
+    }, payload) {
+      commit("EDIT_AREA", await bookitService.editArea(payload.id, payload.name, payload.description))
+    },
+    async postAreaBooking({
+      commit
+    }, payload) {
+      commit("ADD_AREA_BOOKING", await bookitService.areaBooking(payload.id, payload.area, payload.reason, payload.date, payload.initHour, payload.endHour))
+    },
+    async deleteArea({
+      commit
+    }, payload) {
+      commit("DELETE_AREA", await bookitService.deleteArea(payload.id))
+    },
+    async editMenuBookings({
+      commit
+    }, payload) {
+      commit("EDIT_MENU_BOOKINGS", await bookitService.editMenuBookings(payload.id, payload.state, payload.decline, payload.opinion))
+    },
+    async editAreaBookings({
+      commit
+    }, payload) {
+      commit("EDIT_AREA_BOOKINGS", await bookitService.editAreaBookings(payload.id, payload.state, payload.decline, payload.opinion))
+    },
+    async deleteWorkshop({
+      commit
+    }, payload) {
+      commit("DELETE_WORKSHOP", await bookitService.deleteWorkshop(payload.id))
+    },
+    async postIngredient({
+      commit
+    }, payload) {
+      commit("ADD_INGREDIENT", await bookitService.addIngredient(payload.name, payload.type))
+    },
+    async deleteIngredient({
+      commit
+    }, payload) {
+      commit("DELETE_INGREDIENT", await bookitService.deleteIngredient(payload.id))
+    },
+    async postExtra({
+      commit
+    }, payload) {
+      commit("ADD_EXTRA", await bookitService.addExtra(payload.name))
+    },
+    async deleteExtra({
+      commit
+    }, payload) {
+      commit("DELETE_EXTRA", await bookitService.deleteExtra(payload.id))
+    },
+    async postDecor({
+      commit
+    }, payload) {
+      commit("ADD_DECOR", await bookitService.addDecor(payload.name))
+    },
+    async deleteDecor({
+      commit
+    }, payload) {
+      commit("DELETE_DECOR", await bookitService.deleteDecor(payload.id))
+    },
+    async postOutfit({
+      commit
+    }, payload) {
+      commit("ADD_OUTFIT", await bookitService.addOutfit(payload.name, payload.img))
+    },
+    async deleteOutfit({
+      commit
+    }, payload) {
+      commit("DELETE_OUTFIT", await bookitService.deleteOutfit(payload.id))
+    },
+    async postMenu({
+      commit
+    }, payload) {
+      commit("ADD_MENU", await bookitService.addMenu(payload.name, payload.type, payload.newType, payload.img, payload.menuIng))
+    },
+    async postArea({
+      commit
+    }, payload) {
+      commit("ADD_AREA", await bookitService.addArea(payload.name, payload.img, payload.description))
+    },
+    async postWorkshop({
+      commit
+    }, payload) {
+      commit("ADD_WORKSHOP", await bookitService.addWorkshops(payload.name, payload.teacher, payload.date, payload.description, payload.hi, payload.hf, payload.vacancies, payload.img))
+    },
+    async editWorkshop({
+      commit
+    }, payload) {
+      commit("EDIT_WORKSHOP", await bookitService.editWorkshop(payload.id, payload.name, payload.teacher, payload.date, payload.description, payload.time, payload.vacancies))
+    },
+    async workshopInscription({
+      commit
+    }, payload) {
+      commit("ADD_INSCRIPTION", await bookitService.workshopInscription(payload.idUser, payload.idWorkshop))
+    },
+    async archiveNotification({
+      commit
+    }, payload) {
+      commit("ARCHIVE_NOTIFICATION", await bookitService.archiveNotification(payload.userID, payload.id))
+    },
+    async deleteNotification({
+      commit
+    }, payload) {
+      commit("DELETE_NOTIFICATION", await bookitService.deleteNotification(payload.userID, payload.id))
+    },
   },
-    getters: {
-      getMenus: state => state.menus,
-      lastId(state) {
-        if (state.users.length) {
-          return state.users[state.users.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      kitLastId(state) {
-        if (state.kits.length) {
-          return state.kits[state.kits.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      workshopLastId(state) {
-        if (state.workshops.length) {
-          return state.workshops[state.workshops.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      ingredientLastId(state) {
-        if (state.ingredients.length) {
-          return state.ingredients[state.ingredients.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      extrasLastId(state) {
-        if (state.extras.length) {
-          return state.extras[state.extras.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      outfitLastId(state) {
-        if (state.outfits.length) {
-          return state.outfits[state.outfits.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      decorLastId(state) {
-        if (state.decor.length) {
-          return state.decor[state.decor.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      bookingLastId(state) {
-        if (state.bookings.length) {
-          return state.bookings[state.bookings.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      areaBookingLastId(state) {
-        if (state.areaBookings.length) {
-          return state.areaBookings[state.areaBookings.length - 1].id;
-        } else {
-          return 0;
-        }
-      },
-      getUserOn(state) {
-        if (state.loggedUser.length) {
-          state.logged = true
-          return state.logged;
-        } else {
-          state.logged = false
-          return state.logged;
-        }
-      },
-      getName(state) {
-        if (state.loggedUser.length == 0) {
-          return state.notLogged
-        } else {
-          return state.loggedUser.name
-
-        }
-      },
-      getUserType(state) {
-        return state.loggedUser.userType
-      },
-      getLastName(state) {
-        return state.loggedUser.lastName
-      },
-      getEmail(state) {
-        return state.loggedUser.email
-      },
-      getContact(state) {
-        return state.loggedUser.number
-      },
-      getSchool(state) {
-        return state.loggedUser.school
-      },
-      getBirthDate(state) {
-        return state.loggedUser.birthDate
-      },
-      getUserImg(state) {
-        return state.loggedUser.img
-      },
-      getCurrentKitName(state) {
-        return state.currentKit.kitname
-      },
-      getCurrentKitType(state) {
-        return state.currentKit.kitType
-      },
-      getCurrentKitIng(state) {
-        return state.currentKit.menuIng
-      },
-      getCurrentArea(state) {
-        return state.currentArea.areaName
-      },
-      getCurrentKitImg(state) {
-        return state.currentKit.kitImg
-      },
-      getCurrentAreaImg(state) {
-        return state.currentArea.areaImg
-      },
-      getCurrentDate() {
-        var today = new Date();
-        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
-        return date
-      },
-      getNumberNotifications(state) {
-        if (state.loggedUser.notifications) {
-          if (state.loggedUser.notifications.length != 0) {
-            return true
-          } else {
-            return false
-          }
-        }
-      },
-      getAreaLastId(state) {
-        if (state.areas.length) {
-          return state.areas[state.areas.length - 1].id;
-        } else {
-          return 0;
-        }
+  getters: {
+    getMenus: state => state.menus,
+    getUserBookings: state => state.userBookings,
+    getUserAreaBookings: state => state.userAreaBookings,
+    getUserWorkshops: state => state.userWorkshops,
+    getUserNotifications: state => state.userNotifications,
+    getUserArchivations: state => state.userArchivations,
+    getUserImage: state => state.userImage,
+    getAllMenuBookings: state => state.bookings,
+    getAllBookingsDecor: state => state.bookingsDecor,
+    getAllBookingsExtra: state => state.bookingsExtra,
+    getAllBookingsAddOns: state => state.bookingsAddOns,
+    getAllAreaBookings: state => state.areaBookings,
+    getMenuTypes: state => state.menuTypes,
+    getAreas: state => state.areas,
+    getSchools: state => state.schools,
+    getWorkshops: state => state.workshops,
+    getAllUsers: state => state.users,
+    getCurrentMenu: state => state.currentMenu,
+    getCurrentArea: state => state.currentArea,
+    getCurrentMenuIngs: state => state.currentMenuIngs,
+    getIngredients: state => state.ingredients,
+    getExtras: state => state.extras,
+    getDecorations: state => state.decor,
+    getOutfits: state => state.outfits,
+    getNumberNotifications: state => state.numNotifications,
+    getUserOn(state) {
+      if (state.loggedUser.length) {
+        state.logged = true
+        return state.logged;
+      } else {
+        state.logged = false
+        return state.logged;
       }
+    },
+    getName(state) {
+      if (state.loggedUser.length == 0) {
+        return state.notLogged
+      } else {
+        return state.loggedUser.name
+      }
+    },
+    getUserType(state) {
+
+      return state.loggedUser.type
+    },
+    getLastName(state) {
+      return state.loggedUser.lastName
+    },
+    getEmail(state) {
+      return state.loggedUser.email
+    },
+    getContact(state) {
+      return state.loggedUser.number
+    },
+    getSchool(state) {
+      return state.loggedUser.school
+    },
+    getBirthDate(state) {
+      return state.loggedUser.birthDate
+    },
+    getUserImg(state) {
+      return state.loggedUser.img
+    },
+    getCurrentAreaImg(state) {
+      return state.currentArea.areaImg
+    },
+    getCurrentDate() {
+      var today = new Date();
+      var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+      return date
     }
+  }
 })
