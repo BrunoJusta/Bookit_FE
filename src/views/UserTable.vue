@@ -32,8 +32,8 @@
           <span v-else>Sem Ações</span>
         </template>
       </b-table>
-      <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
-        style="float:right;"></b-pagination>
+         <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"
+                style="float:right;"></b-pagination>
     </div>
   </div>
 </template>
@@ -104,10 +104,10 @@
             number: number,
             userType: userType
           });
+        this.getUsers()
         } catch (err) {
           alert(err);
         }
-        this.getUsers()
       },
       async deleteUser(ID) {
         try {
@@ -162,11 +162,12 @@
             return filterRunResult;
           }
         });
-      }
-    },
-    rows() {
+      },
+      rows() {
       return this.users.length;
     }
+    },
+    
   };
 </script>
 

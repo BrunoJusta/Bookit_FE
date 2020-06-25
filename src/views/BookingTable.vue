@@ -24,7 +24,7 @@
                 placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.filteredBookings.slice().reverse()" :fields="fields">
+                head-variant="dark" responsive="sm" :items="this.filteredBookings" :fields="fields">
                 <template v-slot:cell(actions)="row">
                     <b-button size="sm" class="mr-1 showBtn" @click="row.toggleDetails">
                         {{ row.detailsShowing ? 'Fechar' : ' Ver Mais' }}
@@ -85,7 +85,7 @@
                 placeholder="Pesquisar..."></b-input>
             <p class="mt-3" style="float:left">Página Atual: {{ currentPage }}</p>
             <b-table :per-page="perPage" :current-page="currentPage2" id="my-table" striped bordered small hover
-                head-variant="dark" responsive="sm" :items="this.filteredAreas.slice().reverse()" :fields="fields2">
+                head-variant="dark" responsive="sm" :items="this.filteredAreas" :fields="fields2">
                 <template v-slot:cell(actions)="row2">
                     <b-button size="sm" class="mr-1 showBtn" @click="row2.toggleDetails">
                         {{ row2.detailsShowing ? 'Fechar' : ' Ver Mais' }}
@@ -144,7 +144,7 @@
                 currentPage: 1,
                 currentPage2: 1,
                 fields: [{
-                        key: 'id',
+                        key: 'menuType',
                         label: "Evento",
                         sortable: true
                     }, {

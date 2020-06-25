@@ -218,7 +218,6 @@ export default new Vuex.Store({
         localStorage.setItem("token", state.token);
         let jwtToken = state.token.split(".")[1]
         state.loggedUser = JSON.parse(window.atob(jwtToken))
-        alert(data.token)
       }
       Swal.fire({
         icon: 'success',
