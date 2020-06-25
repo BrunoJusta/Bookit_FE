@@ -199,6 +199,8 @@
         margin-top: -20px;
         height: 140px;
         width: 140px;
+        object-fit: cover;
+
         -webkit-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);
         box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.12);

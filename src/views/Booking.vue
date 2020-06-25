@@ -111,7 +111,7 @@
           <div v-for="i in searchOutfits" :key="i.outfit_id" class="col-sm-2">
             <button type="button" style="background-color:transparent" class="border-0"
               @click="chooseOutfit(i.outfit_id, i.name)">
-              <img style="height:230px; width:auto" id="btnImg" v-bind:src="i.img" />
+              <img style="height:230px; width:auto; object-fit: cover;" id="btnImg" v-bind:src="i.img" />
             </button>
           </div>
         </div>

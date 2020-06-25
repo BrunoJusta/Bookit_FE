@@ -272,8 +272,8 @@
 
   .card-img {
     border-radius: 0 !important;
+    object-fit: cover;
   }
-
   .card {
     border-radius: 0 !important;
   }

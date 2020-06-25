@@ -8,7 +8,7 @@
       <div class="card  border-0" >
         <img class="card-img-top" style="min-height:80px" src="../assets/bannerProfile.jpg" alt="Bologna">
         <div class="card-body text-center">
-          <img class="avatar rounded-circle" :src="this.userImage" alt="Bologna">
+          <img class="avatar rounded-circle"  :src="this.userImage" alt="Bologna">
           <h2 style="font-weight:bold">{{this.$store.state.loggedUser.name + " " + this.$store.state.loggedUser.lastName}}</h2>
   <h6 class="card-subtitle mb-2">  <i class="fas fa-envelope" id="iconProfile" ></i>{{this.$store.state.loggedUser.email}}
 
@@ -104,7 +104,7 @@
         <div class="container" id="cardSpace"  v-bind:style="{display: showEvents}">
           <div class="row" v-if="this.bookings.length !== 0">
             <div class="col-sm-3" v-for="k in bookings" :key="k.booking_id" style="padding-top: 20px;">
-              <b-card no-body class="overflow-hidden" style="max-width: 16rem; height: 20rem;" :img-src="k.img"
+              <b-card no-body class="overflow-hidden cardBox" style="max-width: 16rem; height: 20rem;" :img-src="k.img"
                 img-height="120rem">
                 <b-card-body align="left" :title="k.name + ' - ' + k.description">
                   <b-card-text style="margin: auto;">
@@ -155,7 +155,7 @@
         <div class="container" id="cardSpace" v-bind:style="{display: showAreas}">
           <div class="row" v-if="this.areaBookings.length !== 0">
             <div class="col-sm-3" v-for="k in areaBookings" :key="k.area_booking_id" style="padding-top: 20px;">
-              <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.img" img-height="120rem">
+              <b-card no-body class="overflow-hidden cardBox" style="max-width: 16rem;" :img-src="k.img" img-height="120rem">
                 <b-card-body align="left" :title="k.name">
                   <b-card-text style="margin: auto;">
                     <b>Data:</b>
@@ -200,7 +200,7 @@
         <div class="container" id="cardSpace" v-bind:style="{display: showWorkshops}">
           <div class="row" v-if="this.userWorkshops.length !== 0">
             <div class="col-sm-3" v-for="k in this.userWorkshops" :key="k.workshop_id" style="padding-top: 20px;">
-              <b-card no-body class="overflow-hidden" style="max-width: 16rem;" :img-src="k.img" img-height="120rem">
+              <b-card no-body class="overflow-hidden cardBox" style="max-width: 16rem;" :img-src="k.img" img-height="120rem">
                 <b-card-body align="left" :title="k.name">
                   <b-card-text style="margin: auto;">
                     <b>Data:</b>
@@ -481,7 +481,11 @@
   border: 0.3rem solid rgba(#fff, 0.3);
   margin-top: -6rem;
   margin-bottom: 1rem;
-  max-width: 9rem;
+  width: 150px;
+  height: 150px;
+        object-fit: cover;
+
+
 }
   #cardSpace{
     margin-bottom: 180px;
@@ -538,10 +542,11 @@
   }
 
   .btn-book {
-    font-size: 16px;
+    font-size: 12px;
     background-color: #0a2463;
     margin-top: 10px;
-    margin-left: 20%;
+    margin-left: 50px;
+    width: 100px;
   }
 
   .btn-profile {
@@ -565,6 +570,7 @@
 
   .card-img {
     border-radius: 0 !important;
+    object-fit: cover;
   }
 
 #iconProfile{
@@ -636,6 +642,11 @@
     font-size: 14px;
   }
 
+.cardBox{
+    box-shadow: -2px 0px 10px -4px rgba(0,0,0,0.35);
+border: 0px solid transparent;
+}
+
   #goBackBtn {
     background-color: transparent;
     font-size: 16px;
@@ -662,7 +673,9 @@
   .mobileSettings {
     display: none;
   }
-
+  .cardBox:hover {
+    transform: scale(1.1);
+  }
   @media screen and (max-width: 1096px) {
     .mobileSettings {
       display: flex;
@@ -680,5 +693,7 @@
     #perfilContainer {
       width: 90vw;
     }
+
+  
   }
 </style>

@@ -222,9 +222,11 @@
     }
 
     #imgMenu {
-        width: 40%;
-        height: auto;
-        border: 3px solid #0A2463;
+        width: 400px;
+        height: 200px;
+           box-shadow: -2px 0px 10px -4px rgba(0,0,0,0.5);
+        object-fit: cover;
+
         margin: auto;
         margin-bottom: 20px;
     }

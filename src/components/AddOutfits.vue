@@ -150,8 +150,10 @@
     }
 
     #imgWorkshop {
-        width: 350px;
-        height: auto;
+        width: 250px;
+        height: 400px;
+        object-fit: cover;
+        
     }
 
     .addBtn {
