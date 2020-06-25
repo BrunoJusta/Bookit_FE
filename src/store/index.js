@@ -213,11 +213,13 @@ export default new Vuex.Store({
       state.outfits = data.data
     },
     EDIT_USERS(state, data) {
-      state.token = data.token
-      localStorage.setItem("token", state.token);
-
-      let jwtToken = state.token.split(".")[1]
-      state.loggedUser = JSON.parse(window.atob(jwtToken))
+      if(!(data.token === null || data.token === "" || data.token === undefined)){
+        state.token = data.token
+        localStorage.setItem("token", state.token);
+        let jwtToken = state.token.split(".")[1]
+        state.loggedUser = JSON.parse(window.atob(jwtToken))
+        alert(data.token)
+      }
       Swal.fire({
         icon: 'success',
         text: data.message
