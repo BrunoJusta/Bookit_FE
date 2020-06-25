@@ -18,6 +18,7 @@
       <p>Os estudantes de <b> Gestão e Administração Hoteleira </b> convidam-no a saborear as receitas criadas
         para si. Venha conhecer-nos.</p>
       <p>
+        olaa
         O Restaurante de Aplicação da <b>Escola Superior de Hotelaria e Turismo</b> é da responsabilidade do Politécnico
         do Porto, com capacidade para 50 pessoas sentadas.
         Durante estes últimos anos, o Restaurante tem acolhido diversos eventos, conseguindo sempre estar à altura das
