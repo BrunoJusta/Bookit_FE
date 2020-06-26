@@ -93,7 +93,7 @@ export default new Vuex.Store({
       if (state.loggedUser.type === 0) {
         router.push("/adminHome")
       } else if (state.loggedUser.type === 1) {
-        router.push("/_bookit")
+        router.push("/")
       }
     },
     LOGOUT(state) {
@@ -111,7 +111,7 @@ export default new Vuex.Store({
         text: "Pedido de reserva enviado"
       })
       router.push({
-        name: 'home'
+        name: 'menuGallery'
       })
     },
     ADD_AREA_BOOKING() {
@@ -120,7 +120,7 @@ export default new Vuex.Store({
         text: "Pedido de reserva enviado"
       })
       router.push({
-        name: 'home'
+        name: 'areasGallery'
       })
     },
     SET_MENUS(state, data) {

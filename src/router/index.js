@@ -5,7 +5,7 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/_bookit' ,
+    path: '/' ,
     name: 'home',
     component: Home,
     beforeEnter(to, from, next) {

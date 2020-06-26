@@ -22,15 +22,6 @@
     </div>
 </template>
 
-<script>
-    import GoogleMap from "@/components/Map.vue"
-    export default {
-        components: {
-            "google-map": GoogleMap
-        }
-    }
-</script>
-
 <style lang="scss" scoped>
     .row #link {
         margin: 20px;
