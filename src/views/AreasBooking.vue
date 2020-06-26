@@ -30,7 +30,7 @@
             </b-form-group>
           </div>
         </div>
-        <b-button type="submit" value="Adicionar" class="btn btn-primary border-0" squared>Enviar</b-button>
+        <b-button type="submit" value="Adicionar" class="btn btn-primary border-0" squared>Confirmar</b-button>
         <b-button type="button" @click="cancelAreaBooking()" value="Adicionar" class="btn btn-primary border-0" squared>Cancelar</b-button>
       </div>
     </form>
