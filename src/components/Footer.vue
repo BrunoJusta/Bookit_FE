@@ -94,7 +94,7 @@
         position: absolute;
         width: 100%;
         padding-right: 50px;
-        margin-top: 100px;
+        margin-top: 220px;
     }
 
     .row,

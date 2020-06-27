@@ -20,10 +20,10 @@
             placeholder="Introduzir password"></b-form-input>
         </b-form-group>
         <div class="container">
-          <b-button id="show-btn" class="register" squared>
+          <b-button type="submit" id="show-btn" class="submit" squared>Entrar</b-button>
+            <b-button id="show-btn" class="register" squared>
             <router-link id="link" to="/register">Registar</router-link>
           </b-button>
-          <b-button type="submit" id="show-btn" class="submit" squared>Entrar</b-button>
         </div>
       </b-form>
     </div>

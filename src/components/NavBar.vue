@@ -14,9 +14,10 @@
                                         v-if="this.$store.getters.getName != 'Entrar'"
                                         id="icon"></i>{{this.$store.getters.getName}}
                                 </router-link>
-                            </b-button>
-                            <span id="countTxt" v-if="this.$store.getters.getName != 'Entrar' &&
+                                  <span id="countTxt" v-if="this.$store.getters.getName != 'Entrar' &&
                             this.userNotifications != 0">{{this.userNotifications}}</span>
+                            </b-button>
+                          
                             <b-button id="logout-btn" v-if="this.$store.getters.getName !== 'Entrar'"
                                 v-on:click="logout()" squared>
                                 <router-link style="color:black;" to="/">Sair</router-link>
@@ -163,10 +164,10 @@
 
     #countTxt {
         position: absolute;
-        top: 10%;
-        right: 6%;
-        padding: 3px 5px;
-        border-radius: 90%;
+        top: -10px;
+        right: -9px;
+        padding: 3px 6px;
+        border-radius: 100%;
         background-color: #B91C3B;
         color: white;
         font-weight: bold;

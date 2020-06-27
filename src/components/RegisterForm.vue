@@ -131,15 +131,16 @@
           </div>
         </div>
         <div class="container">
-          <b-button id="show-btn" style="background-color:#0A2463; margin:10px" squared>
-            <router-link id="link" to="/login">Iniciar Sessão</router-link>
-          </b-button>
           <b-button
             type="submit"
             id="show-btn"
             style="background-color:#0A2463; margin:10px"
             squared
           >Confirmar Registo</b-button>
+          <b-button id="show-btn" style="background-color:#0A2463; margin:10px" squared>
+            <router-link id="link" to="/login">Iniciar Sessão</router-link>
+          </b-button>
+          
         </div>
       </b-form>
     </div>

@@ -12,7 +12,8 @@
                             class="border-0">
                             <b-button v-if="w.vacancies !== w.filled" class="btn-book"
                                 @click="currentWorkshop(w.workshop_id)" squared>Ver Mais </b-button>
-                            <p v-else>CHEIO</p>
+                            <b-button v-else class="btn" style="color: black; background-color:transparent; border: 0px"
+                               squared>SEM VAGAS </b-button>
                             <b-button @click="deleteWorkshop(w.workshop_id)" class="btn-remove border-0" squared> X
                             </b-button>
                         </b-card>
@@ -22,11 +23,11 @@
             <div class="row" v-else>
                 <div class="col-sm-4" v-for="w in filteredWorkshops" :key="w.workshop_id">
                     <div id="card-maker" style="padding-bottom: 60px">
-                        <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="180rem"
+                        <b-card :title="w.name" style="max-width: 24rem;" :img-src="w.img" img-height="220rem"
                             class="border-0">
                             <b-button v-if="w.vacancies !== w.filled" class="btn-book"
                                 @click="currentWorkshop(w.workshop_id)" squared>Ver Mais </b-button>
-                            <p v-else>CHEIO</p>
+                            <p v-else>SEM VAGAS</p>
                         </b-card>
                     </div>
                 </div>
